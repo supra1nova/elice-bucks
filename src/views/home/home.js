@@ -4,7 +4,7 @@
 
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
-import headerNavbar from './components/headerNavbar.js';
+import headerNavbar from '../components/headerNavbar.js';
 
 // 요소(element), input 혹은 상수
 const landingDiv = document.querySelector('#landingDiv');
