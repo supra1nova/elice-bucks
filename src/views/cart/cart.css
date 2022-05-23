@@ -1,0 +1,58 @@
+.div-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.landing {
+  cursor: pointer;
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.greeting {
+  cursor: pointer;
+  border: 1px solid blue;
+  padding: 10px;
+  margin-left: 3rem;
+}
+
+.titPage {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 100px;
+  border-bottom: 1px solid black;
+}
+
+.titPage .tit {
+  font-size: 40px;
+  margin: 0px auto;
+}
+.cartItemlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cartItemlist .list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 10px auto;
+  width: 800px;
+}
+
+.cartItemlist .list .goods {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+}
+
+.cartItemlist .list .goods .countbar input {
+  width: 26px;
+  height: 30px;
+
+  padding: 0;
+}
