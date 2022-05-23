@@ -17,8 +17,13 @@
 .product-img {
     width: 350px;
 }
+.product-img:hover {
+	transform: scale(1.1);
+	transition: all 0.1s;
+}
 .product-des {
     color: #fff;
     font-size: 1.2rem;
     font-family: 'Noto Sans KR', sans-serif;
+    z-index: 5;
 }
