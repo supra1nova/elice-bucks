@@ -3,6 +3,7 @@ import { getUserData } from '../localStorage.js';
 const headerNavbar = {
   render: () => {
     const { name, role } = getUserData();
+    console.log(getUserData());
     return `
         <ul id="navbar">
             ${
@@ -13,6 +14,7 @@ const headerNavbar = {
                 : name && role === 'admin-user'
                 ? `<li><a href="/myPage">관리자</a></li>
                 <li><a href="/logout">로그아웃</a></li>
+                <li><a href="/dashboard">관리페이지</a></li>
                 `
                 : `<li><a href="/login">로그인</a></li>
                 <li><a href="/register">회원가입</a></li>
