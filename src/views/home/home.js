@@ -4,6 +4,15 @@
 
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
+import headerNavbar from '../components/headerNavbar.js';
+
+const headerNavbar1 = document.querySelector('#headerNavbar');
+
+addAllElements();
+async function addAllElements() {
+  headerNavbar1.innerHTML = await headerNavbar.render();
+  await headerNavbar.componentDidMount();
+}
 
 async function getDataFromApi() {
   // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
