@@ -1,13 +1,13 @@
 import { Schema } from 'mongoose';
 
-const ImageSchema = new Schema(
+const SubImageSchema = new Schema(
   {
     type: String,
     data: Buffer,
   },
   {
-    collection: 'images',
+    collection: 'subImages',
   }
 );
 
-export { ImageSchema };
+export { SubImageSchema };

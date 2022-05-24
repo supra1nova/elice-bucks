@@ -15,14 +15,14 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    representativeImage: {
+    mainImage: [{
         type: Schema.Types.ObjectId,
-        ref: 'Image',
-      },
-    mainImage: {
+        ref: 'MainImage',
+      }],
+    subImage: [{
         type: Schema.Types.ObjectId,
-        ref: 'Image',
-      },
+        ref: 'SubImage',
+      }],
   },
   {
     collection: 'products',
