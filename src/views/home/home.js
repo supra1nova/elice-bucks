@@ -18,7 +18,8 @@ addAllEvents();
 async function addAllElements() {
   insertTextToLanding();
   insertTextToGreeting();
-  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar1.innerHTML = await headerNavbar.render();
+  await headerNavbar.componentDidMount();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
