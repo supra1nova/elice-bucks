@@ -33,7 +33,7 @@
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
             <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-n팀</span>
+            <span class="has-text-link">쇼핑-14팀</span>
           </a>
 
           <a
@@ -67,14 +67,38 @@
       </div>
     </nav>
 
-    <div class="div-container">
-      <div class="landing" id="landingDiv">
-        <h1>랜딩 페이지</h1>
-      </div>
-      <div class="greeting" id="greetingDiv">
-        <h1>안녕하세요!</h1>
-      </div>
-    </div>
+    <!-- 슬라이드 배너 -->
+	<div class="section">
+		<input type="radio" name="slide" id="slide01" checked>
+		<input type="radio" name="slide" id="slide02">
+		<input type="radio" name="slide" id="slide03">
+    <input type="radio" name="slide" id="slide04">
+		<div class="slide-container">
+			<ul class="slides">
+				<li><a><img src="images/slide1.png"></a></li>
+				<li><a><img src="images/slide2.png"></a></li>
+				<li><a><img src="images/slide3.png"></a></li>
+        <li><a><img src="images/slide4.png"></a></li>
+			</ul>
+
+			<div class="slide-control">
+				<div class="control01">
+					<label for="slide02" class="right"></label>
+				</div>
+				<div class="control02">
+					<label for="slide01" class="left"></label>
+					<label for="slide03" class="right"></label>
+				</div>
+				<div class="control03">
+					<label for="slide02" class="left"></label>
+					<label for="slide04" class="right"></label>
+				</div>
+        <div class="control04">
+					<label for="slide03" class="left"></label>
+				</div>
+			</div>
+		</div>
+	</div>
 
   </body>
 </html>
