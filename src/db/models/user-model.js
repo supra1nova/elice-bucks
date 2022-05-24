@@ -3,6 +3,12 @@ import { UserSchema } from '../schemas/user-schema';
 
 const User = model('users', UserSchema);
 
+User.create({
+  email: "admin@example.com",
+  fullName: "admin",
+  password: "admin1234",
+  role: "admin-user"
+});
 export class UserModel {
   async findByEmail(email) {
     const user = await User.findOne({ email });
