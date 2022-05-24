@@ -110,6 +110,7 @@ class UserService {
 
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
+    console.log(correctPasswordHash, currentPassword);
     const isPasswordCorrect = await bcrypt.compare(
       currentPassword,
       correctPasswordHash

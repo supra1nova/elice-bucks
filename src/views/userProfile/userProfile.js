@@ -13,30 +13,28 @@ import headerNavbar from '../components/headerNavbar.js';
 
 addAllElements();
 addAllEvents();
-const { name, email, userId } = getUserData();
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllEvents() {
-  submitButton.addEventListener('click', handleSubmit);
   headerNavbar1.innerHTML = await headerNavbar.render();
   await headerNavbar.componentDidMount();
-  let result = await Api.get(`/api/user`);
-  console.log(result);
-  emailInput.value = email;
-  fullNameInput.value = name;
+  const result = await Api.get(`/api/user`);
+  submitButton.idParam = result._id;
+  submitButton.passwordParam = result.password;
+  submitButton.addEventListener('click', handleSubmit);
+  emailInput.value = result.email;
+  fullNameInput.value = result.fullName;
 }
 
-// 회원가입 진행
+// 회원정보 수정 진행
 async function handleSubmit(e) {
   e.preventDefault();
-
   const fullName = fullNameInput.value;
   const email = emailInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
-
   // 잘 입력했는지 확인
   const isFullNameValid = fullName.length >= 2;
   const isEmailValid = validateEmail(email);
@@ -54,14 +52,18 @@ async function handleSubmit(e) {
   if (!isPasswordSame) {
     return alert('비밀번호가 일치하지 않습니다.');
   }
-
   // 회원가입 api 요청
   try {
-    const data = { fullName, email, password };
+    const data = {
+      fullName,
+      email,
+      password,
+      currentPassword: e.currentTarget.passwordParam,
+    };
 
-    await Api.post(`/api/register/${userId}`, data);
+    await Api.patch('/api/users', `${e.currentTarget.idParam}`, data);
 
-    alert(`정상적으로 회원가입되었습니다.`);
+    alert(`정상적으로 수정되었습니다.`);
 
     // 로그인 페이지 이동
     window.location.href = '/login';

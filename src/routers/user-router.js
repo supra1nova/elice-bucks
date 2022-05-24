@@ -77,13 +77,14 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
 
 userRouter.get('/user', loginRequired, async function (req, res, next) {
   try {
-    // 전체 사용자 목록을 얻음
     const user = await userService.getUser(req.currentUserId);
-    const { email, fullName, role, _id, address, phoneNumber } = user;
+    console.log(user);
+    const { email, fullName, role, _id, address, phoneNumber, password } = user;
     const toSend = {
       ...(email && { email }),
       ...(fullName && { fullName }),
       ...(_id && { _id }),
+      ...(password && { password }),
       ...(address && { address }),
       ...(phoneNumber && { phoneNumber }),
       ...(role && { role }),

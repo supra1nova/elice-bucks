@@ -32,7 +32,6 @@ const headerNavbar = {
   },
   componentDidMount: async () => {
     let logouts = document.getElementsByClassName('logout');
-    console.log(logouts);
     for (let i = 0; i < logouts.length; i++) {
       logouts[i].addEventListener('click', removeUser);
     }
