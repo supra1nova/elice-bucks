@@ -1,10 +1,5 @@
 import { Schema } from 'mongoose';
 
-const ImageSchema = new Schema({
-  width: Number,
-  height: Number,
-});
-
 const ProductSchema = new Schema(
   {
     title: {
@@ -20,11 +15,14 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    origin: {
-      type: String,
-      required: true,
-    },
-    image : ImageSchema,
+    representativeImage: {
+        type: Schema.Types.ObjectId,
+        ref: 'Image',
+      },
+    mainImage: {
+        type: Schema.Types.ObjectId,
+        ref: 'Image',
+      },
   },
   {
     collection: 'products',
