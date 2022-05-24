@@ -4,10 +4,12 @@
 
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
+import headerNavbar from '../components/headerNavbar.js';
 
 // 요소(element), input 혹은 상수
 const landingDiv = document.querySelector('#landingDiv');
 const greetingDiv = document.querySelector('#greetingDiv');
+const headerNavbar1 = document.querySelector('#headerNavbar');
 
 addAllElements();
 addAllEvents();
@@ -16,6 +18,8 @@ addAllEvents();
 async function addAllElements() {
   insertTextToLanding();
   insertTextToGreeting();
+  headerNavbar1.innerHTML = await headerNavbar.render();
+  await headerNavbar.componentDidMount();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
