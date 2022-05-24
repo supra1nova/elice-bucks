@@ -9,13 +9,12 @@ async function insertProductItem() {
     products.forEach(product => {
         const image = product.image;
         const title = product.title;
-        const des = product.des;
         const price = product.price;
       
         container.insertAdjacentHTML('beforeend',`
             <div class="prouduct-item">
                 <div class="product-img">
-                    <img src="${image}">
+                    <a href="list/:${title}"><img src="${image}"></a>
                 </div>
                 <div class="product-des">
                     <p class="product-des-title">${title}</p>
