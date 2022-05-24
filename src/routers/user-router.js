@@ -75,6 +75,19 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
   }
 });
 
+userRouter.get('/user', loginRequired, async function (req, res, next) {
+  try {
+    // 전체 사용자 목록을 얻음
+    const user = await userService.getUser(req.currentUserId);
+    const { email, fullName, role, _id } = user;
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(

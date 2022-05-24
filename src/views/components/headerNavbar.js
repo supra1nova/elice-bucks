@@ -3,12 +3,11 @@ import { getUserData, removeUser } from '../localStorage.js';
 const headerNavbar = {
   render: async () => {
     const { name, role } = getUserData();
-    console.log(getUserData());
     return `
         <ul id="navbar">
             ${
               name && role === 'basic-user'
-                ? `<li><a href="/myPage/:id">${name}</a></li>
+                ? `<li><a href="/myPage">${name}</a></li>
                 <li><a class="logout" href="/">로그아웃</a></li>
                 `
                 : name && role === 'admin-user'
