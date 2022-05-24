@@ -1,5 +1,4 @@
 import { Schema } from 'mongoose';
-const shortId = require('./types/short-id').default;
 
 const OrderSchema = new Schema(
   {
@@ -8,7 +7,6 @@ const OrderSchema = new Schema(
     //     ref: 'User',
     //     required: true
     // },
-    shortId,
     product: {
         type: String,
         required: true

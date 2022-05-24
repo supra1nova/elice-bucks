@@ -56,6 +56,7 @@ userRouter.post('/login', async function (req, res, next) {
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
+
   } catch (error) {
     next(error);
   }
