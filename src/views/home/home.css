@@ -2,16 +2,39 @@
   margin: 0;
   padding: 0;
 }
+li {
+	list-style-type: none;
+}
 
 /* 상단바 */
 .navbar {
-  background-color: #F1F0EB;
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+.navbar a {
+	margin: 0 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: black;
+}
+.menu img {
+	width: 50px;
+}
+.menu {
+  margin-left: 1em;
+  display: flex;
+  align-items: center;
+}
+.login {
+	display: flex;
+	align-items: center;
 }
 
 /* 슬라이드 배너 */
 .section {
 	position: relative;
-  padding: 0;
+  	padding: 0;
 }
 .section [id*="slide"] {display:none;}
 
