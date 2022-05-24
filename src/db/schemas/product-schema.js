@@ -5,7 +5,6 @@ const ProductSchema = new Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
     },
     price: {
       type: Number,
@@ -15,13 +14,17 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
+    category: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+      }],
     mainImage: [{
         type: Schema.Types.ObjectId,
-        ref: 'MainImage',
+        ref: 'Thumbnail',
       }],
     subImage: [{
         type: Schema.Types.ObjectId,
-        ref: 'SubImage',
+        ref: 'Image',
       }],
   },
   {
