@@ -1,10 +1,16 @@
 import { Schema } from 'mongoose';
 
+const ImageSchema = new Schema({
+  width: Number,
+  height: Number,
+});
+
 const ProductSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
+      unique: true,
     },
     price: {
       type: Number,
@@ -18,10 +24,7 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      required: false,
-    },
+    image : ImageSchema,
   },
   {
     collection: 'products',
