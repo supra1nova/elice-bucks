@@ -62,6 +62,7 @@ productRouter.get('/product/:productId', async function (req, res, next) {
     const product = await productService.findProduct( productId );
 
     res.status(200).json(product);
+    console.log(product);
   } catch (error) {
     next(error);
   }

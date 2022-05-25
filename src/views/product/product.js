@@ -1,8 +1,8 @@
 const container = document.querySelector('#container');
 
-insertProductItem();
+insertProductList();
 
-async function insertProductItem() {
+async function insertProductList() {
     const res = await fetch('/api-p');
     const products = await res.json();
     
@@ -24,4 +24,4 @@ async function insertProductItem() {
         `)
     })
 }
-{/* <a href="${title}/"><img src="${image}"></a> */}
+/* <a href="${title}/"><img src="${image}"></a> */
