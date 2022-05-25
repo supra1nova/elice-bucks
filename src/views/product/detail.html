@@ -5,10 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>제품 상세</title>
 
+    <!-- 아이콘 -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/elice-rabbit-favicon.png"
+    />
+    <!-- bulma css -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <!-- 폰트 어썸: 아이콘 -->
+    <script
+        defer
+        src="https://kit.fontawesome.com/7630448495.js"
+        crossorigin="anonymous"
+    ></script>
+    <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="detail.css" />
     <script src="detail.js" type="module" defer></script>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    
 </head>
 <body>
+    <!-- 헤더 -->
+    <nav class="navbar">
+        <div class="menu">
+            <a href="/"><img src="/elicebucks.png"></a>
+            <a href="/product/list.html">커피 둘러보기</a>
+        </div>
+    
+        <div class="login navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
+            <!--./components/headerNavbar.js-->
+        </div>
+        </nav>
+
+    <!-- 제품 상세 컨테이너 -->
     <div id="container">
         <!-- <div id="text">
             <p id="title">${title}</p>
