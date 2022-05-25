@@ -18,7 +18,7 @@ export class ProductModel {
 
   // 제품 이름 기준 조회 - 관리자, 유저
   async findByTitle(title) {
-    const product = await Product.find({ title });
+    const product = await Product.findOne({ title });
     return product;
   }
   
@@ -41,20 +41,21 @@ export class ProductModel {
   }
 
   // 제품 관련 업데이트 - 관리자
-  async update({ productId, update }) {
+  async update({ productId, update }) { 
     const filter = { _id: productId };
     const option = { returnOriginal: false };
     const updatedProduct = await Product.findOneAndUpdate(
       filter,
       update,
-      option
+      option,
+      // category   // 카테고리 구현에 문제 있어서 우선 주석처리
     );
     return updatedProduct;
   }
 
   // 제품 삭제 및 'OK' 반환 - 관리자
-  async del({ productId }) {
-    await Product.deleteOne({ _id: productId });
+  async del( productId ) {
+    await Product.deleteOne({ _id: productId });  // 이미 service 에서 파일 유무 검증하므로 findOneAndDelete 대신 deletOne 사용 + findOneAndDelete는 return 함
     return 'Successfully deleted';
   }
 }
