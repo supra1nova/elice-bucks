@@ -12,7 +12,7 @@ class ProductService {
 
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
-    const { title, price, description, category, image } = productInfo;
+    const { title, price, description } = productInfo; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     // 제품명 중복 확인
     const product = await this.productModel.findByTitle(title);
@@ -23,7 +23,8 @@ class ProductService {
     }
 
     // 신규 제품 정보 생성 및 db 저장
-    const newProductInfo = { title, price, description, category, image };
+    const newProductInfo = { title, price, description }; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+
     const createdNewProduct = await this.productModel.create(newProductInfo);
 
     return createdNewProduct;
@@ -36,10 +37,8 @@ class ProductService {
   }
 
   // 3. 제품 정보 수정
-  async setProduct(productInfoRequired, toUpdate) {
-    // 객체 destructuring
-    const { productId } = productInfoRequired;
-
+  async setProduct(productId, toUpdate) {
+    
     // 우선 해당 id의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
 
@@ -62,7 +61,7 @@ class ProductService {
     // 우선 해당 id의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
     if (product) {
-      return productModel.del(productId);
+      return this.productModel.del(productId);
     }
     throw new Error(
       '등록되지 않은 제품입니다. 다시 한 번 확인해주세요.'
