@@ -3,7 +3,7 @@ const container = document.querySelector('#container');
 insertProductItem();
 
 async function insertProductItem() {
-    const res = await fetch('/product');
+    const res = await fetch('/api-p');
     const products = await res.json();
     
     products.forEach(product => {
@@ -14,7 +14,7 @@ async function insertProductItem() {
         container.insertAdjacentHTML('beforeend',`
             <div id="prouduct-item">
                 <div id="product-img">
-                    <a href="${title}/"><img src="${image}"></a>
+                    <a href="${title}/"><img src="https://www.starbucksathome.com/kr/sites/default/files/2022-01/KR_kr_SBUX_PACK_Medium-Roast_220117_1%20%284%29.png"></a>
                 </div>
                 <div id="product-des">
                     <p id="product-des-title">${title}</p>
@@ -24,3 +24,4 @@ async function insertProductItem() {
         `)
     })
 }
+{/* <a href="${title}/"><img src="${image}"></a> */}

@@ -6,23 +6,11 @@
     <title>제품 상세</title>
 
     <!-- 아이콘 -->
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="/elice-rabbit-favicon.png"
-    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
     <!-- bulma css -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <!-- 폰트 어썸: 아이콘 -->
-    <script
-        defer
-        src="https://kit.fontawesome.com/7630448495.js"
-        crossorigin="anonymous"
-    ></script>
+    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="detail.css" />
     <script src="detail.js" type="module" defer></script>
@@ -59,8 +47,18 @@
             </div>
     
             <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
-                <!--./components/headerNavbar.js-->
+                <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                  <ul id="navbar">
+                    <li><a href="/login">로그인</a></li>
+                    <li>
+                      <a href="/cart" aria-current="page">
+                        <span class="icon">
+                          <i class="fas fa-cart-shopping"></i>
+                        </span>
+                        <span>카트</span>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
             </div>
         </div>

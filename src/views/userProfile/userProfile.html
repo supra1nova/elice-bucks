@@ -54,11 +54,14 @@
         </div>
       </div>
     </nav>
-
+    
     <!-- 회원가입 폼(Form) -->
     <div class="register-user-form-container">
       <form class="box register-user-form-box" id="registerUserForm">
+        
         <p class="title is-5 has-text-primary">수정하세요!</p>
+        <div id="form-container">
+   
         <div class="field">
           <label class="label" for="fullNameInput">이름</label>
           <div class="control">
@@ -84,13 +87,67 @@
             />
           </div>
         </div>
+        
+        <div class="field mb-2">
+          <label class="label" for="phoneNumberInput">전화번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="phoneNumberInput"
+              type="text"
+              placeholder="전화번호(선택)"
+              autocomplete="on"
+            />
+          </div>
+        </div>
 
-        <div id="extraForm">
-          <!--userProfile.js의 전화번호와 주소는 동적으로 할당-->
+        <div class="field mb-2">
+          <label class="label" for="postalCodeInput">우편번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="postalCodeInput"
+              type="text"
+              placeholder="우편번호(선택)"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+
+        <div class="field mb-2">
+          <label class="label" for="address1Input">주소1</label>
+          <div class="control">
+            <textarea
+              class="input"
+              name ="textarea"
+              id="address1Input"
+              type="text"
+              rows="10"
+              maxlength="300"
+              placeholder="주소1(선택)"
+              autocomplete="on"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="field mb-2">
+          <label class="label" for="address2Input">주소2</label>
+          <div class="control">
+            <textarea
+              class="input"
+              name ="textarea"
+              id="address2Input"
+              type="text"
+              rows="10"
+              maxlength="300"
+              placeholder="주소2(선택)"
+              autocomplete="on"
+            ></textarea>
+          </div>
         </div>
 
         <div class="field">
-          <label class="label" for="passwordInput">비밀번호</label>
+          <label class="label" for="passwordInput">새로운 비밀번호</label>
           <div class="control">
             <input
               class="input"
@@ -102,8 +159,8 @@
           </div>
         </div>
 
-        <div class="field mb-5">
-          <label class="label" for="passwordConfirmInput">비밀번호 확인</label>
+        <div class="field ">
+          <label class="label" for="passwordConfirmInput">새로운 비밀번호 확인</label>
           <div class="control">
             <input
               class="input"
@@ -114,11 +171,29 @@
             />
           </div>
         </div>
+   
+        <div class="field">
+        
+          <label class="label" for="curpasswordInput">현재 비밀번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="curpasswordInput"
+              type="password"
+              placeholder="********"
+              autocomplete="off"
+            />
+          </div>
+        </div>
 
-        <button class="button is-primary is-fullwidth" id="submitButton">
+    </div>
+        <button class="button is-primary mt-5 is-fullwidth" id="submitButton">
           회원 정보 수정하기
         </button>
+      
+      
       </form>
+      
     </div>
   </body>
 </html>
