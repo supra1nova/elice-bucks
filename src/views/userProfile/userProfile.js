@@ -10,7 +10,8 @@ const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const submitButton = document.querySelector('#submitButton');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 import headerNavbar from '../components/headerNavbar.js';
-const extraForm1 = document.querySelector('#extraForm');
+const phoneNumber1 = document.querySelector('#phoneNumberInput');
+const address1 = document.querySelector('#addressInput');
 
 addAllElements();
 addAllEvents();
@@ -25,8 +26,6 @@ async function addAllEvents() {
 
   submitButton.idParam = result._id;
   submitButton.passwordParam = result.password;
-  extraForm1.innerHTML = await extraForm.phoneNumberRender();
-  extraForm1.innerHTML += await extraForm.addressRender();
 
   submitButton.addEventListener('click', handleSubmit);
   emailInput.value = result.email;
@@ -40,8 +39,8 @@ async function handleSubmit(e) {
   const email = emailInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
-  const phoneNumber = document.querySelector('#phoneNumberInput').value;
-  const address = document.querySelector('#addressInput').value;
+  const phoneNumber = phoneNumber1.value;
+  const address = address1.value;
   // 잘 입력했는지 확인
   const isFullNameValid = fullName.length >= 2;
   const isEmailValid = validateEmail(email);
@@ -81,45 +80,3 @@ async function handleSubmit(e) {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
-
-const extraForm = {
-  addressRender: async () => {
-    const { name, role } = getUserData();
-    return `
-    <div class="field mb-2">
-      <label class="label" for="addressInput">주소</label>
-      <div class="control">
-        <textarea
-          class="input"
-          name ="textarea"
-          id="addressInput"
-          type="text"
-          rows="10"
-          maxlength="300"
-          placeholder="주소(선택)"
-          autocomplete="on"
-          style="min-height: 4rem;'"
-        ></textarea>
-      </div>
-    </div>
-
-        `;
-  },
-  phoneNumberRender: async () => {
-    return `
-    <div class="field mb-2">
-      <label class="label" for="phoneNumberInput">전화번호</label>
-      <div class="control">
-        <input
-          class="input"
-          id="phoneNumberInput"
-          type="text"
-          placeholder="전화번호(선택)"
-          autocomplete="on"
-        />
-      </div>
-    </div>
-
-        `;
-  },
-};

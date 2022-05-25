@@ -3,10 +3,19 @@
   align-items: center;
   justify-content: center;
   height: 85vh;
+  
 }
 
 .register-user-form-box {
-  width: 30rem;
+  width: 50rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+section {
+  flex-grow:1;
+  
 }
 
 .register-user-form-box .title {
