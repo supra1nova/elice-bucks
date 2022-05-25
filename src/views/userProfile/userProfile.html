@@ -11,9 +11,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <!-- 폰트 어썸: 아이콘 -->
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+    <!-- 구글 OAuth -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- 카카오 OAuth -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="login.css" />
-    <script src="login.js" type="module" defer></script>
+    <link rel="stylesheet" href="userProfile.css" />
+    <script src="userProfile.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
@@ -42,29 +46,32 @@
             </a>
           </div>
         </div>
-
+        
         <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-              <li><a href="/register">회원가입</a></li>
-              <li>
-                <a href="/cart" aria-current="page">
-                  <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                  </span>
-                  <span>카트</span>
-                </a>
-              </li>
-            </ul>
+          <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
+            <!--./components/headerNavbar.js-->
           </div>
         </div>
       </div>
     </nav>
 
-    <!-- 로그인 폼(Form) -->
-    <div class="login-form-container">
-      <form class="box login-form-box" id="loginForm">
-        <p class="title is-5 has-text-info">어서오세요!</p>
+    <!-- 회원가입 폼(Form) -->
+    <div class="register-user-form-container">
+      <form class="box register-user-form-box" id="registerUserForm">
+        <p class="title is-5 has-text-primary">수정하세요!</p>
+        <div class="field">
+          <label class="label" for="fullNameInput">이름</label>
+          <div class="control">
+            <input
+              class="input"
+              id="fullNameInput"
+              type="text"
+              placeholder="유재석"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+
         <div class="field">
           <label class="label" for="emailInput">이메일</label>
           <div class="control">
@@ -78,7 +85,11 @@
           </div>
         </div>
 
-        <div class="field mb-5">
+        <div id="extraForm">
+          <!--userProfile.js의 전화번호와 주소는 동적으로 할당-->
+        </div>
+
+        <div class="field">
           <label class="label" for="passwordInput">비밀번호</label>
           <div class="control">
             <input
@@ -86,13 +97,26 @@
               id="passwordInput"
               type="password"
               placeholder="********"
-              autocomplete="on"
+              autocomplete="off"
             />
           </div>
         </div>
 
-        <button class="button is-info is-fullwidth" id="submitButton">
-          로그인하기
+        <div class="field mb-5">
+          <label class="label" for="passwordConfirmInput">비밀번호 확인</label>
+          <div class="control">
+            <input
+              class="input"
+              id="passwordConfirmInput"
+              type="password"
+              placeholder="********"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <button class="button is-primary is-fullwidth" id="submitButton">
+          회원 정보 수정하기
         </button>
       </form>
     </div>
