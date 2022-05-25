@@ -82,6 +82,27 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
   }
 });
 
+userRouter.get('/user', loginRequired, async function (req, res, next) {
+  try {
+    const user = await userService.getUser(req.currentUserId);
+    const { email, fullName, role, _id, address, phoneNumber, password } = user;
+    const toSend = {
+      ...(email && { email }),
+      ...(fullName && { fullName }),
+      ...(_id && { _id }),
+      ...(password && { password }),
+      ...(address && { address }),
+      ...(phoneNumber && { phoneNumber }),
+      ...(role && { role }),
+    };
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(toSend);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
@@ -99,14 +120,12 @@ userRouter.patch(
 
       // params로부터 id를 가져옴
       const userId = req.params.userId;
-
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const fullName = req.body.fullName;
       const password = req.body.password;
       const address = req.body.address;
       const phoneNumber = req.body.phoneNumber;
       const role = req.body.role;
-
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
       const currentPassword = req.body.currentPassword;
 
@@ -122,11 +141,10 @@ userRouter.patch(
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(password && { password }),
-        ...(address && { address }),
-        ...(phoneNumber && { phoneNumber }),
+        ...(address && { address: address }),
+        ...(phoneNumber && { phoneNumber: phoneNumber }),
         ...(role && { role }),
       };
-
       // 사용자 정보를 업데이트함.
       const updatedUserInfo = await userService.setUser(
         userInfoRequired,
