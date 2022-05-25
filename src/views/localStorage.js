@@ -20,6 +20,7 @@ export const getUserData = () => {
     return { userId: '', role: '' };
   }
 };
+
 export const removeUser = () => {
   localStorage.removeItem('token');
 };

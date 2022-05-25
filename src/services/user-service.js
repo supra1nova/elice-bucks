@@ -70,7 +70,12 @@ class UserService {
 
     // 2개 프로퍼티를 jwt 토큰에 담음
     const token = jwt.sign(
-      { userId: user._id, role: user.role, name: user.fullName },
+      {
+        userId: user._id,
+        role: user.role,
+        name: user.fullName,
+        email: user.email,
+      },
       secretKey
     );
 
@@ -80,6 +85,11 @@ class UserService {
   // 사용자 목록을 받음.
   async getUsers() {
     const users = await this.userModel.findAll();
+    return users;
+  }
+
+  async getUser(userId) {
+    const users = await this.userModel.findById(userId);
     return users;
   }
 
@@ -100,6 +110,7 @@ class UserService {
 
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
+    console.log(correctPasswordHash, currentPassword);
     const isPasswordCorrect = await bcrypt.compare(
       currentPassword,
       correctPasswordHash
