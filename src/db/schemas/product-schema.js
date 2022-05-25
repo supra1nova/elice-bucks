@@ -18,11 +18,7 @@ const ProductSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Category',
       }],
-    mainImage: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Thumbnail',
-      }],
-    subImage: [{
+    image: [{
         type: Schema.Types.ObjectId,
         ref: 'Image',
       }],

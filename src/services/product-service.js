@@ -10,9 +10,9 @@ class ProductService {
     this.productModel = productModel;
   }
 
-  // 신규 제품 등록
+  // 1. 신규 제품 등록
   async addProduct(productInfo) {
-    const { title, price, description, origin } = productInfo;
+    const { title, price, description, category, image } = productInfo;
 
     // 제품명 중복 확인
     const product = await this.productModel.findByTitle(title);
@@ -23,19 +23,19 @@ class ProductService {
     }
 
     // 신규 제품 정보 생성 및 db 저장
-    const newProductInfo = { title, price, description, origin };
+    const newProductInfo = { title, price, description, category, image };
     const createdNewProduct = await this.productModel.create(newProductInfo);
 
     return createdNewProduct;
   }
 
-  // 전 제품 목록 확인
+  // 2. 전 제품 목록 확인
   async getProducts() {
     const products = await this.productModel.findAll();
     return products;
   }
 
-  // 제품 정보 수정
+  // 3. 제품 정보 수정
   async setProduct(productInfoRequired, toUpdate) {
     // 객체 destructuring
     const { productId } = productInfoRequired;
@@ -57,8 +57,16 @@ class ProductService {
     return product;
   }
 
+  // 4. 제품 삭제
   async removeProduct(productId) {
-    return productModel.del(productId);
+    // 우선 해당 id의 제품이 db에 있는지 확인
+    let product = await this.productModel.findById(productId);
+    if (product) {
+      return productModel.del(productId);
+    }
+    throw new Error(
+      '등록되지 않은 제품입니다. 다시 한 번 확인해주세요.'
+    );
   }
 }
 
