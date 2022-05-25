@@ -29,6 +29,14 @@ li {
 	justify-content: center;
 }
 
+/* 콘텐츠 */
+.content {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 /* 슬라이드 배너 */
 .section {
 	position: relative;
