@@ -10,7 +10,7 @@ export class ProductModel {
     return createdNewProduct;
   }
 
-  // 제품 전체 검색 - 관리자, 유저
+  // 제품 전체 조회 - 관리자, 유저
   async findAll() {
     const products = await Product.find({});
     return products;
