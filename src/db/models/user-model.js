@@ -3,13 +3,6 @@ import { UserSchema } from '../schemas/user-schema';
 
 const User = model('users', UserSchema);
 
-// User.create({
-//   email: "admin@example.com",
-//   fullName: "admin",
-//   password: "admin1234",
-//   role: "admin-user"
-// }); => 최초로 서버에 연결할때만 수행하면 됨
-
 export class UserModel {
   async findByEmail(email) {
     const user = await User.findOne({ email });

@@ -5,6 +5,12 @@ import { loginRequired } from '../middlewares';
 import { userService } from '../services';
 
 const userRouter = Router();
+// const admin = userService.addUser({
+//   email: "admin@example.com",
+//   fullName: "admin",
+//   password: "admin1234",
+//   role: "admin-user"
+// });
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post('/register', async (req, res, next) => {
