@@ -30,15 +30,15 @@ class ProductService {
     return createdNewProduct;
   }
 
-  // 2. 전 제품 목록 확인
+  // 2. 전 제품 조회
   async getProducts() {
     const products = await this.productModel.findAll();
     return products;
   }
 
-  // 3. 전 제품 목록 확인
-  async findProduct(productId) {
-    const product = await this.productModel.findById(productId);
+  // 3. 단일 품목 조회
+  async findProduct(title) {
+    const product = await this.productModel.findByTitle(title);
     return product;
   }
 

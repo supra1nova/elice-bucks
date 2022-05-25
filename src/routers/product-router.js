@@ -41,7 +41,7 @@ productRouter.post('/product/register', async (req, res, next) => {
 });
 
 
-// 전체 제품 목록 조회
+// 2. 전체 제품 조회
 productRouter.get('/', async function (req, res, next) {
   try {
     // 전체 제품 목록을 얻음
@@ -54,12 +54,12 @@ productRouter.get('/', async function (req, res, next) {
   }
 });
 
-// 단일 품목 조회
-productRouter.get('/product/:productId', async function (req, res, next) {
+// 3. 단일 품목 조회
+productRouter.get('/product/:title', async function (req, res, next) {
   try {
     
-    const { productId } = req.params;
-    const product = await productService.findProduct( productId );
+    const { title } = req.params;
+    const product = await productService.findProduct( title );
 
     res.status(200).json(product);
   } catch (error) {
@@ -68,7 +68,7 @@ productRouter.get('/product/:productId', async function (req, res, next) {
 });
 
 
-// 제품 정보 수정
+// 4. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
@@ -111,7 +111,7 @@ productRouter.patch( '/product/:productId', async function (req, res, next) {
     }
 });
 
-// 특정 제품 삭제
+// 5. 특정 제품 삭제
 productRouter.delete('/product/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
