@@ -49,8 +49,6 @@ productRouter.get('/', async function (req, res, next) {
 
     // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(products);
-
-    console.log(products);
   } catch (error) {
     next(error);
   }
