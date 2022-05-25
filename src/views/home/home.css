@@ -12,6 +12,7 @@ li {
 	padding: 20px;
 	display: flex;
 	justify-content: space-between;
+  	align-items: center;
 }
 .navbar a {
 	margin: 0 10px;
@@ -19,17 +20,13 @@ li {
 	color: black;
 	text-decoration: none;
 }
-.menu img {
-	width: 50px;
-}
-.menu {
-  margin-left: 1em;
-  display: flex;
-  align-items: center;
-}
-.login {
+
+/* 콘텐츠 */
+.content {
+	width: 100%;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 }
 
 /* 콘텐츠 */

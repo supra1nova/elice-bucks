@@ -22,5 +22,5 @@ async function insertProductItem() {
                 </div>
             </div> 
         `)
-    })    
+    })
 }

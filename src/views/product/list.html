@@ -32,28 +32,55 @@
     </head>
     <body>
         <!-- 헤더 -->
-        <nav class="navbar">
-            <div class="menu">
-                <a href="/"><img src="/elicebucks.png"></a>
-                <a href="/product/list.html">커피 둘러보기</a>
-            </div>
-    
-            <div class="login navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
-                <!--./components/headerNavbar.js-->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container mt-3">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        <img src="/elicebucks.png" width="30" height="30" />
+                    </a>
+                </div>
+        
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="/list">
+                    커피 둘러보기
+                    </a>
+            
+                    <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        네스프레소
+                    </a>
+                    <a class="navbar-item">
+                        네스카페 돌체구스토
+                    </a>
+                    <a class="navbar-item">
+                        프리미엄 파우더 커피
+                    </a>
+                    </div>
+                </div>
+        
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
+                    <!--./components/headerNavbar.js-->
+                    </div>
+                </div>
             </div>
         </nav>
 
-        <!-- 제품 목록 컨테이너 -->
-        <div id="container">
-            <!-- <div id="prouduct-item">
-                <div id="product-img">
-                    <img src="https://www.starbucksathome.com/kr/sites/default/files/2022-03/SBUX_EN_NDG_SunnydayBlend_Long%20Shadow_220304_2.png">
-                </div>
-                <div id="product-des">
-                    <p id="product-des-title"></p>
-                    <p id="product-des-price"></p>
-                </div>
-            </div>  -->
+        <!-- 상단바 아래 컨텐츠 영역 -->
+        <div class="content">
+            <!-- 제품 목록 컨테이너 -->
+            <div id="container">
+                <!-- <div id="prouduct-item">
+                    <div id="product-img">
+                        <img src="https://www.starbucksathome.com/kr/sites/default/files/2022-03/SBUX_EN_NDG_SunnydayBlend_Long%20Shadow_220304_2.png">
+                    </div>
+                    <div id="product-des">
+                        <p id="product-des-title"></p>
+                        <p id="product-des-price"></p>
+                    </div>
+                </div>  -->
+            </div>
+
         </div>
     
     </body>
