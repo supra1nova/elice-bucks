@@ -138,6 +138,7 @@ userRouter.patch(
         ...(phoneNumber && { phoneNumber: phoneNumber }),
         ...(role && { role }),
       };
+      console.log(toUpdate);
       // 사용자 정보를 업데이트함.
       const updatedUserInfo = await userService.setUser(
         userInfoRequired,
