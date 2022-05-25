@@ -12,7 +12,7 @@ import { productService } from '../services';
 const productRouter = Router();
 
 // 1. 제품등록 - 관리자
-productRouter.post('/register', async (req, res, next) => {
+productRouter.post('/product/register', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -54,13 +54,26 @@ productRouter.get('/', async function (req, res, next) {
   }
 });
 
+productRouter.get('/product/:productId', async function (req, res, next) {
+  try {
+    // 전체 제품 목록을 얻음
+    const { productId } = req.params;
+    const product = await productService.findProduct( productId );
+
+    // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 // 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
 // productRouter.patch( '/products/:productId', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
-productRouter.patch( '/:productId', async function (req, res, next) {
+productRouter.patch( '/product/:productId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -99,7 +112,7 @@ productRouter.patch( '/:productId', async function (req, res, next) {
 });
 
 // 특정 제품 삭제
-productRouter.delete('/:productId', async function (req, res, next) {
+productRouter.delete('/product/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
     const result = await productService.removeProduct(productId);

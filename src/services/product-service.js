@@ -36,9 +36,14 @@ class ProductService {
     return products;
   }
 
-  // 3. 제품 정보 수정
+  // 3. 전 제품 목록 확인
+  async findProduct(productId) {
+    const product = await this.productModel.findById(productId);
+    return product;
+  }
+
+  // 4. 제품 정보 수정
   async setProduct(productId, toUpdate) {
-    
     // 우선 해당 id의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
 
@@ -56,16 +61,14 @@ class ProductService {
     return product;
   }
 
-  // 4. 제품 삭제
+  // 5. 제품 삭제
   async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
     if (product) {
       return this.productModel.del(productId);
     }
-    throw new Error(
-      '등록되지 않은 제품입니다. 다시 한 번 확인해주세요.'
-    );
+    throw new Error('등록되지 않은 제품입니다. 다시 한 번 확인해주세요.');
   }
 }
 
