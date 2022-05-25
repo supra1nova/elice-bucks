@@ -9,19 +9,19 @@
     align-items: center;
     flex-wrap: wrap;
 }
-.prouduct-item {
+#prouduct-item {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.product-img {
+#product-img {
     width: 350px;
 }
-.product-img:hover {
+#product-img:hover {
 	transform: scale(1.1);
 	transition: all 0.1s;
 }
-.product-des {
+#product-des {
     color: #fff;
     font-size: 1.2rem;
     font-family: 'Noto Sans KR', sans-serif;

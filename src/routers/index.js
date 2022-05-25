@@ -3,4 +3,4 @@
 
 export * from './views-router';
 export * from './user-router';
-export * from './list-router';
+export * from './product-router';
