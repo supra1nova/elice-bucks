@@ -11,7 +11,10 @@ const submitButton = document.querySelector('#submitButton');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 import headerNavbar from '../components/headerNavbar.js';
 const phoneNumber1 = document.querySelector('#phoneNumberInput');
-const address1 = document.querySelector('#addressInput');
+const address1Input = document.querySelector('#address1Input');
+const address2Input = document.querySelector('#address2Input');
+const postalCodeInput = document.querySelector('#postalCodeInput');
+const curpasswordInput = document.querySelector('#curpasswordInput');
 
 addAllElements();
 addAllEvents();
@@ -25,7 +28,6 @@ async function addAllEvents() {
   const result = await Api.get(`/api/user`);
 
   submitButton.idParam = result._id;
-  submitButton.passwordParam = result.password;
 
   submitButton.addEventListener('click', handleSubmit);
   emailInput.value = result.email;
@@ -35,12 +37,15 @@ async function addAllEvents() {
 // 회원정보 수정 진행
 async function handleSubmit(e) {
   e.preventDefault();
+  const address1 = address1Input.value;
+  const address2 = address2Input.value;
+  const postalCode = postalCodeInput.value;
+  const currentPassword = curpasswordInput.value;
   const fullName = fullNameInput.value;
   const email = emailInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
   const phoneNumber = phoneNumber1.value;
-  const address = address1.value;
   // 잘 입력했는지 확인
   const isFullNameValid = fullName.length >= 2;
   const isEmailValid = validateEmail(email);
@@ -58,23 +63,23 @@ async function handleSubmit(e) {
   if (!isPasswordSame) {
     return alert('비밀번호가 일치하지 않습니다.');
   }
-  // 회원가입 api 요청
+  // 회원수정 api 요청
   try {
     const data = {
       fullName,
       email,
       password,
-      address,
+      address: { address1, address2, postalCode },
       phoneNumber,
-      currentPassword: e.currentTarget.passwordParam,
+      currentPassword,
     };
 
     await Api.patch('/api/users', `${e.currentTarget.idParam}`, data);
 
     alert(`정상적으로 수정되었습니다.`);
 
-    // 로그인 페이지 이동
-    window.location.href = '/login';
+    // 홈 페이지 이동
+    window.location.href = '/';
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
