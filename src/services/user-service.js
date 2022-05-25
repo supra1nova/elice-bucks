@@ -78,7 +78,6 @@ class UserService {
       },
       secretKey
     );
-
     return { token };
   }
 
