@@ -54,13 +54,13 @@ productRouter.get('/', async function (req, res, next) {
   }
 });
 
+// 단일 품목 조회
 productRouter.get('/product/:productId', async function (req, res, next) {
   try {
-    // 전체 제품 목록을 얻음
+    
     const { productId } = req.params;
     const product = await productService.findProduct( productId );
 
-    // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(product);
   } catch (error) {
     next(error);
