@@ -12,7 +12,7 @@ import { productService } from '../services';
 const productRouter = Router();
 
 // 1. 제품등록 - 관리자
-productRouter.post('register', async (req, res, next) => {
+productRouter.post('/register', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -23,14 +23,14 @@ productRouter.post('register', async (req, res, next) => {
     }
 
     // req (request)의 body 에서 제품 데이터 가져오기
-    const { title, price, description, category } = req.body;
-    
+    const { title, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+
     // 가져온 데이터를 제품 db에 추가하기
     const newProduct = await productService.addProduct({
+      // 카테고리, 이미지 키값 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
       title,
       price,
       description,
-      category,
     });
 
     // 추가된 제품의 db 데이터를 프론트에 다시 보내줌
@@ -76,24 +76,22 @@ productRouter.patch( '/:productId', async function (req, res, next) {
     // body data 로부터 업데이트할 제품 정보를 추출.
     const { title, price, description, category } = req.body;
 
-    const productInfoRequired = { productId };
-
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
     const toUpdate = {
       ...(title && { title }),
-      ...(price && { prcie }),
+      ...(price && { price }),
       ...(description && { description }),
       ...(category && { category }),
     };
 
-    // 사용자 정보를 업데이트함.
+    // 제품 정보를 업데이트함.
     const updatedProductInfo = await productService.setProduct(
-      productInfoRequired,
+      productId,
       toUpdate
     );
 
-      // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
+      // 업데이트 이후의 제품 데이터를 프론트에 보내 줌
       res.status(200).json(updatedProductInfo);
     } catch (error) {
       next(error);
@@ -103,11 +101,10 @@ productRouter.patch( '/:productId', async function (req, res, next) {
 // 특정 제품 삭제
 productRouter.delete('/:productId', async function (req, res, next) {
   try {
-    // 전체 제품 목록을 얻음
-    const products = await productService.getProducts();
+    const { productId } = req.params;
+    const result = await productService.removeProduct(productId);
 
-    // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
-    res.status(200).json(products);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
