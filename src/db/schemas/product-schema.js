@@ -15,14 +15,13 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
+    image: {
+        type: String,
+    },
     category: [{
         type: Schema.Types.ObjectId,
         ref: 'Category',
-      }],
-    image: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Image',
-      }],
+    }]
   },
   {
     collection: 'products',

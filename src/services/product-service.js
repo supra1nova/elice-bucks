@@ -9,7 +9,7 @@ class ProductService {
 
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
-    const { name, price, description } = productInfo; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+    const { name, price, description, image } = productInfo; // 카테고리 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
@@ -20,7 +20,7 @@ class ProductService {
     }
 
     // 신규 제품 정보 생성 및 db 저장
-    const newProductInfo = { name, price, description }; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+    const newProductInfo = { name, price, description, image }; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     const createdNewProduct = await this.productModel.create(newProductInfo);
 
