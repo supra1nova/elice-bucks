@@ -39,6 +39,16 @@ async function post(endpoint, data) {
     },
     body: bodyData,
   });
+  console.log(res);
+  if (!res.ok) {
+    const errorContent = await res.json();
+    const { reason } = errorContent;
+
+    throw new Error(reason);
+  }
+  const result = await res.json();
+
+  return result;
 }
 // api 로 POST 요청 (/endpoint 로, form 데이터 형태로 요청함)
 async function postImage(endpoint, bodyData) {
