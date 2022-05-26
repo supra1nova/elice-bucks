@@ -52,7 +52,7 @@ productRouter.get('/product', async function (req, res, next) {
 });
 
 // 3. 단일 품목 조회
-productRouter.get('/product/:name', async function (req, res, next) {
+productRouter.get('/product/:productName', async function (req, res, next) {
   try {
     const { name } = req.params;
     const product = await productService.findProduct(name);
@@ -72,9 +72,8 @@ productRouter.get('/product/:name', async function (req, res, next) {
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
-// productRouter.patch( '/products/:productId', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
-
-productRouter.patch('/product/:productId', async function (req, res, next) {
+// productRouter.patch( '/products/:productName', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
+productRouter.patch('/product/:productName', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -85,7 +84,7 @@ productRouter.patch('/product/:productId', async function (req, res, next) {
     }
 
     // params로부터 id를 가져옴
-    const productId = req.params.productId;
+    const productName = req.params.productName;
 
     // body data 로부터 업데이트할 제품 정보를 추출.
     const { name, price, description, category } = req.body;
@@ -101,7 +100,7 @@ productRouter.patch('/product/:productId', async function (req, res, next) {
 
     // 제품 정보를 업데이트함.
     const updatedProductInfo = await productService.setProduct(
-      productId,
+      productName,
       toUpdate
     );
 
@@ -113,10 +112,10 @@ productRouter.patch('/product/:productId', async function (req, res, next) {
 });
 
 // 5. 특정 제품 삭제
-productRouter.delete('/product/:productId', async function (req, res, next) {
+productRouter.delete('/product/:productName', async function (req, res, next) {
   try {
-    const { productId } = req.params;
-    const result = await productService.removeProduct(productId);
+    const { productName } = req.params;
+    const result = await productService.removeProduct(productName);
 
     res.status(200).json(result);
   } catch (error) {
