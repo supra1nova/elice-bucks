@@ -122,6 +122,7 @@ productRouter.delete('/product/:productId', async function (req, res, next) {
 });
 
 //6. 멀터 부분
+// 참고 https://wayhome25.github.io/nodejs/2017/02/21/nodejs-15-file-upload/
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -131,14 +132,18 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}.jpg`);
   },
 });
+
 const upload = multer({ storage });
 
 productRouter.post(
   '/product/imageUpload',
   upload.single('image'),
-  (req, res) => {
-    console.log(req.file);
-    res.status(200).send({ image: `/images/${req.file.filename}` });
+  (req, res, next) => {
+    try {
+      res.status(200).send({ image: `/images/${req.file.filename}` });
+    } catch (error) {
+      next(error)
+    };
   }
 );
 
