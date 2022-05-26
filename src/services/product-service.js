@@ -1,9 +1,6 @@
 import { productModel } from '../db';
 
-// 암호화는 제품에 필요 없을 수도 있으니 일단 주석처리
-// import bcrypt from 'bcrypt';
-// import jwt from 'jsonwebtoken';
-
+// 암호화는 제품에 필요 
 class ProductService {
   // 본 파일의 맨 아래에서, new ProductService(productModel) 하면, 이 함수의 인자로 전달됨
   constructor(productModel) {
@@ -12,9 +9,7 @@ class ProductService {
 
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
-    console.log(productInfo)
     const { name, price, description } = productInfo; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-    console.log(name);
 
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
@@ -46,7 +41,7 @@ class ProductService {
 
   // 4. 제품 정보 수정
   async setProduct(productName, toUpdate) {
-    // 우선 해당 id의 제품이 db에 있는지 확인
+    // 우선 해당 명칭의 제품이 db에 있는지 확인
     let product = await this.productModel.findByName(productName);
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
