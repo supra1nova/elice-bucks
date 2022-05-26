@@ -5,12 +5,17 @@
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
-
+import leftMenu from '../components/leftMenu.js';
+const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
+const mainContent = document.querySelector('#mainContent');
 
 addAllElements();
 async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
+  leftMenuAdmin.innerHTML = await leftMenu.render({
+    selected: 'orders',
+  });
   await headerNavbar.componentDidMount();
 }
 

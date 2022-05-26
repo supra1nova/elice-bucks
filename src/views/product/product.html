@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>제품 목록</title>
+
+        <!-- 아이콘 -->
+        <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+        <!-- bulma css -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+        <!-- 커스텀 css, js -->
+        <link rel="stylesheet" href="product.css" />
+        <script type="module" src="product.js" defer></script>
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        
+    </head>
+    <body>
+        <!-- 헤더 -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container mt-3">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        <img src="/elicebucks.png" width="30" height="30" />
+                    </a>
+                </div>
+        
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="/product">커피 둘러보기</a>
+            
+                    <div class="navbar-dropdown">
+                    <a class="navbar-item">네스프레소</a>
+                    <a class="navbar-item">네스카페 돌체구스토</a>
+                    <a class="navbar-item">프리미엄 파우더 커피</a>
+                    </div>
+                </div>
+        
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                      <ul id="navbar">
+                        <li><a href="/login">로그인</a></li>
+                        <li>
+                          <a href="/cart" aria-current="page">
+                            <span class="icon">
+                              <i class="fas fa-cart-shopping"></i>
+                            </span>
+                            <span>카트</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 상단바 아래 컨텐츠 영역 -->
+        <div class="content">
+            <!-- 제품 목록 컨테이너 -->
+            <div id="container">
+
+            </div>
+
+        </div>
+    
+    </body>
+</html>

@@ -7,8 +7,6 @@ import { productService } from '../services';
 // admin 확인하기 위한 미들웨어 가져왔는데 오류로 주석처리....
 // import { adminRequired } from '../middlewares';
 
-
-
 const productRouter = Router();
 
 // 1. 제품등록 - 관리자
@@ -22,8 +20,6 @@ productRouter.post('/product/register', async (req, res, next) => {
       );
     }
 
-    console.log(req.body);
-    console.log(req.body.name);
     // req (request)의 body 에서 제품 데이터 가져오기
     const { name, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
@@ -42,7 +38,6 @@ productRouter.post('/product/register', async (req, res, next) => {
   }
 });
 
-
 // 2. 전체 제품 조회
 productRouter.get('/product', async function (req, res, next) {
   try {
@@ -59,22 +54,32 @@ productRouter.get('/product', async function (req, res, next) {
 // 3. 단일 품목 조회
 productRouter.get('/product/:productName', async function (req, res, next) {
   try {
-    const name = req.params.productName;
+    const { name } = req.params;
     const product = await productService.findProduct(name);
 
     res.status(200).json(product);
+
+    fs.readFile('', function (error, data) {
+      response.writeHead(200, { 'Content-Type': 'text/html' });
+      response.end(data);
+    });
   } catch (error) {
     next(error);
   }
 });
 
-
 // 4. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
+<<<<<<< HEAD
 // productRouter.patch( '/products/:productName', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
 productRouter.patch('/product/:productName', async function (req, res, next) {
+=======
+// productRouter.patch( '/products/:productId', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
+
+productRouter.patch('/product/:productId', async function (req, res, next) {
+>>>>>>> dev
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.

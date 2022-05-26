@@ -1,0 +1,75 @@
+.HolyGrail,
+.HolyGrail-body {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.HolyGrail-nav {
+  order: -1;
+  
+  padding-left: 20px;
+}
+.HolyGrail-nav li{
+  padding-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  .HolyGrail-body {
+    flex-direction: row;
+    flex: 1;
+  }
+  .HolyGrail-content {
+    flex: 1;
+  }
+  .HolyGrail-nav {
+    /* 12em is the width of the columns */
+    flex: 0 0 12em;
+  }
+}
+
+.dashboard h1{
+  font-size:1.5rem;
+  margin: 0.6rem;
+}
+.dashboard-content{
+  padding:0.2rem;
+}
+.leftMenu a:hover {
+  color: black;
+}
+.leftMenu li.selected a {
+  font-size: large;
+  color: #26ac26;
+}
+.product-list button{
+  padding:0.4rem;
+}
+button.primary {
+  background-color: #e2ffe9;
+  margin: 3px;
+  margin-bottom: 10px;
+}
+table {
+  width: 100%;
+  border-top: 1px solid #a0a0a0;
+  border-collapse: collapse;
+}
+th, td {
+  border-bottom: 1px solid #a0a0a0;
+  padding: 10px;
+  text-align: center;
+}
+thead tr {
+  background-color: #e3ece5;
+  color: #ffffff;
+}
+tbody tr:nth-child(2n) {
+
+}
+tbody tr:nth-child(2n+1) {
+  background-color: #f9fffb;
+}
+.tr-action{
+  width:7rem;
+}
