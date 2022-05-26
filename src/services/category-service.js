@@ -33,9 +33,9 @@ class CategoryService {
   }
 
   // 3. 카테고리 정보 수정
-  async setCategory(categoryName, toUpdate) {
+  async setCategory(categoryId, toUpdate) {
     // 우선 해당 명칭의 카테고리가 db에 있는지 확인
-    let category = await this.categoryModel.findByCategory(categoryName);
+    let category = await this.categoryModel.findById(categoryId);
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!category) {
@@ -44,7 +44,7 @@ class CategoryService {
 
     // 업데이트 진행
     category = await this.categoryModel.update({
-      categoryName,
+      categoryId,
       update: toUpdate,
     });
 
@@ -52,11 +52,11 @@ class CategoryService {
   }
 
   // 4. 카테고리 삭제
-  async removeCategory(categoryName) {
+  async removeCategory(categoryId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
-    let category = await this.categoryModel.findByCategory(categoryName);
+    let category = await this.categoryModel.findById(categoryId);
     if (category) {
-      return this.categoryModel.del(categoryName);
+      return this.categoryModel.del(categoryId);
     }
     throw new Error('등록되지 않은 카테고리입니다. 다시 한 번 확인해주세요.');
   }
