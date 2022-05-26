@@ -5,6 +5,9 @@
 body {
     background-color: #273832;
 }
+a {
+    color: #000;
+}
 
 /* 상단바 */
 .navbar {
@@ -58,4 +61,7 @@ body {
     background-color: #F1EEEB;
     color: #333333;
     font-size: 1.2em;
+}
+#button:hover {
+    background-color: #fff;
 }
