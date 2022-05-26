@@ -46,10 +46,6 @@ const ProductEdit = {
           console.log(data);
           document.getElementById('imageInput').value = data.image;
           document.getElementById('product-image-file').src = `${data.image}`;
-          // document.getElementById('product-image-file').src = '/elicebucks.png';/src\\views\
-          // document.getElementById(
-          //   'product-image-file'
-          // ).src = `/images/1653572103205.jpg`;
         }
       });
   },
