@@ -3,7 +3,7 @@ const container = document.querySelector('#container');
 insertProductList();
 
 async function insertProductList() {
-    const res = await fetch('/api-p/product');
+    const res = await fetch('/api/product');
     const products = await res.json();
     
     products.forEach(product => {

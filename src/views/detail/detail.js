@@ -3,7 +3,7 @@ const container = document.querySelector('#container');
 insertProductDetail();
 
 async function insertProductDetail() {
-    const res = await fetch(`/api-p/product/${name}`);
+    const res = await fetch(`/api/product/${name}`);
     const product = await res.json();
     console.log(product);
 
