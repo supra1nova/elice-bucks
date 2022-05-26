@@ -40,6 +40,16 @@ async function addAllElements() {
       await ProductEdit.componentDidMount(result._id);
     });
   });
+  const delButtons = document.getElementsByClassName('delete-button');
+  Array.from(delButtons).forEach((button) => {
+    button.addEventListener('click', async () => {
+      if (confirm('정말로 지우시겠습니까?')) {
+        const result = await removeProduct(button.id);
+        console.log(result);
+        window.location.href = `/adminProducts`;
+      }
+    });
+  });
 }
 
 async function getDataFromApi() {
@@ -61,10 +71,10 @@ async function getProducts() {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
-async function getProduct(name) {
+async function getProduct(id) {
   // 제품가져오기 api 요청
   try {
-    const data = await Api.get('/api', `product/${name}`);
+    const data = await Api.get('/api', `product/${id}`);
     console.log(data);
     return data;
   } catch (err) {
@@ -73,7 +83,7 @@ async function getProduct(name) {
   }
 }
 
-async function createProduct(e) {
+async function createProduct() {
   // 제품생성 api 요청
   try {
     const data = {
@@ -89,6 +99,18 @@ async function createProduct(e) {
     alert(`정상적으로 제품 추가되었습니다.`);
     return result;
     // 표 리렌더 해야하지 않을까
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}
+
+async function removeProduct(id) {
+  // 제품삭제 api 요청
+  try {
+    const data = await Api.delete(`/api/product/${id}`);
+    console.log(data);
+    return data;
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
