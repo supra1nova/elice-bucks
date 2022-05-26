@@ -10,7 +10,7 @@ import { productService } from '../services';
 const productRouter = Router();
 
 // 1. 제품등록 - 관리자
-productRouter.post('/register', async (req, res, next) => {
+productRouter.post('/product/register', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -20,13 +20,15 @@ productRouter.post('/register', async (req, res, next) => {
       );
     }
 
+    console.log(req.body);
+    console.log(req.body.name);
     // req (request)의 body 에서 제품 데이터 가져오기
-    const { title, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+    const { name, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     // 가져온 데이터를 제품 db에 추가하기
     const newProduct = await productService.addProduct({
       // 카테고리, 이미지 키값 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-      title,
+      name,
       price,
       description,
     });
@@ -38,8 +40,8 @@ productRouter.post('/register', async (req, res, next) => {
   }
 });
 
-// 전체 제품 목록 조회
-productRouter.get('/', async function (req, res, next) {
+// 2. 전체 제품 조회
+productRouter.get('/product', async function (req, res, next) {
   try {
     // 전체 제품 목록을 얻음
     const products = await productService.getProducts();
@@ -51,12 +53,25 @@ productRouter.get('/', async function (req, res, next) {
   }
 });
 
-// 제품 정보 수정
+// 3. 단일 품목 조회
+productRouter.get('/product/:name', async function (req, res, next) {
+  try {
+    const { name } = req.params;
+    const product = await productService.findProduct(name);
+
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 4. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
 // productRouter.patch( '/products/:productId', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
-productRouter.patch('/:productId', async function (req, res, next) {
+
+productRouter.patch('/product/:productId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -70,12 +85,12 @@ productRouter.patch('/:productId', async function (req, res, next) {
     const productId = req.params.productId;
 
     // body data 로부터 업데이트할 제품 정보를 추출.
-    const { title, price, description, category } = req.body;
+    const { name, price, description, category } = req.body;
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
     const toUpdate = {
-      ...(title && { title }),
+      ...(name && { name }),
       ...(price && { price }),
       ...(description && { description }),
       ...(category && { category }),
@@ -94,8 +109,8 @@ productRouter.patch('/:productId', async function (req, res, next) {
   }
 });
 
-// 특정 제품 삭제
-productRouter.delete('/:productId', async function (req, res, next) {
+// 5. 특정 제품 삭제
+productRouter.delete('/product/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
     const result = await productService.removeProduct(productId);
