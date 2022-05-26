@@ -35,7 +35,7 @@ export class CategoryModel {
   }
 
   // 카테고리 삭제
-  async del({ categoryName }) {
+  async del( categoryName ) {
     await Category.deleteOne({ name: categoryName });
     return 'Successfully deleted';
   }
