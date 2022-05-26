@@ -42,7 +42,7 @@ async function getDataFromApi() {
 async function getProducts() {
   // 제품가져오기 api 요청
   try {
-    const data = await Api.get('/api-p');
+    const data = await Api.get('/api-p', 'product');
     console.log(data);
     return data;
   } catch (err) {
@@ -59,10 +59,10 @@ async function createProduct(e) {
       price: 0,
       image: { _id: 0 },
       category: { _id: 0 },
-      description: '',
+      description: 'dsaf',
     };
 
-    const result = await Api.post('/api-p/register', data);
+    const result = await Api.post('/api-p/product/register', data);
 
     alert(`정상적으로 제품 추가되었습니다.`);
     return result;

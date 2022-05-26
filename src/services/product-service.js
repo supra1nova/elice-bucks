@@ -12,9 +12,7 @@ class ProductService {
 
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
-    console.log(productInfo);
     const { name, price, description } = productInfo; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-    console.log(name);
 
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
