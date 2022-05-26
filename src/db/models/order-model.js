@@ -14,13 +14,13 @@ export class OrderModel {
     return orderlist;
   }
 
-//   async update({ userId, update }) {
-//     const filter = { _id: userId };
-//     const option = { returnOriginal: false };
+  // async update({ userId, update }) {
+  //   const filter = { _id: userId };
+  //   const option = { returnOriginal: false };
 
-//     const updatedList= await User.findOneAndUpdate(filter, update, option);
-//     return updatedList;
-//   }
+  //   const updatedList= await User.findOneAndUpdate(filter, update, option);
+  //   return updatedList;
+  // }
 }
 const orderModel = new OrderModel();
 

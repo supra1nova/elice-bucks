@@ -13,8 +13,15 @@ const OrderSchema = new Schema(
         require: true,
     },
     address: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: new Schema(
+          {
+            postalCode: String,
+            address1: String,
+            address2: String,
+          },
+          {
+            _id: false,
+          }),
         required: true
     },
     cnt: {
