@@ -33,16 +33,16 @@ class ProductService {
     return products;
   }
 
-  // 3. 단일 품목 조회
-  async findProduct(name) {
-    const product = await this.productModel.findByName(name);
+  // 3. ID 이용 단일 품목 조회
+  async findProduct(productId) {
+    const product = await this.productModel.findById(productId);
     return product;
   }
 
   // 4. 제품 정보 수정
-  async setProduct(productName, toUpdate) {
+  async setProduct(productId, toUpdate) {
     // 우선 해당 명칭의 제품이 db에 있는지 확인
-    let product = await this.productModel.findByName(productName);
+    let product = await this.productModel.findById(productId);
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!product) {
@@ -51,7 +51,7 @@ class ProductService {
 
     // 업데이트 진행
     product = await this.productModel.update({
-      productName,
+      productId,
       update: toUpdate,
     });
 
@@ -59,11 +59,11 @@ class ProductService {
   }
 
   // 5. 제품 삭제
-  async removeProduct(productName) {
+  async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
-    let product = await this.productModel.findByName(productName);
+    let product = await this.productModel.findById(productId);
     if (product) {
-      return this.productModel.del(productName);
+      return this.productModel.del(productId);
     }
     throw new Error('등록되지 않은 제품입니다. 다시 한 번 확인해주세요.');
   }
