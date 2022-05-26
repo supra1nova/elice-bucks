@@ -30,12 +30,22 @@
   font-size: 40px;
   margin: 0px auto;
 }
+
+input[type='checkbox'] {
+  display: inline-block;
+}
+
 .cartItemlist {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .cartItemlist .list {
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 20px;
+}
+.cartItemlist .list .listItem {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,6 +54,8 @@
 }
 .cartItemlist .list label {
   margin-right: 30px;
+}
+.cartItemlist .list label input {
 }
 
 .cartItemlist .list .goods {
@@ -67,7 +79,8 @@
   align-items: center;
   justify-content: center;
   margin: 0 10px;
-  border: 1px solid black;
+  border: 1px solid #e1e1e1;
+  border-radius: 3px;
 }
 .cartItemlist .list .goods .countbar input {
   width: 30px;
@@ -96,4 +109,10 @@
 .cartItemlist .list .goods .delete {
   background-color: black;
   margin-left: 10px;
+}
+
+.emptycart {
+  font-size: 30px;
+  color: gray;
+  margin: 50px 0 40px 0;
 }
