@@ -5,11 +5,9 @@ function adminRequired(req, res, next) {
       result: 'forbidden-approach',
       reason: '관리자만 접근 가능한 서비스입니다.',
     });
-    return;
   }
   
   next();
-  return;
 };
 
 export { adminRequired };
