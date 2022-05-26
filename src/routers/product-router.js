@@ -57,7 +57,7 @@ productRouter.get('/product', async function (req, res, next) {
 productRouter.get('/product/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
-    const product = await productService.findProduct( productId );
+    const product = await productService.findProduct(productId);
 
     res.status(200).json(product);
   } catch (error) {
@@ -125,7 +125,7 @@ productRouter.delete('/product/:productId', async function (req, res, next) {
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, 'images/');
+    cb(null, 'src/views/images/');
   },
   filename(req, file, cb) {
     cb(null, `${Date.now()}.jpg`);
@@ -138,7 +138,7 @@ productRouter.post(
   upload.single('image'),
   (req, res) => {
     console.log(req.file);
-    res.status(200).send({ image: `/${req.file.path}` });
+    res.status(200).send({ image: `/images/${req.file.filename}` });
   }
 );
 

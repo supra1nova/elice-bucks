@@ -29,7 +29,7 @@ async function addAllElements() {
     .addEventListener('click', async () => {
       const result = await createProduct();
       console.log(result);
-      //window.location.href = `/adminProducts/${result.product._id}/edit`;
+      window.location.href = `/adminProducts`;
     });
   const editButtons = document.getElementsByClassName('edit-button');
   Array.from(editButtons).forEach((button) => {
@@ -79,7 +79,7 @@ async function createProduct(e) {
     const data = {
       name: `${Date.now()}ddd`,
       price: 0,
-      image: { _id: 0 },
+      image: '',
       category: { _id: 0 },
       description: 'dsaf',
     };

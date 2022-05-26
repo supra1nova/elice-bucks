@@ -8,8 +8,9 @@ const productlist = {
                 <tr>
                   <td>${product.name}</td>
                   <td>${product.price}</td>
-                  <td>${product.category}</td>
-                  <td class="productImage1">${product.image}</td>
+                  <td class="productImage1">${product.category}</td>
+                  <td class="productImage1">
+                  <img src ="${product.image}"  width="300" height="30" id="product-image-file" /></td>
                   <td>${product.description}</td>
                   <td>
                     <button id="${product._id}" class="edit-button">수정</button>

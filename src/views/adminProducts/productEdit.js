@@ -45,6 +45,11 @@ const ProductEdit = {
         } else {
           console.log(data);
           document.getElementById('imageInput').value = data.image;
+          document.getElementById('product-image-file').src = `${data.image}`;
+          // document.getElementById('product-image-file').src = '/elicebucks.png';/src\\views\
+          // document.getElementById(
+          //   'product-image-file'
+          // ).src = `/images/1653572103205.jpg`;
         }
       });
   },
@@ -111,6 +116,7 @@ const ProductEdit = {
                 value="${product.image ? product.image : ''}"
                 />
                 <input type="file" name="image-file" id="image-file"/>
+                <img  width="30" height="30" id="product-image-file" />
             </div>
             </div>
 
