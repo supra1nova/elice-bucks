@@ -10,15 +10,15 @@ export class ProductModel {
     return createdNewProduct;
   }
 
-  // 제품 전체 검색 - 관리자, 유저
+  // 제품 전체 조회 - 관리자, 유저
   async findAll() {
     const products = await Product.find({});
     return products;
   }
 
   // 제품 이름 기준 조회 - 관리자, 유저
-  async findByTitle(title) {
-    const product = await Product.find({ title });
+  async findByName(name) {
+    const product = await Product.findOne({ name });
     return product;
   }
   
@@ -34,27 +34,27 @@ export class ProductModel {
     return products;
   }
 
-  // 카테고리 기준 조회 - 관리자, 유저
-  async findByOrigin(category) {
+  // 카테고리 기준 제품 조회 - 관리자, 유저
+  async findByCategory(category) {
     const products = await Product.find({ category });
     return products;
   }
 
   // 제품 관련 업데이트 - 관리자
-  async update({ productId, update }) {
-    const filter = { _id: productId };
+  async update({ productName, update }) { 
+    const filter = { name: productName };
     const option = { returnOriginal: false };
     const updatedProduct = await Product.findOneAndUpdate(
       filter,
       update,
-      option
+      option,
     );
     return updatedProduct;
   }
 
   // 제품 삭제 및 'OK' 반환 - 관리자
-  async del({ productId }) {
-    await Product.deleteOne({ _id: productId });
+  async del( productName ) {
+    await Product.deleteOne({ name: productName });  // 이미 service 에서 파일 유무 검증하므로 findOneAndDelete 대신 deletOne 사용 + findOneAndDelete는 return 함
     return 'Successfully deleted';
   }
 }

@@ -22,6 +22,9 @@ app.use(viewsRouter);
 // /api/login 으로 요청을 해야 하게 됨. 백엔드용 라우팅을 구분하기 위함임.
 app.use('/api', userRouter);
 
+// 테스트용으로 /api-p 로 연결. 향후 협의하 수정 필요
+app.use('/api-p', productRouter);
+
 // 순서 중요 (errorHandler은 다른 일반 라우팅보다 나중에 있어야 함)
 // 그래야, 에러가 났을 때 next(error) 했을 때 여기로 오게 됨
 app.use(errorHandler);

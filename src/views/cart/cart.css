@@ -1,0 +1,99 @@
+.div-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.landing {
+  cursor: pointer;
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.greeting {
+  cursor: pointer;
+  border: 1px solid blue;
+  padding: 10px;
+  margin-left: 3rem;
+}
+
+.titPage {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 100px;
+  border-bottom: 1px solid black;
+}
+
+.titPage .tit {
+  font-size: 40px;
+  margin: 0px auto;
+}
+.cartItemlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cartItemlist .list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 10px auto;
+  width: 800px;
+}
+.cartItemlist .list label {
+  margin-right: 30px;
+}
+
+.cartItemlist .list .goods {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 650px;
+}
+.cartItemlist .list .goods a {
+  margin-right: 15px;
+}
+
+.cartItemlist .list .goods .name {
+  width: 327px;
+}
+.cartItemlist .list .goods .price {
+  width: 70px;
+}
+.cartItemlist .list .goods .countbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  border: 1px solid black;
+}
+.cartItemlist .list .goods .countbar input {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+  background-color: white;
+  border: 0;
+}
+
+.cartItemlist .list .goods .countbar .btn {
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  border: 0px;
+  background-color: white;
+  border: 0;
+}
+
+.cartItemlist .list .goods .countbar .btn:hover {
+  background-color: floralwhite;
+}
+
+.cartItemlist .list .goods .delete {
+  background-color: black;
+  margin-left: 10px;
+}
