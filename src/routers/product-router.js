@@ -21,7 +21,7 @@ productRouter.post('/product/register', async (req, res, next) => {
     }
 
     // req (request)의 body 에서 제품 데이터 가져오기
-    const { name, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+    const { name, price, description, image } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     // 가져온 데이터를 제품 db에 추가하기
     const newProduct = await productService.addProduct({
@@ -29,6 +29,7 @@ productRouter.post('/product/register', async (req, res, next) => {
       name,
       price,
       description,
+      image,
     });
 
     // 추가된 제품의 db 데이터를 프론트에 다시 보내줌
@@ -54,15 +55,11 @@ productRouter.get('/product', async function (req, res, next) {
 // 3. 단일 품목 조회
 productRouter.get('/product/:productName', async function (req, res, next) {
   try {
-    const { name } = req.params;
-    const product = await productService.findProduct(name);
+    const { productName } = req.params;
+    const product = await productService.findProduct(productName);
 
     res.status(200).json(product);
-
-    fs.readFile('', function (error, data) {
-      response.writeHead(200, { 'Content-Type': 'text/html' });
-      response.end(data);
-    });
+    
   } catch (error) {
     next(error);
   }
@@ -87,7 +84,7 @@ productRouter.patch('/product/:productName', async function (req, res, next) {
     const productName = req.params.productName;
 
     // body data 로부터 업데이트할 제품 정보를 추출.
-    const { name, price, description, category } = req.body;
+    const { name, price, description, category, image } = req.body;
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
@@ -96,6 +93,7 @@ productRouter.patch('/product/:productName', async function (req, res, next) {
       ...(price && { price }),
       ...(description && { description }),
       ...(category && { category }),
+      ...(image && { image }),
     };
 
     // 제품 정보를 업데이트함.
