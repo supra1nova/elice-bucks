@@ -17,12 +17,8 @@ const ProductSchema = new Schema(
     },
     category: [{
         type: Schema.Types.ObjectId,
-        ref: 'Category',
-      }],
-    image: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Image',
-      }],
+        ref: 'categories',
+      }]
   },
   {
     collection: 'products',

@@ -4,13 +4,8 @@ const OrderSchema = new Schema(
   {
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'users',
         required: true
-    },
-    price: {
-        type: Number,
-        ref: 'Product',
-        require: true,
     },
     address: {
         type: new Schema(
@@ -24,12 +19,12 @@ const OrderSchema = new Schema(
           }),
         required: true
     },
-    cnt: {
+    total_cnt: {
         type: Number,
         required: true
     },
-    product_title: {
-        type: String,
+    total_price: {
+        type: Number,
         required: true
     }
   },
