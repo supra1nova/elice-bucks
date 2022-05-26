@@ -72,14 +72,8 @@ productRouter.get('/product/:productName', async function (req, res, next) {
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
-<<<<<<< HEAD
 // productRouter.patch( '/products/:productName', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
 productRouter.patch('/product/:productName', async function (req, res, next) {
-=======
-// productRouter.patch( '/products/:productId', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
-
-productRouter.patch('/product/:productId', async function (req, res, next) {
->>>>>>> dev
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
