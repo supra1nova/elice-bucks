@@ -16,9 +16,21 @@ export class ImageModel {
     return createdNewImage;
   }
 
+  // 이미지 수정
+  async update({ imageURL, update }) {
+    const filter = { imageURL };
+    const option = { returnOriginal: false };
+    const updatedImage = await Image.findOneAndUpdate(
+      filter,
+      update,
+      option
+    );
+    return updatedImage;
+  }
+
   // 이미지삭제
-  async del({ imageId }) {
-    await Image.deleteOne({ _id: imageId });
+  async del(imageURL) {
+    await Image.deleteOne({ imageURL });
     return 'Successfully deleted';
   }
 }

@@ -12,7 +12,7 @@ export class CategoryModel {
 
   // 카테고리 이름 기준 조회 - 관리자, 유저
   async findByCategory(categoryName) {
-    const category = await Product.findOne({ categoryName });
+    const category = await Category.findOne({ name: categoryName });
     return category;
   }
 
