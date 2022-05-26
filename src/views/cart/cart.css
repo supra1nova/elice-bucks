@@ -34,7 +34,12 @@
 input[type='checkbox'] {
   display: inline-block;
 }
-
+.main .cart {
+  position: absolute;
+  margin-top: 10vh;
+  width: 800px;
+  left: 10px;
+}
 .cartItemlist {
   display: flex;
   flex-direction: column;
@@ -115,4 +120,68 @@ input[type='checkbox'] {
   font-size: 30px;
   color: gray;
   margin: 50px 0 40px 0;
+}
+
+.main {
+  position: relative;
+  display: flex;
+}
+.main .container {
+  position: absolute;
+  width: 400px;
+  margin-top: 10vh;
+  left: 820px;
+}
+
+.delivery-info {
+  width: 100%;
+}
+
+.delivery-info .subtitle {
+  padding-left: 0.4rem;
+}
+
+.delivery-info .field-label {
+  flex-basis: 7rem;
+  flex-grow: 0;
+  text-align: left;
+  height: 3rem;
+  line-height: 2rem;
+  padding-left: 0.5rem;
+}
+
+.delivery-info .field-body,
+.delivery-info .select {
+  flex-basis: 35rem;
+  flex-grow: 0;
+  height: 3rem;
+}
+
+.select select {
+  width: 100%;
+  height: 100%;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.select .select-option {
+  font-size: 1.1rem;
+  color: black;
+}
+
+.delivery-info .button {
+  height: 3rem;
+}
+
+.delivery-info .field-body .control,
+.delivery-info .field-body .input {
+  height: 100%;
+}
+
+.delivery-info .custom-request {
+  display: none;
+}
+
+.button.is-primary {
+  width: 100%;
+  margin-top: 3rem;
 }

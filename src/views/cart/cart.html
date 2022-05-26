@@ -22,12 +22,18 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
-    <!-- 카카오 지도 api -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="cart.css" />
     <script defer src="./cart.js" type="module" ></script>
-    <script src="./indexedDB/Btn.js" type="module" ></script>
+    <!-- btn -->
+    <script defer src="./indexedDB/Btn.js" ></script>
+    <script defer src="./kakaomap/kakaomap.js"></script>
+    <!-- Kakao 주소 API 사용하기 위한 파일 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+
   </head>
   <body>
     <!-- 헤더 -->
@@ -57,7 +63,7 @@
       </div>
     </nav>
 
-
+    <button class="ex" >예시 넣기</button>
     <!-- 장바구니 -->
   <div class="main">
     <div class="box cart">
@@ -69,9 +75,12 @@
         </div>
     </div>
     <!-- KaKao map.js -->
+    <!-- 결제.js -->
   </div>
     
   </body>
+
+
 </html>
 
 

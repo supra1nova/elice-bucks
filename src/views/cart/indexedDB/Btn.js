@@ -4,7 +4,6 @@ function pluscnt(i) {
     return;
   }
   count++;
-  console.log(count);
   document.querySelector(`.cnt-${i}`).value = count;
 }
 
@@ -14,7 +13,6 @@ function minuscnt(i) {
     return;
   }
   count--;
-  console.log(count);
   document.querySelector(`.cnt-${i}`).value = count;
 }
 
@@ -28,5 +26,3 @@ function is_checked(selector) {
   // 3. 결과를 출력합니다.
   document.getElementById('result').innerText = is_checked;
 }
-
-export { pluscnt, minuscnt, is_checked };

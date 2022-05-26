@@ -1,4 +1,3 @@
-import { pluscnt, minuscnt, is_checked } from './indexedDB/Btn.js';
 import { saveItem, updateItem } from './indexedDB/indexedDB.js';
 // Todo list
 // 1. plus minus 버튼 기능 구현
@@ -21,7 +20,7 @@ onRequest.onsuccess = () => {
 };
 onRequest.onupgradeneeded = () => {
   const database = onRequest.result;
-  database.createObjectStore('carts', { ketPath: 'mykey' });
+  database.createObjectStore('carts');
 };
 onRequest.onerror = () => {
   console.log('Error creating or accessing db');
@@ -29,4 +28,37 @@ onRequest.onerror = () => {
 
 // IndexedDB cart 저장소에 목록 있으면 실행.
 
+const examItem = (e) => {
+  e.preventDefault();
+  let onRequest = indexedDB.open('cart', 1);
+  onRequest.onsuccess = () => {
+    const database = onRequest.result;
+    const title = '백다방보단 맛있는 커피';
+    const example = {
+      name: title,
+      price: '5,000',
+      img: `https://cdn-icons-png.flaticon.com/512/5110/5110429.png`,
+      cnt: '1',
+    };
+    console.log(example);
+    const transaction = database.transaction('carts', 'readwrite');
+    const carts = transaction.objectStore('carts');
+
+    let adde = carts.put(example, title);
+    adde.onsuccess = () => {
+      updateItem();
+    };
+
+    transaction.onerror = () => {
+      console.log(transaction.error);
+    };
+  };
+};
+
 updateItem();
+
+// 결제 정보
+
+// 예시넣기
+const exbnt = document.querySelector('.ex');
+exbnt.addEventListener('click', examItem);
