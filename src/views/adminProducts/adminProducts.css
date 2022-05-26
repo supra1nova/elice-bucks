@@ -54,11 +54,16 @@ table {
   width: 100%;
   border-top: 1px solid #a0a0a0;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 th, td {
   border-bottom: 1px solid #a0a0a0;
   padding: 10px;
   text-align: center;
+  overflow:wrap;		
+}
+td.productImage1  {
+  overflow:hidden;		white-space : nowrap;		text-overflow: ellipsis;
 }
 thead tr {
   background-color: #e3ece5;
@@ -72,4 +77,53 @@ tbody tr:nth-child(2n+1) {
 }
 .tr-action{
   width:7rem;
+  
 }
+
+/*  product edit form       */
+.register-user-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-wrap: wrap;
+  margin-top:10px;
+  
+}
+
+
+.register-user-form-box {
+  max-width: 700px;
+  width:100%;
+  
+}
+#form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 10px
+}
+
+.register-user-form-box .input{
+  height: 45px;
+  width:100%;
+  display:block;
+}
+
+.register-user-form-box .title {
+  
+}
+
+.register-user-form-box .button {
+  font-weight: bold;
+}
+
+
+
+.register-user-form-box .input:focus {
+  border-color: #00d1b2;
+  box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
+}
+
+
+/****************************************/

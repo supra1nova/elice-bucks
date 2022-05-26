@@ -22,9 +22,18 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
+
+
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="cart.css" />
-    <script src="cart.js" type="module" defer></script>
+    <script defer src="./cart.js" type="module" ></script>
+    <!-- btn -->
+    <script defer src="./indexedDB/Btn.js" ></script>
+    <script defer src="./kakaomap/kakaomap.js"></script>
+    <!-- Kakao 주소 API 사용하기 위한 파일 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+
   </head>
   <body>
     <!-- 헤더 -->
@@ -32,10 +41,8 @@
       <div class="container mt-3">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
             <span class="has-text-link">쇼핑-14팀</span>
           </a>
-
           <a
             role="button"
             class="navbar-burger"
@@ -48,57 +55,34 @@
             <span aria-hidden="true"></span>
           </a>
         </div>
-
           <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
             <ul id="navbar">
-              <li><a href="/login">로그인</a></li>
-              <li><a href="/register">회원가입</a></li>
             </ul>
           </div>
         </div>
       </div>
     </nav>
 
-
+    <button class="ex" >예시 넣기</button>
     <!-- 장바구니 -->
+  <div class="main">
     <div class="box cart">
       <div class="titPage">
         <div class="tit">장바구니</div>
       </div>
-      <form action="">
         <div class="cartItemlist">
-          <div class="list">
-                <label class="check"for="">
-                  <input type="checkbox" name="chkItem">
-                  <span class="ico"></span>
-                </label>
-                <div class="goods">
-                  <a href="#" class="image is-96x96">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5110/5110429.png">
-                  </a>
-                  <div class="name">
-                    <div class="inner_name">
-                      <a href="#" class="package">
-                        [코딩하면서 먹기 좋은] 커피
-                      </a>
-                    </div>
-                  </div>
-                  <div class="price">
-                    <span class="selling">
-                      10,000
-                      <span class="won">원</span>
-                    </span>
-                  </div>
-                  <div class="countbar">
-                    <button type="button" class="btn minus" name="decrease"><i class="fa-solid fa-minus"></i></button>
-                    <input type="" readonly value="1" />
-                    <button type="button" class="btn plus" name="increase"><i class="fa-solid fa-plus"></i></button>
-                  </div>
-                  <button type="button" class="delete">상품 삭제</button>
-                </div>
-          </div>
+          <!-- cartItemadd.js -->
         </div>
-      </form>
     </div>
+    <!-- KaKao map.js -->
+    <!-- 결제.js -->
+  </div>
+    
   </body>
+
+
 </html>
+
+
+
+
