@@ -6,31 +6,43 @@ const Order = model('orders', OrderSchema);
 const OrderItem = model('order-items', OrderItemSchema);
 
 export class OrderModel {  
-  // 주문 목록 만들기
+  // 주문 목록 만들기 (orders)
   async create(orderList) {
     const makeNewOrder = await Order.create(orderList);
     return makeNewOrder;
   }
 
-  // 전체 유저의 주문 목록 불러오기
+  // orders 전체 반환
   async findAll() {
     const orderlist = await Order.find({});
     return orderlist;
   }
 
-  // 해당 유저의 주문 목록 불러오기
+  // orders 에서 해당 유저 값 찾기
   async findById(userId) {
-    const userOrder = await Order.findOne({ _id: userId });
+    const userOrder = await Order.findOne({ _id:
+      new Types.ObjectId(userId) });
     return userOrder;
   }
 
+  // 이미 존재하는 user라면 update
+  async update({userId, update}) {
+    const filter = { userId : new Types.ObjectId(userId) };
+    const option = { returnOriginal: false };
+    const updatedOrders = await Order.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    );
+    return updatedOrders;
+  }
 }
 
 export class OrderItemModel {
-  // orderItem schema 만들기
-  async create(orderItemList) {
-    const makeNewOrderItem = await OrderItem.create(orderItemList);
-    return makeNewOrderItem;
+  // 주문 제품 목록 만들기 (order-items)
+  async create_items(orderId, itemId) {
+    const newItem = await OrderItem.create(orderId, itemId);
+    return newItem;
   }
 
   // orderItem 전부 불러오기 (전체 유저의 주문목록아이템 불러오기)
@@ -41,10 +53,21 @@ export class OrderItemModel {
 
   // order_id, 지정된 유저의 주문 목록 불러오기
   async findByOrderId(orderId) {
-    const orderItem = await OrderItem.findOne({ order_id : orderId });
+    const orderItem = await OrderItem.findOne({ order_id : 
+      new Types.ObjectId(orderId) });
     return orderItem;
   }
+
+  // 주문 목록에서 취소하기 
+  async cancelOrder(orderId) {
+    const orderItem = await OrderItem.findOne({ order_id : new Types.ObjectId(orderId)});
+    
+    await OrderItem.deleteOne(orderItem);
+    return 'Successfully canceled order';
+  }
 }
+
+
 const orderModel = new OrderModel();
 const orderItemModel = new OrderItemModel();
 

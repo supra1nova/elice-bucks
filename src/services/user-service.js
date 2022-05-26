@@ -12,7 +12,8 @@ class UserService {
   // 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
-    const { email, fullName, password, role } = userInfo;
+    console.log(userInfo);
+    const { email, fullName, password } = userInfo;
 
     // 이메일 중복 확인
     const user = await this.userModel.findByEmail(email);
@@ -27,6 +28,7 @@ class UserService {
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // admin 설정을 위한 코드
     if (email === "admin@example.com") {
       const newUserInfo = { fullName, email, password: hashedPassword, role: 'admin-user' };
       const createdNewUser = await this.userModel.create(newUserInfo);
@@ -143,6 +145,36 @@ class UserService {
     });
 
     return user;
+  }
+
+  //user 탈퇴
+  async secession(userInfoRequired) {
+    const { userId, currentPassword } = userInfoRequired;
+
+    // 우선 해당 id의 유저가 db에 있는지 확인
+    let user = await this.userModel.findById(userId);
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!user) {
+      throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
+    }
+
+    // 비밀번호 일치 여부 확인
+    const correctPasswordHash = user.password;
+    const isPasswordCorrect = await bcrypt.compare(
+      currentPassword,
+      correctPasswordHash
+    );
+
+    if (!isPasswordCorrect) {
+      throw new Error(
+        '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
+      );
+    }
+
+    // 회원탈퇴 진행
+    user = await this.userModel.del(userId);
+    return 'Deleted User Successfully';
   }
 }
 

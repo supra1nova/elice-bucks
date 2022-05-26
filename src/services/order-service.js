@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { OrderModel } from '../db';
 import { OrderItemModel } from '../db';
 
@@ -6,75 +7,94 @@ import { OrderItemModel } from '../db';
 // import jwt from 'jsonwebtoken';
 
 class OrderService {
-  // 본 파일의 맨 아래에서, new OrderService(orderModel) 하면, 이 함수의 인자로 전달됨
-  constructor(orderModel) {
+  constructor(orderModel,orderItemModel) {
     this.orderModel = orderModel;
+    this.orderItemModel = orderItemModel;
   }
 
-  // 1. 신규 제품 등록
-  async addProduct(productInfo) {
-    console.log(productInfo)
-    const { name, price, description } = productInfo; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-    console.log(name);
+  // 1. 장바구니에서 주문목록으로 내용 전달
+  async addtoOrderList(cart) {
+    console.log(cart);
+    const { user_id, address, total_cnt, total_price } = cart;
+    console.log(user_id);
 
-    // 제품명 중복 확인
-    const product = await this.productModel.findByName(name);
+    // 주문목록에 사용자가 이미 존재한다면 개수를 늘려줌
+    const preOrder = await this.orderModel.findbyId(user_id);
+    let final_cnt = 0;
+    let final_price = 0;
+    if(preOrder) {
+        let pre_cnt = await preOrder.total_cnt;
+        final_cnt = pre_cnt + total_cnt;
+        let pre_price = await preOrder.total_price;
+        final_price = pre_price + total_price;
+
+        preOrder = await this.orderModel.update({
+            user_id,
+            update: cart,
+        });
+        return preOrder;
+    }
+    else{
+        const createdNewOrder = await this.orderModel.create(cart);
+        return createdNewOrder;
+    }
+  }
+
+  // 1-1. 제품 주문 목록 만들기
+  async addOrderItem(orderId, itemId) {
+      const newOrderItem = await this.orderItemModel.createItem(orderId, itemId);
+      return newOrderItem;
+  }
+
+  // 2. 주문목록 전체 조회
+  async getOrders() {
+    const orders = await this.orderModel.findAll();
+    return orders;
+  }
+
+  // 2-1. 전체 주문목록 개수 반환
+  async getOrdersNum() {
+    const total_num = await this.orderModel.findAll().count();
+    return total_num;
+  }
+
+  // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 order_id 동일한 데이터 반환 
+  // aggregate 사용 ! 다시 고치기
+  async getOrder(userId) {
+    const orderId = await this.orderModel.findById(userId)._id;
+    const orderItems = await this.orderItemModel.findByOrderId(orderId);
+    return orderItems;
+  }
+
+
+  // 4. 해당 유저의 주문 목록 반환 
+  async getUserOrder(userId){
+    const order = await this.orderModel.findById(userId);
+    return order;
+  }
+  
+  // 4-1. 해당 유저의 주문목록 최종 상품가격 반환 -> 위에서 order.total_price; 해도 되는거 아닌가 ..? 
+  async finalPrice(userId) {
+    const order = await this.orderModel.findById(userId);
+    return order.price;
+  }
+
+  // 4-2. 해당 유저의 주문목록 전체 상품개수 반환
+  async finalCnt(userId){
+    const order = await this.orderModel.findById(userId);
+    return order.cnt;
+  }
+
+  // 5. 주문목록 제품 취소
+  async cancelOrder(orderId) {
+    let product = await this.orderItemModel.findByName(orderId);
     if (product) {
-      throw new Error(
-        '이 제품명은 현재 사용중입니다. 다른 제품명을 입력해 주세요.'
-      );
+      return this.orderItemModel.cancelOrder(orderId);
     }
-
-    // 신규 제품 정보 생성 및 db 저장
-    const newProductInfo = { name, price, description }; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-
-    const createdNewProduct = await this.productModel.create(newProductInfo);
-
-    return createdNewProduct;
-  }
-
-  // 2. 전 제품 조회
-  async getProducts() {
-    const products = await this.productModel.findAll();
-    return products;
-  }
-
-  // 3. 단일 품목 조회
-  async findProduct(name) {
-    const product = await this.productModel.findByName(name);
-    return product;
-  }
-
-  // 4. 제품 정보 수정
-  async setProduct(productName, toUpdate) {
-    // 우선 해당 id의 제품이 db에 있는지 확인
-    let product = await this.productModel.findByName(productName);
-
-    // db에서 찾지 못한 경우, 에러 메시지 반환
-    if (!product) {
-      throw new Error('제품 등록 내역이 없습니다. 다시 한 번 확인해 주세요.');
-    }
-
-    // 업데이트 진행
-    product = await this.productModel.update({
-      productName,
-      update: toUpdate,
-    });
-
-    return product;
-  }
-
-  // 5. 제품 삭제
-  async removeProduct(productName) {
-    // 우선 해당 id의 제품이 db에 있는지 확인
-    let product = await this.productModel.findByName(productName);
-    if (product) {
-      return this.productModel.del(productName);
-    }
-    throw new Error('등록되지 않은 제품입니다. 다시 한 번 확인해주세요.');
+    throw new Error('Error ! 다시 한 번 확인해주세요.');
   }
 }
 
-const productService = new ProductService(productModel);
+const orderService = new OrderService({OrderModel, OrderItemModel});
 
-export { productService };
+export { orderService };
