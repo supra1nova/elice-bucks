@@ -35,7 +35,7 @@ class CategoryService {
   // 3. 카테고리 정보 수정
   async setCategory(categoryName, toUpdate) {
     // 우선 해당 명칭의 카테고리가 db에 있는지 확인
-    let category = await this.categoryModel.findByName(categoryName);
+    let category = await this.categoryModel.findByCategory(categoryName);
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!category) {
@@ -54,7 +54,7 @@ class CategoryService {
   // 4. 카테고리 삭제
   async removeCategory(categoryName) {
     // 우선 해당 id의 제품이 db에 있는지 확인
-    let category = await this.categoryModel.findByName(categoryName);
+    let category = await this.categoryModel.findByCategory(categoryName);
     if (category) {
       return this.categoryModel.del(categoryName);
     }
