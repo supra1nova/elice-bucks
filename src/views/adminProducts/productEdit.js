@@ -17,9 +17,7 @@ const ProductEdit = {
           image,
           description,
         };
-
         await Api.patch('/api/product', `${_id}`, data);
-
         alert(`정상적으로 수정되었습니다.`);
 
         // 홈 페이지 이동
@@ -31,6 +29,29 @@ const ProductEdit = {
         );
       }
     });
+
+    document
+      .getElementById('image-file')
+      .addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('image', file);
+        console.log(formData.get('image'));
+        const data = await Api.postImage('/api/product/imageUpload', formData);
+        if (data.error) {
+          alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${data.error}`
+          );
+        } else {
+          console.log(data);
+          document.getElementById('imageInput').value = data.image;
+          document.getElementById('product-image-file').src = `${data.image}`;
+          // document.getElementById('product-image-file').src = '/elicebucks.png';/src\\views\
+          // document.getElementById(
+          //   'product-image-file'
+          // ).src = `/images/1653572103205.jpg`;
+        }
+      });
   },
   render: async (product) => {
     console.log(product);
@@ -94,6 +115,8 @@ const ProductEdit = {
                 autocomplete="on"
                 value="${product.image ? product.image : ''}"
                 />
+                <input type="file" name="image-file" id="image-file"/>
+                <img  width="30" height="30" id="product-image-file" />
             </div>
             </div>
 
