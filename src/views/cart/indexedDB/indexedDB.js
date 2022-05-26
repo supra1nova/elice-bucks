@@ -1,3 +1,4 @@
+// 1. 장바구니 버튼 구현하기
 const saveItem = async () => {
   const 제품이름 = document.querySelector('#name');
   const inputprice = document.querySelector(''); // 값 대입. []
@@ -28,25 +29,32 @@ const saveItem = async () => {
       return;
     }
   };
-  await carts.add(item);
+  carts.add(item, name);
 
   transaction.onerror = () => {
     console.log(transaction.error);
   };
 };
 
+// 2. indexedDB 정보 장바구니에 update
+
 const updateItem = async () => {
+  // indexed 열기
   let onRequest = indexedDB.open('cart', 1);
   onRequest.onsuccess = () => {
     console.log('update성공');
     const database = onRequest.result;
+    // 읽기 전용으로 transaction 적용. (빠름)
     const transaction = database.transaction('carts', 'readonly');
+    // cart 저장소 가져오기
     const carts = transaction.objectStore('carts');
     const list = document.querySelector('.cartItemlist');
+    // 장바구니 내역 초기화.
     list.innerHTML = '';
     const c = carts.getAll();
     c.onsuccess = () => {
       let a = c.result;
+      // getAll 값이 없으면 비어있다는 말 띄우기
       if (a.length === 0) {
         const emptycart = `<div class='emptycart'>장바구니가 비어있습니다.</div>`;
         list.insertAdjacentHTML('beforeend', emptycart);
@@ -58,7 +66,7 @@ const updateItem = async () => {
                         <div class="list">
                             <div class="listItem">
                             <label class="check" for="">
-                            <input type="checkbox" name="chkItem" >
+                            <input type="checkbox" name="chkItem" class="check${i}">
                             <span class="ico"></span>
                           </label>
                           <div class="goods">
@@ -72,11 +80,11 @@ const updateItem = async () => {
                               <span class="selling">${price}</span><span class="won">원</span>
                             </div>
                             <div class="countbar">
-                              <button type="button" class="btn minus" name="decrease" onClick='minuscnt(${i})'><i class="fa-solid fa-minus"></i></button>
+                              <button type="button" class="btn minus" name="decrease" onClick='minusCnt(${i})'><i class="fa-solid fa-minus"></i></button>
                               <input class="cntNumber cnt-${i}" type="" readonly value="${cnt}" />
-                              <button type="button" class="btn plus" name="increase" onClick='pluscnt(${i})'><i class="fa-solid fa-plus"></i></button>
+                              <button type="button" class="btn plus" name="increase" onClick='plusCnt(${i})'><i class="fa-solid fa-plus"></i></button>
                             </div>
-                            <button type="button" class="delete">상품 삭제</button>
+                            <button type="button" class="delete is-large"></button>
                           </div>
                           </div>
                         </div>
