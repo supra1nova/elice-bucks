@@ -20,8 +20,6 @@ productRouter.post('/product/register', async (req, res, next) => {
       );
     }
 
-    console.log(req.body);
-    console.log(req.body.name);
     // req (request)의 body 에서 제품 데이터 가져오기
     const { name, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
