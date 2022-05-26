@@ -60,10 +60,16 @@ productRouter.get('/product/:name', async function (req, res, next) {
     const product = await productService.findProduct(name);
 
     res.status(200).json(product);
+
+    fs.readFile('', function(error, data) {
+      response.writeHead(200, {'Content-Type' : 'text/html'});
+      response.end(data);
+    });
   } catch (error) {
     next(error);
   }
 });
+
 
 // 4. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
