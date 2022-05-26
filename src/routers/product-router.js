@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
+import multer from 'multer';
 
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { productService } from '../services';
@@ -9,7 +10,7 @@ import { productService } from '../services';
 
 const productRouter = Router();
 
-// 1. 제품등록 - 관리자
+// 1. 제품등록
 productRouter.post('/product/register', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
@@ -52,11 +53,11 @@ productRouter.get('/product', async function (req, res, next) {
   }
 });
 
-// 3. 단일 품목 조회
-productRouter.get('/product/:productName', async function (req, res, next) {
+// 3. Id 이용 단일 품목 조회
+productRouter.get('/product/:productId', async function (req, res, next) {
   try {
-    const { productName } = req.params;
-    const product = await productService.findProduct(productName);
+    const { productId } = req.params;
+    const product = await productService.findProduct(productId);
 
     res.status(200).json(product);
   } catch (error) {
@@ -69,7 +70,7 @@ productRouter.get('/product/:productName', async function (req, res, next) {
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
 // productRouter.patch( '/products/:productName', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
-productRouter.patch('/product/:productName', async function (req, res, next) {
+productRouter.patch('/product/:productId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -80,7 +81,7 @@ productRouter.patch('/product/:productName', async function (req, res, next) {
     }
 
     // params로부터 id를 가져옴
-    const productName = req.params.productName;
+    const productId = req.params.productId;
 
     // body data 로부터 업데이트할 제품 정보를 추출.
     const { name, price, description, category, image } = req.body;
@@ -97,7 +98,7 @@ productRouter.patch('/product/:productName', async function (req, res, next) {
 
     // 제품 정보를 업데이트함.
     const updatedProductInfo = await productService.setProduct(
-      productName,
+      productId,
       toUpdate
     );
 
@@ -109,15 +110,41 @@ productRouter.patch('/product/:productName', async function (req, res, next) {
 });
 
 // 5. 특정 제품 삭제
-productRouter.delete('/product/:productName', async function (req, res, next) {
+productRouter.delete('/product/:productId', async function (req, res, next) {
   try {
-    const { productName } = req.params;
-    const result = await productService.removeProduct(productName);
+    const { productId } = req.params;
+    const result = await productService.removeProduct(productId);
 
     res.status(200).json(result);
   } catch (error) {
     next(error);
   }
 });
+
+//6. 멀터 부분
+// 참고 https://wayhome25.github.io/nodejs/2017/02/21/nodejs-15-file-upload/
+
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'src/views/images/');
+  },
+  filename(req, file, cb) {
+    cb(null, `${Date.now()}.jpg`);
+  },
+});
+
+const upload = multer({ storage });
+
+productRouter.post(
+  '/product/imageUpload',
+  upload.single('image'),
+  (req, res, next) => {
+    try {
+      res.status(200).send({ image: `/images/${req.file.filename}` });
+    } catch (error) {
+      next(error)
+    };
+  }
+);
 
 export { productRouter };

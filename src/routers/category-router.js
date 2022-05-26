@@ -54,7 +54,7 @@ categoryRouter.get('/category', async function (req, res, next) {
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
 // categoryRouter.patch( '/category/:categoryName', adminRequired, async function (req, res, next) {
-categoryRouter.patch( '/category/:categoryName', async function (req, res, next) {
+categoryRouter.patch( '/category/:categoryId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -65,7 +65,7 @@ categoryRouter.patch( '/category/:categoryName', async function (req, res, next)
     }
 
     // params로부터 id를 가져옴
-    const categoryName = req.params.categoryName;
+    const categoryId = req.params.categoryId;
 
     // body data 로부터 업데이트할 카테고리 정보를 추출.
     const { name } = req.body;
@@ -78,7 +78,7 @@ categoryRouter.patch( '/category/:categoryName', async function (req, res, next)
 
     // 카테고리 정보를 업데이트함.
     const updatedCategoryInfo = await categoryService.setCategory(
-      categoryName,
+      categoryId,
       toUpdate
     );
 
@@ -90,10 +90,10 @@ categoryRouter.patch( '/category/:categoryName', async function (req, res, next)
 });
 
 // 4. 특정 카테고리 삭제
-categoryRouter.delete('/category/:categoryName', async function (req, res, next) {
+categoryRouter.delete('/category/:categoryId', async function (req, res, next) {
   try {
-    const { categoryName } = req.params;
-    const result = await categoryService.removeCategory(categoryName);
+    const { categoryId } = req.params;
+    const result = await categoryService.removeCategory(categoryId);
 
     res.status(200).json(result);
   } catch (error) {

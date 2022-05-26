@@ -29,14 +29,25 @@ async function addAllElements() {
     .addEventListener('click', async () => {
       const result = await createProduct();
       console.log(result);
-      //window.location.href = `/adminProducts/${result.product._id}/edit`;
+      window.location.href = `/adminProducts`;
     });
   const editButtons = document.getElementsByClassName('edit-button');
   Array.from(editButtons).forEach((button) => {
     button.addEventListener('click', async () => {
       const result = await getProduct(button.id);
+      console.log(result);
       dashboard_content.innerHTML = await ProductEdit.render(result);
-      await ProductEdit.componentDidMount(result.name);
+      await ProductEdit.componentDidMount(result._id);
+    });
+  });
+  const delButtons = document.getElementsByClassName('delete-button');
+  Array.from(delButtons).forEach((button) => {
+    button.addEventListener('click', async () => {
+      if (confirm('정말로 지우시겠습니까?')) {
+        const result = await removeProduct(button.id);
+        console.log(result);
+        window.location.href = `/adminProducts`;
+      }
     });
   });
 }
@@ -60,10 +71,10 @@ async function getProducts() {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
-async function getProduct(name) {
+async function getProduct(id) {
   // 제품가져오기 api 요청
   try {
-    const data = await Api.get('/api', `product/${name}`);
+    const data = await Api.get('/api', `product/${id}`);
     console.log(data);
     return data;
   } catch (err) {
@@ -72,13 +83,13 @@ async function getProduct(name) {
   }
 }
 
-async function createProduct(e) {
+async function createProduct() {
   // 제품생성 api 요청
   try {
     const data = {
-      name: '가나다ㄹㄹ',
+      name: `${Date.now()}ddd`,
       price: 0,
-      image: { _id: 0 },
+      image: '',
       category: { _id: 0 },
       description: 'dsaf',
     };
@@ -88,6 +99,18 @@ async function createProduct(e) {
     alert(`정상적으로 제품 추가되었습니다.`);
     return result;
     // 표 리렌더 해야하지 않을까
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}
+
+async function removeProduct(id) {
+  // 제품삭제 api 요청
+  try {
+    const data = await Api.delete(`/api/product/${id}`);
+    console.log(data);
+    return data;
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
