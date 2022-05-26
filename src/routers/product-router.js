@@ -22,13 +22,15 @@ productRouter.post('/product/register', async (req, res, next) => {
       );
     }
 
+    console.log(req.body);
+    console.log(req.body.name);
     // req (request)의 body 에서 제품 데이터 가져오기
-    const { title, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+    const { name, price, description } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     // 가져온 데이터를 제품 db에 추가하기
     const newProduct = await productService.addProduct({
       // 카테고리, 이미지 키값 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-      title,
+      name,
       price,
       description,
     });
@@ -42,7 +44,7 @@ productRouter.post('/product/register', async (req, res, next) => {
 
 
 // 2. 전체 제품 조회
-productRouter.get('/', async function (req, res, next) {
+productRouter.get('/product', async function (req, res, next) {
   try {
     // 전체 제품 목록을 얻음
     const products = await productService.getProducts();
@@ -55,11 +57,11 @@ productRouter.get('/', async function (req, res, next) {
 });
 
 // 3. 단일 품목 조회
-productRouter.get('/product/:title', async function (req, res, next) {
+productRouter.get('/product/:name', async function (req, res, next) {
   try {
     
-    const { title } = req.params;
-    const product = await productService.findProduct( title );
+    const { name } = req.params;
+    const product = await productService.findProduct( name );
 
     res.status(200).json(product);
   } catch (error) {
@@ -87,12 +89,12 @@ productRouter.patch( '/product/:productId', async function (req, res, next) {
     const productId = req.params.productId;
 
     // body data 로부터 업데이트할 제품 정보를 추출.
-    const { title, price, description, category } = req.body;
+    const { name, price, description, category } = req.body;
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
     const toUpdate = {
-      ...(title && { title }),
+      ...(name && { name }),
       ...(price && { price }),
       ...(description && { description }),
       ...(category && { category }),

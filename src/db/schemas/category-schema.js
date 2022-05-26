@@ -2,15 +2,14 @@ import { Schema } from 'mongoose';
 
 const CategorySchema = new Schema(
   {
-    category: {
+    name: {
       type: String,
-      // required: true,
+      // required: true,  // 필수 여부 확인 필요
       unique: true,
     },
   },
   {
     collection: 'categories',
-    timestamps: true,
   }
 );
 
