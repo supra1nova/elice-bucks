@@ -7,10 +7,12 @@ import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import productlist from './productslist.js';
+import ProductEdit from './productEdit.js';
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const mainContent = document.querySelector('#mainContent');
 const tbody = document.querySelector('#products');
+const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
 async function addAllElements() {
@@ -29,6 +31,14 @@ async function addAllElements() {
       console.log(result);
       //window.location.href = `/adminProducts/${result.product._id}/edit`;
     });
+  const editButtons = document.getElementsByClassName('edit-button');
+  Array.from(editButtons).forEach((button) => {
+    button.addEventListener('click', async () => {
+      const result = await getProduct(button.id);
+      dashboard_content.innerHTML = await ProductEdit.render(result);
+      await ProductEdit.componentDidMount(result.name);
+    });
+  });
 }
 
 async function getDataFromApi() {
@@ -43,6 +53,17 @@ async function getProducts() {
   // 제품가져오기 api 요청
   try {
     const data = await Api.get('/api-p', 'product');
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}
+async function getProduct(name) {
+  // 제품가져오기 api 요청
+  try {
+    const data = await Api.get('/api-p', `product/${name}`);
     console.log(data);
     return data;
   } catch (err) {
