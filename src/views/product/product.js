@@ -7,6 +7,7 @@ async function insertProductList() {
     const products = await res.json();
 
     products.forEach(product => {
+        const id = product._id;
         const image = product.image;
         const name = product.name;
         const price = product.price;
@@ -14,7 +15,7 @@ async function insertProductList() {
         container.insertAdjacentHTML('beforeend',`
             <div id="prouduct-item">
                 <div id="product-img">
-                    <a href='/product/${name}'><img src="${image}"></a>
+                    <a href='/detail/${id}'><img src="${image}"></a>
                 </div>
                 <div id="product-des">
                     <p id="product-des-name">${name}</p>

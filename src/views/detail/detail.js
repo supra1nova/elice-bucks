@@ -3,7 +3,8 @@ const container = document.querySelector('#container');
 insertProductDetail();
 
 async function insertProductDetail() {
-    const res = await fetch(`/api/product/${name}`);
+    const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
+    const res = await fetch(`/api/product/${id}`);
     const product = await res.json();
     console.log(product);
 
