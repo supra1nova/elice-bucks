@@ -3,7 +3,8 @@ const container = document.querySelector('#container');
 insertProductCategory();
 
 async function insertProductCategory() {
-    const res = await fetch(`/api/category/${category}`);
+    //const id = location.pathname.replace(정규표현식);
+    const res = await fetch(`/api/category/${id}`);
     const products = await res.json();
     
     products.forEach(product => {
@@ -14,7 +15,7 @@ async function insertProductCategory() {
         container.insertAdjacentHTML('beforeend',`
             <div id="prouduct-item">
                 <div id="product-img">
-                    <a href="${name}/"><img src="https://www.starbucksathome.com/kr/sites/default/files/2022-01/KR_kr_SBUX_PACK_Medium-Roast_220117_1%20%284%29.png"></a>
+                    <a href="${id}/"><img src="${image}"></a>
                 </div>
                 <div id="product-des">
                     <p id="product-des-name">${name}</p>
