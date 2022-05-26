@@ -12,13 +12,13 @@ export class CategoryModel {
 
   // 2. 카테고리 id 기준 조회
   async findById(categoryId) {
-    const category = await Category.findOne({ _id: categoryId });
+    const category = await Category.find({ _id: categoryId }).populate('product').exec();
     return category;
   }
 
   // 3. 카테고리 이름 기준 조회
   async findByCategory(categoryName) {
-    const category = await Category.findOne({ name: categoryName });
+    const category = await Category.find({ name: categoryName });
     return category;
   }
 

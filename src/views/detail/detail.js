@@ -6,7 +6,6 @@ async function insertProductDetail() {
     const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
     const res = await fetch(`/api/product/${id}`);
     const product = await res.json();
-    console.log(product);
 
     const name = product.name;
     const description = product.description;

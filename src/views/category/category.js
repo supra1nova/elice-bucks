@@ -3,7 +3,7 @@ const container = document.querySelector('#container');
 insertProductCategory();
 
 async function insertProductCategory() {
-    //const id = location.pathname.replace(정규표현식);
+    const id = location.pathname.replace(/\/category\/([\d\w]*)\/?/g, '$1');
     const res = await fetch(`/api/category/${id}`);
     const products = await res.json();
     
