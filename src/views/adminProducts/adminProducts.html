@@ -27,10 +27,10 @@
     <!-- 카카오 OAuth -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="adminPage.css" />
+    <link rel="stylesheet" href="adminProducts.css" />
 
 
-    <script src="adminPage.js" type="module" defer></script>
+    <script src="adminProducts.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
@@ -68,10 +68,28 @@
       <div class="HolyGrail-body">
         <main class="HolyGrail-content" id="mainContent">
           <div class="dashboard">
-            <div class="dashboard-content">
-              <h1>대시보드</h1>
-              <div>
-                블라블라
+            <div class="dashboard-content" id = "dashboard-content">
+              <h1>제품</h1>
+                <button id="create-product-button" class = "primary">
+                  제품 생성
+                </button>
+                <div class="product-list">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>품명</th>
+                        <th>가격</th>
+                        <th>카테고리</th>
+                        <th>이미지</th>
+                        <th>설명</th>
+                        <th class="tr-action"></th>
+                      </tr>
+                    </thead>
+                    <tbody id = "products">
+                      <!--동적할당-->
+                    </tbody>
+                  </table>
+                </div>
               </div>
           </div>
         </main>

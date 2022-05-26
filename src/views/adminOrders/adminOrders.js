@@ -14,7 +14,7 @@ addAllElements();
 async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   leftMenuAdmin.innerHTML = await leftMenu.render({
-    selected: 'dashboard',
+    selected: 'orders',
   });
   await headerNavbar.componentDidMount();
 }
