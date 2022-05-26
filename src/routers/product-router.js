@@ -7,8 +7,6 @@ import { productService } from '../services';
 // admin 확인하기 위한 미들웨어 가져왔는데 오류로 주석처리....
 // import { adminRequired } from '../middlewares';
 
-
-
 const productRouter = Router();
 
 // 1. 제품등록 - 관리자
@@ -40,7 +38,6 @@ productRouter.post('/register', async (req, res, next) => {
   }
 });
 
-
 // 전체 제품 목록 조회
 productRouter.get('/', async function (req, res, next) {
   try {
@@ -54,13 +51,12 @@ productRouter.get('/', async function (req, res, next) {
   }
 });
 
-
 // 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
 
 // admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
 // productRouter.patch( '/products/:productId', adminRequired, async function (req, res, next) {  // admin 확인하깅 한 미들웨어 삽입 but 오류로 주석 처리
-productRouter.patch( '/:productId', async function (req, res, next) {
+productRouter.patch('/:productId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -91,11 +87,11 @@ productRouter.patch( '/:productId', async function (req, res, next) {
       toUpdate
     );
 
-      // 업데이트 이후의 제품 데이터를 프론트에 보내 줌
-      res.status(200).json(updatedProductInfo);
-    } catch (error) {
-      next(error);
-    }
+    // 업데이트 이후의 제품 데이터를 프론트에 보내 줌
+    res.status(200).json(updatedProductInfo);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // 특정 제품 삭제
