@@ -18,7 +18,7 @@ const ProductEdit = {
           description,
         };
 
-        await Api.patch('/api-p/product', `${_id}`, data);
+        await Api.patch('/api/product', `${_id}`, data);
 
         alert(`정상적으로 수정되었습니다.`);
 

@@ -9,7 +9,7 @@ const productlist = {
                   <td>${product.name}</td>
                   <td>${product.price}</td>
                   <td>${product.category}</td>
-                  <td>${product.image}</td>
+                  <td class="productImage1">${product.image}</td>
                   <td>${product.description}</td>
                   <td>
                     <button id="${product.name}" class="edit-button">수정</button>
