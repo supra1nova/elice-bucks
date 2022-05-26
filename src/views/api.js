@@ -39,6 +39,21 @@ async function post(endpoint, data) {
     },
     body: bodyData,
   });
+}
+// api 로 POST 요청 (/endpoint 로, form 데이터 형태로 요청함)
+async function postImage(endpoint, bodyData) {
+  const apiUrl = endpoint;
+  console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
+  console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
+
+  const res = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      //'Content-Type': 'multipart/form-data', 이거 쓰면 boundry 에러남..
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    body: bodyData,
+  });
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (!res.ok) {
@@ -116,4 +131,4 @@ async function del(endpoint, params = '', data = {}) {
 }
 
 // 아래처럼 export하면, import * as Api 로 할 시 Api.get, Api.post 등으로 쓸 수 있음.
-export { get, post, patch, del as delete };
+export { get, post, postImage, patch, del as delete };

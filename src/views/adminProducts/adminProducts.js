@@ -35,8 +35,9 @@ async function addAllElements() {
   Array.from(editButtons).forEach((button) => {
     button.addEventListener('click', async () => {
       const result = await getProduct(button.id);
+      console.log(result);
       dashboard_content.innerHTML = await ProductEdit.render(result);
-      await ProductEdit.componentDidMount(result.name);
+      await ProductEdit.componentDidMount(result._id);
     });
   });
 }
@@ -76,7 +77,7 @@ async function createProduct(e) {
   // 제품생성 api 요청
   try {
     const data = {
-      name: '가나다ㄹㄹ',
+      name: `${Date.now()}ddd`,
       price: 0,
       image: { _id: 0 },
       category: { _id: 0 },

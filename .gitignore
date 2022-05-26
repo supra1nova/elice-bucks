@@ -1,4 +1,6 @@
 # Dependencies
 node_modules
 yarn.lock
+images/*.jpg
+images/*.png
 .env

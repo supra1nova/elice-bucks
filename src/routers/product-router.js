@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
+import multer from 'multer';
 
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { productService } from '../services';
@@ -59,7 +60,6 @@ productRouter.get('/product/:productName', async function (req, res, next) {
     const product = await productService.findProduct(productName);
 
     res.status(200).json(product);
-    
   } catch (error) {
     next(error);
   }
@@ -120,5 +120,26 @@ productRouter.delete('/product/:productName', async function (req, res, next) {
     next(error);
   }
 });
+
+//6. 멀터 부분
+
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'images/');
+  },
+  filename(req, file, cb) {
+    cb(null, `${Date.now()}.jpg`);
+  },
+});
+const upload = multer({ storage });
+
+productRouter.post(
+  '/product/imageUpload',
+  upload.single('image'),
+  (req, res) => {
+    console.log(req.file);
+    res.status(200).send({ image: `/${req.file.path}` });
+  }
+);
 
 export { productRouter };
