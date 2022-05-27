@@ -3,7 +3,6 @@ import is from '@sindresorhus/is';
 
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { orderService } from '../services';
-import { OrderSchema } from '../db/schemas/order-schema';
 
 const orderRouter = Router();
 
