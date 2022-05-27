@@ -36,6 +36,22 @@ export class OrderModel {
     );
     return updatedOrders;
   }
+
+  // 배송 완료 시점 저장
+  async updateDeliveried(userId, updateDate){
+    const order = await Order.findOne({ user_id : new Types.ObjectId(userId)});
+    order.delivered = updateDate;
+    
+    return order;
+  }
+
+  // 결제 완료 시점 저장 
+  async updatePayment(userId, updateDate){
+    const order = await Order.findOne({ user_id : new Types.ObjectId(userId)});
+    order.paid = updateDate;
+    
+    return order;
+  }
 }
 
 export class OrderItemModel {
@@ -58,7 +74,7 @@ export class OrderItemModel {
 
   // order_id, 지정된 유저의 주문 목록 불러오기
   async findByOrderId(orderId) {
-    const orderItem = await OrderItem.findOne({ order_id : 
+    const orderItem = await OrderItem.find({ order_id : 
       new Types.ObjectId(orderId) }).populate(
         'name',
         'price',
@@ -77,28 +93,17 @@ export class OrderItemModel {
       'price',
       'category',
       'image' // front 쪽에서 item 관련 어떤 정보가 필요할지 모르겠음 
-    );;
+    );
     return orderItems;
   }
 
-  // 주문 목록에서 취소하기 
-  async cancelOrder(orderId) {
+  // 주문 목록에서 제품 하나 취소하기 
+  async cancelItem(orderId) {
     const orderItem = await OrderItem.findOne({ order_id : new Types.ObjectId(orderId)});
     
     await OrderItem.deleteOne(orderItem);
     return 'Successfully canceled order';
   }
-
-  // delivered date update
-  async updateDeliveryDate(userId, updateDate){
-    const orderItem = await OrderItem.findOne({ user_id : new Types.ObjectId(userId)});
-    orderItem.Delivered = updateDate;
-    
-    return orderItem;
-  }
-
-  // check paid or not
-
 }
 
 

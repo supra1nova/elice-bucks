@@ -148,7 +148,7 @@ class UserService {
   }
 
   //user 탈퇴
-  async secession(userInfoRequired) {
+  async delUser(userInfoRequired) {
     const { userId, currentPassword } = userInfoRequired;
 
     // 우선 해당 id의 유저가 db에 있는지 확인

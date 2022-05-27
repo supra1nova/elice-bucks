@@ -33,7 +33,8 @@ const OrderSchema = new Schema(
       required: true
     },
     paid: {
-      type: Boolean,
+      type: Date,
+      default: null,
       required: true
     }
   },
