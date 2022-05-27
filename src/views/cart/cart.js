@@ -1,3 +1,13 @@
+// navbar 로그인 부분
+import headerNavbar from '../components/headerNavbar.js';
+const headerNavbar1 = document.querySelector('#headerNavbar');
+
+addAllElements();
+async function addAllElements() {
+  headerNavbar1.innerHTML = await headerNavbar.render();
+  await headerNavbar.componentDidMount();
+}
+
 // 3. 체크 박스 구현
 // checkbox가 true일때 가격 표현
 // checkbox가 false일때 가격 표현 X

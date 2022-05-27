@@ -1,3 +1,13 @@
+// navbar 로그인 부분
+const headerNavbar1 = document.querySelector('#headerNavbar');
+
+addAllElements();
+async function addAllElements() {
+  headerNavbar1.innerHTML = await headerNavbar.render();
+  await headerNavbar.componentDidMount();
+}
+
+// 전체 상품의 데이터를 html 요소에 삽입
 const container = document.querySelector('#container');
 
 insertProductList();

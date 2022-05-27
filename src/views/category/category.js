@@ -1,3 +1,14 @@
+// navbar 로그인 부분
+import headerNavbar from '../components/headerNavbar.js';
+const headerNavbar1 = document.querySelector('#headerNavbar');
+
+addAllElements();
+async function addAllElements() {
+  headerNavbar1.innerHTML = await headerNavbar.render();
+  await headerNavbar.componentDidMount();
+}
+
+// 각 카테고리별 상품 데이터를 html요소에 삽입
 const container = document.querySelector('#container');
 
 insertProductCategory();
