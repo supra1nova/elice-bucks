@@ -29,7 +29,7 @@ async function addAllElements() {
   document
     .getElementById('create-product-button')
     .addEventListener('click', async () => {
-      const result = await createProduct();
+      const result = await createProduct(categoriesdatas[0]);
       console.log(result);
       window.location.href = `/adminProducts`;
     });
@@ -41,8 +41,11 @@ async function addAllElements() {
     button.addEventListener('click', async () => {
       const result = await getProduct(button.id);
       console.log(result);
-      dashboard_content.innerHTML = await ProductEdit.render(result);
-      await ProductEdit.componentDidMount(result._id);
+      dashboard_content.innerHTML = await ProductEdit.render(
+        result,
+        categoriesdatas
+      );
+      await ProductEdit.componentDidMount(result._id, result.category);
     });
   });
   //제품 삭제
@@ -118,7 +121,7 @@ async function getProducts() {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
-async function getCategories() {
+export async function getCategories() {
   try {
     const data = await Api.get('/api', 'category');
     console.log(data);
@@ -141,14 +144,17 @@ async function getProduct(id) {
   }
 }
 
-async function createProduct() {
+async function createProduct(tempCategory) {
   // 제품생성 api 요청
   try {
     const data = {
       name: `수정해주세요${Date.now()}`,
       price: 0,
       image: '수정해주세요',
-      category: { _id: 0 },
+      category: {
+        _id: `${tempCategory._id}`,
+        name: `${tempCategory.name}`,
+      },
       description: '수정해주세요',
     };
 
