@@ -5,12 +5,6 @@
 li {
 	list-style-type: none;
 }
-body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
 
 /* 상단바 */
 .navbar {
@@ -27,14 +21,14 @@ body {
 	text-decoration: none;
 }
 
-/* 콘텐츠
+/* 콘텐츠 */
 .content {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-} */
+}
 
 /* 슬라이드 배너 */
 .section {
@@ -42,7 +36,7 @@ body {
   	padding: 0;
 	width: 100%;
 }
-.section [id*="slide"] {display:none;} */
+.section [id*="slide"] {display:none;}
 
 /* 슬라이드 영역 - max-width 크기를 조절*/
 .section .slide-container {
@@ -67,9 +61,9 @@ body {
 
 /* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
 .section .slide-control {
-	position:absolute;
+	/* position:absolute;
 	top:0;
-	left:0;
+	left:0; */
 	z-index:10;
 	width:100%;
 	height:100%;
@@ -104,51 +98,4 @@ body {
 .section [id="slide03"]:checked ~ .slide-container .control03 { display:block; }
 .section [id="slide04"]:checked ~ .slide-container .control04 { display:block; }
 
-.slides img { width: 100%; } 
-
-/* 레시피, 캡슐 재활용 */
-.story {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-}
-.recipe, .recycle {
-	overflow: hidden;
-	position: relative;
-}
-.story .zoom img {
-	width: 100%;
-	vertical-align: middle;
-}
-.story .zoom:hover {
-	transform: scale(1.1);
-	transition: all 0.5s ease-in-out;
-}
-.story .text {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	text-align: center;
-	transform: translate( -50%, -50% );
-	font-family: 'Do Hyeon', sans-serif;
-	font-size: 2em;
-	color: #fff;
-}
-
-/* 푸터 */
-footer {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	font-family: 'Noto Sans KR', sans-serif;
-	background-color: #273832;
-	color: #76817D;
-	padding: 3em;
-}
-footer .team {
-	font-weight: bolder;
-}
-footer .logo img {
-	width: 30%;
-	float: right;
-}
+.slidelist img { width: 100%; }

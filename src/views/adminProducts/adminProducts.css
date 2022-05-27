@@ -127,24 +127,3 @@ tbody tr:nth-child(2n+1) {
 
 
 /****************************************/
-/**select 부분*/
-select::-ms-expand { 
-	display: none;
-}
-.select {
-  -o-appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 150px;
-  height: 35px;
-  background-size: 20px;
-  padding: 5px 30px 5px 10px;
-  border-radius: 4px;
-  outline: 0 none;
-}
-.select option {
-  background: #00d1b2;
-  color: #fff;
-  padding: 3px 0;
-}
