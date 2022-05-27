@@ -3,29 +3,38 @@ import { Schema } from 'mongoose';
 const OrderSchema = new Schema(
   {
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: 'users',
+      required: true
     },
     address: {
-        type: new Schema(
-          {
-            postalCode: String,
-            address1: String,
-            address2: String,
-          },
-          {
-            _id: false,
-          }),
-        required: true
+      type: new Schema(
+        {
+          postalCode: String,
+          address1: String,
+          address2: String,
+        },
+        {
+          _id: false,
+        }),
+      required: true
     },
     total_cnt: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     total_price: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
+    },
+    delivered: {
+      type : Date,
+      default: Date.now,
+      required: true
+    },
+    paid: {
+      type: Boolean,
+      required: true
     }
   },
   {

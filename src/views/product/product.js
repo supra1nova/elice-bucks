@@ -1,11 +1,15 @@
+// 전체 상품의 데이터를 html에 삽입
+
 const container = document.querySelector('#container');
 
 insertProductList();
 
 async function insertProductList() {
+    // '/api/product' 에서 전체 상품 목록을 json으로 받아옴
     const res = await fetch('/api/product');
     const products = await res.json();
 
+    // forEach로 돌면서 상품 id, image, name, price를 각 자리에 할당
     products.forEach(product => {
         const id = product._id;
         const image = product.image;

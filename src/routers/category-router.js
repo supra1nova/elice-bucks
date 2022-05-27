@@ -49,6 +49,7 @@ categoryRouter.get('/category', async function (req, res, next) {
   }
 });
 
+
 // 3. 카테고리 정보 수정
 // (예를 들어 /api/categories/abc12345 로 요청하면 req.params.categoryName은 'abc12345' 문자열로 됨)
 
@@ -89,7 +90,7 @@ categoryRouter.patch( '/category/:categoryId', async function (req, res, next) {
     }
 });
 
-// 4. 특정 카테고리 삭제
+// 5. 특정 카테고리 삭제
 categoryRouter.delete('/category/:categoryId', async function (req, res, next) {
   try {
     const { categoryId } = req.params;

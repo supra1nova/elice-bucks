@@ -6,6 +6,7 @@ class CategoryService {
     this.categoryModel = categoryModel;
   }
 
+
   // 1. 신규 카테고리 등록
   async addCategory(categoryInfo) {
     const name = categoryInfo;
@@ -19,18 +20,19 @@ class CategoryService {
     }
 
     // 신규 카테고리 정보 생성 및 db 저장
-    const newCategoryInfo = { name }; 
-
+    const newCategoryInfo = { name };
     const createdNewCategory = await this.categoryModel.create(newCategoryInfo);
 
     return createdNewCategory;
   }
+
 
   // 2. 전 카테고리 조회
   async getCategories() {
     const categories = await this.categoryModel.findAll();
     return categories;
   }
+
 
   // 3. 카테고리 정보 수정
   async setCategory(categoryId, toUpdate) {
@@ -39,7 +41,9 @@ class CategoryService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!category) {
-      throw new Error('카테고리 등록 내역이 없습니다. 다시 한 번 확인해 주세요.');
+      throw new Error(
+        '카테고리 등록 내역이 없습니다. 다시 한 번 확인해 주세요.'
+      );
     }
 
     // 업데이트 진행
@@ -50,6 +54,7 @@ class CategoryService {
 
     return category;
   }
+
 
   // 4. 카테고리 삭제
   async removeCategory(categoryId) {
