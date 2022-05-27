@@ -24,6 +24,11 @@ export class UserModel {
     return users;
   }
 
+  async totalUsers(){
+    const total_num = await User.find({}).count();
+    return total_num;
+  }
+
   async update({ userId, update }) {
     const filter = { _id: new Types.ObjectId(userId) };
     const option = { returnOriginal: false };

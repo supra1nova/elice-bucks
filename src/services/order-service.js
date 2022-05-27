@@ -58,11 +58,11 @@ class OrderService {
     return total_num;
   }
 
-    // 2-2. 제품별 목록개수 반환
-    async getOrderNum(itemId) {
-      const items_total_num = await this.orderItemsModel.findByItemId(itemId).count();
-      return items_total_num;
-    }
+  // 2-2. 제품별 목록개수 반환
+  async getOrderNum(itemId) {
+    const items_total_num = await this.orderItemsModel.findByItemId(itemId).count();
+    return items_total_num;
+  }
   
   // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 order_id 동일한 데이터 반환 
   // aggregate 사용으로 다시 고치기
@@ -71,7 +71,6 @@ class OrderService {
     const orderItems = await this.orderItemModel.findByOrderId(orderId);
     return orderItems.find({}).populate('products');
   }
-
 
   // 4. 해당 유저의 주문 목록 반환 
   async getUserOrder(userId){
@@ -91,14 +90,14 @@ class OrderService {
     return order.cnt;
   }
 
-  // 5. 주문목록 제품 취소
-  async cancelOrder(orderId) {
-    let product = await this.orderItemModel.findByName(orderId);
-    if (product) {
-      return this.orderItemModel.cancelOrder(orderId);
-    }
-    throw new Error('Error ! 다시 한 번 확인해주세요.');
-  }
+  // // 5. 주문목록 제품 취소
+  // async cancelOrder(orderId) {
+  //   let product = await this.orderItemModel.findByName(orderId);
+  //   if (product) {
+  //     return this.orderItemModel.cancelOrder(orderId);
+  //   }
+  //   throw new Error('Error ! 다시 한 번 확인해주세요.');
+  // }
 }
 
 const orderService = new OrderService({OrderModel, OrderItemModel});
