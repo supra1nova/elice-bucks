@@ -72,7 +72,7 @@ orderRouter.get('/order/cnt/:user', async function (req, res, next) {
 });
 
 // 2-2-1. (admin) 전체 주문목록 조회
-orderRouter.get('/order/orderlists', async function (req, res, next) {
+orderRouter.get('/orderlists', async function (req, res, next) {
     try {
       const orders = await orderService.getOrders();
       // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
@@ -83,7 +83,7 @@ orderRouter.get('/order/orderlists', async function (req, res, next) {
   });
 
 // 2-2-2. (admin) 전체 주문 목록 개수 반환
-orderRouter.get('/order/numOforderlists', async function (req, res, next){
+orderRouter.get('/numOforderlists', async function (req, res, next){
     try {
         const ordersnum = await orderService.getOrdersNum();
         // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
@@ -93,7 +93,7 @@ orderRouter.get('/order/numOforderlists', async function (req, res, next){
       }
 });
 // 2-2-3. (admin) 제품별 판매 개수 반환
-orderRouter.get('/order/numOforders/:itemId', async function (req, res, next) {
+orderRouter.get('/numOforders/:itemId', async function (req, res, next) {
   try{
     const itemId = req.params.itemId;
     const orderNum = await orderItemService.getSameItemId(itemId);
