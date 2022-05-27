@@ -5,22 +5,22 @@ const container = document.querySelector('#container');
 insertProductDetail();
 
 async function insertProductDetail() {
-    // url에서 id에 해당하는 부분만 가져와서 id 변수에 할당
-    const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
-    
-    // '/api/product/${id}' 에서 상품의 상세 내용을 json으로 받아옴
-    const res = await fetch(`/api/product/${id}`);
-    const product = await res.json();
+  // url에서 id에 해당하는 부분만 가져와서 id 변수에 할당
+  const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
 
-    const name = product.name;
-    const description = product.description;
-    const price = product.price;
-    const image = product.image;
+  // '/api/product/${id}' 에서 상품의 상세 내용을 json으로 받아옴
+  const res = await fetch(`/api/product/${id}`);
+  const product = await res.json();
 
-    // 상품 name, description, price, image를 각 자리에 할당
-    container.insertAdjacentHTML(
-      'beforeend',
-      `
+  const name = product.name;
+  const description = product.description;
+  const price = product.price;
+  const image = product.image;
+
+  // 상품 name, description, price, image를 각 자리에 할당
+  container.insertAdjacentHTML(
+    'beforeend',
+    `
           <div id="text">
               <p id="name">${name}</p>
               <p id="description">${description}</p>
@@ -30,7 +30,7 @@ async function insertProductDetail() {
               <img src="${image}">
           </div>
       `
-    );
+  );
 }
 
 //// 구매하기 버튼 click Event = 장바구니에 넣어주는 기능

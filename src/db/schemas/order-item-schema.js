@@ -4,17 +4,16 @@ const OrderItemSchema = new Schema(
   {
     item_id: {
         type: Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'User',
         required: true
     },
     order_id: {
         type: Number,
-        ref: 'products',
+        ref: 'Product',
         require: true,
     }
   },
   {
-    collection: 'order-items',
     timestamps: true,
   }
 );

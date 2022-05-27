@@ -1,7 +1,7 @@
 import { model, Types } from 'mongoose';
 import { UserSchema } from '../schemas/user-schema';
 
-const User = model('users', UserSchema);
+const User = model('User', UserSchema);
 
 export class UserModel {
   async findByEmail(email) {
@@ -22,6 +22,11 @@ export class UserModel {
   async findAll() {
     const users = await User.find({});
     return users;
+  }
+
+  async totalUsers(){
+    const total_num = await User.find({}).count();
+    return total_num;
   }
 
   async update({ userId, update }) {

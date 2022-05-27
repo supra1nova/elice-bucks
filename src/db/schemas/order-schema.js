@@ -4,7 +4,7 @@ const OrderSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      ref: 'users',
+      ref: 'User',
       required: true
     },
     address: {
@@ -33,12 +33,12 @@ const OrderSchema = new Schema(
       required: true
     },
     paid: {
-      type: Boolean,
+      type: Date,
+      default: null,
       required: true
     }
   },
   {
-    collection: 'orders',
     timestamps: true,
   }
 );
