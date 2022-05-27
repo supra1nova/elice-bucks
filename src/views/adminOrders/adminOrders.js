@@ -6,9 +6,10 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
+import productlist from './productslist.js';
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const mainContent = document.querySelector('#mainContent');
+const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
 async function addAllElements() {
@@ -17,13 +18,19 @@ async function addAllElements() {
     selected: 'orders',
   });
   await headerNavbar.componentDidMount();
+
+  const datas = await getOrders();
+  dashboard_content.innerHTML = await productlist.render(datas);
 }
 
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get('/api/user/data');
-  const random = randomId();
-
-  console.log({ data });
-  console.log({ random });
+async function getOrders() {
+  // 제품가져오기 api 요청
+  try {
+    const data = await Api.get('/api', 'order');
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
 }

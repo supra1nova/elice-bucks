@@ -1,5 +1,5 @@
 // navbar 로그인 부분
-import headerNavbar from '../components/headerNavbar';
+import headerNavbar from '/components/headerNavbar.js';
 const headerNavbar1 = document.querySelector('#headerNavbar');
 
 addAllElements();
