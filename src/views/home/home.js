@@ -6,6 +6,7 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 
+// navbar 로그인 부분
 const headerNavbar1 = document.querySelector('#headerNavbar');
 
 addAllElements();
