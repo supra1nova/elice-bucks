@@ -52,13 +52,23 @@ orderRouter.get('/order', async function (req, res, next) {
 // 2-2. (admin) 전체 주문 목록 개수 반환
 orderRouter.get('/order/totalNum', async function (req, res, next){
     try {
-        const orders_num = await OrderService.getOrdersNum();
+        const orders_num = await orderService.getOrdersNum();
         // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
         res.status(200).json(orders_num);
       } catch (error) {
         next(error);
       }
 });
+// 2-3. (admin) 제품별 판매 개수 반환
+orderRouter.get('/order/orderNum/:productId', async function (req, res, next) {
+  try{
+    const itemId = req.params.productId;
+    const order_num = await orderService.getOrderNum(itemId);
+    res.status(200).json(order_num);
+  }catch (error) {
+    next(error);
+  }
+})
 
 // 3. (User) 주문목록에서 제품 취소하기
 orderRouter.delete('/order/:orderItemId', async function (req, res, next) {

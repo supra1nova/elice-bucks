@@ -58,6 +58,14 @@ export class OrderItemModel {
     return orderItem;
   }
 
+  // item_id, 지정된 제품의 주문 목록 불러오기
+  async findByItemId(itemId){
+    const orderItems = await OrderItem.findAll({
+      item_id : new Types.ObjectId(itemId)
+    });
+    return orderItems;
+  }
+
   // 주문 목록에서 취소하기 
   async cancelOrder(orderId) {
     const orderItem = await OrderItem.findOne({ order_id : new Types.ObjectId(orderId)});
