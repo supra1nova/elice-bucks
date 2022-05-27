@@ -33,7 +33,7 @@ class CategoryService {
     return categories;
   }
 
-  
+
   // 3. 카테고리 정보 수정
   async setCategory(categoryId, toUpdate) {
     // 우선 해당 명칭의 카테고리가 db에 있는지 확인

@@ -1,41 +1,36 @@
-// navbar 로그인 부분
-import headerNavbar from '../components/headerNavbar.js';
-const headerNavbar1 = document.querySelector('#headerNavbar');
+// 각 상품의 데이터를 html에 삽입
 
-addAllElements();
-async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
-}
-
-// 각 상품에 맞는 데이터를 html 요소에 삽입
 const container = document.querySelector('#container');
 
 insertProductDetail();
 
 async function insertProductDetail() {
+    // url에서 id에 해당하는 부분만 가져와서 id 변수에 할당
     const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
+    
+    // '/api/product/${id}' 에서 상품의 상세 내용을 json으로 받아옴
     const res = await fetch(`/api/product/${id}`);
     const product = await res.json();
 
-  const name = product.name;
-  const description = product.description;
-  const price = product.price;
-  const image = product.image;
+    const name = product.name;
+    const description = product.description;
+    const price = product.price;
+    const image = product.image;
 
-  container.insertAdjacentHTML(
-    'beforeend',
-    `
-        <div id="text">
-            <p id="name">${name}</p>
-            <p id="description">${description}</p>
-            <p id="price">${price}원</p>
-        </div>
-        <div id="image">
-            <img src="${image}">
-        </div>
-    `
-  );
+    // 상품 name, description, price, image를 각 자리에 할당
+    container.insertAdjacentHTML(
+      'beforeend',
+      `
+          <div id="text">
+              <p id="name">${name}</p>
+              <p id="description">${description}</p>
+              <p id="price">${price}원</p>
+          </div>
+          <div id="image">
+              <img src="${image}">
+          </div>
+      `
+    );
 }
 
 //// 구매하기 버튼 click Event = 장바구니에 넣어주는 기능
