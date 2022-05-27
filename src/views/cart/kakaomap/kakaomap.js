@@ -52,7 +52,7 @@ const KaKaomap = `<div class="container">
             class="input"
             id="postalCode"
             type="text"
-            placeholder="주소찾기를 클릭해 주세요."
+            placeholder=""
             readonly
           />
         </p>
@@ -144,7 +144,21 @@ const KaKaomap = `<div class="container">
       </div>
     </div>
   </div>
-  <button class="button is-primary" id="orderButton">주문하기</button>
+  
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label" for="receiverPhoneNumber">최종 결제 금액</label>
+    </div>
+    <div class="field-body is-normal">
+      <div class="field">
+        <p class=" column has-text-right totalPrice">
+          0 원
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <button class="button is-primary" id="orderButton" >주문하기</button>
 </div>
 </div>`;
 
