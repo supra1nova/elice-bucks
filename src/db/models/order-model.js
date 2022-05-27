@@ -2,8 +2,8 @@ import { model, Types } from 'mongoose';
 import { OrderSchema } from '../schemas/order-schema';
 import { OrderItemSchema } from '../schemas/order-item-schema';
 
-const Order = model('orders', OrderSchema);
-const OrderItem = model('order-items', OrderItemSchema);
+const Order = model('Order', OrderSchema);
+const OrderItem = model('OrderItem', OrderItemSchema);
 
 export class OrderModel {  
   // 주문 목록 만들기 (orders)
@@ -14,8 +14,8 @@ export class OrderModel {
 
   // orders 전체 반환
   async findAll() {
-    const orderlist = await Order.find({});
-    return orderlist;
+    const orders = await Order.find({});
+    return orders;
   }
 
   // orders 에서 해당 유저 값 찾기
@@ -66,8 +66,7 @@ export class OrderItemModel {
     const orderitemlist = await OrderItem.find({}).populate(
       'name',
       'price',
-      'category',
-      'image' // front 쪽에서 item 관련 어떤 정보가 필요할지 모르겠음 
+      'category' 
     );
     return orderitemlist;
   }

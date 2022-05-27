@@ -24,14 +24,7 @@ productRouter.post('/product/register', async (req, res, next) => {
     const { name, price, description, category, image } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     // 가져온 데이터를 제품 db에 추가하기
-    const newProduct = await productService.addProduct({
-      // 카테고리, 이미지 키값 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-      name,
-      price,
-      description,
-      category,
-      image,
-    });
+    const newProduct = await productService.addProduct({name, price, description, category, image });
 
     // 추가된 제품의 db 데이터를 프론트에 다시 보내줌
     res.status(201).json(newProduct);
@@ -39,7 +32,6 @@ productRouter.post('/product/register', async (req, res, next) => {
     next(error);
   }
 });
-
 
 // 2. 전체 제품 조회
 productRouter.get('/product', async function (req, res, next) {
@@ -54,33 +46,32 @@ productRouter.get('/product', async function (req, res, next) {
   }
 });
 
-
 // 3. 제품 Id 이용 단일 품목 조회
 productRouter.get('/product/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
     const product = await productService.findProduct(productId);
-    
+
     res.status(200).json(product);
   } catch (error) {
     next(error);
   }
 });
-
 
 // 4. categoryId 이용 단일 품목 조회
-productRouter.get('/product/category/:categoryId', async function (req, res, next) {
+productRouter.get(
+  '/product/category/:categoryId',
+  async function (req, res, next) {
+    try {
+      const { categoryId } = req.params;
+      const product = await productService.findByCategoryId(categoryId);
 
-  try {
-    const { categoryId } = req.params;
-    const product = await productService.findByCategoryId(categoryId);
-
-    res.status(200).json(product);
-  } catch (error) {
-    next(error);
+      res.status(200).json(product);
+    } catch (error) {
+      next(error);
+    }
   }
-});
-
+);
 
 // 5. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
@@ -110,6 +101,7 @@ productRouter.patch('/product/:productId', async function (req, res, next) {
       ...(image && { image }),
     };
 
+    
     // 제품 정보를 업데이트함.
     const updatedProductInfo = await productService.setProduct(
       productId,
@@ -123,7 +115,6 @@ productRouter.patch('/product/:productId', async function (req, res, next) {
   }
 });
 
-
 // 6. 특정 제품 삭제
 productRouter.delete('/product/:productId', async function (req, res, next) {
   try {
@@ -135,7 +126,6 @@ productRouter.delete('/product/:productId', async function (req, res, next) {
     next(error);
   }
 });
-
 
 //7. 멀터 관련 내용 삽입
 // 참고 https://wayhome25.github.io/nodejs/2017/02/21/nodejs-15-file-upload/
@@ -157,8 +147,8 @@ productRouter.post(
     try {
       res.status(200).send({ image: `/images/${req.file.filename}` });
     } catch (error) {
-      next(error)
-    };
+      next(error);
+    }
   }
 );
 
