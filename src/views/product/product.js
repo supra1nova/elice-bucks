@@ -7,6 +7,7 @@ async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   await headerNavbar.componentDidMount();
 }
+
 // 전체 상품의 데이터를 html에 삽입
 
 const container = document.querySelector('#container');

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-n팀</title>
+    <title>14팀-엘리스벅스</title>
 
     <!-- 아이콘 -->
     <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="home.css" />
     <script src="home.js" type="module" defer></script>
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
   </head>
   <body>
@@ -24,7 +24,7 @@
       <div class="container mt-3">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
-            <img src="/elicebucks.png" width="30" height="30" />
+            <img src="/coffee-beans.png" width="30" height="30"/>
           </a>
         </div>
 
@@ -46,41 +46,72 @@
       </div>
     </nav>
 
-    <!-- 콘텐츠 영역 -->
-    <div class="content">
-      <!-- 슬라이드 배너 -->
-      <div class="section">
-        <input type="radio" name="slide" id="slide01" checked>
-        <input type="radio" name="slide" id="slide02">
-        <input type="radio" name="slide" id="slide03">
-        <input type="radio" name="slide" id="slide04">
-        <div class="slide-container">
-          <ul class="slides">
-            <li><a><img src="images/slide1.png"></a></li>
-            <li><a><img src="images/slide2.png"></a></li>
-            <li><a><img src="images/slide3.png"></a></li>
-            <li><a><img src="images/slide4.png"></a></li>
-          </ul>
+    <!-- 슬라이드 배너 -->
+    <div class="section">
+      <input type="radio" name="slide" id="slide01" checked>
+      <input type="radio" name="slide" id="slide02">
+      <input type="radio" name="slide" id="slide03">
+      <input type="radio" name="slide" id="slide04">
+      <div class="slide-container">
+        <ul class="slides">
+          <li><a><img src="images/slide1.png"></a></li>
+          <li><a><img src="images/slide2.png"></a></li>
+          <li><a><img src="images/slide3.png"></a></li>
+          <li><a><img src="images/slide4.png"></a></li>
+        </ul>
 
-          <div class="slide-control">
-            <div class="control01">
-              <label for="slide02" class="right"></label>
-            </div>
-            <div class="control02">
-              <label for="slide01" class="left"></label>
-              <label for="slide03" class="right"></label>
-            </div>
-            <div class="control03">
-              <label for="slide02" class="left"></label>
-              <label for="slide04" class="right"></label>
-            </div>
-            <div class="control04">
-              <label for="slide03" class="left"></label>
-            </div>
+        <div class="slide-control">
+          <div class="control01">
+            <label for="slide02" class="right"></label>
+          </div>
+          <div class="control02">
+            <label for="slide01" class="left"></label>
+            <label for="slide03" class="right"></label>
+          </div>
+          <div class="control03">
+            <label for="slide02" class="left"></label>
+            <label for="slide04" class="right"></label>
+          </div>
+          <div class="control04">
+            <label for="slide03" class="left"></label>
           </div>
         </div>
       </div>
     </div>
 
+    <div class="story">
+      <div class="recipe">
+        <div class="zoom">
+          <a href="#">
+            <img src="images/coffeeBean.jpg">
+          </a>
+        </div>
+        <div class="text">
+          <p>커피 완성시키는 방법</p>
+        </div>
+      </div>
+      <div class="recycle">
+        <div class="zoom">
+          <a href="#">
+            <img src="images/coffeeCapsule.jpg">
+          </a>
+        </div>
+        <div class="text">
+          <p>캡슐 재활용</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>
+        <p class="team">${ELICEBUCKS}</p>
+        <p>주소 &nbsp 서울특별시 강남구 역삼2동 선릉로 433</p>
+        <p>팀 14 &nbsp|&nbsp 전화 010-1414-1414 &nbsp|&nbsp 이메일 fourteen@elicebucks.com</p>
+      </div>
+      <div class="logo">
+        <img src="/elice-rabbit.png">
+      </div>
+    </footer>
+    
   </body>
 </html>
