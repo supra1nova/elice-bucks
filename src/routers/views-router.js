@@ -11,6 +11,7 @@ viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/product', serveStatic('product'));
 viewsRouter.use('/detail/:id', serveStatic('detail'));
+viewsRouter.use('/product/category/:categoryId', serveStatic('category'));
 viewsRouter.use('/category', serveStatic('category'));
 viewsRouter.use('/adminPage', serveStatic('adminPage'));
 viewsRouter.use('/adminOrders', serveStatic('adminOrders'));

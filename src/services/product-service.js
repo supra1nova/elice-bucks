@@ -1,4 +1,5 @@
 import { productModel } from '../db';
+import { categoryModel } from '../db';
 
 // 암호화는 제품에 필요 
 class ProductService {
@@ -7,9 +8,10 @@ class ProductService {
     this.productModel = productModel;
   }
 
+
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
-    const { name, price, description, image } = productInfo; // 카테고리 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+    const { name, price, category, description, image } = productInfo; // 카테고리 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
 
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
@@ -20,10 +22,8 @@ class ProductService {
     }
 
     // 신규 제품 정보 생성 및 db 저장
-    const newProductInfo = { name, price, description, image }; // 카테고리, 이미지 매개변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
-
+    const newProductInfo = { name, price, description, category, image };
     const createdNewProduct = await this.productModel.create(newProductInfo);
-
     return createdNewProduct;
   }
 
@@ -38,6 +38,7 @@ class ProductService {
     const product = await this.productModel.findById(productId);
     return product;
   }
+
 
   // 4. 제품 정보 수정
   async setProduct(productId, toUpdate) {
@@ -58,10 +59,18 @@ class ProductService {
     return product;
   }
 
-  // 5. 제품 삭제
+
+  // 5. 카테고리 아이디별 검색
+  async findByCategoryId(categoryId) {
+    const product = await this.productModel.findByCategory(categoryId);
+    return product;
+  }
+
+
+  // 6. 제품 삭제
   async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
-    let product = await this.productModel.findById(productId);
+    let product = await this.productModel.findByCategory(productId);
     if (product) {
       return this.productModel.del(productId);
     }
