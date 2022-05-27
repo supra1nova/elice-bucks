@@ -26,8 +26,12 @@ async function addAllEvents() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   await headerNavbar.componentDidMount();
   const result = await Api.get(`/api/user`);
-
+  console.log(result);
   submitButton.idParam = result._id;
+  address1Input.value = result.address.address1;
+  address2Input.value = result.address.address2;
+  postalCodeInput.value = result.address.postalCode;
+  phoneNumber1.value = result.phoneNumber;
 
   submitButton.addEventListener('click', handleSubmit);
   emailInput.value = result.email;
