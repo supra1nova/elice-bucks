@@ -46,7 +46,7 @@ orderRouter.get('/order/:user', async function (req, res, next) {
 });
 
 // 2-1-2. 해당 유저의 주문금액 조회
-orderRouter.get('/order/price/:user', async function (req, res, next) {
+orderRouter.get('/orderprice/:user', async function (req, res, next) {
   try {
     const userId = req.params.user;
     const orderCnt = await orderService.finalPrice(userId);
@@ -59,7 +59,7 @@ orderRouter.get('/order/price/:user', async function (req, res, next) {
 });
 
 // 2-1-3. 해당 유저의 주문물품개수 조회
-orderRouter.get('/order/cnt/:user', async function (req, res, next) {
+orderRouter.get('/ordercnt/:user', async function (req, res, next) {
   try {
     const userId = req.params.user;
     const orderCnt = await orderService.finalCnt(userId);
@@ -72,7 +72,7 @@ orderRouter.get('/order/cnt/:user', async function (req, res, next) {
 });
 
 // 2-2-1. (admin) 전체 주문목록 조회
-orderRouter.get('/order/orderlists', async function (req, res, next) {
+orderRouter.get('/orderlists', async function (req, res, next) {
     try {
       const orders = await orderService.getOrders();
       // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
@@ -83,7 +83,7 @@ orderRouter.get('/order/orderlists', async function (req, res, next) {
   });
 
 // 2-2-2. (admin) 전체 주문 목록 개수 반환
-orderRouter.get('/order/numOforderlists', async function (req, res, next){
+orderRouter.get('/numOforderlists', async function (req, res, next){
     try {
         const ordersnum = await orderService.getOrdersNum();
         // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
@@ -93,7 +93,7 @@ orderRouter.get('/order/numOforderlists', async function (req, res, next){
       }
 });
 // 2-2-3. (admin) 제품별 판매 개수 반환
-orderRouter.get('/order/numOforders/:itemId', async function (req, res, next) {
+orderRouter.get('/numOforders/:itemId', async function (req, res, next) {
   try{
     const itemId = req.params.itemId;
     const orderNum = await orderItemService.getSameItemId(itemId);
@@ -103,16 +103,16 @@ orderRouter.get('/order/numOforders/:itemId', async function (req, res, next) {
   }
 })
 
-// // 3. 주문목록 취소 
-// orderRouter.delete('/order/:orderItemId', async function (req, res, next) {
-//   try {
-//     const { orderItemId } = req.params;
-//     const result = await orderService.cancelOrder(orderItemId);
+// 3. 주문목록 취소 
+orderRouter.get('/order/:userId', async function (req, res, next) {
+  try {
+    const userId = req.params;
+    const result = await orderService.cancelOrder(userId);
 
-//     res.status(200).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { orderRouter };
