@@ -47,22 +47,37 @@ export class OrderItemModel {
 
   // orderItem 전부 불러오기 (전체 유저의 주문목록아이템 불러오기)
   async findAll() {
-    const orderitemlist = await OrderItem.find({});
+    const orderitemlist = await OrderItem.find({}).populate(
+      'name',
+      'price',
+      'category',
+      'image' // front 쪽에서 item 관련 어떤 정보가 필요할지 모르겠음 
+    );
     return orderitemlist;
   }
 
   // order_id, 지정된 유저의 주문 목록 불러오기
   async findByOrderId(orderId) {
     const orderItem = await OrderItem.findOne({ order_id : 
-      new Types.ObjectId(orderId) });
+      new Types.ObjectId(orderId) }).populate(
+        'name',
+        'price',
+        'category',
+        'image' // front 쪽에서 item 관련 어떤 정보가 필요할지 모르겠음 
+      );
     return orderItem;
   }
 
   // item_id, 지정된 제품의 주문 목록 불러오기
   async findByItemId(itemId){
-    const orderItems = await OrderItem.findAll({
+    const orderItems = await OrderItem.find({
       item_id : new Types.ObjectId(itemId)
-    });
+    }).populate(
+      'name',
+      'price',
+      'category',
+      'image' // front 쪽에서 item 관련 어떤 정보가 필요할지 모르겠음 
+    );;
     return orderItems;
   }
 
