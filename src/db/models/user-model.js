@@ -1,4 +1,4 @@
-import { model } from 'mongoose';
+import { model, Types } from 'mongoose';
 import { UserSchema } from '../schemas/user-schema';
 
 const User = model('users', UserSchema);
@@ -10,7 +10,7 @@ export class UserModel {
   }
 
   async findById(userId) {
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: new Types.ObjectId(userId) });
     return user;
   }
 
@@ -25,11 +25,16 @@ export class UserModel {
   }
 
   async update({ userId, update }) {
-    const filter = { _id: userId };
+    const filter = { _id: new Types.ObjectId(userId) };
     const option = { returnOriginal: false };
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
+  }
+
+  async del(userId) {
+    await User.deleteOne({ _id: new Types.ObjectId(userId)});
+    return 'Successfully deleted ';
   }
 }
 
