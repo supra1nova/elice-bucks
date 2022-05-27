@@ -73,6 +73,17 @@ export class OrderItemModel {
     await OrderItem.deleteOne(orderItem);
     return 'Successfully canceled order';
   }
+
+  // delivered date update
+  async updateDeliveryDate(userId, updateDate){
+    const orderItem = await OrderItem.findOne({ user_id : new Types.ObjectId(userId)});
+    orderItem.Delivered = updateDate;
+    
+    return orderItem;
+  }
+
+  // check paid or not
+
 }
 
 

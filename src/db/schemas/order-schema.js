@@ -1,5 +1,4 @@
 import { Schema } from 'mongoose';
-import { boolean } from 'webidl-conversions';
 
 const OrderSchema = new Schema(
   {

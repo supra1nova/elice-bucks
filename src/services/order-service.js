@@ -58,18 +58,18 @@ class OrderService {
     return total_num;
   }
 
-  // 2-2. 제품별 목록개수 반환
-  async getOrderNum(itemId) {
-    const items_total_num = await this.orderItemsModel.findByItemId(itemId).count();
-    return items_total_num;
-  }
-
+    // 2-2. 제품별 목록개수 반환
+    async getOrderNum(itemId) {
+      const items_total_num = await this.orderItemsModel.findByItemId(itemId).count();
+      return items_total_num;
+    }
+  
   // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 order_id 동일한 데이터 반환 
-  // aggregate 사용 ! 다시 고치기 (지금은 populate)
+  // aggregate 사용으로 다시 고치기
   async getOrder(userId) {
     const orderId = await this.orderModel.findById(userId)._id;
     const orderItems = await this.orderItemModel.findByOrderId(orderId);
-    return orderItems.find({}).populate('products')
+    return orderItems.find({}).populate('products');
   }
 
 
