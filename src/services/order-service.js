@@ -1,19 +1,14 @@
-import { OrderModel,OrderItemModel } from '../db';
-
-// 암호화는 제품에 필요 없을 수도 있으니 일단 주석처리
-// import bcrypt from 'bcrypt';
-// import jwt from 'jsonwebtoken';
+import { orderModel } from '../db';
 
 class OrderService {
-  constructor(orderModel,orderItemModel) {
+  constructor(orderModel) {
     this.orderModel = orderModel;
-    this.orderItemModel = orderItemModel;
   }
  
-  // 1. 장바구니에서 주문목록으로 내용 전달
-  async addtoOrderList(cart) {
-    console.log(cart);
-    const { user_id, address, total_cnt, total_price } = cart;
+  // 1. order-schema 생성
+  async addtoOrderList(orderInfo) {
+    console.log(orderInfo);
+    const { user_id, address, total_cnt, total_price } = orderInfo;
     console.log(user_id);
 
     // 주문목록에 사용자가 이미 존재한다면 개수를 늘려줌
@@ -28,7 +23,7 @@ class OrderService {
 
         preOrder = await this.orderModel.update({
             user_id,
-            update: cart,
+            update: orderInfo,
         });
         return preOrder;
     }
@@ -36,12 +31,6 @@ class OrderService {
         const createdNewOrder = await this.orderModel.create(cart);
         return createdNewOrder;
     }
-  }
-
-  // 1-1. 제품 주문 목록 만들기
-  async addOrderItem(orderId, itemId) {
-      const newOrderItem = await this.orderItemModel.createItem(orderId, itemId);
-      return newOrderItem;
   }
 
   // 2. 주문목록 전체 조회
@@ -52,23 +41,12 @@ class OrderService {
 
   // 2-1. 전체 주문목록 개수 반환
   async getOrdersNum() {
-    const total_num = await this.orderModel.findAll().count();
-    return total_num;
-  }
-
-  // 2-2. 제품별 목록개수 반환
-  async getOrderNum(itemId) {
-    const items_total_num = await this.orderItemsModel.findByItemId(itemId).count();
-    return items_total_num;
+    const orders = await this.orderModel.findAll();
+    const totalorders = orders.length; 
+    return totalorders;
   }
   
-  // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 order_id 동일한 데이터 반환 
-  // aggregate 사용으로 다시 고치기
-  async getOrder(userId) {
-    const orderId = await this.orderModel.findById(userId)._id;
-    const orderItems = await this.orderItemModel.findByOrderId(orderId);
-    return orderItems.find({}).populate('products');
-  }
+  // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 해야하나 ?
 
   // 4. 해당 유저의 주문 목록 반환 
   async getUserOrder(userId){
@@ -87,17 +65,8 @@ class OrderService {
     const order = await this.orderModel.findById(userId);
     return order.cnt;
   }
-
-  // // 5. 주문목록 제품 취소
-  // async cancelOrder(orderId) {
-  //   let product = await this.orderItemModel.findByName(orderId);
-  //   if (product) {
-  //     return this.orderItemModel.cancelOrder(orderId);
-  //   }
-  //   throw new Error('Error ! 다시 한 번 확인해주세요.');
-  // }
 }
 
-const orderService = new OrderService({OrderModel, OrderItemModel});
+const orderService = new OrderService(orderModel);
 
 export { orderService };
