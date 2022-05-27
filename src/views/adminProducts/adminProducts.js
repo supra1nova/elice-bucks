@@ -157,7 +157,7 @@ async function createProduct(tempCategory) {
       },
       description: '수정해주세요',
     };
-
+    ///
     const result = await Api.post('/api/product/register', data);
 
     alert(`정상적으로 제품 추가되었습니다.`);

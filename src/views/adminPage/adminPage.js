@@ -9,6 +9,7 @@ import leftMenu from '../components/leftMenu.js';
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const mainContent = document.querySelector('#mainContent');
+const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
 async function addAllElements() {
@@ -17,13 +18,44 @@ async function addAllElements() {
     selected: 'dashboard',
   });
   await headerNavbar.componentDidMount();
+  //const orderTotalNum = await getOrderstotalNum();
+  //console.log(totalNum);
+  const userTotalNum = await getTotalnumOfusers();
+  dashboard_content.innerHTML = await adminContent.render(userTotalNum);
 }
 
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get('/api/user/data');
-  const random = randomId();
+const adminContent = {
+  render: async (userTotalNum) => {
+    return `
+    <h1>쇼핑몰 현황</h1>
+    <div>
+      <div>총 유저수 : ${userTotalNum}</div>
+      <div>총 주문수 : ${userTotalNum}</div>
+      <div>총 매출 : ${userTotalNum}</div>
+      <div>css적용 예정</div>
+    </div>
+    `;
+  },
+};
 
-  console.log({ data });
-  console.log({ random });
+//.get('/order/totalNum' 제품가져오기 api 요청
+async function getOrderstotalNum() {
+  try {
+    const data = await Api.get('/api/order', 'totalNum');
+    return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}
+
+//.get('/totalnumOfusers',
+async function getTotalnumOfusers() {
+  try {
+    const data = await Api.get('/api', 'totalnumOfusers');
+    return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
 }

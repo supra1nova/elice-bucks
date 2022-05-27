@@ -6,7 +6,7 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
-import productlist from './productslist.js';
+import orderslist from './orderslist.js';
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const dashboard_content = document.querySelector('#dashboard-content');
@@ -19,14 +19,14 @@ async function addAllElements() {
   });
   await headerNavbar.componentDidMount();
 
-  const datas = await getOrders();
-  dashboard_content.innerHTML = await productlist.render(datas);
+  //const datas = await getOrders();
+  //dashboard_content.innerHTML = await orderslist.render(datas);
 }
 
 async function getOrders() {
   // 제품가져오기 api 요청
   try {
-    const data = await Api.get('/api', 'order');
+    const data = await Api.get('/api/order', 'orderlists');
     console.log(data);
     return data;
   } catch (err) {
