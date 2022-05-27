@@ -26,58 +26,73 @@
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="cart.css" />
-    <script defer src="./cart.js" type="module" ></script>
+    <script defer src="./cart.js" ></script>
     <!-- btn -->
-    <script defer src="./indexedDB/Btn.js" ></script>
+    <!-- <script defer src="./indexedDB/Btn.js" ></script> -->
     <script defer src="./kakaomap/kakaomap.js"></script>
+    <script defer src="./kakaomap/kakaoAPi.js"></script>
     <!-- Kakao 주소 API 사용하기 위한 파일 -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 
   </head>
   <body>
-    <!-- 헤더 -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <span class="has-text-link">쇼핑-14팀</span>
-          </a>
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-            </ul>
+        <!-- 헤더 -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="container mt-3">
+              <div class="navbar-brand">
+                  <a class="navbar-item" href="/">
+                      <img src="/elicebucks.png" width="30" height="30" />
+                  </a>
+              </div>
+      
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" href="/product">커피 둘러보기</a>
+          
+                  <div class="navbar-dropdown">
+                  <a class="navbar-item">네스프레소</a>
+                  <a class="navbar-item">네스카페 돌체구스토</a>
+                  <a class="navbar-item">프리미엄 파우더 커피</a>
+                  </div>
+              </div>
+      
+              <div id="navbarBasicExample" class="navbar-menu">
+                  <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                    <ul id="navbar">
+                      <li><a href="/login">로그인</a></li>
+                      <li>
+                        <a href="/cart" aria-current="page">
+                          <span class="icon">
+                            <i class="fas fa-cart-shopping"></i>
+                          </span>
+                          <span>카트</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-    </nav>
+      </nav>
+  
 
-    <button class="ex" >예시 넣기</button>
     <!-- 장바구니 -->
-  <div class="main">
-    <div class="box cart">
-      <div class="titPage">
-        <div class="tit">장바구니</div>
-      </div>
-        <div class="cartItemlist">
-          <!-- cartItemadd.js -->
+  <section>
+    <div class="main">
+      <div class="box cart">
+        <button class="button is-danger" id="allCheck" onclick="toggleAllcheckbox()">전체 선택<button class="button is-info ml-2" id="checkedDel">선택 삭제</button>
+        <div class="titPage">
+          <div class="tit">장바구니</div>
         </div>
+          <div class="cartItemlist">
+            <!-- cartItemadd.js -->
+          </div>
+      </div>
+      <!-- KaKao map.js -->
+      <!-- 결제.js -->
     </div>
-    <!-- KaKao map.js -->
-    <!-- 결제.js -->
-  </div>
-    
+  </section>
   </body>
 
 
