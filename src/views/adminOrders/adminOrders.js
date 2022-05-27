@@ -6,7 +6,7 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
-import productlist from './productslist.js';
+import orderslist from './orderslist.js';
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const dashboard_content = document.querySelector('#dashboard-content');
@@ -20,7 +20,7 @@ async function addAllElements() {
   await headerNavbar.componentDidMount();
 
   const datas = await getOrders();
-  dashboard_content.innerHTML = await productlist.render(datas);
+  dashboard_content.innerHTML = await orderslist.render(datas);
 }
 
 async function getOrders() {
