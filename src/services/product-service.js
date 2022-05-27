@@ -110,25 +110,3 @@ const productService = new ProductService(productModel);
 
 export { productService };
 
-  
-  
-  
-  
-  
-  
-// let categoryId = '';
-// const categoryList = (await categoryModel.findAll({})).map(  (result) => result.name );
-// if (categoryList.includes(categoryName)) {
-//   const index = categoryList.indexOf(categoryName);
-//   categoryId = (await categoryModel.findAll({})).map((result) =>
-//     result._id.toString()
-//   )[index];
-
-//   // 카테고리가 존재하지 않는다면 카테고리 신규 생성 후 ID 추출
-// } else {
-//   const newCategoryModel = await categoryModel.create({
-//     name: categoryName,
-//   });
-//   categoryId = newCategoryModel._id.toString();
-//   console.log(categoryId);
-// }
