@@ -4,9 +4,6 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { categoryService } from '../services';
 
-// admin 확인하기 위한 미들웨어 가져왔는데 오류로 주석처리....
-// import { adminRequired } from '../middlewares';
-
 
 
 const categoryRouter = Router();
@@ -50,12 +47,21 @@ categoryRouter.get('/category', async function (req, res, next) {
 });
 
 
+// 3. 카테고리 Id 이용 단일 카테고리 조회
+categoryRouter.get('/category/:categoryId', async function (req, res, next) {
+  try {
+    const { categoryId } = req.params;
+    const category = await categoryService.findCategory(categoryId);
+    
+    res.status(200).json(category);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 // 4. 카테고리 정보 수정
 // (예를 들어 /api/categories/abc12345 로 요청하면 req.params.categoryName은 'abc12345' 문자열로 됨)
-
-// admin 확인하기 위한 미들웨어 삽입 but 오류로 주석 처리
-// categoryRouter.patch( '/category/:categoryName', adminRequired, async function (req, res, next) {
 categoryRouter.patch( '/category/:categoryId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
@@ -77,7 +83,7 @@ categoryRouter.patch( '/category/:categoryId', async function (req, res, next) {
     const toUpdate = {
       ...(name && { name })
     };
-
+    
     // 카테고리 정보를 업데이트함.
     const updatedCategoryInfo = await categoryService.setCategory(
       categoryId,
@@ -90,6 +96,7 @@ categoryRouter.patch( '/category/:categoryId', async function (req, res, next) {
       next(error);
     }
 });
+
 
 // 5. 특정 카테고리 삭제
 categoryRouter.delete('/category/:categoryId', async function (req, res, next) {
