@@ -1,13 +1,11 @@
-import { Types } from 'mongoose';
-import { OrderModel } from '../db';
-import { OrderItemModel } from '../db';
+import { orderModel, orderItemModel } from '../db';
 
 // 암호화는 제품에 필요 없을 수도 있으니 일단 주석처리
 // import bcrypt from 'bcrypt';
 // import jwt from 'jsonwebtoken';
 
 class OrderService {
-  constructor(orderModel,orderItemModel) {
+  constructor(orderModel, orderItemModel) {
     this.orderModel = orderModel;
     this.orderItemModel = orderItemModel;
   }
@@ -22,28 +20,27 @@ class OrderService {
     const preOrder = await this.orderModel.findbyId(user_id);
     let final_cnt = 0;
     let final_price = 0;
-    if(preOrder) {
-        let pre_cnt = await preOrder.total_cnt;
-        final_cnt = pre_cnt + total_cnt;
-        let pre_price = await preOrder.total_price;
-        final_price = pre_price + total_price;
+    if (preOrder) {
+      let pre_cnt = await preOrder.total_cnt;
+      final_cnt = pre_cnt + total_cnt;
+      let pre_price = await preOrder.total_price;
+      final_price = pre_price + total_price;
 
-        preOrder = await this.orderModel.update({
-            user_id,
-            update: cart,
-        });
-        return preOrder;
-    }
-    else{
-        const createdNewOrder = await this.orderModel.create(cart);
-        return createdNewOrder;
+      preOrder = await this.orderModel.update({
+        user_id,
+        update: cart,
+      });
+      return preOrder;
+    } else {
+      const createdNewOrder = await this.orderModel.create(cart);
+      return createdNewOrder;
     }
   }
 
   // 1-1. 제품 주문 목록 만들기
   async addOrderItem(orderId, itemId) {
-      const newOrderItem = await this.orderItemModel.createItem(orderId, itemId);
-      return newOrderItem;
+    const newOrderItem = await this.orderItemModel.createItem(orderId, itemId);
+    return newOrderItem;
   }
 
   // 2. 주문목록 전체 조회
@@ -54,17 +51,20 @@ class OrderService {
 
   // 2-1. 전체 주문목록 개수 반환
   async getOrdersNum() {
-    const total_num = await this.orderModel.findAll().count();
-    return total_num;
+    const orders = await this.orderModel.findAll();
+    const totalorders = orders.length;
+    return totalorders;
   }
 
   // 2-2. 제품별 목록개수 반환
   async getOrderNum(itemId) {
-    const items_total_num = await this.orderItemsModel.findByItemId(itemId).count();
+    const items_total_num = await this.orderItemsModel
+      .findByItemId(itemId)
+      .count();
     return items_total_num;
   }
-  
-  // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 order_id 동일한 데이터 반환 
+
+  // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 order_id 동일한 데이터 반환
   // aggregate 사용으로 다시 고치기
   async getOrder(userId) {
     const orderId = await this.orderModel.findById(userId)._id;
@@ -72,20 +72,20 @@ class OrderService {
     return orderItems.find({}).populate('products');
   }
 
-  // 4. 해당 유저의 주문 목록 반환 
-  async getUserOrder(userId){
+  // 4. 해당 유저의 주문 목록 반환
+  async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
     return order;
   }
-  
-  // 4-1. 해당 유저의 주문목록 최종 상품가격 반환 -> 위에서 order.total_price; 해도 되는거 아닌가 ..? 
+
+  // 4-1. 해당 유저의 주문목록 최종 상품가격 반환 -> 위에서 order.total_price; 해도 되는거 아닌가 ..?
   async finalPrice(userId) {
     const order = await this.orderModel.findById(userId);
     return order.price;
   }
 
   // 4-2. 해당 유저의 주문목록 전체 상품개수 반환
-  async finalCnt(userId){
+  async finalCnt(userId) {
     const order = await this.orderModel.findById(userId);
     return order.cnt;
   }
@@ -100,6 +100,6 @@ class OrderService {
   // }
 }
 
-const orderService = new OrderService({OrderModel, OrderItemModel});
+const orderService = new OrderService(orderModel, orderItemModel);
 
 export { orderService };

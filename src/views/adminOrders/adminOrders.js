@@ -19,14 +19,14 @@ async function addAllElements() {
   });
   await headerNavbar.componentDidMount();
 
-  const datas = await getProducts();
+  const datas = await getOrders();
   dashboard_content.innerHTML = await productlist.render(datas);
 }
 
-async function getProducts() {
+async function getOrders() {
   // 제품가져오기 api 요청
   try {
-    const data = await Api.get('/api', 'product');
+    const data = await Api.get('/api', 'order');
     console.log(data);
     return data;
   } catch (err) {
