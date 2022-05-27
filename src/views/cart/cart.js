@@ -38,9 +38,11 @@ const updateCart = () => {
             <p class="total-price" id="totalPrice">${total + 3000} 원</p>
           </div>
           <div class="purchase">
-            <button class="button is-info" id="purchaseButton">
+            <a href="/order">
+              <button class="button is-info" id="purchaseButton">
               구매하기
-            </button>
+              </button>
+            </a>
           </div>
         </div>
         </div>
