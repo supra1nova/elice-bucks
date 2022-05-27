@@ -19,7 +19,7 @@ orderRouter.post('/order/move', async (req, res, next) => {
         const newOrder = await orderService.addtoOrderList({
             user_id, address, total_cnt, total_price
         })
-        res.status(201).json(newProduct);
+        res.status(201).json(newOrder);
     } catch (error) {
     next(error);
     }
