@@ -10,28 +10,37 @@ export class CategoryModel {
     return createdNewCategory;
   }
   
+
   // 2. 카테고리 목록 조회
   async findAll() {
     const categories = await Category.find({});
     return categories;
   }
 
-  // 3. 카테고리 수정
-  async update({ categoryId, update }) {
+
+  // 3. 카테고리 아이디를 이용한 조회
+  async findById(categoryId) {
+    const category = await Category.findOne({ _id: categoryId });
+    return category;
+  }
+
+
+  // 4. 카테고리 수정
+  async update(categoryId, update) {
     const filter = { _id: categoryId };
     const option = { returnOriginal: false };
-    const updatedCategory = await Category.findOneAndUpdate(
-      filter,
-      update,
-      option
-    );
+    const updatedCategory = await Category.findOneAndUpdate( filter, update, option );
     return updatedCategory;
   }
 
-  // 4. 카테고리 삭제
+
+  // 5. 카테고리 삭제
   async del(categoryId) {
-    await Category.deleteOne({ _id: categoryId });
-    return 'Successfully deleted';
+    const result = await Category.findByIdAndRemove({ _id: categoryId });
+    if (result) {
+      return 'Successfully deleted';
+    }
+    return result;
   }
 }
 

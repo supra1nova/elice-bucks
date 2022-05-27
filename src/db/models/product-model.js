@@ -12,29 +12,19 @@ export class ProductModel {
 
   // 2. 제품 전체 조회
   async findAll() {
-    const products = await Product.find({}).populate('category', 'name');
+    const products = await Product.find({}).populate('category', 'name').sort({ createdAt: -1 });
     return products;
   }
 
-  // 3. _id 기준 조회
+  // 3. _id 기준 조회 - product 스키마의 _id를 이용해 조회한 뒤, populate를 통해 'category'로 등록된 ref를 찾아 name 값을 가져옴
   async findById(productId) {
-    
-    // product 스키마의 _id를 이용해 조회한 뒤, populate를 통해 'category'로 등록된 ref를 찾아 name 값을 가져옴
-    const product = await Product.findOne({ _id: productId }).populate(
-      'category',
-      'name'
-    );
+    const product = await Product.findOne({ _id: productId }).populate( 'category', 'name' );
     return product;
   }
 
-  // 4. 카테고리 기준 제품 조회
+  // 4. 카테고리 기준 제품 조회 - product 스키마의 categoryId를 이용해 조회한 뒤, 'category'로 등록된 ref를 찾아 name 값을 가져옴
   async findByCategory(categoryId) {
-
-    // product 스키마의 categoryId를 이용해 조회한 뒤, 'category'로 등록된 ref를 찾아 name 값을 가져옴
-    const products = await Product.find({ category: categoryId }).populate(
-      'category',
-      'name'
-    );
+    const products = await Product.find({ category: categoryId }).populate( 'category', 'name' );
     return products;
   }
 
@@ -44,27 +34,23 @@ export class ProductModel {
     return product;
   }
 
-  // // 5. 가격 기준 제품 조회
+  // // 6. 가격 기준 제품 조회
   // async findByPrice(price) {
   //   const products = await Product.find({ price });
   //   return products;
   // }
 
-  // 7. 제품 관련 업데이트
+  // 7. 제품 관련 수정
   async update({ productId, update }) {
     const filter = { _id: productId };
     const option = { returnOriginal: false };
-    const updatedProduct = await Product.findOneAndUpdate(
-      filter,
-      update,
-      option
-    );
+    const updatedProduct = await Product.findOneAndUpdate( filter, update, option );
     return updatedProduct;
   }
 
-  // 8. 제품 삭제 및 'OK' 반환
+  // 8. 제품 삭제 및 'OK' 반환 - 이미 service 에서 파일 유무 검증하므로 findOneAndDelete 대신 deletOne 사용 + findOneAndDelete는 return 함
   async del(productId) {
-    await Product.deleteOne({ _id: productId }); // 이미 service 에서 파일 유무 검증하므로 findOneAndDelete 대신 deletOne 사용 + findOneAndDelete는 return 함
+    await Product.deleteOne({ _id: productId }); // 
     return 'Successfully deleted';
   }
 }
