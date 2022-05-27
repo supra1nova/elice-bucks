@@ -4,7 +4,7 @@ class OrderService {
   constructor(orderModel) {
     this.orderModel = orderModel;
   }
- 
+  
   // 1. order-schema 생성
   async addtoOrderList(orderInfo) {
     console.log(orderInfo);
@@ -15,6 +15,7 @@ class OrderService {
     const preOrder = await this.orderModel.findbyId(user_id);
     let final_cnt = 0;
     let final_price = 0;
+
     if(preOrder) {
         let pre_cnt = await preOrder.total_cnt;
         final_cnt = pre_cnt + total_cnt;
@@ -48,20 +49,21 @@ class OrderService {
   
   // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 해야하나 ?
 
-  // 4. 해당 유저의 주문 목록 반환 
-  async getUserOrder(userId){
+
+  // 4. 해당 유저의 주문 목록 반환
+  async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
     return order;
   }
-  
-  // 4-1. 해당 유저의 주문목록 최종 상품가격 반환 -> 위에서 order.total_price; 해도 되는거 아닌가 ..? 
+
+  // 4-1. 해당 유저의 주문목록 최종 상품가격 반환 -> 위에서 order.total_price; 해도 되는거 아닌가 ..?
   async finalPrice(userId) {
     const order = await this.orderModel.findById(userId);
     return order.price;
   }
 
   // 4-2. 해당 유저의 주문목록 전체 상품개수 반환
-  async finalCnt(userId){
+  async finalCnt(userId) {
     const order = await this.orderModel.findById(userId);
     return order.cnt;
   }
