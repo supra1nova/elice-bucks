@@ -7,6 +7,7 @@ async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   await headerNavbar.componentDidMount();
 }
+// import가 제대로 안돼서 일단 주석 처리함.
 
 // 각 상품의 데이터를 html에 삽입
 

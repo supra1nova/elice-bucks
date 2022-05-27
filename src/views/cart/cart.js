@@ -1,37 +1,3 @@
-// navbar 로그인 부분
-import headerNavbar from '../components/headerNavbar.js';
-const headerNavbar1 = document.querySelector('#headerNavbar');
-
-addAllElements();
-async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
-}
-
-// 3. 체크 박스 구현
-// checkbox가 true일때 가격 표현
-// checkbox가 false일때 가격 표현 X
-// 2. 장바구니 기능 버튼 구현
-// [] - 장바구니 버튼을 눌렀을시 indexedDB 유무 확인
-// [] - 장바구니 버튼 눌렀을시 indexedDB 파일에서 해당 값이 있는지 검사
-// [] - 있다면 cnt++ 값만 하나 늘려서 구현
-// [] - 없다면 해당 제품의 정보를 indexDB에 대입. cnt 초기값은 1
-// [] - 해당 값이 새로고침 해도 사라지지 않는지 확인
-
-let onRequest = indexedDB.open('cart', 1);
-onRequest.onsuccess = () => {
-  console.log('Success creating or accessing db');
-};
-onRequest.onupgradeneeded = () => {
-  const database = onRequest.result;
-  database.createObjectStore('carts');
-};
-onRequest.onerror = () => {
-  console.log('Error creating or accessing db');
-};
-
-// IndexedDB cart 저장소에 목록 있으면 실행.
-
 const updateCart = () => {
   // indexed 열기
   let onRequest = indexedDB.open('cart', 1);
@@ -43,18 +9,57 @@ const updateCart = () => {
     // cart 저장소 가져오기
     const carts = transaction.objectStore('carts');
     const list = document.querySelector('.cartItemlist');
+    const paymentMain = document.querySelector('.pamentMain');
     // 장바구니 내역 초기화.
     list.innerHTML = '';
+    paymentMain.innerHTML = '';
+    const Inf = (total, totalCnt) => `
+        <div class="tile is-parent tile-order-summary">
+        <div class="box order-summary">
+          <div class="header">
+            <p>결제정보</p>
+          </div>
+          <div class="order-info">
+            <div class="info">
+              <p>상품수</p>
+              <p id="productsCount">${totalCnt}개</p>
+            </div>
+            <div class="info">
+              <p>상품금액</p>
+              <p id="productsTotal">${total} 원</p>
+            </div>
+            <div class="info">
+              <p>배송비</p>
+              <p id="deliveryFee">3,000원</p>
+            </div>
+          </div>
+          <div class="total">
+            <p class="total-label">총 결제금액</p>
+            <p class="total-price" id="totalPrice">${total + 3000} 원</p>
+          </div>
+          <div class="purchase">
+            <a href="/order">
+              <button class="button is-info" id="purchaseButton">
+              구매하기
+              </button>
+            </a>
+          </div>
+        </div>
+        </div>
+        `;
     const c = carts.getAll();
     c.onsuccess = () => {
       let a = c.result;
+      let total = 0;
+      let totalCnt = 0;
       // getAll 값이 없으면 비어있다는 말 띄우기
       if (a.length === 0) {
         const emptycart = `<div class='emptycart'>장바구니가 비어있습니다.</div>`;
         list.insertAdjacentHTML('beforeend', emptycart);
+        paymentMain.insertAdjacentHTML('beforeend', Inf(total, totalCnt));
         return;
       }
-      let total = 0;
+
       for (let i = 0; i < a.length; i++) {
         let { name, price, img, cnt } = a[i];
         const cartlist = `
@@ -77,9 +82,9 @@ const updateCart = () => {
         }</span><span class="won">원</span>
                             </div>
                             <div class="countbar">
-                              <button type="button" class="btn minus" name="decrease" onClick='minusCnt(${i})'><i class="fa-solid fa-minus"></i></button>
+                              <button type="button" class="btn minus" name="decrease" onClick='event.preventDefault(); minusCnt(${i})'><i class="fa-solid fa-minus"></i></button>
                               <input class="cntNumber cnt-${i}" type="" readonly value="${cnt}" />
-                              <button type="button" class="btn plus" name="increase" onClick='plusCnt(${i})'><i class="fa-solid fa-plus"></i></button>
+                              <button type="button" class="btn plus" name="increase" onClick='event.preventDefault(); plusCnt(${i})'><i class="fa-solid fa-plus"></i></button>
                             </div>
                             <button type="button" class="delete is-large" onclick="deleteItem(${i})"></button>
                           </div>
@@ -87,9 +92,14 @@ const updateCart = () => {
                         </div>
                         `;
         list.insertAdjacentHTML('beforeend', cartlist);
+        // 체크 박스 체크
+        // let checkboxCheck = document.querySelector(`.check${i}`);
+        // if (checkboxCheck.checked) {
         total += Number(price) * Number(cnt);
-        document.querySelector('.totalPrice').innerHTML = `${total} 원`;
+        totalCnt += cnt;
+        // }
       }
+      paymentMain.insertAdjacentHTML('beforeend', Inf(total, totalCnt));
     };
     c.onerror = (error) => {
       console.log(error);
@@ -107,8 +117,11 @@ function plusCnt(i) {
   }
   count++;
   document.querySelector(`.cnt-${i}`).value = count;
+  let checkboxCheck = document.querySelector(`.check${i}`);
+  let check = checkboxCheck.checked;
+  checkboxCheck.checked = check;
   const name = document.querySelector(`.name-${i}`).innerHTML;
-  getprice(name, count, i);
+  // getprice(name, Number(count), i);
   updateCnt(count, name);
   updateCart();
 }
@@ -121,8 +134,10 @@ function minusCnt(i) {
   count--;
   document.querySelector(`.cnt-${i}`).value = count;
   const name = document.querySelector(`.name-${i}`).innerHTML;
-  const price = getprice(name);
-  getprice(name, count, i);
+  let checkboxCheck = document.querySelector(`.check${i}`);
+  let check = checkboxCheck.checked;
+  checkboxCheck.checked = check;
+  // getprice(name, Number(count), i);
   updateCnt(count, name);
   updateCart();
 }
