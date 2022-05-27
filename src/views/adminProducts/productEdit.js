@@ -1,14 +1,18 @@
 import * as Api from '/api.js';
 const ProductEdit = {
-  componentDidMount: async (_id) => {
+  componentDidMount: async (_id, productCat) => {
     const submitButton = document.querySelector('#submitButton');
+    document.getElementById(`${productCat?._id}`).selected = true;
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
       const name = document.getElementById('nameInput').value;
       const price = document.getElementById('priceInput').value;
-      const category = document.getElementById('categoryInput').value;
+      const category = document.getElementById('categoriesSelect').value;
+
       const image = document.getElementById('imageInput').value;
+      console.log(image);
       const description = document.getElementById('descriptionInput').value;
+      console.log(description);
       try {
         const data = {
           name,
@@ -36,21 +40,19 @@ const ProductEdit = {
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append('image', file);
-        console.log(formData.get('image'));
+        console.log(formData);
         const data = await Api.postImage('/api/product/imageUpload', formData);
         if (data.error) {
           alert(
             `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${data.error}`
           );
         } else {
-          console.log(data);
           document.getElementById('imageInput').value = data.image;
           document.getElementById('product-image-file').src = `${data.image}`;
         }
       });
   },
-  render: async (product) => {
-    console.log(product);
+  render: async (product, categories) => {
     return `
     <div class="register-user-form-container">
     <form class="box register-user-form-box" id="registerUserForm">
@@ -87,16 +89,16 @@ const ProductEdit = {
 
             <div class="field mb-2">
             <label class="label" for="categoryInput">카테고리</label>
-            <div class="control">
-                <input
-                class="input"
-                id="categoryInput"
-                type="text"
-                placeholder="카테고리"
-                autocomplete="on"
-                value="${product.category ? product.category : ''}"
-                />
-            </div>
+            <select name="categoriesSelect" class="select input" id ="categoriesSelect">
+              ${categories
+                .map(
+                  (category) => `
+                        <option id="${category?._id}">${category?.name}</option>
+                  }
+                    `
+                )
+                .join('\n')}
+            </select>
             </div>
 
             <div class="field mb-2">
