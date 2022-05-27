@@ -76,8 +76,8 @@ tbody tr:nth-child(2n+1) {
   background-color: #f9fffb;
 }
 .tr-action{
-  width:7rem;
-  
+  text-align: center;
+  width:8rem;
 }
 
 /*  product edit form       */
