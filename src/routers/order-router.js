@@ -104,16 +104,16 @@ orderRouter.get('/numOforders/:itemId', async function (req, res, next) {
   }
 });
 
-// // 3. 주문목록 취소
-// orderRouter.delete('/order/:orderItemId', async function (req, res, next) {
-//   try {
-//     const { orderItemId } = req.params;
-//     const result = await orderService.cancelOrder(orderItemId);
+// 3. 주문목록 취소
+orderRouter.get('/order/:userId', async function (req, res, next) {
+  try {
+    const userId = req.params;
+    const result = await orderService.cancelOrder(userId);
 
-//     res.status(200).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { orderRouter };
