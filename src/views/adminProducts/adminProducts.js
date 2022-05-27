@@ -148,7 +148,10 @@ async function createProduct() {
       name: `수정해주세요${Date.now()}`,
       price: 0,
       image: '수정해주세요',
-      category: { _id: 0 },
+      category: {
+        _id: '628ee80f4ae1c7306788e487',
+        name: '네스카페 돌체구스토',
+      },
       description: '수정해주세요',
     };
 
