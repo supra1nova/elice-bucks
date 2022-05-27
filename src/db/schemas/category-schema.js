@@ -2,9 +2,10 @@ import { Schema } from 'mongoose';
 
 const CategorySchema = new Schema(
   {
+    
     name: {
       type: String,
-      required: true,  // 필수 여부 확인 필요
+      required: true,
       unique: true,
     },
     product: [{
@@ -12,9 +13,6 @@ const CategorySchema = new Schema(
       ref: 'Product',
     }],
   },
-  {
-    collection: 'categories',
-  }
 );
 
 export { CategorySchema };

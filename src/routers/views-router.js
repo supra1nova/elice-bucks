@@ -11,7 +11,8 @@ viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/product', serveStatic('product'));
 viewsRouter.use('/detail/:id', serveStatic('detail'));
-viewsRouter.use('/category/:id', serveStatic('category'));
+viewsRouter.use('/product/category/:categoryId', serveStatic('category'));
+viewsRouter.use('/category', serveStatic('category')); // 필요 없을듯
 viewsRouter.use('/adminPage', serveStatic('adminPage'));
 viewsRouter.use('/adminOrders', serveStatic('adminOrders'));
 viewsRouter.use('/adminProducts', serveStatic('adminProducts'));
