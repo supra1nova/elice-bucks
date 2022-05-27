@@ -1,6 +1,4 @@
-import { Types } from 'mongoose';
-import { OrderModel } from '../db';
-import { OrderItemModel } from '../db';
+import { OrderModel,OrderItemModel } from '../db';
 
 // 암호화는 제품에 필요 없을 수도 있으니 일단 주석처리
 // import bcrypt from 'bcrypt';
@@ -11,7 +9,7 @@ class OrderService {
     this.orderModel = orderModel;
     this.orderItemModel = orderItemModel;
   }
-
+ 
   // 1. 장바구니에서 주문목록으로 내용 전달
   async addtoOrderList(cart) {
     console.log(cart);
