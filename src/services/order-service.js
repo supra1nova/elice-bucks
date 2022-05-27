@@ -53,6 +53,9 @@ class OrderService {
   // 4. 해당 유저의 주문 목록 반환
   async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
+    // if(order.deleted_at == null) {
+    //   return null;
+    // } -> deleted_at 구현 한다면
     return order;
   }
 
@@ -66,6 +69,13 @@ class OrderService {
   async finalCnt(userId) {
     const order = await this.orderModel.findById(userId);
     return order.cnt;
+  }
+
+  // 5. 해당 유저의 주문목록 취소처리
+  async cancelOrder(userId) {
+    const order = await this.orderModel.findById(userId);
+    order.deleted_at = new Date();
+    return order;
   }
 }
 

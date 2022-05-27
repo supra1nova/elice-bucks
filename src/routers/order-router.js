@@ -46,7 +46,7 @@ orderRouter.get('/order/:user', async function (req, res, next) {
 });
 
 // 2-1-2. 해당 유저의 주문금액 조회
-orderRouter.get('/order/price/:user', async function (req, res, next) {
+orderRouter.get('/orderprice/:user', async function (req, res, next) {
   try {
     const userId = req.params.user;
     const orderCnt = await orderService.finalPrice(userId);
@@ -59,7 +59,7 @@ orderRouter.get('/order/price/:user', async function (req, res, next) {
 });
 
 // 2-1-3. 해당 유저의 주문물품개수 조회
-orderRouter.get('/order/cnt/:user', async function (req, res, next) {
+orderRouter.get('/ordercnt/:user', async function (req, res, next) {
   try {
     const userId = req.params.user;
     const orderCnt = await orderService.finalCnt(userId);
@@ -103,16 +103,16 @@ orderRouter.get('/numOforders/:itemId', async function (req, res, next) {
   }
 })
 
-// // 3. 주문목록 취소 
-// orderRouter.delete('/order/:orderItemId', async function (req, res, next) {
-//   try {
-//     const { orderItemId } = req.params;
-//     const result = await orderService.cancelOrder(orderItemId);
+// 3. 주문목록 취소 
+orderRouter.get('/order/:userId', async function (req, res, next) {
+  try {
+    const userId = req.params;
+    const result = await orderService.cancelOrder(userId);
 
-//     res.status(200).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { orderRouter };
