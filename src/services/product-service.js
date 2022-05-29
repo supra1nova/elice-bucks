@@ -12,7 +12,7 @@ class ProductService {
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
     const { name, price, category, description, image } = productInfo;
-    const categoryName = category.name;
+    const categoryName = category;
 
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
