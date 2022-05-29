@@ -24,9 +24,9 @@ class ProductService {
 
     // 카테고리명을 이용해 조회, 신규 카테고리일 경우 자동으로 생성
     let categoryId = '';
-    const categoryList = (await categoryModel.findAll({})).map(
-      (result) => result.name
-    );
+    
+    const categoryList = await categoryModel.getCategoryNames();
+    console.log(categoryList);
     if (categoryList.includes(categoryName)) {
       const index = categoryList.indexOf(categoryName);
       categoryId = (await categoryModel.findAll({})).map((result) =>
@@ -78,9 +78,9 @@ class ProductService {
     // 카테고리명을 이용해 조회, 신규 카테고리일 경우 자동으로 생성
     const categoryName = toUpdate.category;
     let categoryId = '';
-    const categoryList = (await categoryModel.findAll({})).map(
-      (result) => result.name
-    );
+
+    const categoryList = await categoryModel.getCategoryNames();
+
     if (categoryList.includes(categoryName)) {
       const index = categoryList.indexOf(categoryName);
       categoryId = (await categoryModel.findAll({})).map((result) =>
