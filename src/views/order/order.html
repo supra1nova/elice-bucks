@@ -6,26 +6,16 @@
     <title>쇼핑-데모</title>
 
     <!-- 아이콘 -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/elice-rabbit-favicon.png"
-    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
     <!-- bulma css -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <!-- 폰트 어썸: 아이콘 -->
-    <script
-      defer
-      src="https://kit.fontawesome.com/7630448495.js"
-      crossorigin="anonymous"
-    ></script>
+    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="order.css" />
     <script src="order.js" type="module" defer></script>
+
     <!-- <script defer src="./indexedDB/Btn.js" ></script> -->
     <script defer src="./kakaomap/kakaoAPi.js"></script>
     <!-- Kakao 주소 API 사용하기 위한 파일 -->
@@ -42,27 +32,23 @@
       <div class="container mt-3">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
-            <img src="/elicebucks.png" width="30" height="30" />
+            <img src="/coffee-beans.png" width="30" height="30" />
           </a>
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="/product">커피 둘러보기</a>
 
+          <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
-            <a class="navbar-item">네스프레소</a>
-            <a class="navbar-item">네스카페 돌체구스토</a>
-            <a class="navbar-item">프리미엄 파우더 커피</a>
+            <!-- ../components/navCategoryList.js -->
           </div>
         </div>
 
+        <!-- 로그인 상태에 따른 로그인 메뉴 -->
         <div id="navbarBasicExample" class="navbar-menu">
-          <div
-            class="navbar-end breadcrumb my-auto"
-            id="headerNavbar"
-            aria-label="breadcrumbs"
-          >
-            <!--./components/headerNavbar.js-->
+          <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
+            <!-- ../components/headerNavbar.js -->
           </div>
         </div>
       </div>

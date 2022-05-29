@@ -5,21 +5,15 @@
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
+import insertCategoryList from '../components/navCategoryList.js';
 
-// navbar 로그인 부분
 const headerNavbar1 = document.querySelector('#headerNavbar');
 
 addAllElements();
+insertCategoryList();
+
+// navbar 로그인 상태에 따른 로그인 메뉴 삽입
 async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   await headerNavbar.componentDidMount();
-}
-
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get('/api/user/data');
-  const random = randomId();
-
-  console.log({ data });
-  console.log({ random });
 }

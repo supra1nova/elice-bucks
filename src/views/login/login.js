@@ -1,5 +1,6 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
+import insertCategoryList from '../components/navCategoryList.js';
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector('#emailInput');
@@ -8,6 +9,7 @@ const submitButton = document.querySelector('#submitButton');
 
 addAllElements();
 addAllEvents();
+insertCategoryList();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {}
