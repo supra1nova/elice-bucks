@@ -34,7 +34,7 @@ categoryRouter.post('/register', async (req, res, next) => {
 
 
 // 2. 전체 카테고리 조회
-categoryRouter.get('/categories', async function (req, res, next) {
+categoryRouter.get('/', async function (req, res, next) {
   try {
     // 전체 카테고리 목록을 얻음
     const categories = await categoryService.getCategories();
