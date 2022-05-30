@@ -9,7 +9,7 @@ import { categoryService } from '../services';
 const categoryRouter = Router();
 
 // 1. 카테고리 등록 - 관리자
-categoryRouter.post('/category/register', async (req, res, next) => {
+categoryRouter.post('/register', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -34,7 +34,7 @@ categoryRouter.post('/category/register', async (req, res, next) => {
 
 
 // 2. 전체 카테고리 조회
-categoryRouter.get('/category', async function (req, res, next) {
+categoryRouter.get('/categories', async function (req, res, next) {
   try {
     // 전체 카테고리 목록을 얻음
     const categories = await categoryService.getCategories();
@@ -48,7 +48,7 @@ categoryRouter.get('/category', async function (req, res, next) {
 
 
 // 3. 카테고리 Id 이용 단일 카테고리 조회
-categoryRouter.get('/category/:categoryId', async function (req, res, next) {
+categoryRouter.get('/:categoryId', async function (req, res, next) {
   try {
     const { categoryId } = req.params;
     const category = await categoryService.findCategory(categoryId);
@@ -62,7 +62,7 @@ categoryRouter.get('/category/:categoryId', async function (req, res, next) {
 
 // 4. 카테고리 정보 수정
 // (예를 들어 /api/categories/abc12345 로 요청하면 req.params.categoryName은 'abc12345' 문자열로 됨)
-categoryRouter.patch( '/category/:categoryId', async function (req, res, next) {
+categoryRouter.patch( '/:categoryId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -99,7 +99,7 @@ categoryRouter.patch( '/category/:categoryId', async function (req, res, next) {
 
 
 // 5. 특정 카테고리 삭제
-categoryRouter.delete('/category/:categoryId', async function (req, res, next) {
+categoryRouter.delete('/:categoryId', async function (req, res, next) {
   try {
     const { categoryId } = req.params;
     const result = await categoryService.removeCategory(categoryId);

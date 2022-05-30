@@ -23,9 +23,11 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
+
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="order.css" />
     <script src="order.js" type="module" defer></script>
+
     <!-- <script defer src="./indexedDB/Btn.js" ></script> -->
     <script defer src="./kakaomap/kakaoAPi.js"></script>
     <!-- Kakao 주소 API 사용하기 위한 파일 -->
@@ -42,27 +44,27 @@
       <div class="container mt-3">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
-            <img src="/elicebucks.png" width="30" height="30" />
+            <img src="/coffee-beans.png" width="30" height="30" />
           </a>
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="/product">커피 둘러보기</a>
 
+          <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
-            <a class="navbar-item">네스프레소</a>
-            <a class="navbar-item">네스카페 돌체구스토</a>
-            <a class="navbar-item">프리미엄 파우더 커피</a>
+            <!-- ../components/navCategoryList.js -->
           </div>
         </div>
 
+        <!-- 로그인 상태에 따른 로그인 메뉴 -->
         <div id="navbarBasicExample" class="navbar-menu">
           <div
             class="navbar-end breadcrumb my-auto"
             id="headerNavbar"
             aria-label="breadcrumbs"
           >
-            <!--./components/headerNavbar.js-->
+            <!-- ../components/headerNavbar.js -->
           </div>
         </div>
       </div>
@@ -72,14 +74,8 @@
     <section class="section">
       <div class="container">
         <div class="cart-header">
-          <div class="subtitle subtitle-cart" id="subtitleCart">
-            <p class="is-size-6">장바구니 &nbsp; &gt;</p>
-          </div>
           <div class="title">
             <p class="is-size-2">주문결제</p>
-          </div>
-          <div class="subtitle">
-            <p class="is-size-6">&gt; &nbsp;주문완료</p>
           </div>
         </div>
 

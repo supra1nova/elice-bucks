@@ -6,42 +6,49 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
+import insertCategoryList from '../components/navCategoryList.js';
+
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const mainContent = document.querySelector('#mainContent');
 const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
+insertCategoryList();
+
 async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   leftMenuAdmin.innerHTML = await leftMenu.render({
     selected: 'dashboard',
   });
   await headerNavbar.componentDidMount();
-  //const orderTotalNum = await getOrderstotalNum();
-  //console.log(totalNum);
+  const orderTotalNum = await getOrderstotalNum();
+  console.log(orderTotalNum);
   const userTotalNum = await getTotalnumOfusers();
-  dashboard_content.innerHTML = await adminContent.render(userTotalNum);
+  dashboard_content.innerHTML = await adminContent.render(
+    userTotalNum,
+    orderTotalNum
+  );
 }
 
 const adminContent = {
-  render: async (userTotalNum) => {
+  render: (userTotalNum, orderTotalNum) => {
     return `
     <h1>쇼핑몰 현황</h1>
     <div>
       <div>총 유저수 : ${userTotalNum}</div>
-      <div>총 주문수 : ${userTotalNum}</div>
-      <div>총 매출 : ${userTotalNum}</div>
+      <div>총 주문수 : ${orderTotalNum}</div>
+      <div>총 매출 : ${orderTotalNum}</div>
       <div>css적용 예정</div>
     </div>
     `;
   },
 };
 
-//.get('/order/totalNum' 제품가져오기 api 요청
+//.get('/order/totalNum'
 async function getOrderstotalNum() {
   try {
-    const data = await Api.get('/api/order', 'totalNum');
+    const data = await Api.get('/api', 'numOforderlists');
     return data;
   } catch (err) {
     console.error(err.stack);

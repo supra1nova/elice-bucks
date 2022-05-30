@@ -1,7 +1,7 @@
-import { getUserData, removeUser } from '../localStorage.js';
+import { getUserData, removeUser } from '../utils/user.js';
 
 const headerNavbar = {
-  render: async () => {
+  render: () => {
     const { name, role } = getUserData();
     return `
         <ul id="navbar">
@@ -11,7 +11,7 @@ const headerNavbar = {
                 <li><a class="logout" href="/">로그아웃</a></li>
                 `
                 : name && role === 'admin-user'
-                ? `<li><a href="/myPage">관리자</a></li>
+                ? `<li><a href="/myPage">정보수정</a></li>
                 <li><a class="logout" href="/">로그아웃</a></li>
                 <li><a href="/adminPage">관리페이지</a></li>
                 `
@@ -30,11 +30,11 @@ const headerNavbar = {
         </ul>
         `;
   },
-  componentDidMount: async () => {
+  componentDidMount: () => {
     let logouts = document.getElementsByClassName('logout');
-    for (let i = 0; i < logouts.length; i++) {
-      logouts[i].addEventListener('click', removeUser);
-    }
+    Array.from(logouts).forEach((logout) => {
+      logout.addEventListener('click', removeUser);
+    });
   },
 };
 export default headerNavbar;

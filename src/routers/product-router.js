@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
-
-// import fs from 'fs/promises'; // multer 이용 가져온 이미지 삭제 구현 위한 준비
 import multer from 'multer';
+import fs from 'fs';
 
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { productService } from '../services';
@@ -10,7 +9,7 @@ import { productService } from '../services';
 const productRouter = Router();
 
 // 1. 제품등록
-productRouter.post('/product/register', async (req, res, next) => {
+productRouter.post('/register', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -20,8 +19,7 @@ productRouter.post('/product/register', async (req, res, next) => {
       );
     }
 
-    // req (request)의 body 에서 제품 데이터 가져오기
-    const { name, price, description, category, image } = req.body; // 카테고리, 이미지 변수 일시적 삭제 - populate 된 키값 구현 방법 더 찾아보고 추가 예정
+    const { name, price, description, category, image } = req.body;
 
     // 가져온 데이터를 제품 db에 추가하기
     const newProduct = await productService.addProduct({
@@ -29,7 +27,7 @@ productRouter.post('/product/register', async (req, res, next) => {
       price,
       description,
       category,
-      image,
+      image
     });
 
     // 추가된 제품의 db 데이터를 프론트에 다시 보내줌
@@ -40,7 +38,7 @@ productRouter.post('/product/register', async (req, res, next) => {
 });
 
 // 2. 전체 제품 조회
-productRouter.get('/product', async function (req, res, next) {
+productRouter.get('/products', async function (req, res, next) {
   try {
     // 전체 제품 목록을 얻음
     const products = await productService.getProducts();
@@ -53,7 +51,7 @@ productRouter.get('/product', async function (req, res, next) {
 });
 
 // 3. 제품 Id 이용 단일 품목 조회
-productRouter.get('/product/:productId', async function (req, res, next) {
+productRouter.get('/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
     const product = await productService.findProduct(productId);
@@ -66,7 +64,7 @@ productRouter.get('/product/:productId', async function (req, res, next) {
 
 // 4. categoryId 이용 단일 품목 조회
 productRouter.get(
-  '/product/category/:categoryId',
+  '/category/:categoryId',
   async function (req, res, next) {
     try {
       const { categoryId } = req.params;
@@ -81,7 +79,7 @@ productRouter.get(
 
 // 5. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
-productRouter.patch('/product/:productId', async function (req, res, next) {
+productRouter.patch('/:productId', async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -121,7 +119,7 @@ productRouter.patch('/product/:productId', async function (req, res, next) {
 });
 
 // 6. 특정 제품 삭제
-productRouter.delete('/product/:productId', async function (req, res, next) {
+productRouter.delete('/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
     const result = await productService.removeProduct(productId);
@@ -132,29 +130,60 @@ productRouter.delete('/product/:productId', async function (req, res, next) {
   }
 });
 
-//7. 멀터 관련 내용 삽입
+//** 멀터 정의 내용 삽입
 // 참고 https://wayhome25.github.io/nodejs/2017/02/21/nodejs-15-file-upload/
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'src/views/images/');
-  },
-  filename(req, file, cb) {
-    cb(null, `${Date.now()}.jpg`);
-  },
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpg" || file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/gif" || file.mimetype === "image/webp"){
+    cb(null, true);
+  } else {
+    req.fileValidationError = "jpg, jpeg, png, gif, webp 파일만 업로드 가능합니다.";
+    cb(null, false);
+  }
+}
+
+const upload = multer({
+  storage: multer.diskStorage({
+    //폴더위치 지정
+    destination: (req, file, done) => {
+      done(null, 'src/views/images/');
+    },
+    filename: (req, file, done) => {
+      // const ext = path.extname(file.originalname);
+      // aaa.txt => aaa+&&+129371271654.txt
+      // const fileName = path.basename(file.originalname, ext) + Date.now() + ext;
+      done(null, `${Date.now()}.jpg`);
+    },
+  }),
+  fileFilter: fileFilter,
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-const upload = multer({ storage });
 
-productRouter.post(
-  '/product/imageUpload',
-  upload.single('image'),
-  (req, res, next) => {
-    try {
-      res.status(200).send({ image: `/images/${req.file.filename}` });
-    } catch (error) {
-      next(error);
-    }
+// 7. 멀터 이용 이미지 삽입
+productRouter.post('/imageUpload', upload.single("image"), (req, res, next) => {
+// productRouter.post('/image', upload.single("image"), (req, res, next) => {
+  try {
+    res.status(200).send({ image: `/images/${req.file.filename}` });
+  } catch (error) {
+    next(error.message + '이미지를 넣을 수 없습니다.');
   }
-);
+});
+
+// 8. fs 이용 이미지 삭제(하드 삭제)
+productRouter.delete('/imageUpload/:image', async (req, res, next) => {
+// productRouter.delete('/image/:image', async (req, res, next) => {
+  
+  const image = req.params.image;
+  const path = 'src/views/images/';
+
+  try {
+    fs.unlinkSync(path + image);
+    res.status(200).send('이미지가 성공적으로 삭제되었습니다.');
+  } catch (error) {
+    error.message = '이미지가 서버에 존재하지 않습니다.';
+    next(error);
+  }
+})
+
 
 export { productRouter };

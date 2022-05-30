@@ -28,11 +28,15 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="/product">커피 둘러보기</a>
   
+          <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
-            <a class="navbar-item" href="/category/628ee7fe4ae1c7306788e484">네스프레소</a>
-            <a class="navbar-item" href="/category/628ee80f4ae1c7306788e487">네스카페 돌체구스토</a>
-            <a class="navbar-item" href="/category/628ee8194ae1c7306788e48a">프리미엄 파우더 커피</a>
+            <!-- ../components/navCategoryList.js -->
           </div>
+        </div>
+
+        <!-- 공지사항 -->
+        <div class="navbar-item notice">
+          <a href="/notice">공지사항</a>
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
@@ -77,15 +81,16 @@
               class="input"
               id="passwordInput"
               type="password"
-              placeholder="********"
+              placeholder="비밀번호"
               autocomplete="on"
             />
           </div>
         </div>
 
-        <button class="button is-info is-fullwidth" id="submitButton">
+        <!-- <button class="button is-info is-fullwidth" id="submitButton">
           로그인하기
-        </button>
+        </button> -->
+        <input type="submit" value="로그인하기" id="submitButton" class="button is-info is-fullwidth">
       </form>
     </div>
   </body>

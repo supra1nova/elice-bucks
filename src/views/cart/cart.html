@@ -54,20 +54,16 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="/product">커피 둘러보기</a>
 
+          <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
-            <a class="navbar-item">네스프레소</a>
-            <a class="navbar-item">네스카페 돌체구스토</a>
-            <a class="navbar-item">프리미엄 파우더 커피</a>
+            <!-- ../components/navCategoryList.js -->
           </div>
         </div>
 
+        <!-- 로그인 상태에 따른 로그인 메뉴 -->
         <div id="navbarBasicExample" class="navbar-menu">
-          <div
-            class="navbar-end breadcrumb my-auto"
-            id="headerNavbar"
-            aria-label="breadcrumbs"
-          >
-            <!--./components/headerNavbar.js-->
+          <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
+            <!-- ../components/headerNavbar.js -->
           </div>
         </div>
       </div>
@@ -78,7 +74,7 @@
   <section>
     <div class="main">
       <div class="box cart">
-        <button class="button is-danger" id="allCheck" onclick="toggleAllcheckbox()">전체 선택<button class="button is-info ml-2" id="checkedDel">선택 삭제</button>
+        <button class="button is-danger" id="allCheck">전체 선택<button class="button is-info ml-2" id="checkedDel">선택 삭제</button>
         <div class="titPage">
           <div class="tit">장바구니</div>
         </div>

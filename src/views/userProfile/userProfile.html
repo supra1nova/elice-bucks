@@ -32,16 +32,21 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="/product">커피 둘러보기</a>
   
+          <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
-            <a class="navbar-item" href="/category/628ee7fe4ae1c7306788e484">네스프레소</a>
-            <a class="navbar-item" href="/category/628ee80f4ae1c7306788e487">네스카페 돌체구스토</a>
-            <a class="navbar-item" href="/category/628ee8194ae1c7306788e48a">프리미엄 파우더 커피</a>
+            <!-- ../components/navCategoryList.js -->
           </div>
         </div>
+
+        <!-- 공지사항 -->
+        <div class="navbar-item notice">
+          <a href="/notice">공지사항</a>
+        </div>
         
+        <!-- 로그인 상태에 따른 로그인 메뉴 -->
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
-            <!--./components/headerNavbar.js-->
+            <!-- ../components/headerNavbar.js -->
           </div>
         </div>
       </div>
@@ -145,7 +150,7 @@
               class="input"
               id="passwordInput"
               type="password"
-              placeholder="********"
+              placeholder="새로운 비밀번호"
               autocomplete="off"
             />
           </div>
@@ -158,7 +163,7 @@
               class="input"
               id="passwordConfirmInput"
               type="password"
-              placeholder="********"
+              placeholder="새로운 비밀번호 확인"
               autocomplete="off"
             />
           </div>
@@ -172,16 +177,14 @@
               class="input"
               id="curpasswordInput"
               type="password"
-              placeholder="********"
+              placeholder="현재 비밀번호"
               autocomplete="off"
             />
           </div>
         </div>
 
     </div>
-        <button class="button is-primary mt-5 is-fullwidth" id="submitButton">
-          회원 정보 수정하기
-        </button>
+    <input type="submit" value="회원 정보 수정하기" id="submitButton" class="button is-primary mt-5 is-fullwidth">
       
       
       </form>

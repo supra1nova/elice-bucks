@@ -31,7 +31,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
       res.status(201).json(newOrder);
     } catch (error) {
     next(error);
-    }
+  }
 });
 
 //-> orderItems 등록하는 router 따로 구현 ; 사실 test 를 위해 구현했기 때문에 쓸일이 없을수도 ..?
@@ -118,12 +118,13 @@ orderRouter.get('/admin/qty/:productId', async function (req, res, next) {
   try{
     const { productId } = req.params;
     const orderNum = await orderItemService.getSameProductId(productId);
+
     res.status(200).json(orderNum);
-  }catch (error) {
+  } catch (error) {
     next(error);
   }
-})
-
+});
+// 3-5번은 get으로는 안되어서 patch를 쓰는 방법을 다시 찾는중 ! 일단 merge 먼저 합니다 !
 // 3. 주문목록 취소 (admin 과 user 모두 사용 가능)
 orderRouter.get('/cancel/:orderId', async function (req, res, next) {
   try {
@@ -137,7 +138,27 @@ orderRouter.get('/cancel/:orderId', async function (req, res, next) {
 });
 
 // 4. 배송 시작
+orderRouter.get('/delivered/:orderId', async function (req, res, next) {
+  try {
+    const { orderId } = req.params;
+    const result = await orderService.updateDelivered(orderId);
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // 5. 결제 완료 
+orderRouter.get('/paid/:orderId', async function (req, res, next) {
 
+  try {
+    const { orderId } = req.params;
+    const result = await orderService.updatePayment(orderId);
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
 export { orderRouter };
