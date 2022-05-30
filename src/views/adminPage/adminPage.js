@@ -6,12 +6,16 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
+import insertCategoryList from '../components/navCategoryList.js';
+
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const mainContent = document.querySelector('#mainContent');
 const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
+insertCategoryList();
+
 async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   leftMenuAdmin.innerHTML = await leftMenu.render({

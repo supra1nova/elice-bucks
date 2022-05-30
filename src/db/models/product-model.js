@@ -12,7 +12,7 @@ export class ProductModel {
 
   // 2. 제품 전체 조회
   async findAll() {
-    const products = await Product.find({}).populate('category', 'name').sort({ createdAt: -1 });
+    const products = await Product.find({}).populate('category', 'name').sort({ "createdAt": -1 });
     return products;
   }
 
@@ -50,8 +50,8 @@ export class ProductModel {
 
   // 8. 제품 삭제 및 'OK' 반환 - 이미 service 에서 파일 유무 검증하므로 findOneAndDelete 대신 deletOne 사용 + findOneAndDelete는 return 함
   async del(productId) {
-    await Product.deleteOne({ _id: productId }); // 
-    return 'Successfully deleted';
+    const deletedProduct = await Product.deleteOne({ _id: productId });
+    return deletedProduct;
   }
 }
 

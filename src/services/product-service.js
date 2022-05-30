@@ -1,8 +1,6 @@
 import { productModel } from '../db';
 import { categoryModel } from '../db';
 
-// 암호화는 제품에 필요
-
 class ProductService {
   // 본 파일의 맨 아래에서, new ProductService(productModel) 하면, 이 함수의 인자로 전달됨
   constructor(productModel) {
@@ -12,7 +10,7 @@ class ProductService {
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
     const { name, price, category, description, image } = productInfo;
-    const categoryName = category.name;
+    const categoryName = category;
 
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
@@ -24,11 +22,13 @@ class ProductService {
 
     // 카테고리명을 이용해 조회, 신규 카테고리일 경우 자동으로 생성
     let categoryId = '';
-    const categoryList = (await categoryModel.findAll({})).map(
-      (result) => result.name
-    );
-    if (categoryList.includes(categoryName)) {
-      const index = categoryList.indexOf(categoryName);
+    
+    const categoryList = await categoryModel.getCategoryNames();
+
+    console.log(categoryName);
+    
+    if (categoryList.includes(categoryName.name)) {
+      const index = categoryList.indexOf(categoryName.name);
       categoryId = (await categoryModel.findAll({})).map((result) =>
         result._id.toString()
       )[index];
@@ -65,7 +65,13 @@ class ProductService {
     return product;
   }
 
-  // 4. 제품 정보 수정
+  // 4. 카테고리 아이디별 검색
+  async findByCategoryId(categoryId) {
+    const product = await this.productModel.findByCategory(categoryId);
+    return product;
+  }
+
+  // 5. 제품 정보 수정
   async setProduct(productId, toUpdate) {
     // 우선 해당 명칭의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
@@ -78,9 +84,9 @@ class ProductService {
     // 카테고리명을 이용해 조회, 신규 카테고리일 경우 자동으로 생성
     const categoryName = toUpdate.category;
     let categoryId = '';
-    const categoryList = (await categoryModel.findAll({})).map(
-      (result) => result.name
-    );
+
+    const categoryList = await categoryModel.getCategoryNames();
+
     if (categoryList.includes(categoryName)) {
       const index = categoryList.indexOf(categoryName);
       categoryId = (await categoryModel.findAll({})).map((result) =>
@@ -104,12 +110,6 @@ class ProductService {
     return product;
   }
 
-  // 5. 카테고리 아이디별 검색
-  async findByCategoryId(categoryId) {
-    const product = await this.productModel.findByCategory(categoryId);
-    return product;
-  }
-
   // 6. 제품 삭제
   async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
@@ -125,19 +125,3 @@ const productService = new ProductService(productModel);
 
 export { productService };
 
-// let categoryId = '';
-// const categoryList = (await categoryModel.findAll({})).map(  (result) => result.name );
-// if (categoryList.includes(categoryName)) {
-//   const index = categoryList.indexOf(categoryName);
-//   categoryId = (await categoryModel.findAll({})).map((result) =>
-//     result._id.toString()
-//   )[index];
-
-//   // 카테고리가 존재하지 않는다면 카테고리 신규 생성 후 ID 추출
-// } else {
-//   const newCategoryModel = await categoryModel.create({
-//     name: categoryName,
-//   });
-//   categoryId = newCategoryModel._id.toString();
-//   console.log(categoryId);
-// }
