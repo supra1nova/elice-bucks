@@ -5,12 +5,34 @@ import { loginRequired } from '../middlewares';
 import { userService } from '../services';
 
 const userRouter = Router();
-// const admin = userService.addUser({
-//   email: "admin@example.com",
-//   fullName: "admin",
-//   password: "admin1234",
-//   role: "admin-user"
-// });
+
+//admin 등록하기
+userRouter.post('/admin', async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        'headers의 Content-Type을 application/json으로 설정해주세요'
+      );
+    }
+
+    const fullName = req.body.fullName;
+    const email = req.body.email;
+    const password = req.body.password;
+
+      // 위 데이터를 유저 db에 추가하기
+    const newUser = await userService.addUser({
+      fullName,
+      email,
+      password,
+    });
+    newUser.role = "admin-user";
+    // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
+    // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
+    res.status(201).json(newUser);
+    } catch (error) {
+    next(error);
+  }
+})
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post('/register', async (req, res, next) => {
@@ -70,7 +92,7 @@ userRouter.post('/login', async function (req, res, next) {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get('/userlist', loginRequired, async function (req, res, next) {
+userRouter.get('/users', loginRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -82,11 +104,12 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
   }
 });
 
-userRouter.get('/totalnumOfusers', loginRequired, async function (req, res, next) {
+userRouter.get('/numbers', loginRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
     const totalusers = users.length;
+    console.log(totalusers);
 
     // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(totalusers);
@@ -95,7 +118,8 @@ userRouter.get('/totalnumOfusers', loginRequired, async function (req, res, next
   }
 });
 
-userRouter.get('/user', loginRequired, async function (req, res, next) {
+// 
+userRouter.get('/', loginRequired, async function (req, res, next) {
   try {
     const user = await userService.getUser(req.currentUserId);
     const { email, fullName, role, _id, address, phoneNumber, password } = user;
@@ -119,7 +143,7 @@ userRouter.get('/user', loginRequired, async function (req, res, next) {
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
-  '/users/:userId',
+  '/:userId',
   loginRequired,
   async function (req, res, next) {
     try {
@@ -174,10 +198,10 @@ userRouter.patch(
 );
 
 // 사용자 탈퇴 
-userRouter.delete('/user/:userId', async function (req, res, next) {
+userRouter.delete('/:userId', loginRequired, async function (req, res, next) {
   try {
-    const { userId } = req.params;
-    const result = await userService.delUser(userId);
+    const { userId, currentPassword } = req.body;
+    const result = await userService.delUser(userId, currentPassword);
 
     res.status(200).json(result);
   } catch (error) {

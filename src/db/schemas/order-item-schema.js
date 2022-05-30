@@ -2,19 +2,30 @@ import { Schema } from 'mongoose';
 
 const OrderItemSchema = new Schema(
   {
-    item_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    orderId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Order',
+      required: true
     },
-    order_id: {
-        type: Number,
-        ref: 'Product',
-        require: true,
+    productId: { //여기서 price / name 가져오기
+      type: Schema.Types.ObjectId,
+      ref: 'Product',
+      require: true
+    },
+    productQty: {
+      type: Number,
+      require: true,
+      default: 1
+    },
+    productPrice: {
+      type: Number,
+      require: true,
+      default: 0
     }
   },
   {
     timestamps: true,
+    collection: 'orderitems',
   }
 );
 
