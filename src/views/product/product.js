@@ -18,7 +18,7 @@ async function addAllElements() {
 // 전체 상품의 데이터를 html에 삽입
 async function insertProductList() {
   // '/api/product' 에서 전체 상품 목록을 json으로 받아옴
-  const res = await fetch('/api/product');
+  const res = await fetch('/api/product/products');
   const products = await res.json();
   console.log(products);
 
