@@ -20,6 +20,7 @@ async function insertNoticeList() {
   // '/api/notice' 에서 전체 상품 목록을 json으로 받아옴
   const res = await fetch('/api/notice/notices');
   const notices = await res.json();
+  console.log(notices)
 
   // forEach로 돌면서 상품 id, image, name, price를 각 자리에 할당
   notices.forEach((notice) => {
@@ -31,7 +32,7 @@ async function insertNoticeList() {
     noticeList.insertAdjacentHTML(
       'beforeend',
       ` 
-        <th class="num">순번</th>
+        <th class="bullet">•</th>
         <td class="title"><a href="/notice/${id}">${title}</a></td>
         <td class="author">${author}</td>
         <td class="date">${timestamps}</td>

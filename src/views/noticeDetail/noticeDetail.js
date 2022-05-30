@@ -1,9 +1,10 @@
 // navbar 로그인 부분
-import headerNavbar from '../components/headerNavbar.js';
-import insertCategoryList from '../components/navCategoryList.js';
+import headerNavbar from '/components/headerNavbar.js';
+import insertCategoryList from '/components/navCategoryList.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const container = document.querySelector('#container');
+const noticeDetail = document.querySelector('.noticeDetail');
+const noticeTitle = document.querySelector('.noticeTitle');
 
 addAllElements();
 insertCategoryList();
@@ -18,7 +19,8 @@ async function addAllElements() {
 // 공지사항 데이터를 html에 삽입
 async function insertNoticeDetail() {
   // url에서 id에 해당하는 부분만 가져와서 id 변수에 할당
-  const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
+  const id = location.pathname.replace(/\/notice\/([\d\w]*)\/?/g, '$1');
+  console.log(id);
 
   // '/api/notice/${id}' 에서 상품의 상세 내용을 json으로 받아옴
   const res = await fetch(`/api/notice/${id}`);
@@ -30,14 +32,18 @@ async function insertNoticeDetail() {
   const content = notice.content;
   const author = notice.author;
 
-  // 공지사항 title, timestamps, author를 각 자리에 할당
-  container.insertAdjacentHTML(
+  noticeTitle.insertAdjacentHTML(
     'beforeend',
     ` 
-      <td class="title">${title}</td>
-      <td class="author">${author}</td>
+      <th class="title">${title}</th>
+    `
+  );
+
+  // 공지사항 title, timestamps, author를 각 자리에 할당
+  noticeDetail.insertAdjacentHTML(
+    'beforeend',
+    ` 
       <td class="content">${content}</td>
-      <td class="date">${timestamps}</td>
-      `
+    `
   );
 }
