@@ -48,6 +48,16 @@ class OrderService {
     const totalorders = orders.length; 
     return totalorders;
   }
+
+  // 2-2. 전체 주문 총액 반환
+  async getOrdersPrice() {
+    const orders = await this.orderModel.findAll({});
+    let price = 0;
+    for (let i = 0; i < orders.length; i++) {
+      price = price + orders[i].totalPrice;
+    }
+    return price;
+  }
   
   // 3. 해당 유저의 주문 물품 목록 조회 ; -> order-items 에서 구현
 
@@ -76,21 +86,24 @@ class OrderService {
   async cancelOrder(orderId) {
     const order = await this.orderModel.findByOrderId(orderId);
     order.deletedAt = new Date();
-    return order;
+    const cancelOrder = await this.orderModel.update(orderId, order);
+    return cancelOrder;
   }
 
   // 5-2. 해당 유저의 delevered update
   async updateDelivered(orderId) {
-    const order = await this.orderModel.findByOrderId(orderId);
-    order.delivered = new Date();
-    return order;
+    // const order = await this.orderModel.findByOrderId(orderId);
+    // order.delivered = new Date();
+    const delivered = await this.orderModel.update(orderId, delivered = new Date());
+    return delivered;
   }
 
   // 5-3. 해당 유저의 payment update
   async updatePayment(orderId) {
     const order = await this.orderModel.findByOrderId(orderId);
     order.paid = new Date();
-    return order;
+    const paid = await this.orderModel.update(orderId, order);
+    return paid;
   }
 }
 
