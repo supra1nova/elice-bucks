@@ -29,8 +29,13 @@ class UserService {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // admin 설정을 위한 코드
-    if (email === "admin@example.com") {
-      const newUserInfo = { fullName, email, password: hashedPassword, role: 'admin-user' };
+    if (email === 'admin@example.com') {
+      const newUserInfo = {
+        fullName,
+        email,
+        password: hashedPassword,
+        role: 'admin-user',
+      };
       const createdNewUser = await this.userModel.create(newUserInfo);
       return createdNewUser;
     }

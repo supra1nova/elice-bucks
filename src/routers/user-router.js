@@ -62,7 +62,6 @@ userRouter.post('/login', async function (req, res, next) {
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
-
   } catch (error) {
     next(error);
   }
@@ -82,18 +81,22 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
   }
 });
 
-userRouter.get('/totalnumOfusers', loginRequired, async function (req, res, next) {
-  try {
-    // 전체 사용자 목록을 얻음
-    const users = await userService.getUsers();
-    const totalusers = users.length;
+userRouter.get(
+  '/totalnumOfusers',
+  loginRequired,
+  async function (req, res, next) {
+    try {
+      // 전체 사용자 목록을 얻음
+      const users = await userService.getUsers();
+      const totalusers = users.length;
 
-    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
-    res.status(200).json(totalusers);
-  } catch (error) {
-    next(error);
+      // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+      res.status(200).json(totalusers);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 userRouter.get('/user', loginRequired, async function (req, res, next) {
   try {
@@ -173,7 +176,7 @@ userRouter.patch(
   }
 );
 
-// 사용자 탈퇴 
+// 사용자 탈퇴
 userRouter.delete('/user/:userId', async function (req, res, next) {
   try {
     const { userId } = req.params;
