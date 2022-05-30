@@ -4,6 +4,19 @@ import { NoticeSchema } from '../schemas/notice-schema';
 const Notice = model('Notice', NoticeSchema);
 
 export class NoticeModel {
+ 
+ 
+  async countAll() {
+    const noticeQty = await Notice.countDocuments({});
+    return noticeQty;
+  }
+
+  async count(page, perPage) {
+    // url 쿼리에서 page 받기, 기본값 1
+    const noticeQtyPerPage = await Notice.find({}).sort({ createdAt: -1 }).skip(perPage * (page - 1)).limit(perPage);
+    return noticeQtyPerPage;
+  }
+
   // 1. 공지사항 생성
   async create(noticeInfo) {
     const createdNewNotice = await Notice.create(noticeInfo);
