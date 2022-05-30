@@ -10,8 +10,11 @@ class ProductService {
   // 1. 신규 제품 등록
   async addProduct(productInfo) {
     const { name, price, category, description, image } = productInfo;
-    const categoryName = category;
 
+    const categoryId = category._id;
+    const categoryName = category.name;
+
+    console.log(category);
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
     if (product) {
@@ -21,16 +24,14 @@ class ProductService {
     }
 
     // 카테고리명을 이용해 조회, 신규 카테고리일 경우 자동으로 생성
-    let categoryId = '';
-    
-    const categoryList = await categoryModel.getCategoryNames();
-    
-    if (categoryList.includes(categoryName)) {
-      const index = categoryList.indexOf(categoryName);
-      categoryId = (await categoryModel.findAll({})).map((result) =>
-        result._id.toString()
-      )[index];
 
+    const categoryList = await categoryModel.getCategoryNames();
+
+    if (categoryList.includes(categoryName)) {
+      // const index = categoryList.indexOf(categoryName);
+      // categoryId = (await categoryModel.findAll({})).map((result) =>
+      //   result._id.toString()
+      // )[index];
       // 카테고리가 존재하지 않는다면 카테고리 신규 생성 후 ID 추출
     } else {
       const newCategoryModel = await categoryModel.create({
@@ -122,4 +123,3 @@ class ProductService {
 const productService = new ProductService(productModel);
 
 export { productService };
-

@@ -10,9 +10,9 @@ insertCategoryList();
 insertProductList();
 
 // navbar 로그인 상태에 따른 로그인 메뉴 삽입
-async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
+function addAllElements() {
+  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar.componentDidMount();
 }
 
 // 전체 상품의 데이터를 html에 삽입

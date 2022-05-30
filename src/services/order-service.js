@@ -6,30 +6,32 @@ class OrderService {
   }
   
   // 1. order-schema 생성
-  async addtoOrderList(orderInfo) {
-    console.log(orderInfo);
-    const { user_id, address, total_cnt, total_price } = orderInfo;
-    console.log(user_id);
+  async addOrderList(orderInfo) {
+    const { userId : userId } = orderInfo;
 
-    // 주문목록에 사용자가 이미 존재한다면 개수를 늘려줌
-    const preOrder = await this.orderModel.findbyId(user_id);
-    let final_cnt = 0;
-    let final_price = 0;
-
+    // 주문목록에 사용자가 이미 존재한다면 주문 목록을 합쳐준다.
+    let preOrder = await this.orderModel.findById(userId);
+    
     if(preOrder) {
-        let pre_cnt = await preOrder.total_cnt;
-        final_cnt = pre_cnt + total_cnt;
-        let pre_price = await preOrder.total_price;
-        final_price = pre_price + total_price;
+      if(paid === createdAt){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다.
+        let finalQty = 0;
+        let finalPrice = 0;
+        let preQty = preOrder.totalQty;
+        finalQty = preQty + orderInfo.totalQty;
+        let prePrice = preOrder.totalPrice;
+        finalPrice = prePrice + orderInfo.totalPrice;
 
-        preOrder = await this.orderModel.update({
-            user_id,
-            update: orderInfo,
-        });
+        preOrder.totalQty = finalQty;
+        preOrder.totalPrice = finalPrice;
+
         return preOrder;
+      } else{
+        const createdNewOrder = await this.orderModel.create(orderInfo);
+        return createdNewOrder;
+      }
     }
-    else{
-        const createdNewOrder = await this.orderModel.create(cart);
+    else{ // 돈을 이미 냈거나, 배송이 시작되었거나, 주문이 취소되었을때에는 주문 목록을 만들어준다
+        const createdNewOrder = await this.orderModel.create(orderInfo);
         return createdNewOrder;
     }
   }
@@ -46,36 +48,62 @@ class OrderService {
     const totalorders = orders.length; 
     return totalorders;
   }
-  
-  // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 해야하나 ?
 
+  // 2-2. 전체 주문 총액 반환
+  async getOrdersPrice() {
+    const orders = await this.orderModel.findAll({});
+    let price = 0;
+    for (let i = 0; i < orders.length; i++) {
+      price = price + orders[i].totalPrice;
+    }
+    return price;
+  }
+  
+  // 3. 해당 유저의 주문 물품 목록 조회 ; -> order-items 에서 구현
 
   // 4. 해당 유저의 주문 목록 반환
   async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
-    // if(order.deleted_at == null) {
-    //   return null;
-    // } -> deleted_at 구현 한다면
+    if(order.deletedAt !== order.createdAt) { //deletedAt 이 수정되었다는건 주문이 취소되었음을 의미하므로 
+      return null;
+    }
     return order;
   }
 
-  // 4-1. 해당 유저의 주문목록 최종 상품가격 반환 -> 위에서 order.total_price; 해도 되는거 아닌가 ..?
+  // 4-1. 해당 유저의 주문목록 전체 상품개수 반환
+  async finalQty(userId) {
+    const order = await this.orderModel.findById(userId);
+    return order.totalQty;
+  }
+
+  // 4-2. 해당 유저의 주문목록 전체 가격 반환
   async finalPrice(userId) {
     const order = await this.orderModel.findById(userId);
-    return order.price;
+    return order.totalPrice;
   }
 
-  // 4-2. 해당 유저의 주문목록 전체 상품개수 반환
-  async finalCnt(userId) {
-    const order = await this.orderModel.findById(userId);
-    return order.cnt;
+  // 5-1. 해당 유저의 주문목록 취소처리
+  async cancelOrder(orderId) {
+    const order = await this.orderModel.findByOrderId(orderId);
+    order.deletedAt = new Date();
+    const cancelOrder = await this.orderModel.update(orderId, order);
+    return cancelOrder;
   }
 
-  // 5. 해당 유저의 주문목록 취소처리
-  async cancelOrder(userId) {
-    const order = await this.orderModel.findById(userId);
-    order.deleted_at = new Date();
-    return order;
+  // 5-2. 해당 유저의 delevered update
+  async updateDelivered(orderId) {
+    // const order = await this.orderModel.findByOrderId(orderId);
+    // order.delivered = new Date();
+    const delivered = await this.orderModel.update(orderId, delivered = new Date());
+    return delivered;
+  }
+
+  // 5-3. 해당 유저의 payment update
+  async updatePayment(orderId) {
+    const order = await this.orderModel.findByOrderId(orderId);
+    order.paid = new Date();
+    const paid = await this.orderModel.update(orderId, order);
+    return paid;
   }
 }
 
