@@ -124,6 +124,7 @@ orderRouter.get('/admin/qty/:productId', async function (req, res, next) {
     next(error);
   }
 });
+
 // 3-5번은 get으로는 안되어서 patch를 쓰는 방법을 다시 찾는중 ! 일단 merge 먼저 합니다 !
 // 3. 주문목록 취소 (admin 과 user 모두 사용 가능)
 orderRouter.get('/cancel/:orderId', async function (req, res, next) {

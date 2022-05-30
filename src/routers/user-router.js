@@ -24,8 +24,8 @@ userRouter.post('/admin', async (req, res, next) => {
       fullName,
       email,
       password,
+      role: 'admin-user',
     });
-    newUser.role = 'admin-user';
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
     // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
     res.status(201).json(newUser);
@@ -194,8 +194,8 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
 // 사용자 탈퇴
 userRouter.delete('/:userId', loginRequired, async function (req, res, next) {
   try {
+    const { userId } = req.params;
     const { currentPassword } = req.body;
-    const userId = req.params.userId;
     const result = await userService.delUser({ userId, currentPassword });
 
     res.status(200).json(result);
