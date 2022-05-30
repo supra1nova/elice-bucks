@@ -1,6 +1,7 @@
 // navbar 로그인 부분
 import headerNavbar from '../components/headerNavbar.js';
 import insertCategoryList from '../components/navCategoryList.js';
+import pagination from '../components/pagination.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const noticeList = document.querySelector('.noticeList');
@@ -8,6 +9,7 @@ const noticeList = document.querySelector('.noticeList');
 addAllElements();
 insertCategoryList();
 insertNoticeList();
+pagination();
 
 // navbar 로그인 상태에 따른 로그인 메뉴 삽입
 async function addAllElements() {
@@ -19,7 +21,9 @@ async function addAllElements() {
 async function insertNoticeList() {
   // '/api/notice' 에서 전체 상품 목록을 json으로 받아옴
   const res = await fetch('/api/notice/notices');
-  const notices = await res.json();
+  const data = await res.json();
+  console.log(data)
+  const notices = data.posts;
   console.log(notices)
 
   // forEach로 돌면서 상품 id, image, name, price를 각 자리에 할당
