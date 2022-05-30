@@ -16,7 +16,10 @@ const ProductSchema = new Schema(
       required: true,
     },
     image: {
-        type: String,
+      type: String,
+      // 기본 이미지를 image 폴더에 넣고 그 이미지를 호출하는 방식으로 하면 어떨까?
+      default : '-',
+      required: true,
     },
     
     // 각 제품은 하나의 카테고리를 가져야하므로 배열 형태가 아니도록 설정
