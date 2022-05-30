@@ -125,13 +125,22 @@ orderRouter.get('/admin/qty/:productId', async function (req, res, next) {
   }
 });
 
+// 2-2-4. (admin) 총 주문 금액 반환
+orderRouter.get('/admin/price', async function (req, res, next) {
+  try{
+    const total = await orderService.getOrdersPrice();
+    res.status(200).json(total);
+  } catch (error) {
+    next(error);
+  }
+})
+
 // 3-5번은 get으로는 안되어서 patch를 쓰는 방법을 다시 찾는중 ! 일단 merge 먼저 합니다 !
 // 3. 주문목록 취소 (admin 과 user 모두 사용 가능)
-orderRouter.get('/cancel/:orderId', async function (req, res, next) {
+orderRouter.patch('/cancel/:orderId', async function (req, res, next) {
   try {
     const { orderId } = req.params;
     const result = await orderService.cancelOrder(orderId);
-
     res.status(200).json(result);
   } catch (error) {
     next(error);
@@ -139,7 +148,7 @@ orderRouter.get('/cancel/:orderId', async function (req, res, next) {
 });
 
 // 4. 배송 시작
-orderRouter.get('/delivered/:orderId', async function (req, res, next) {
+orderRouter.patch('/delivered/:orderId', async function (req, res, next) {
   try {
     const { orderId } = req.params;
     const result = await orderService.updateDelivered(orderId);
@@ -151,7 +160,7 @@ orderRouter.get('/delivered/:orderId', async function (req, res, next) {
 });
 
 // 5. 결제 완료 
-orderRouter.get('/paid/:orderId', async function (req, res, next) {
+orderRouter.patch('/paid/:orderId', async function (req, res, next) {
 
   try {
     const { orderId } = req.params;
