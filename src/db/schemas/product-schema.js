@@ -21,6 +21,11 @@ const ProductSchema = new Schema(
       default : '-',
       required: true,
     },
+    stock: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
     
     // 각 제품은 하나의 카테고리를 가져야하므로 배열 형태가 아니도록 설정
     category: {

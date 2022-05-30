@@ -1,11 +1,6 @@
 import { validateEmail } from './../useful-functions.js';
 
-export const validateUpdateProfile = (
-  fullName,
-  email,
-  password,
-  passwordConfirm
-) => {
+export const validateProfile = (fullName, email, password, passwordConfirm) => {
   const isFullNameValid = fullName.length >= 2;
   const isEmailValid = validateEmail(email);
   const isPasswordValid = password.length >= 4;
@@ -31,6 +26,14 @@ export const validateLogin = (email, password) => {
     throw new Error(
       '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.'
     );
+  }
+  return 'ok';
+};
+
+export const validateDeleteUser = (password) => {
+  const isPasswordValid = password.length >= 4;
+  if (!isPasswordValid) {
+    throw new Error('비밀번호가 4글자 이상인지 확인해 주세요.');
   }
   return 'ok';
 };

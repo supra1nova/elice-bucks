@@ -48,7 +48,7 @@ const adminContent = {
 //.get('/order/totalNum'
 async function getOrderstotalNum() {
   try {
-    const data = await Api.get('/api', 'numOforderlists');
+    const data = await Api.get('/api/order/admin', 'qty');
     return data;
   } catch (err) {
     console.error(err.stack);
@@ -59,7 +59,7 @@ async function getOrderstotalNum() {
 //.get('/totalnumOfusers',
 async function getTotalnumOfusers() {
   try {
-    const data = await Api.get('/api', 'totalnumOfusers');
+    const data = await Api.get('/api/user', 'numbers');
     return data;
   } catch (err) {
     console.error(err.stack);

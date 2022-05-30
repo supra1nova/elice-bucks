@@ -14,20 +14,28 @@
 	text-decoration: none;
 }
 
-
+#main-container{
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 .register-user-form-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   flex-wrap: wrap;
   margin-top:10px;
+  width:100%;
+  max-width: 700px;
   
 }
 
 
 .register-user-form-box {
-  max-width: 700px;
+  /* max-width: 700px; */
   width:100%;
   
 }
@@ -45,7 +53,7 @@
 }
 
 .register-user-form-box .title {
-  
+  text-align: center;
 }
 
 .register-user-form-box .button {
@@ -57,4 +65,28 @@
 .register-user-form-box .input:focus {
   border-color: #00d1b2;
   box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
+}
+
+/**************** */
+/*회원탈퇴 폼*/
+.login-form-container {
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:100%
+}
+
+.login-form-box {
+  width:100%;
+  max-width: 700px;
+  
+}
+
+.login-form-box .title {
+  text-align: center;
+}
+
+.login-form-box .button {
+  font-weight: bold;
 }
