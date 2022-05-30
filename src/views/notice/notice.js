@@ -26,7 +26,7 @@ async function insertNoticeList() {
   notices.forEach((notice) => {
     const id = notice._id;
     const title = notice.title;
-    const timestamps = notice.timestamps;
+    const time = Date(notice.createdAt);
     const author = notice.author;
 
     noticeList.insertAdjacentHTML(
@@ -35,8 +35,11 @@ async function insertNoticeList() {
         <th class="bullet">•</th>
         <td class="title"><a href="/notice/${id}">${title}</a></td>
         <td class="author">${author}</td>
-        <td class="date">${timestamps}</td>
+        <td class="date">${time}</td>
         `
     );
   });
 }
+
+
+
