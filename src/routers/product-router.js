@@ -133,7 +133,7 @@ productRouter.delete('/:productId', async function (req, res, next) {
 //** 멀터 정의 내용 삽입
 // 참고 https://wayhome25.github.io/nodejs/2017/02/21/nodejs-15-file-upload/
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+  if (file.mimetype === "image/jpg" || file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/gif" || file.mimetype === "image/webp"){
     cb(null, true);
   } else {
     req.fileValidationError = "jpg, jpeg, png, gif, webp 파일만 업로드 가능합니다.";
@@ -163,8 +163,7 @@ const upload = multer({
 productRouter.post('/imageUpload', upload.single("image"), (req, res, next) => {
 // productRouter.post('/image', upload.single("image"), (req, res, next) => {
   try {
-    // res.status(200).send({ image: `/images/${req.file.filename}` });
-    res.status(200).send({ image: `${req.file.filename}` });
+    res.status(200).send({ image: `/images/${req.file.filename}` });
   } catch (error) {
     next(error.message + '이미지를 넣을 수 없습니다.');
   }

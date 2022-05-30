@@ -1,8 +1,6 @@
 import { productModel } from '../db';
 import { categoryModel } from '../db';
 
-// 암호화는 제품에 필요
-
 class ProductService {
   // 본 파일의 맨 아래에서, new ProductService(productModel) 하면, 이 함수의 인자로 전달됨
   constructor(productModel) {
@@ -26,9 +24,11 @@ class ProductService {
     let categoryId = '';
     
     const categoryList = await categoryModel.getCategoryNames();
-    console.log(categoryList);
-    if (categoryList.includes(categoryName)) {
-      const index = categoryList.indexOf(categoryName);
+
+    console.log(categoryName);
+    
+    if (categoryList.includes(categoryName.name)) {
+      const index = categoryList.indexOf(categoryName.name);
       categoryId = (await categoryModel.findAll({})).map((result) =>
         result._id.toString()
       )[index];
@@ -65,7 +65,13 @@ class ProductService {
     return product;
   }
 
-  // 4. 제품 정보 수정
+  // 4. 카테고리 아이디별 검색
+  async findByCategoryId(categoryId) {
+    const product = await this.productModel.findByCategory(categoryId);
+    return product;
+  }
+
+  // 5. 제품 정보 수정
   async setProduct(productId, toUpdate) {
     // 우선 해당 명칭의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
@@ -101,12 +107,6 @@ class ProductService {
       update: toUpdate,
     });
 
-    return product;
-  }
-
-  // 5. 카테고리 아이디별 검색
-  async findByCategoryId(categoryId) {
-    const product = await this.productModel.findByCategory(categoryId);
     return product;
   }
 
