@@ -18,7 +18,7 @@ async function addAllElements() {
 // 공지사항 데이터를 html에 삽입
 async function insertNoticeList() {
   // '/api/notice' 에서 전체 상품 목록을 json으로 받아옴
-  const res = await fetch('notice.json');
+  const res = await fetch('/api/notice/notices');
   const notices = await res.json();
 
   // forEach로 돌면서 상품 id, image, name, price를 각 자리에 할당
