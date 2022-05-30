@@ -2,7 +2,7 @@ import * as Api from '/api.js';
 const ProductEdit = {
   componentDidMount: async (_id, productCat) => {
     const submitButton = document.querySelector('#submitButton');
-    document.getElementById(`${productCat?._id}`).selected = true;
+    document.getElementById(`${productCat._id}`).selected = true;
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
       const name = document.getElementById('nameInput').value;

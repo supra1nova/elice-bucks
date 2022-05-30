@@ -1,28 +1,28 @@
-.HolyGrail,
-.HolyGrail-body {
+.holyGrail,
+.holyGrail-body {
   display: flex;
   flex-direction: column;
 
 }
 
-.HolyGrail-nav {
+.holyGrail-nav {
   order: -1;
   
   padding-left: 20px;
 }
-.HolyGrail-nav li{
+.holyGrail-nav li{
   padding-bottom: 5px;
 }
 
 @media (min-width: 768px) {
-  .HolyGrail-body {
+  .holyGrail-body {
     flex-direction: row;
     flex: 1;
   }
-  .HolyGrail-content {
+  .holyGrail-content {
     flex: 1;
   }
-  .HolyGrail-nav {
+  .holyGrail-nav {
     /* 12em is the width of the columns */
     flex: 0 0 12em;
   }
