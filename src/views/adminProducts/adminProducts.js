@@ -73,11 +73,12 @@ async function addAllElements() {
       console.log(result);
       window.location.href = `/adminProducts`;
     });
+
+  //카테고리 수정
+  const trs = document.getElementsByClassName('categoryTr');
   const categoryEditButtons = document.getElementsByClassName(
     'category-edit-button'
   );
-  //카테고리 수정
-
   Array.from(categoryEditButtons).forEach((button) => {
     button.addEventListener('click', async () => {
       const nameInput = document.querySelector(`#nameInput${button.id}`);

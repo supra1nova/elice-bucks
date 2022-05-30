@@ -32,7 +32,7 @@ async function addAllElements() {
 }
 
 const adminContent = {
-  render: async (userTotalNum, orderTotalNum) => {
+  render: (userTotalNum, orderTotalNum) => {
     return `
     <h1>쇼핑몰 현황</h1>
     <div>

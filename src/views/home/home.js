@@ -2,18 +2,15 @@
 // 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
 // 코드 예시를 남겨 두었습니다.
 
-import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import insertCategoryList from '../components/navCategoryList.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
 
 addAllElements();
-insertCategoryList();
 
-// navbar 로그인 상태에 따른 로그인 메뉴 삽입
-async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
+function addAllElements() {
+  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar.componentDidMount();
 }
+insertCategoryList();
