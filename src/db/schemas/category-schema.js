@@ -8,6 +8,9 @@ const CategorySchema = new Schema(
       unique: true,
     },
   },
+  {
+    collection: 'categories',
+  }
 );
 
 export { CategorySchema };

@@ -24,3 +24,4 @@ export * from './models/order-model';
 export * from './models/order-item-model';
 export * from './models/product-model';
 export * from './models/category-model';
+export * from './models/notice-model';

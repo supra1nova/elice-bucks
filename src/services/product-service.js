@@ -24,11 +24,9 @@ class ProductService {
     let categoryId = '';
     
     const categoryList = await categoryModel.getCategoryNames();
-
-    console.log(categoryName);
     
-    if (categoryList.includes(categoryName.name)) {
-      const index = categoryList.indexOf(categoryName.name);
+    if (categoryList.includes(categoryName)) {
+      const index = categoryList.indexOf(categoryName);
       categoryId = (await categoryModel.findAll({})).map((result) =>
         result._id.toString()
       )[index];
