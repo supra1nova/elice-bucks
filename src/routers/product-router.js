@@ -38,7 +38,7 @@ productRouter.post('/register', async (req, res, next) => {
 });
 
 // 2. 전체 제품 조회
-productRouter.get('/', async function (req, res, next) {
+productRouter.get('/products', async function (req, res, next) {
   try {
     // 전체 제품 목록을 얻음
     const products = await productService.getProducts();
