@@ -1,8 +1,11 @@
 import headerNavbar from '../components/headerNavbar.js';
 import { kakaomap } from './kakaomap/kakaomap.js';
+import insertCategoryList from '../components/navCategoryList.js';
+
 const headerNavbar1 = document.querySelector('#headerNavbar');
 
 addAllElements();
+insertCategoryList();
 kakaomap();
 createindexedDB();
 

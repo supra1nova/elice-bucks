@@ -52,16 +52,32 @@ a {
 #image img {
     width: 100%;
 }
+
+/* 장바구니에 담기 버튼 */
 #cartBtn {
     position: fixed;
-    bottom: 100px;
-    right: 100px;
-    padding: 10px 20px;
+    bottom: 110px;
+    right: 50px;
+    padding: 10px;
     border-radius: 40px;
     background-color: #F1EEEB;
     color: #333333;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 #cartBtn:hover {
+    background-color: #fff;
+}
+/* 바로 구매하기 버튼 */
+#buyBtn {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: #F1EEEB;
+    color: #333333;
+    font-size: 1em;
+}
+#buyBtn:hover {
     background-color: #fff;
 }
