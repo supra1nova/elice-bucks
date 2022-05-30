@@ -18,14 +18,14 @@ userRouter.post('/admin', async (req, res, next) => {
     const fullName = req.body.fullName;
     const email = req.body.email;
     const password = req.body.password;
-
+    
       // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
       fullName,
       email,
       password,
+      role : "admin-user",
     });
-    newUser.role = "admin-user";
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
     // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
     res.status(201).json(newUser);
@@ -200,8 +200,9 @@ userRouter.patch(
 // 사용자 탈퇴 
 userRouter.delete('/:userId', loginRequired, async function (req, res, next) {
   try {
-    const { userId, currentPassword } = req.body;
-    const result = await userService.delUser(userId, currentPassword);
+    const { userId } = req.params;
+    const { currentPassword } = req.body;
+    const result = await userService.delUser({userId, currentPassword});
 
     res.status(200).json(result);
   } catch (error) {
