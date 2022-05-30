@@ -22,12 +22,13 @@ export class OrderModel {
     return userOrder;
   }
 
-  async findByOrderId(orderId) {
+  // 여기서의 orderId 는 order schema 에서의 _id 를 의미
+  async findByOrderId(orderId) { 
     const order = await Order.findOne({ orderId : orderId});
     return order;
   }
 
-  // 이미 존재하는 user라면 update
+  // 이미 존재하는 user라면 update -> service 에서 addOrderList method 에 구현 해둬서 딱히 쓸일이 없을것 같음.
   async update({userId, update}) {
     const filter = { userId : new Types.ObjectId(userId) };
     const option = { returnOriginal: false };

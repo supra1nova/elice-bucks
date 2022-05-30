@@ -34,7 +34,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
     }
 });
 
-//-> orderItems 등록하는 router 따로 구현 
+//-> orderItems 등록하는 router 따로 구현 ; 사실 test 를 위해 구현했기 때문에 쓸일이 없을수도 ..?
 orderRouter.post('/items', async (req, res, next) => { 
   try{
     if(is.emptyObject(req.body)){
@@ -135,5 +135,9 @@ orderRouter.get('/cancel/:orderId', async function (req, res, next) {
     next(error);
   }
 });
+
+// 4. 배송 시작
+
+// 5. 결제 완료 
 
 export { orderRouter };

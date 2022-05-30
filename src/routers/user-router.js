@@ -198,10 +198,10 @@ userRouter.patch(
 );
 
 // 사용자 탈퇴 
-userRouter.delete('/:userId', async function (req, res, next) {
+userRouter.delete('/:userId', loginRequired, async function (req, res, next) {
   try {
-    const { userId } = req.params;
-    const result = await userService.delUser(userId);
+    const { userId, currentPassword } = req.body;
+    const result = await userService.delUser(userId, currentPassword);
 
     res.status(200).json(result);
   } catch (error) {

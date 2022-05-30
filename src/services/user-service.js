@@ -9,7 +9,7 @@ class UserService {
     this.userModel = userModel;
   }
 
-  // 회원가입
+  // 1. 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
     console.log(userInfo);
@@ -36,7 +36,7 @@ class UserService {
     return createdNewUser;
   }
 
-  // 로그인
+  // 2. 로그인
   async getUserToken(loginInfo) {
     // 객체 destructuring
     const { email, password } = loginInfo;
@@ -83,7 +83,7 @@ class UserService {
     return { token };
   }
 
-  // 사용자 목록을 받음.
+  // 3. 사용자 목록을 받음.
   async getUsers() {
     const users = await this.userModel.findAll();
     return users;
@@ -94,7 +94,7 @@ class UserService {
     return users;
   }
 
-  // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
+  // 4. 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
     const { userId, currentPassword } = userInfoRequired;
@@ -141,8 +141,9 @@ class UserService {
     return user;
   }
 
-  //user 탈퇴
-  async delUser(userId) {
+  // 5. user 탈퇴
+  async delUser(userInfoRequired) {
+    const { userId, currentPassword } = userInfoRequired;
 
     // 우선 해당 id의 유저가 db에 있는지 확인
     let user = await this.userModel.findById(userId);
@@ -167,7 +168,6 @@ class UserService {
 
     // 회원탈퇴 진행
     user = await this.userModel.del(userId);
-    console.log(user)
     return 'Deleted User Successfully';
   }
 }
