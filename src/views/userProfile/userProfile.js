@@ -1,10 +1,7 @@
 import * as Api from '/api.js';
 
 import headerNavbar from '../components/headerNavbar.js';
-import {
-  validateUpdateProfile,
-  validateDeleteUser,
-} from '/utils/validateForm.js';
+import { validateProfile, validateDeleteUser } from '/utils/validateForm.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import { removeUser } from '../utils/user.js';
 // 요소(element), input 혹은 상수
@@ -24,12 +21,10 @@ const postalCodeInput = document.querySelector('#postalCodeInput');
 const curpasswordInput = document.querySelector('#curpasswordInput');
 const loginForm = document.querySelector('#loginForm');
 
-addAllElements();
 addAllEvents();
 insertCategoryList();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {}
 
 let userId = '';
 const setUserId = (_id) => {
@@ -68,7 +63,7 @@ async function handleSubmit(e) {
   const phoneNumber = phoneNumber1.value;
   // 잘 입력했는지 확인
   try {
-    validateUpdateProfile(fullName, email, password, passwordConfirm);
+    validateProfile(fullName, email, password, passwordConfirm);
   } catch (err) {
     return alert(err);
   }
@@ -84,7 +79,7 @@ async function handleSubmit(e) {
       currentPassword,
     };
 
-    await Api.patch('/api/users', `${userId}`, data);
+    await Api.patch('/api/user', `${userId}`, data);
     alert(`정상적으로 수정되었습니다.`);
     // 홈 페이지 이동
     window.location.href = '/';
@@ -96,12 +91,17 @@ async function handleSubmit(e) {
 //userRouter.delete('/user/:userId'
 async function deleteUser(e) {
   e.preventDefault();
+
   console.log(e);
+
   const password = userDeletePasswordInput.value;
   try {
     validateDeleteUser(password);
   } catch (err) {
     return alert(err);
+  }
+  if (!confirm('정말로 탈퇴하시겠습니까?')) {
+    return;
   }
   // 잘 입력했는지 확인
   // 로그인 api 요청
@@ -109,7 +109,7 @@ async function deleteUser(e) {
     const data = { currentPassword: password };
     await Api.delete('/api/user', `${userId}`, data);
     removeUser();
-    alert(`정상적으로 수정되었습니다.`);
+    alert(`정상적으로 탈퇴되었습니다.`);
     // 홈 페이지 이동
     window.location.href = '/';
   } catch (err) {

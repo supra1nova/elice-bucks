@@ -1,6 +1,7 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
 import insertCategoryList from '../components/navCategoryList.js';
+import { validateProfile } from '../utils/validateForm.js';
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
@@ -41,8 +42,10 @@ async function handleSubmit(e) {
   try {
     const data = { fullName, email, password };
     if (isAdmin) {
+      await Api.post('/api/user/admin', data);
+      console.log('admianidnianaamdin');
     } else {
-      await Api.post('/api/register', data);
+      await Api.post('/api/user/register', data);
     }
     alert(`정상적으로 회원가입되었습니다.`);
 
