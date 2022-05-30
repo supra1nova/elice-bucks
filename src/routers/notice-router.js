@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
-import { noticeModel } from '../db';
 
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { noticeService } from '../services';

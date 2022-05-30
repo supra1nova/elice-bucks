@@ -118,7 +118,7 @@ async function addAllElements() {
 async function getProducts() {
   // 제품가져오기 api 요청
   try {
-    const data = await Api.get('/api', 'product');
+    const data = await Api.get('/api/product', 'products');
     console.log(data);
     return data;
   } catch (err) {
@@ -130,7 +130,7 @@ async function getProducts() {
 // navbar 카테고리 목록으로 사용
 export async function getCategories() {
   try {
-    const data = await Api.get('/api', 'category');
+    const data = await Api.get('/api/category', 'categories');
     console.log(data);
     return data;
   } catch (err) {
@@ -142,7 +142,7 @@ export async function getCategories() {
 async function getProduct(id) {
   // 제품가져오기 api 요청
   try {
-    const data = await Api.get('/api', `product/${id}`);
+    const data = await Api.get('/api/product', `${id}`);
     console.log(data);
     return data;
   } catch (err) {
