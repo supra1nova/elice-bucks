@@ -145,11 +145,11 @@ section {
   margin-right: 15px;
 }
 
-.cartItemlist .list .goods .name {
+.cartItemlist .list .goods .itemName {
   width: 327px;
 }
 .cartItemlist .list .goods .price {
-  width: 70px;
+  width: 76px;
 }
 .cartItemlist .list .goods .countbar {
   display: flex;

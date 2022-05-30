@@ -9,7 +9,7 @@ class UserService {
     this.userModel = userModel;
   }
 
-  // 회원가입
+  // 1. 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
     console.log(userInfo);
@@ -28,17 +28,6 @@ class UserService {
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // admin 설정을 위한 코드
-    if (email === 'admin@example.com') {
-      const newUserInfo = {
-        fullName,
-        email,
-        password: hashedPassword,
-        role: 'admin-user',
-      };
-      const createdNewUser = await this.userModel.create(newUserInfo);
-      return createdNewUser;
-    }
     const newUserInfo = { fullName, email, password: hashedPassword };
 
     // db에 저장
@@ -47,7 +36,7 @@ class UserService {
     return createdNewUser;
   }
 
-  // 로그인
+  // 2. 로그인
   async getUserToken(loginInfo) {
     // 객체 destructuring
     const { email, password } = loginInfo;
@@ -94,7 +83,7 @@ class UserService {
     return { token };
   }
 
-  // 사용자 목록을 받음.
+  // 3. 사용자 목록을 받음.
   async getUsers() {
     const users = await this.userModel.findAll();
     return users;
@@ -105,7 +94,7 @@ class UserService {
     return users;
   }
 
-  // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
+  // 4. 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
     const { userId, currentPassword } = userInfoRequired;
@@ -152,7 +141,7 @@ class UserService {
     return user;
   }
 
-  //user 탈퇴
+  // 5. user 탈퇴
   async delUser(userInfoRequired) {
     const { userId, currentPassword } = userInfoRequired;
 

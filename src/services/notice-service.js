@@ -6,6 +6,19 @@ class NoticeService {
     this.noticeModel = noticeModel;
   }
 
+
+  async countNotices() {
+    const notices = await this.noticeModel.countAll();
+    return notices;
+  }
+
+  async countCurrentNotice(page,perPage) {
+    const notices = await this.noticeModel.count(page, perPage);
+    return notices;
+  }
+
+
+
   // 1. 신규 공지 등록
   async addNotice(noticeInfo) {
     const { title, content, author } = noticeInfo;

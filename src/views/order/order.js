@@ -21,6 +21,7 @@ async function createindexedDB() {
   };
   onRequest.onupgradeneeded = () => {
     const database = onRequest.result;
+    database.createObjectStore('carts');
     database.createObjectStore('order');
   };
   onRequest.onerror = () => {
