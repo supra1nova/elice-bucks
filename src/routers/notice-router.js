@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
+import { noticeModel } from '../db';
 
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { noticeService } from '../services';
@@ -33,18 +34,59 @@ noticeRouter.post('/register', async (req, res, next) => {
   }
 });
 
-// 2. 전체 공지사항 조회
+
+
+
+// ** notice 글 목록 조회 및 페이지네이션 전용 미들웨어... 어짜피 한번 사용되는데 미들웨어로 빼야할지 고민중
+function asyncHandler(requestHandler) {
+  return async (req, res, next) => {
+    try {
+      await requestHandler(req, res);
+    } catch (err) {
+      next(err);
+    }
+  }
+}
+
+// 2. 전체 공지사항 조회 및 페이지네이션 관련 정보 전달
 noticeRouter.get('/notices', async function (req, res, next) {
   try {
-    // 전체 공지사항 목록을 얻음
-    const notices = await noticeService.getNotices();
-
-    // 공지사항 목록(배열)을 JSON 형태로 프론트에 보냄
-    res.status(200).json(notices);
+    // url 쿼리에서 page 받기, 기본값 1
+    const page = Number(req.query.page) || 1;
+    
+    // url 쿼리에서 perRage 받기, 기본값 10
+    const perPage = Number(req.query.perPage) || 10;
+    
+    // total, posts 를 Promise.all 을 사용해 동시에 호출
+    const [total, posts] = await Promise.all([
+      await noticeService.countNotices(),
+      await noticeService.countCurrentNotice(page, perPage)
+    ]);
+    
+    const totalPage = Math.ceil(total / perPage);
+    
+    res.status(200).json( { posts, page, perPage, totalPage } );
   } catch (error) {
     next(error);
   }
 });
+  
+  
+  
+  
+//   // 2. 전체 공지사항 조회 - 이제 필요할지 고민 후 삭제...?
+// noticeRouter.get('/notices', async function (req, res, next) {
+  
+//   try {
+//     // 전체 공지사항 목록을 얻음
+//     const notices = await noticeService.getNotices();
+    
+//     // 공지사항 목록(배열)을 JSON 형태로 프론트에 보냄
+//     res.status(200).json(notices);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 // 3. 공지사항 id이용 특정 공지 조회
 noticeRouter.get('/:noticeId', async function (req, res, next) {
@@ -72,7 +114,7 @@ noticeRouter.patch('/:noticeId', async function (req, res, next) {
 
     // params로부터 id를 가져옴
     const noticeId = req.params.noticeId;
-
+    
     // body data 로부터 업데이트할 공지사항 정보를 추출.
     const { title, content, author } = req.body;
 
