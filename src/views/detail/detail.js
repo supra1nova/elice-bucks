@@ -1,20 +1,20 @@
-// navbar 로그인 부분
 import headerNavbar from '/components/headerNavbar.js';
+import insertCategoryList from '/components/navCategoryList.js';
+
 const headerNavbar1 = document.querySelector('#headerNavbar');
+const container = document.querySelector('#container');
 
 addAllElements();
+insertCategoryList();
+insertProductDetail();
+
+// navbar 로그인 상태에 따른 로그인 메뉴 삽입
 async function addAllElements() {
   headerNavbar1.innerHTML = await headerNavbar.render();
   await headerNavbar.componentDidMount();
 }
-// import가 제대로 안돼서 일단 주석 처리함.
 
 // 각 상품의 데이터를 html에 삽입
-
-const container = document.querySelector('#container');
-
-insertProductDetail();
-
 async function insertProductDetail() {
   // url에서 id에 해당하는 부분만 가져와서 id 변수에 할당
   const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
@@ -25,7 +25,7 @@ async function insertProductDetail() {
 
   const name = product.name;
   const description = product.description;
-  const price = product.price;
+  const price = product.price.toLocaleString();
   const image = product.image;
 
   // 상품 name, description, price, image를 각 자리에 할당
@@ -44,8 +44,8 @@ async function insertProductDetail() {
   );
 }
 
-//// 구매하기 버튼 click Event = 장바구니에 넣어주는 기능
 
+// 구매하기 버튼 click Event = 장바구니에 넣어주는 기능
 const saveItem = async (e) => {
   const id = location.pathname.replace(/\/detail\/([\d\w]*)\/?/g, '$1');
   const res = await fetch(`/api/product/${id}`);

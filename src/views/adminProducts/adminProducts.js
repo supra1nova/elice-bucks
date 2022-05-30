@@ -6,15 +6,19 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
+import insertCategoryList from '../components/navCategoryList.js';
 import productlist from './productslist.js';
 import ProductEdit from './productEdit.js';
 import categorylist from './categorylist.js';
+
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const mainContent = document.querySelector('#mainContent');
 const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
+insertCategoryList();
+
 async function addAllElements() {
   const datas = await getProducts();
   const categoriesdatas = await getCategories();
@@ -121,6 +125,8 @@ async function getProducts() {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
+
+// navbar 카테고리 목록으로 사용
 export async function getCategories() {
   try {
     const data = await Api.get('/api', 'category');
