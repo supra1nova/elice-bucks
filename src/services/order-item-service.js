@@ -5,24 +5,23 @@ class OrderItemService {
     this.orderItemModel = orderItemModel;
   }
  
-  // 1. order item schema 구현 -> model 에 있는거랑 너무 똑같은데 굳이 만들어야하나요 
-  async addtoOrderitemList(orderInfo) {
+  // 1. order item schema 구현 
+  async addOrderItemList(orderInfo) {
     console.log(orderInfo);
-    const newOrderItem = await this.orderItemModel.create_items(orderInfo);
+    const newOrderItem = await this.orderItemModel.createItems(orderInfo);
     return newOrderItem;
-
   }
 
-  // 2-1. order_id 가 동일한 items 반환 = 해당 유저의 주문 목록 반환
+  // 2-1. 해당 유저의 주문 목록 반환
   async getSameOrderId(orderId){
-      const items = await this.orderItemModel.findByOrderId(orderId).populate('name', 'price');
+      const items = await this.orderItemModel.findByOrderId(orderId);
       return items;
   }
 
   // 2-2. 제품별 목록개수 반환
-  async getSameItemId(itemId) {
-    const items_total_num = await this.orderItemsModel.findByItemId(itemId).count();
-    return items_total_num;
+  async getSameProductId(productId) {
+    const totalNum = await this.orderItemsModel.findByProductId(productId).count();
+    return totalNum;
   }
 
 }

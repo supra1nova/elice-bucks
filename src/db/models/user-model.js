@@ -38,8 +38,12 @@ export class UserModel {
   }
 
   async del(userId) {
-    await User.deleteOne({ _id: new Types.ObjectId(userId)});
-    return 'Successfully deleted ';
+    try{
+      await User.deleteOne({ _id: new Types.ObjectId(userId)});
+      return "Successed to delete";
+    }catch{
+      return "Failed to delete";
+    }
   }
 }
 

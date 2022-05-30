@@ -6,30 +6,27 @@ class OrderService {
   }
   
   // 1. order-schema 생성
-  async addtoOrderList(orderInfo) {
-    console.log(orderInfo);
-    const { user_id, address, total_cnt, total_price } = orderInfo;
-    console.log(user_id);
+  async addOrderList(orderInfo) {
+    const { userId : userId } = orderInfo;
 
     // 주문목록에 사용자가 이미 존재한다면 개수를 늘려줌
-    const preOrder = await this.orderModel.findbyId(user_id);
-    let final_cnt = 0;
-    let final_price = 0;
-
+    let preOrder = await this.orderModel.findById(userId);
+    
     if(preOrder) {
-        let pre_cnt = await preOrder.total_cnt;
-        final_cnt = pre_cnt + total_cnt;
-        let pre_price = await preOrder.total_price;
-        final_price = pre_price + total_price;
+      let finalQty = 0;
+      let finalPrice = 0;
+      let preQty = preOrder.totalQty;
+      finalQty = preQty + orderInfo.totalQty;
+      let prePrice = preOrder.totalPrice;
+      finalPrice = prePrice + orderInfo.totalPrice;
 
-        preOrder = await this.orderModel.update({
-            user_id,
-            update: orderInfo,
-        });
-        return preOrder;
+      preOrder.totalQty = finalQty;
+      preOrder.totalPrice = finalPrice;
+
+      return preOrder;
     }
     else{
-        const createdNewOrder = await this.orderModel.create(cart);
+        const createdNewOrder = await this.orderModel.create(orderInfo);
         return createdNewOrder;
     }
   }
@@ -47,34 +44,33 @@ class OrderService {
     return totalorders;
   }
   
-  // 3. 해당 유저의 주문 물품 목록 조회 ; order-items 에서 해야하나 ?
-
+  // 3. 해당 유저의 주문 물품 목록 조회 ; -> order-items 에서 구현
 
   // 4. 해당 유저의 주문 목록 반환
   async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
-    // if(order.deleted_at == null) {
-    //   return null;
-    // } -> deleted_at 구현 한다면
+    if(order.deletedAt == order.createdAt) {
+      return null;
+    }
     return order;
   }
 
-  // 4-1. 해당 유저의 주문목록 최종 상품가격 반환 -> 위에서 order.total_price; 해도 되는거 아닌가 ..?
-  async finalPrice(userId) {
+  // 4-1. 해당 유저의 주문목록 전체 상품개수 반환
+  async finalQty(userId) {
     const order = await this.orderModel.findById(userId);
-    return order.price;
+    return order.finalQty;
   }
 
-  // 4-2. 해당 유저의 주문목록 전체 상품개수 반환
-  async finalCnt(userId) {
+  // 4-2. 해당 유저의 주문목록 전체 가격 반환
+  async finalPrice(userId) {
     const order = await this.orderModel.findById(userId);
-    return order.cnt;
+    return order.finalPrice;
   }
 
   // 5. 해당 유저의 주문목록 취소처리
   async cancelOrder(userId) {
     const order = await this.orderModel.findById(userId);
-    order.deleted_at = new Date();
+    order.deletedAt = new Date();
     return order;
   }
 }

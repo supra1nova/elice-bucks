@@ -28,12 +28,6 @@ class UserService {
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // admin 설정을 위한 코드
-    if (email === "admin@example.com") {
-      const newUserInfo = { fullName, email, password: hashedPassword, role: 'admin-user' };
-      const createdNewUser = await this.userModel.create(newUserInfo);
-      return createdNewUser;
-    }
     const newUserInfo = { fullName, email, password: hashedPassword };
 
     // db에 저장
@@ -148,8 +142,7 @@ class UserService {
   }
 
   //user 탈퇴
-  async delUser(userInfoRequired) {
-    const { userId, currentPassword } = userInfoRequired;
+  async delUser(userId) {
 
     // 우선 해당 id의 유저가 db에 있는지 확인
     let user = await this.userModel.findById(userId);
@@ -174,6 +167,7 @@ class UserService {
 
     // 회원탈퇴 진행
     user = await this.userModel.del(userId);
+    console.log(user)
     return 'Deleted User Successfully';
   }
 }

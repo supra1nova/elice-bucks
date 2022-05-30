@@ -18,8 +18,7 @@ export class OrderModel {
 
   // orders 에서 해당 유저 값 찾기
   async findById(userId) {
-    const userOrder = await Order.findOne({ user_id:
-      new Types.ObjectId(userId)});
+    const userOrder = await Order.findOne({ userId : userId}).populate('user','_id');
     return userOrder;
   }
 
@@ -37,7 +36,7 @@ export class OrderModel {
 
   // 배송 완료 시점 저장
   async updateDeliveried(userId, updateDate){
-    const order = await Order.findOne({ user_id : new Types.ObjectId(userId)});
+    const order = await Order.findOne({ userId : new Types.ObjectId(userId)}).populate('user','_id');
     order.delivered = updateDate;
     
     return order;
@@ -45,14 +44,12 @@ export class OrderModel {
 
   // 결제 완료 시점 저장 
   async updatePayment(userId, updateDate){
-    const order = await Order.findOne({ user_id : new Types.ObjectId(userId)});
+    const order = await Order.findOne({ userId : new Types.ObjectId(userId)}).populate('user','_id');
     order.paid = updateDate;
     
     return order;
   }
 }
-
-
 
 const orderModel = new OrderModel();
 
