@@ -58,18 +58,18 @@ class OrderService {
   // 4-1. 해당 유저의 주문목록 전체 상품개수 반환
   async finalQty(userId) {
     const order = await this.orderModel.findById(userId);
-    return order.finalQty;
+    return order.totalQty;
   }
 
   // 4-2. 해당 유저의 주문목록 전체 가격 반환
   async finalPrice(userId) {
     const order = await this.orderModel.findById(userId);
-    return order.finalPrice;
+    return order.totalPrice;
   }
 
   // 5. 해당 유저의 주문목록 취소처리
-  async cancelOrder(userId) {
-    const order = await this.orderModel.findById(userId);
+  async cancelOrder(orderId) {
+    const order = await this.orderModel.findByOrderId(orderId);
     order.deletedAt = new Date();
     return order;
   }

@@ -13,20 +13,19 @@ export class OrderItemModel {
   
     // 2. order-items 전부 불러오기 (전체 유저의 주문목록아이템 불러오기)
     async findAll() {
-      const orderitemlist = await OrderItem.find({}).populate('product', 'name');
+      const orderitemlist = await OrderItem.find({}).populate('productId');
       return orderitemlist;
     }
   
     // 3. 특정 주문 목록의 물품 내역 불러오기
     async findByOrderId(orderId) {
-      const orderItem = await OrderItem.find({ orderId : new Types.ObjectId(orderId) }).populate('product', 'name');
+      const orderItem = await OrderItem.find({ orderId : new Types.ObjectId(orderId) }).populate('productId');
       return orderItem;
     }
   
     // 4. 특정 제품의 주문 목록 불러오기
     async findByProductId(productId){
-      const orderItems = await OrderItem.find({
-        productId : new Types.ObjectId(productId) }).populate('product', 'name');
+      const orderItems = await OrderItem.find({ productId : new Types.ObjectId(productId) }).populate('productId');
       return orderItems;
     }
   }

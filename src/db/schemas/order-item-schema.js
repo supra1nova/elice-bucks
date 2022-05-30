@@ -17,7 +17,7 @@ const OrderItemSchema = new Schema(
       require: true,
       default: 1
     },
-    totalPrice: {
+    productPrice: {
       type: Number,
       require: true,
       default: 0

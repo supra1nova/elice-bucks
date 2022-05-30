@@ -14,14 +14,15 @@ class OrderItemService {
 
   // 2-1. 해당 유저의 주문 목록 반환
   async getSameOrderId(orderId){
-      const items = await this.orderItemModel.findByOrderId(orderId);
-      return items;
+      const products = await this.orderItemModel.findByOrderId(orderId);
+      return products;
   }
 
   // 2-2. 제품별 목록개수 반환
   async getSameProductId(productId) {
-    const totalNum = await this.orderItemsModel.findByProductId(productId).count();
-    return totalNum;
+    const products = await this.orderItemModel.findByProductId(productId);
+    const productsNum = products.length;
+    return productsNum;
   }
 
 }
