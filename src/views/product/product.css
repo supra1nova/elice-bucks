@@ -21,7 +21,10 @@ body {
 	text-decoration: none;
 }
 
-/* 제품 목록 컨테이너 */
+/* 제품 목록 */
+#content {
+    padding: 50px;
+}
 #container {
     display: flex;
     justify-content: space-evenly;
@@ -49,6 +52,13 @@ body {
 }
 
 /* 페이지네이션 */
-/* #pagination a{
-    color: #fff;
-} */
+.pagination {
+    margin-top: 50px;
+}
+.pagination-link {
+    background-color: #F2F1F0;
+    color: #000;
+}
+.pagination-link:hover {
+	background-color: #F2D750;
+}
