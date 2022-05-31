@@ -33,27 +33,19 @@ const OrderSchema = new Schema(
     },
     delivered: {
       type : Date,
-      default: Date.now,
-      required: true
+      required: false,
     },
     paid: {
       type: Date,
-      default: Date.now,
-      required: true
+      required: false,
     },
     deletedAt: {
       type: Date,
-      default: Date.now,
-      required: true
+      required: false,
     },
-    createdAt:{
-      type: Date,
-      default: Date.now,
-      required: true
-    }
   },
   {
-    // timestamps: true,
+    timestamps: true,
     collection: 'orders',
   }
 );

@@ -13,7 +13,7 @@ class OrderService {
     let preOrder = await this.orderModel.findById(userId);
     
     if(preOrder) {
-      if(paid === createdAt){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다.
+      if(paid){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다.
         let finalQty = 0;
         let finalPrice = 0;
         let preQty = preOrder.totalQty;
@@ -83,8 +83,7 @@ class OrderService {
   async cancelOrder(orderId) {
     let order = await this.orderModel.findByOrderId(orderId);
     order.deletedAt = new Date();
-    console.log("cancelOrder",order.deletedAt);
-    const cancelOrder = await this.orderModel.update({orderId, order});
+    const cancelOrder = await this.orderModel.update({orderId, update: order});
     return cancelOrder;
   }
 
@@ -92,8 +91,7 @@ class OrderService {
   async updateDelivered(orderId) {
     let order = await this.orderModel.findByOrderId(orderId);
     order.delivered = new Date();
-    console.log("delivered",order.delivered);
-    const delivered = await this.orderModel.update({orderId, order});
+    const delivered = await this.orderModel.update({orderId, update: order, });
     return delivered;
   }
 
@@ -101,8 +99,7 @@ class OrderService {
   async updatePayment(orderId) {
     let order = await this.orderModel.findByOrderId(orderId);
     order.paid = new Date();
-    console.log("paid",order.paid);
-    const paid = await this.orderModel.update({orderId, order});
+    const paid = await this.orderModel.update({orderId, update: order});
     return paid;
   }
 }
