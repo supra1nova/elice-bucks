@@ -5,6 +5,9 @@
 a {
   color: #000;
 }
+li {
+	list-style-type: none;
+}
 
 /* 상단바 */
 .navbar {
@@ -41,4 +44,10 @@ a {
 /* 공지사항 테이블 */
 .noticeList {
   font-size: 1em;
+}
+
+/* 페이지네이션 */
+.pagination-link:hover {
+	background-color: #2D4039;
+	color: white;
 }
