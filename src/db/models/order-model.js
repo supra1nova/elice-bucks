@@ -33,18 +33,15 @@ export class OrderModel {
   async update({orderId, update}) {
     const filter = { orderId: orderId };
     const option = { returnOriginal: false };
+    console.log('update : ', update);
     const updatedOrders = await Order.findOneAndUpdate(
       filter,
       update,
       option,
     );
+    console.log('updatedOrders : ', updatedOrders);
     return updatedOrders;
   }
-
-  // order schema time edit method
-  // async editTime(_at) {
-  //   const _at = date.getTime();
-  // }
 }
 
 const orderModel = new OrderModel();
