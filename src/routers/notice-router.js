@@ -34,19 +34,6 @@ noticeRouter.post('/register', async (req, res, next) => {
 });
 
 
-
-
-// ** notice 글 목록 조회 및 페이지네이션 전용 미들웨어... 어짜피 한번 사용되는데 미들웨어로 빼야할지 고민중
-function asyncHandler(requestHandler) {
-  return async (req, res, next) => {
-    try {
-      await requestHandler(req, res);
-    } catch (err) {
-      next(err);
-    }
-  }
-}
-
 // 2. 전체 공지사항 조회 및 페이지네이션 관련 정보 전달
 noticeRouter.get('/notices', async function (req, res, next) {
   try {
@@ -59,7 +46,7 @@ noticeRouter.get('/notices', async function (req, res, next) {
     // total, posts 를 Promise.all 을 사용해 동시에 호출
     const [total, posts] = await Promise.all([
       await noticeService.countNotices(),
-      await noticeService.countCurrentNotice(page, perPage)
+      await noticeService.getRangedNotices(page, perPage)
     ]);
     
     const totalPage = Math.ceil(total / perPage);
@@ -70,22 +57,6 @@ noticeRouter.get('/notices', async function (req, res, next) {
   }
 });
   
-  
-  
-  
-//   // 2. 전체 공지사항 조회 - 이제 필요할지 고민 후 삭제...?
-// noticeRouter.get('/notices', async function (req, res, next) {
-  
-//   try {
-//     // 전체 공지사항 목록을 얻음
-//     const notices = await noticeService.getNotices();
-    
-//     // 공지사항 목록(배열)을 JSON 형태로 프론트에 보냄
-//     res.status(200).json(notices);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 // 3. 공지사항 id이용 특정 공지 조회
 noticeRouter.get('/:noticeId', async function (req, res, next) {
@@ -151,3 +122,23 @@ noticeRouter.delete('/:noticeId', async function (req, res, next) {
 });
 
 export { noticeRouter };
+
+
+
+
+
+
+
+//   // 기존 전체 공지사항 조회 - 필요 없을시 향후 삭제 예정
+// noticeRouter.get('/notices', async function (req, res, next) {
+  
+//   try {
+//     // 전체 공지사항 목록을 얻음
+//     const notices = await noticeService.getNotices();
+    
+//     // 공지사항 목록(배열)을 JSON 형태로 프론트에 보냄
+//     res.status(200).json(notices);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
