@@ -1,28 +1,28 @@
-.HolyGrail,
-.HolyGrail-body {
+.holyGrail,
+.holyGrail-body {
   display: flex;
   flex-direction: column;
 
 }
 
-.HolyGrail-nav {
+.holyGrail-nav {
   order: -1;
   
   padding-left: 20px;
 }
-.HolyGrail-nav li{
+.holyGrail-nav li{
   padding-bottom: 5px;
 }
 
 @media (min-width: 768px) {
-  .HolyGrail-body {
+  .holyGrail-body {
     flex-direction: row;
     flex: 1;
   }
-  .HolyGrail-content {
+  .holyGrail-content {
     flex: 1;
   }
-  .HolyGrail-nav {
+  .holyGrail-nav {
     /* 12em is the width of the columns */
     flex: 0 0 12em;
   }
@@ -76,7 +76,7 @@ tbody tr:nth-child(2n) {
 
 }
 tbody tr:nth-child(2n+1) {
-  background-color: #f9fffb;
+  /*background-color: #f9fffb;*/
 }
 .tr-action{
   text-align: center;
@@ -150,4 +150,44 @@ select::-ms-expand {
   background: #00d1b2;
   color: #fff;
   padding: 3px 0;
+}
+
+/*    from notice        */
+* 공지사항 컨테이너 */
+.content {
+  margin: 50px;
+}
+.noticeTable tbody td{
+  border:none;
+}
+.content h1 {
+  text-align: center;
+  color: #2D4039;
+}
+.table thead tr {
+  background-color: #88A394;
+}
+
+/* 제목 기본 폰트 크기 조정 */
+.title {
+  font-size: 1em;
+}
+
+/* 공지사항 테이블 */
+.noticeList {
+  font-size: 1em;
+}
+
+/* 페이지네이션 */
+.pagination-link:hover {
+	background-color: #2D4039;
+	color: white;
+}
+
+#button-td {
+  display:flex;
+  justify-content: end;
+}
+#button-td button {
+  margin:0.3rem;
 }

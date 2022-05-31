@@ -79,7 +79,8 @@ async function handleSubmit(e) {
       currentPassword,
     };
 
-    await Api.patch('/api/user', `${userId}`, data);
+    const result = await Api.patch('/api/user', `${userId}`, data);
+    console.log(result);
     alert(`정상적으로 수정되었습니다.`);
     // 홈 페이지 이동
     window.location.href = '/';

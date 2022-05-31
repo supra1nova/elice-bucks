@@ -1,13 +1,14 @@
 const noticeslist = {
-  render: async (notices) => {
+  render: (notices) => {
     return `
-          <h1>공지사항</h1>
+        <div class="content">
+          <h1>NOTICE</h1>
           <button id="create-product-button" class = "primary ">
             공지사항 생성 +
           </button>
 
           <div class="product-list">
-          <table>
+          <table class="table is-hoverable">
           <thead>
             <tr>
               <th>번호</th>
@@ -19,21 +20,19 @@ const noticeslist = {
               <th class="tr-action"></th>
             </tr>
           </thead>
-          <tbody >
-          ${notices
+          <tbody class="noticeList" id="list">
+          ${notices.posts
             .map(
               (notice, index) => `
                 <tr>
-                  <td>${index + 1}</td>
+                  <td>${index + 1 + (notices.page - 1) * notices.perPage}</td>
                   <td>${notice.title}</td>
                   <td class="productContent">${notice.content}</td>
                   <td>${notice.author}</td>
                   <td>${notice.createdAt}</td>
                   <td>${notice.updatedAt}</td>
                   <td>
-                    <button id="${
-                      notice._id
-                    }" class="product-edit-button button is-primary">수정</button>
+                    <button id="${index}" class="product-edit-button button is-primary">수정</button>
                     <button id="${
                       notice._id
                     }" class="product-delete-button button is-primary">삭제</button>
@@ -46,7 +45,7 @@ const noticeslist = {
           </table>
             
           </div>
-
+          </div>
       `;
   },
 };

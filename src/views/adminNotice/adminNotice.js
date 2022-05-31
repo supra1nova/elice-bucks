@@ -7,10 +7,11 @@ import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import noticeslist from './noticeslist.js';
+import noticesDetail from './noticeDetail.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const mainContent = document.querySelector('#mainContent');
+const paginationList = document.querySelector('.pagination-list');
 const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
@@ -24,16 +25,90 @@ async function addAllElements() {
   headerNavbar.componentDidMount();
   const notices = await getAllNotices();
   console.log(notices);
-  dashboard_content.innerHTML = await noticeslist.render(notices.posts);
+  const totalPage = notices.totalPage;
+  dashboard_content.innerHTML = noticeslist.render(notices);
   console.log(notices);
+  //카테고리
+  for (let i = 1; i <= totalPage; i++) {
+    paginationList.insertAdjacentHTML(
+      'beforeend',
+      `<li><a class="pagination-link" href="?page=${i}&&perPage=10">${i}</a></li>`
+    );
+  }
+  //////////
+
+  //공지사항 생성
+  document
+    .getElementById('create-product-button')
+    .addEventListener('click', async () => {
+      //const result = await createProduct(categoriesdatas[0]);
+      //console.log(result);
+      //window.location.href = `/adminProducts`;
+      const author = document
+        .getElementById('userName')
+        .innerText.split(' ')[0];
+      paginationList.innerHTML = '';
+      const result = {
+        ...{ author },
+      };
+      dashboard_content.innerHTML = noticesDetail.render(result, false);
+      noticesDetail.componentDidMount();
+      await noticesDetail.componentDidMountCreate({ author });
+    });
+
+  //공지사항 수정
+  const productEditButtons = document.getElementsByClassName(
+    'product-edit-button'
+  );
+  Array.from(productEditButtons).forEach((button) => {
+    button.addEventListener('click', async () => {
+      const result = notices.posts[button.id];
+      console.log(result);
+      dashboard_content.innerHTML = noticesDetail.render(result, true);
+      noticesDetail.componentDidMount();
+      await noticesDetail.componentDidMountEdit(result);
+      paginationList.innerHTML = '';
+    });
+  });
+
+  //제품 삭제
+  const productDelButtons = document.getElementsByClassName(
+    'product-delete-button'
+  );
+  Array.from(productDelButtons).forEach((button) => {
+    button.addEventListener('click', async () => {
+      if (confirm('정말로 지우시겠습니까?')) {
+        await removeNotice(button.id);
+        window.location.reload();
+      }
+    });
+  });
 }
 
 //.get('/totalnumOfusers',
 //r.get('/notices',
 async function getAllNotices() {
   try {
-    const data = await Api.get('/api/notice', 'notices');
+    // 쿼리에서 현재 해당하는 페이지를 가져와서 pageId에 할당
+    const pageId = new URLSearchParams(window.location.search).get('page');
+    // 페이지네이션 - 각 페이지에 해당하는 url에 들어갔을 때 해당 글 10개만 보여줌
+    const data = await Api.get(
+      '/api/notice/notices',
+      `?page=${pageId}&&perPage=10`
+    );
     return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}
+//delete('/:noticeId'
+async function removeNotice(id) {
+  try {
+    // 쿼리에서 현재 해당하는 페이지를 가져와서 pageId에 할당
+    const pageId = new URLSearchParams(window.location.search).get('page');
+    // 페이지네이션 - 각 페이지에 해당하는 url에 들어갔을 때 해당 글 10개만 보여줌
+    await Api.delete('/api/notice', `${id}`);
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
