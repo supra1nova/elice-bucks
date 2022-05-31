@@ -37,18 +37,32 @@ productRouter.post('/register', async (req, res, next) => {
   }
 });
 
-// 2. 전체 제품 조회
+
+// 2. 전체 제품 조회 - 페이지네이션 적용
 productRouter.get('/products', async function (req, res, next) {
   try {
-    // 전체 제품 목록을 얻음
-    const products = await productService.getProducts();
+
+    // url 쿼리에서 page 받기, 기본값 1
+    const page = Number(req.query.page) || 1;
+
+    // url 쿼리에서 perRage 받기, 기본값 12
+    const perPage = Number(req.query.perPage) || 12;
+    
+    // total, products 를 Promise.all 을 사용해 동시에 호출
+    const [total, posts] = await Promise.all([
+      await productService.countProducts(),
+      await productService.getRangedProducts(page, perPage)
+    ]);
+    
+    const totalPage = Math.ceil(total / perPage);
 
     // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
-    res.status(200).json(products);
+    res.status(200).json({ posts, page, perPage, totalPage });
   } catch (error) {
     next(error);
   }
 });
+
 
 // 3. 제품 Id 이용 단일 품목 조회
 productRouter.get('/:productId', async function (req, res, next) {
@@ -61,6 +75,7 @@ productRouter.get('/:productId', async function (req, res, next) {
     next(error);
   }
 });
+
 
 // 4. categoryId 이용 단일 품목 조회
 productRouter.get(
@@ -76,6 +91,7 @@ productRouter.get(
     }
   }
 );
+
 
 // 5. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
@@ -119,6 +135,7 @@ productRouter.patch('/:productId', async function (req, res, next) {
   }
 });
 
+
 // 6. 특정 제품 삭제
 productRouter.delete('/:productId', async function (req, res, next) {
   try {
@@ -129,6 +146,7 @@ productRouter.delete('/:productId', async function (req, res, next) {
     next(error);
   }
 });
+
 
 //** 멀터 정의 내용
 // 참고 https://wayhome25.github.io/nodejs/2017/02/21/nodejs-15-file-upload/
@@ -169,6 +187,23 @@ productRouter.post('/imageUpload', upload.single("image"), (req, res, next) => {
   }
 });
 
+
+// 8. fs 이용 이미지 삭제(하드 삭제)
+productRouter.delete('/imageUpload/:image', async (req, res, next) => {
+// productRouter.delete('/image/:image', async (req, res, next) => {
+
+const image = req.params.image;
+const path = 'src/views/images/';
+
+try {
+  fs.unlinkSync(path + image);
+  res.status(200).send('이미지가 성공적으로 삭제되었습니다.');
+} catch (error) {
+  error.message = '이미지가 서버에 존재하지 않습니다.';
+  next(error);
+}
+})
+
 export { productRouter };
 
   
@@ -182,6 +217,25 @@ export { productRouter };
 
   
   
+  
+  
+// // 기존 전체 제품 조회
+// productRouter.get('/products', async function (req, res, next) {
+//   try {
+//     // 전체 제품 목록을 얻음
+//     const products = await productService.getProducts();
+
+//     // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
+//     res.status(200).json(products);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+  
+  
+  
+// // 멀터 관련 업로드 기능
 // const upload = multer({
 //   storage: multer.diskStorage({
 //     //폴더위치 지정
@@ -200,20 +254,3 @@ export { productRouter };
 // });
   
   
-  
-  
-// // 8. fs 이용 이미지 삭제(하드 삭제)
-// productRouter.delete('/imageUpload/:image', async (req, res, next) => {
-// // productRouter.delete('/image/:image', async (req, res, next) => {
-  
-//   const image = req.params.image;
-//   const path = 'src/views/images/';
-
-//   try {
-//     fs.unlinkSync(path + image);
-//     res.status(200).send('이미지가 성공적으로 삭제되었습니다.');
-//   } catch (error) {
-//     error.message = '이미지가 서버에 존재하지 않습니다.';
-//     next(error);
-//   }
-// })

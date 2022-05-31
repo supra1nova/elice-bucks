@@ -45,10 +45,15 @@ const OrderSchema = new Schema(
       type: Date,
       default: Date.now,
       required: true
+    },
+    createdAt:{
+      type: Date,
+      default: Date.now,
+      required: true
     }
   },
   {
-    timestamps: true,
+    // timestamps: true,
     collection: 'orders',
   }
 );
