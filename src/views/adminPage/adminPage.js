@@ -7,6 +7,7 @@ import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
+import { addCommas } from '../useful-functions.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
@@ -37,12 +38,39 @@ const adminContent = {
   render: (userTotalNum, orderTotalNum, totalSale) => {
     return `
     <h1>쇼핑몰 현황</h1>
-    <div>
+    <!---<div>
       <div>총 유저수 : ${userTotalNum}</div>
       <div>총 주문수 : ${orderTotalNum}</div>
       <div>총 매출 : ${totalSale}</div>
       <div>css적용 예정</div>
     </div>
+    -->
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">총 유저수</p>
+          <p class="title">${addCommas(userTotalNum)}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">총 주문수</p>
+          <p class="title">${addCommas(orderTotalNum)}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">총 매출</p>
+          <p class="title">${addCommas(totalSale)}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Likes</p>
+          <p class="title">789</p>
+        </div>
+      </div>
+    </nav>
     `;
   },
 };

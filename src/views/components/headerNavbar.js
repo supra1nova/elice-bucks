@@ -8,11 +8,34 @@ const headerNavbar = {
         <ul id="navbar">
             ${
               name && role === 'basic-user'
-                ? `<li><a href="/myPage" id="userName">${name} 님</a></li>
+                ? `
+                <nav class="" role="navigation" aria-label="dropdown navigation">
+                  <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="/myPage" id="userName">${name}님</a>
+                    <div class="navbar-dropdown">
+                      <a class="navbar-item" href="/myPage">
+                        마이페이지
+                      </a>
+                    </div>
+                  </div>
+                </nav>
+
                 <li><a class="logout" href="/">로그아웃</a></li>
                 `
                 : name && role === 'admin-user'
-                ? `<li><a href="/myPage" id="userName">${name} 님</a></li>
+                ? `
+                <li>
+                <nav class="" role="navigation" aria-label="dropdown navigation">
+                  <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="/myPage" id="userName">${name}님</a>
+                    <div class="navbar-dropdown">
+                      <a class="navbar-item" href="/myPage">
+                        마이페이지
+                      </a>
+                    </div>
+                  </div>
+                </nav>
+                </li>
                 <li><a class="logout" href="/">로그아웃</a></li>
                 <li><a href="/adminPage">관리페이지</a></li>
                 `
