@@ -152,6 +152,7 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
     // params로부터 id를 가져옴
     const userId = req.params.userId;
     // body data 로부터 업데이트할 사용자 정보를 추출함.
+    const email = req.body.email;
     const fullName = req.body.fullName;
     const password = req.body.password;
     const address = req.body.address;
@@ -177,13 +178,16 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
       ...(role && { role }),
     };
     console.log(toUpdate);
+
     // 사용자 정보를 업데이트함.
     const updatedUserInfo = await userService.setUser(
       userInfoRequired,
       toUpdate
     );
-    const userToken = await userService.getUserToken(updatedUserInfo);
-    // 업데이트 이후의 유저 데이터를 Token 으로 프론트에 보내 줌
+    
+    const updatedUserInfoRequired = { email , password };
+    const userToken = await userService.getUserToken(updatedUserInfoRequired);
+    // 업데이트 이후의 유저 데이터를 Token 으로 프론트에 보내줌
     res.status(200).json(userToken);
   } catch (error) {
     next(error);
