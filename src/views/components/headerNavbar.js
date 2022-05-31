@@ -3,7 +3,7 @@ import { getUserData, removeUser } from '../utils/user.js';
 const headerNavbar = {
   render: () => {
     const { name, role } = getUserData();
-    console.log(getUserData());
+
     return `
         <ul id="navbar">
             ${

@@ -24,7 +24,7 @@ const productlist = {
                 <tr>
                   <td>${product.name}</td>
                   <td>${product.price}</td>
-                  <td class="productImage1">${product.category?.name}</td>
+                  <td class="productImage1">${product.category.name}</td>
                   <td class="productImage1">
                   <img src ="${product.image}"  width="300" height="30" id="product-image-file" /></td>
                   <td>${product.description}</td>
@@ -40,6 +40,13 @@ const productlist = {
           </table>
             
           </div>
+          <!--페이지네이션-->
+          <nav class="pagination is-rounded is-small is-centered mt-3 mb-5" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+    
+            </ul>
+          </nav>
+          <!--페이지네이션 끝-->
               
       `;
   },

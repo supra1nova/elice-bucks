@@ -28,7 +28,7 @@ async function addAllElements() {
   const totalPage = notices.totalPage;
   dashboard_content.innerHTML = noticeslist.render(notices);
   console.log(notices);
-  //카테고리
+  //페이지
   for (let i = 1; i <= totalPage; i++) {
     paginationList.insertAdjacentHTML(
       'beforeend',

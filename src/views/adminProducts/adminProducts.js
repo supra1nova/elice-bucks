@@ -24,12 +24,22 @@ async function addAllElements() {
   const datas = await getProducts();
   const categoriesdatas = await getCategories();
   dashboard_content.innerHTML = categorylist.render(categoriesdatas);
-  dashboard_content.innerHTML += productlist.render(datas);
+  dashboard_content.innerHTML += productlist.render(datas.posts);
   headerNavbar1.innerHTML = headerNavbar.render();
   leftMenuAdmin.innerHTML = leftMenu.render({
     selected: 'products',
   });
   headerNavbar.componentDidMount();
+  //페이지네이션
+  const totalPage = datas.totalPage;
+  for (let i = 1; i <= totalPage; i++) {
+    document
+      .querySelector('.pagination-list')
+      .insertAdjacentHTML(
+        'beforeend',
+        `<li><a class="pagination-link" href="?page=${i}&&perPage=10">${i}</a></li>`
+      );
+  }
   //제품생성
   document
     .getElementById('create-product-button')
@@ -63,10 +73,7 @@ async function addAllElements() {
     button.addEventListener('click', async () => {
       const result = await getProduct(button.id);
       console.log(result);
-      dashboard_content.innerHTML = productCreate.render(
-        result,
-        categoriesdatas
-      );
+      dashboard_content.innerHTML = ProductEdit.render(result, categoriesdatas);
       await ProductEdit.componentDidMount(result._id, result.category);
       const cancleButton = document.getElementById('cancleButton');
       cancleButton.addEventListener('click', async () => {
@@ -142,8 +149,12 @@ async function addAllElements() {
 
 async function getProducts() {
   // 제품가져오기 api 요청
+  const pageId = new URLSearchParams(window.location.search).get('page');
   try {
-    const data = await Api.get('/api/product', 'products');
+    const data = await Api.get(
+      '/api/product/products',
+      `?page=${pageId}&&perPage=10`
+    );
     console.log(data);
     return data;
   } catch (err) {

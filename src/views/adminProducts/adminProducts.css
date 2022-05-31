@@ -159,3 +159,17 @@ select::-ms-expand {
   color: #fff;
   padding: 3px 0;
 }
+
+/* 페이지네이션 */
+.pagination-link:hover {
+	background-color: #2D4039;
+	color: white;
+}
+
+#button-td {
+  display:flex;
+  justify-content: end;
+}
+#button-td button {
+  margin:0.3rem;
+}
