@@ -4,7 +4,7 @@ import insertCategoryList from '../components/navCategoryList.js';
 import * as Api from '/api.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const noticeList = document.querySelector('.noticeList');
+const noticeContainer = document.querySelector('.noticeContainer');
 const paginationList = document.querySelector('.pagination-list');
 
 // if ( window.location == '/notice' ) {
@@ -27,23 +27,21 @@ async function insertNoticeList() {
   const pageId = new URLSearchParams(window.location.search).get('page')
 
   // 페이지네이션 - 각 페이지에 해당하는 url에 들어갔을 때 해당 글 10개만 보여줌
-  const notices = await Api.get('/api/notice/notices', `?page=${pageId}&&perPage=10`);
+  const noticeList = await Api.get('/api/notice/notices', `?page=${pageId}&&perPage=10`);
 
   // 페이지네이션 목록
-  const posts = notices.posts;  // 한 페이지에 들어가는 공지글 내용 전부
-  const totalPage = notices.totalPage;  // 전체 페이지 숫자
+  const notices = noticeList.posts;  // 한 페이지에 들어가는 공지글 내용 전부
+  const totalPage = noticeList.totalPage;  // 전체 페이지 숫자
 
-  // 페이지네이션 글들이 줄줄이 이어서 뜨지 않도록 리셋
-  noticeList.innerHTML = '';
-  
   // forEach로 돌면서 공지글의 id, title, time, author 각 자리에 할당
-  posts.forEach(post => {
-    const id = post._id;
-    const title = post.title;
-    const time = Date(post.createdAt);
-    const author = post.author;
+  notices.forEach(notice => {
+    const id = notice._id;
+    const title = notice.title;
+    const author = notice.author;
+    // 날짜는 요일, 월, 일, 연도 까지만 나오도록 자르고, 문자열로 합쳐서 반환
+    const time = Date(notice.createdAt).split(' ', 4).join(' ');
 
-    noticeList.insertAdjacentHTML(
+    noticeContainer.insertAdjacentHTML(
       'beforeend',
       ` 
         <th class="bullet">•</th>
@@ -60,6 +58,6 @@ async function insertNoticeList() {
       'beforeend',
       `<li><a class="pagination-link" href="?page=${i}&&perPage=10">${i}</a></li>`
     );
-
   }
+
 }
