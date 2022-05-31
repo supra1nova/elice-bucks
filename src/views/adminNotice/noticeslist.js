@@ -3,7 +3,7 @@ const noticeslist = {
     return `
         <div class="content">
           <h1>NOTICE</h1>
-          <button id="create-product-button" class = "primary ">
+          <button id="create-product-button" class = "button is-info is-light mb-2">
             공지사항 생성 +
           </button>
 
@@ -32,10 +32,10 @@ const noticeslist = {
                   <td>${notice.createdAt}</td>
                   <td>${notice.updatedAt}</td>
                   <td>
-                    <button id="${index}" class="product-edit-button button is-primary">수정</button>
+                    <button id="${index}" class="product-edit-button button is-primary  is-light">수정</button>
                     <button id="${
                       notice._id
-                    }" class="product-delete-button button is-primary">삭제</button>
+                    }" class="product-delete-buttonbutton is-danger button is-light">삭제</button>
                   </td>
                 </tr>
             `

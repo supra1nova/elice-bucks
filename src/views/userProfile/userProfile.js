@@ -81,6 +81,10 @@ async function handleSubmit(e) {
 
     const result = await Api.patch('/api/user', `${userId}`, data);
     console.log(result);
+    const token = result.token;
+
+    // 수정 성공, 토큰을 세션 스토리지에 저장
+    localStorage.setItem('token', token);
     alert(`정상적으로 수정되었습니다.`);
     // 홈 페이지 이동
     window.location.href = '/';

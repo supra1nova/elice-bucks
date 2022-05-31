@@ -73,7 +73,7 @@ tbody tr:nth-child(2n) {
 
 }
 tbody tr:nth-child(2n+1) {
-  background-color: #f9fffb;
+ 
 }
 .tr-action{
   text-align: center;
@@ -172,4 +172,30 @@ select::-ms-expand {
 }
 #button-td button {
   margin:0.3rem;
+}
+
+/*    from notice        */
+* 공지사항 컨테이너 */
+.content {
+  margin: 50px;
+}
+.noticeTable tbody td{
+  border:none;
+}
+.content h1 {
+  text-align: center;
+  color: #2D4039;
+}
+.table thead tr {
+  background-color: #88A394;
+}
+
+/* 제목 기본 폰트 크기 조정 */
+.title {
+  font-size: 1em;
+}
+
+/* 공지사항 테이블 */
+.noticeList {
+  font-size: 1em;
 }

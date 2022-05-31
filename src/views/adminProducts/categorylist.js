@@ -2,12 +2,13 @@ const categorylist = {
   render: (categories) => {
     console.log(categories);
     return `
-        <h1>카테고리</h1>
-            <button id="create-category-button" class = "primary">
-                카테고리 생성 +
-            </button>
+    <div class="content">
+      <h1>카테고리</h1>
+      <button id="create-category-button" class = "button is-info is-light mb-2">
+        카테고리 생성 +
+      </button>
           <div class="product-list">
-                  <table>
+                  <table class="table is-hoverable">
                     <thead>
                       <tr>
                         <th>id</th>
@@ -36,8 +37,8 @@ const categorylist = {
                       </div>
                   </td>
                   <td>
-                    <button id="${category._id}" class="category-edit-button button is-primary">바로수정</button>
-                    <button id="${category._id}" class="category-delete-button button is-primary ">삭제</button>
+                    <button id="${category._id}" class="category-edit-button button is-primary  is-light">바로수정</button>
+                    <button id="${category._id}" class="category-delete-button button is-danger   is-light">삭제</button>
                   </td>
                 </tr>
             `
@@ -47,6 +48,7 @@ const categorylist = {
           </table>
             
           </div>
+        </div>
       `;
   },
 };
