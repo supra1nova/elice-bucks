@@ -1,5 +1,5 @@
 const productlist = {
-  render: async (products) => {
+  render: (products) => {
     return `
           <h1>제품</h1>
           <button id="create-product-button" class = "primary ">

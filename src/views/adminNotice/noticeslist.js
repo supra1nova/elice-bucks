@@ -5,6 +5,7 @@ const noticeslist = {
           <button id="create-product-button" class = "primary ">
             공지사항 생성 +
           </button>
+
           <div class="product-list">
           <table>
           <thead>
@@ -23,15 +24,19 @@ const noticeslist = {
             .map(
               (notice, index) => `
                 <tr>
-                  <td>${index}</td>
+                  <td>${index + 1}</td>
                   <td>${notice.title}</td>
-                  <td>${notice.content}</td>
+                  <td class="productContent">${notice.content}</td>
                   <td>${notice.author}</td>
                   <td>${notice.createdAt}</td>
                   <td>${notice.updatedAt}</td>
                   <td>
-                    <button id="${notice._id}" class="product-edit-button button is-primary">수정</button>
-                    <button id="${notice._id}" class="product-delete-button button is-primary">삭제</button>
+                    <button id="${
+                      notice._id
+                    }" class="product-edit-button button is-primary">수정</button>
+                    <button id="${
+                      notice._id
+                    }" class="product-delete-button button is-primary">삭제</button>
                   </td>
                 </tr>
             `
@@ -41,7 +46,7 @@ const noticeslist = {
           </table>
             
           </div>
-              
+
       `;
   },
 };

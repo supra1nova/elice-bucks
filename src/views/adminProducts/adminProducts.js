@@ -10,6 +10,7 @@ import insertCategoryList from '../components/navCategoryList.js';
 import productlist from './productslist.js';
 import ProductEdit from './productEdit.js';
 import categorylist from './categorylist.js';
+import productCreate from './productCreate.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
@@ -22,36 +23,60 @@ insertCategoryList();
 async function addAllElements() {
   const datas = await getProducts();
   const categoriesdatas = await getCategories();
-  dashboard_content.innerHTML = await categorylist.render(categoriesdatas);
-  dashboard_content.innerHTML += await productlist.render(datas);
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  leftMenuAdmin.innerHTML = await leftMenu.render({
+  dashboard_content.innerHTML = categorylist.render(categoriesdatas);
+  dashboard_content.innerHTML += productlist.render(datas);
+  headerNavbar1.innerHTML = headerNavbar.render();
+  leftMenuAdmin.innerHTML = leftMenu.render({
     selected: 'products',
   });
-  await headerNavbar.componentDidMount();
+  headerNavbar.componentDidMount();
   //제품생성
   document
     .getElementById('create-product-button')
     .addEventListener('click', async () => {
-      const result = await createProduct(categoriesdatas[0]);
-      console.log(result);
-      window.location.href = `/adminProducts`;
+      //const result = await createProduct(categoriesdatas[0]);
+      //console.log(result);
+      //window.location.href = `/adminProducts`;
+      const data = {
+        name: `수정해주세요${Date.now()}`,
+        price: 0,
+        image: '수정해주세요',
+        category: {
+          _id: `${categoriesdatas[0]._id}`,
+          name: `${categoriesdatas[0].name}`,
+        },
+        description: '수정해주세요',
+      };
+      dashboard_content.innerHTML = productCreate.render(data, categoriesdatas);
+      await productCreate.componentDidMount(data.category);
+      const cancleButton = document.getElementById('cancleButton');
+      cancleButton.addEventListener('click', async () => {
+        window.location.href = `/adminProducts`;
+      });
     });
+
+  //제품 수정
   const productEditButtons = document.getElementsByClassName(
     'product-edit-button'
   );
-  //제품 수정
   Array.from(productEditButtons).forEach((button) => {
     button.addEventListener('click', async () => {
       const result = await getProduct(button.id);
       console.log(result);
-      dashboard_content.innerHTML = await ProductEdit.render(
+      dashboard_content.innerHTML = productCreate.render(
         result,
         categoriesdatas
       );
       await ProductEdit.componentDidMount(result._id, result.category);
+      const cancleButton = document.getElementById('cancleButton');
+      cancleButton.addEventListener('click', async () => {
+        //addAllElements();
+        window.location.href = `/adminProducts`;
+      });
     });
   });
+  //제품 수정 취소
+
   //제품 삭제
   const productDelButtons = document.getElementsByClassName(
     'product-delete-button'
@@ -145,31 +170,6 @@ async function getProduct(id) {
     const data = await Api.get('/api/product', `${id}`);
     console.log(data);
     return data;
-  } catch (err) {
-    console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  }
-}
-
-async function createProduct(tempCategory) {
-  // 제품생성 api 요청
-  try {
-    const data = {
-      name: `수정해주세요${Date.now()}`,
-      price: 0,
-      image: '수정해주세요',
-      category: {
-        _id: `${tempCategory._id}`,
-        name: `${tempCategory.name}`,
-      },
-      description: '수정해주세요',
-    };
-    ///
-    const result = await Api.post('/api/product/register', data);
-
-    alert(`정상적으로 제품 추가되었습니다.`);
-    return result;
-    // 표 리렌더 해야하지 않을까
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);

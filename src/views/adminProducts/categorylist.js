@@ -1,5 +1,5 @@
 const categorylist = {
-  render: async (categories) => {
+  render: (categories) => {
     console.log(categories);
     return `
         <h1>카테고리</h1>
@@ -12,7 +12,7 @@ const categorylist = {
                       <tr>
                         <th>id</th>
                         <th>이름</th>
-                        <th class="tr-action"></th>
+                        <th class="ctr-action"></th>
                       </tr>
                     </thead>
                     <tbody >
@@ -36,7 +36,7 @@ const categorylist = {
                       </div>
                   </td>
                   <td>
-                    <button id="${category._id}" class="category-edit-button button is-primary">수정</button>
+                    <button id="${category._id}" class="category-edit-button button is-primary">바로수정</button>
                     <button id="${category._id}" class="category-delete-button button is-primary ">삭제</button>
                   </td>
                 </tr>

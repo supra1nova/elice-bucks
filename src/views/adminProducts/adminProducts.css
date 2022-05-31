@@ -79,6 +79,10 @@ tbody tr:nth-child(2n+1) {
   text-align: center;
   width:8rem;
 }
+.ctr-action{
+  text-align: center;
+  width:10rem;
+}
 
 /*  product edit form       */
 .register-user-form-container {
@@ -124,7 +128,14 @@ tbody tr:nth-child(2n+1) {
   border-color: #00d1b2;
   box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
 }
-
+#product-image-file {
+  margin-right:0.2rem;
+}
+#image-control {
+  margin-top:0.2rem;
+  display:flex;
+  align-items: center;
+}
 
 /****************************************/
 /**select 부분*/

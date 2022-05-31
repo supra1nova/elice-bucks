@@ -1,5 +1,5 @@
 import { getUserData, removeUser } from '../utils/user.js';
-
+//이름 + 님, 드랍메뉴
 const headerNavbar = {
   render: () => {
     const { name, role } = getUserData();
@@ -7,11 +7,11 @@ const headerNavbar = {
         <ul id="navbar">
             ${
               name && role === 'basic-user'
-                ? `<li><a href="/myPage">${name}</a></li>
+                ? `<li><a href="/myPage">${name} 님</a></li>
                 <li><a class="logout" href="/">로그아웃</a></li>
                 `
                 : name && role === 'admin-user'
-                ? `<li><a href="/myPage">정보수정</a></li>
+                ? `<li><a href="/myPage">마이페이지</a></li>
                 <li><a class="logout" href="/">로그아웃</a></li>
                 <li><a href="/adminPage">관리페이지</a></li>
                 `

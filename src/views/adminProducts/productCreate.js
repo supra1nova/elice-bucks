@@ -1,30 +1,27 @@
 import * as Api from '/api.js';
-const ProductEdit = {
-  componentDidMount: async (_id, productCat) => {
+const productCreate = {
+  componentDidMount: async (productCat) => {
     const submitButton = document.querySelector('#submitButton');
     document.getElementById(`${productCat._id}`).selected = true;
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
       const name = document.getElementById('nameInput').value;
       const price = document.getElementById('priceInput').value;
-      const category = document.getElementById('categoriesSelect').value;
-
+      const categoryName = document.getElementById('categoriesSelect').value;
+      let options = document.getElementById('categoriesSelect').options;
+      const categoryId = options[options.selectedIndex].id;
       const image = document.getElementById('imageInput').value;
-      console.log(image);
       const description = document.getElementById('descriptionInput').value;
-      console.log(description);
       try {
         const data = {
           name,
           price,
-          category,
+          category: { _id: `${categoryId}`, name: `${categoryName}` },
           image,
           description,
         };
-        await Api.patch('/api/product', `${_id}`, data);
-        alert(`정상적으로 수정되었습니다.`);
-
-        // 홈 페이지 이동
+        const result = await Api.post('/api/product/register', data);
+        alert(`정상적으로 제품 추가되었습니다.`);
         window.location.href = '/adminProducts/';
       } catch (err) {
         console.error(err.stack);
@@ -56,7 +53,7 @@ const ProductEdit = {
     return `
     <div class="register-user-form-container">
     <form class="box register-user-form-box" id="registerUserForm">
-      <p class="title is-5 has-text-primary">수정하세요!</p>
+      <p class="title is-5 has-text-primary">생성하세요!</p>
         <div id="form-container">
   
             <div class="field">
@@ -140,7 +137,7 @@ const ProductEdit = {
 
         </div>
         <button class="button is-primary mt-5 is-fullwidth" id="submitButton">
-          제품 정보 수정하기
+          제품 생성하기
         </button>
         <button class="button is-danger mt-3 is-fullwidth" id="cancleButton">
           취소하기
@@ -152,4 +149,4 @@ const ProductEdit = {
     `;
   },
 };
-export default ProductEdit;
+export default productCreate;
