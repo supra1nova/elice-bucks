@@ -22,10 +22,8 @@ async function addAllElements() {
     selected: 'orders',
   });
   await headerNavbar.componentDidMount();
-
   const datas = await getOrders();
-  console.log(datas);
-  //dashboard_content.innerHTML = await orderslist.render(datas);
+  dashboard_content.innerHTML = orderslist.render(datas);
 }
 
 async function getOrders() {

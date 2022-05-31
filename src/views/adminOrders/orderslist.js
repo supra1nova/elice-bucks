@@ -1,5 +1,5 @@
 const orderslist = {
-  render: async (orders) => {
+  render: (orders) => {
     return `
           <h1>주문</h1>
           <!--
@@ -22,14 +22,15 @@ const orderslist = {
           <tbody >
           ${orders
             .map(
-              (order) => `
+              (order) =>
+                `
                 <tr>
-                  <td>${orders.name}</td>
-                  <td>${orders.price}</td>
-                  <td class="productImage1">${order.category}</td>
+                  <td>${order[0].userId}</td>
+                  <td>${order[0].totalPrice}</td>
+                  <td class="productImage1"></td>
                   <td class="productImage1">
                   <img src ="${order.image}"  width="300" height="30" id="product-image-file" /></td>
-                  <td>${product.description}</td>
+                  <td></td>
                   <td>
                     <button id="${order._id}" class="product-edit-button button is-primary">수정</button>
                     <button id="${order._id}" class="product-delete-button button is-primary">삭제</button>
