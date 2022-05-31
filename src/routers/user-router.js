@@ -109,14 +109,13 @@ userRouter.get('/numbers', loginRequired, async function (req, res, next) {
     const users = await userService.getUsers();
     const totalusers = users.length;
 
-    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(totalusers);
   } catch (error) {
     next(error);
   }
 });
 
-//
+//user 기본 정보 
 userRouter.get('/', loginRequired, async function (req, res, next) {
   try {
     const user = await userService.getUser(req.currentUserId);
@@ -183,9 +182,9 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
       userInfoRequired,
       toUpdate
     );
-
-    // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
-    res.status(200).json(updatedUserInfo);
+    const userToken = await userService.getUserToken(updatedUserInfo);
+    // 업데이트 이후의 유저 데이터를 Token 으로 프론트에 보내 줌
+    res.status(200).json(userToken);
   } catch (error) {
     next(error);
   }
