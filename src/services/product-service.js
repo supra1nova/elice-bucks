@@ -1,5 +1,6 @@
 import { productModel } from '../db';
 import { categoryModel } from '../db';
+import fs from 'fs';
 
 class ProductService {
   // 본 파일의 맨 아래에서, new ProductService(productModel) 하면, 이 함수의 인자로 전달됨
@@ -7,14 +8,12 @@ class ProductService {
     this.productModel = productModel;
   }
 
-  // 1. 신규 제품 등록
+  
+  // 1. 신규 제품 등록 - 주의!! postman에서 테스트시, 수동으로 카테고리 생성 후 _id와 name 입력 필요
   async addProduct(productInfo) {
     const { name, price, category, description, image } = productInfo;
+    const { _id: categoryId, name: categoryName  } = category;
 
-    const categoryId = category._id;
-    const categoryName = category.name;
-
-    console.log(category);
     // 제품명 중복 확인
     const product = await this.productModel.findByName(name);
     if (product) {
@@ -23,17 +22,9 @@ class ProductService {
       );
     }
 
-    // 카테고리명을 이용해 조회, 신규 카테고리일 경우 자동으로 생성
-
+    // 카테고리명 이용 조회 후 신규 카테고리일 경우 자동 생성
     const categoryList = await categoryModel.getCategoryNames();
-
-    if (categoryList.includes(categoryName)) {
-      // const index = categoryList.indexOf(categoryName);
-      // categoryId = (await categoryModel.findAll({})).map((result) =>
-      //   result._id.toString()
-      // )[index];
-      // 카테고리가 존재하지 않는다면 카테고리 신규 생성 후 ID 추출
-    } else {
+    if (!categoryList.includes(categoryName)) {
       const newCategoryModel = await categoryModel.create({
         name: categoryName,
       });
@@ -52,11 +43,13 @@ class ProductService {
     return createdNewProduct;
   }
 
+
   // 2. 전 제품 조회
   async getProducts() {
     const products = await this.productModel.findAll();
     return products;
   }
+
 
   // 3. ID 이용 단일 품목 조회
   async findProduct(productId) {
@@ -64,11 +57,13 @@ class ProductService {
     return product;
   }
 
+
   // 4. 카테고리 아이디별 검색
   async findByCategoryId(categoryId) {
     const product = await this.productModel.findByCategory(categoryId);
     return product;
   }
+
 
   // 5. 제품 정보 수정
   async setProduct(productId, toUpdate) {
@@ -109,11 +104,25 @@ class ProductService {
     return product;
   }
 
+
   // 6. 제품 삭제
   async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
-    let product = await this.productModel.findByCategory(productId);
+    let product = await this.productModel.findById(productId);
+    console.log(product);
     if (product) {
+
+      // 제품 정보에서 이미지 이름을 가져온다.
+      const image = product.image;
+
+      const path = 'src/views/images/';
+      
+      // 이미지 파일이 존재하는지 확인 후 삭제
+      if (fs.existsSync(path + image)) {
+        fs.unlinkSync(path + image);
+      }
+
+      // 제품 삭제
       return this.productModel.del(productId);
     }
     throw new Error('등록되지 않은 제품입니다. 다시 한 번 확인해주세요.');

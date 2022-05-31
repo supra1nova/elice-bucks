@@ -40,7 +40,7 @@ export class ProductModel {
   //   return products;
   // }
 
-  // 7. 제품 관련 수정
+  // 6. 제품 관련 수정
   async update({ productId, update }) {
     const filter = { _id: productId };
     const option = { returnOriginal: false };
@@ -48,7 +48,7 @@ export class ProductModel {
     return updatedProduct;
   }
 
-  // 8. 제품 삭제 및 'OK' 반환 - 이미 service 에서 파일 유무 검증하므로 findOneAndDelete 대신 deletOne 사용 + findOneAndDelete는 return 함
+  // 7. 제품 삭제 및 'OK' 반환 - 이미 service 에서 파일 유무 검증하므로 findOneAndDelete 대신 deletOne 사용 + findOneAndDelete는 return 함
   async del(productId) {
     const deletedProduct = await Product.deleteOne({ _id: productId });
     return deletedProduct;
