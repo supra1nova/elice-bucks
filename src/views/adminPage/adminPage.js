@@ -25,20 +25,22 @@ async function addAllElements() {
   const orderTotalNum = await getOrderstotalNum();
   console.log(orderTotalNum);
   const userTotalNum = await getTotalnumOfusers();
+  const totalSale = await getTotalSale();
   dashboard_content.innerHTML = await adminContent.render(
     userTotalNum,
-    orderTotalNum
+    orderTotalNum,
+    totalSale
   );
 }
 
 const adminContent = {
-  render: (userTotalNum, orderTotalNum) => {
+  render: (userTotalNum, orderTotalNum, totalSale) => {
     return `
     <h1>쇼핑몰 현황</h1>
     <div>
       <div>총 유저수 : ${userTotalNum}</div>
       <div>총 주문수 : ${orderTotalNum}</div>
-      <div>총 매출 : ${orderTotalNum}</div>
+      <div>총 매출 : ${totalSale}</div>
       <div>css적용 예정</div>
     </div>
     `;
@@ -60,6 +62,16 @@ async function getOrderstotalNum() {
 async function getTotalnumOfusers() {
   try {
     const data = await Api.get('/api/user', 'numbers');
+    return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}
+//admin/price get
+async function getTotalSale() {
+  try {
+    const data = await Api.get('/api/order/admin', 'price');
     return data;
   } catch (err) {
     console.error(err.stack);

@@ -1,28 +1,28 @@
-.holyGrail,
-.holyGrail-body {
+.HolyGrail,
+.HolyGrail-body {
   display: flex;
   flex-direction: column;
 
 }
 
-.holyGrail-nav {
+.HolyGrail-nav {
   order: -1;
   
   padding-left: 20px;
 }
-.holyGrail-nav li{
+.HolyGrail-nav li{
   padding-bottom: 5px;
 }
 
 @media (min-width: 768px) {
-  .holyGrail-body {
+  .HolyGrail-body {
     flex-direction: row;
     flex: 1;
   }
-  .holyGrail-content {
+  .HolyGrail-content {
     flex: 1;
   }
-  .holyGrail-nav {
+  .HolyGrail-nav {
     /* 12em is the width of the columns */
     flex: 0 0 12em;
   }
@@ -50,8 +50,6 @@ button.primary {
   margin: 3px;
   margin-bottom: 10px;
 }
-
-
 table {
   width: 100%;
   border-top: 1px solid #a0a0a0;

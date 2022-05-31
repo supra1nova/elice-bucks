@@ -17,8 +17,12 @@ const leftMenu = {
             }">
                 <a href="/adminProducts">제품</a>
             </li>
+            <li class="orders ${props.selected === 'notice' ? 'selected' : ''}">
+                <a href="/adminNotice">공지사항</a>
+            </li>
         </ul>
     </div> 
+    
         `;
   },
 };

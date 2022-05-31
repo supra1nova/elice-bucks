@@ -3,35 +3,36 @@
 // 코드 예시를 남겨 두었습니다.
 
 import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
-import orderslist from './orderslist.js';
+import noticeslist from './noticeslist.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
+const mainContent = document.querySelector('#mainContent');
 const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
 insertCategoryList();
 
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  leftMenuAdmin.innerHTML = await leftMenu.render({
-    selected: 'orders',
+  headerNavbar1.innerHTML = headerNavbar.render();
+  leftMenuAdmin.innerHTML = leftMenu.render({
+    selected: 'notice',
   });
-  await headerNavbar.componentDidMount();
-
-  const datas = await getOrders();
-  console.log(datas);
-  //dashboard_content.innerHTML = await orderslist.render(datas);
+  headerNavbar.componentDidMount();
+  const notices = await getAllNotices();
+  console.log(notices);
+  dashboard_content.innerHTML = await noticeslist.render(notices.posts);
+  console.log(notices);
 }
 
-async function getOrders() {
-  // 제품가져오기 api 요청/admin/orders
+//.get('/totalnumOfusers',
+//r.get('/notices',
+async function getAllNotices() {
   try {
-    const data = await Api.get('/api/order/admin', 'orders');
+    const data = await Api.get('/api/notice', 'notices');
     return data;
   } catch (err) {
     console.error(err.stack);
