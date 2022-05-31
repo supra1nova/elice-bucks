@@ -14,6 +14,7 @@
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="notice.css" />
     <script type="module" src="notice.js" defer></script>
+    <!-- <script type="module" src="../components/page.js" defer></script> -->
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
         
@@ -66,16 +67,17 @@
             <th class="date">날짜</th>
           </tr>
         </thead>
-        <tbody class="noticeList">
+        <tbody class="noticeList" id="list">
           <!-- 공지사항 리스트 -->
         </tbody>
       </table>
 
-      <!-- 페이지네이션 -->
-      <ul id="paginationContainer">
-      </ul>
+      <nav class="pagination is-rounded is-small is-centered" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
 
+        </ul>
+      </nav>
     </div>
-  
+
   </body>
 </html>
