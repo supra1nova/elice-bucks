@@ -29,7 +29,7 @@ export class ProductModel {
   //  4. 특정 범위(페이지) 위치한 제품 정보 조회
   async getInRange(page, perPage) {
     // url 쿼리에서 page 받기, 기본값 1
-    const productsInRange = await Product.find({}).sort({ createdAt: -1 }).skip(perPage * (page - 1)).limit(perPage);
+    const productsInRange = await Product.find({}).populate('category', 'name').sort({ createdAt: -1 }).skip(perPage * (page - 1)).limit(perPage);
     return productsInRange;
   }
 
