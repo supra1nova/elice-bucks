@@ -13,6 +13,7 @@ export class OrderModel {
   // orders 전체 반환
   async findAll() {
     const orders = await Order.find({});
+
     return orders;
   }
 
@@ -29,8 +30,8 @@ export class OrderModel {
   }
 
   // 이미 존재하는 user라면 update -> service 에서 addOrderList method 에 구현 해둬서 딱히 쓸일이 없을것 같음.
-  async update({userId, update}) {
-    const filter = { userId : new Types.ObjectId(userId) };
+  async update({orderId, update}) {
+    const filter = { orderId: orderId };
     const option = { returnOriginal: false };
     const updatedOrders = await Order.findOneAndUpdate(
       filter,
@@ -40,21 +41,10 @@ export class OrderModel {
     return updatedOrders;
   }
 
-  // 배송 완료 시점 저장
-  async updateDeliveried(userId, updateDate){
-    const order = await Order.findOne({ userId : new Types.ObjectId(userId)}).populate('userId');
-    order.delivered = updateDate;
-    
-    return order;
-  }
-
-  // 결제 완료 시점 저장 
-  async updatePayment(userId, updateDate){
-    const order = await Order.findOne({ userId : new Types.ObjectId(userId)}).populate('userId');
-    order.paid = updateDate;
-    
-    return order;
-  }
+  // order schema time edit method
+  // async editTime(_at) {
+  //   const _at = date.getTime();
+  // }
 }
 
 const orderModel = new OrderModel();

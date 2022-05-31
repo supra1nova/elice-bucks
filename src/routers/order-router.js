@@ -9,7 +9,7 @@ import { orderItemService } from '../services/';
 const orderRouter = Router();
 
 // 1. 주문목록으로 등록
-orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
+orderRouter.post('/user/register', /*loginRequired,*/ async (req, res, next) => {
     try{
       if(is.emptyObject(req.body)){
           throw new Error(
@@ -59,7 +59,6 @@ orderRouter.get('/user/:userId', async function (req, res, next) {
     const order = await orderService.getUserOrder(userId);
     const orderId = order._id;
     const products = await orderItemService.getSameOrderId(orderId);
-    console.log(products);
 
     res.status(200).json(products);
   } catch (error) {
@@ -96,8 +95,15 @@ orderRouter.get('/user/qty/:userId', async function (req, res, next) {
 orderRouter.get('/admin/orders', async function (req, res, next) {
     try {
       const orders = await orderService.getOrders();
-      // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
-      res.status(200).json(orders);
+      let orderId;
+      let products = new Object();
+      for (let i = 0; i < orders.length; i++) {
+        orderId = orders[i]._id;
+        let product = await orderItemService.getSameOrderId(orderId);
+        let key = orders[i];
+        products[key] = product;
+      }
+      res.status(200).json(products);
     } catch (error) {
       next(error);
     }
