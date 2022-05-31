@@ -27,7 +27,7 @@ productRouter.post('/register', async (req, res, next) => {
       price,
       description,
       category,
-      image
+      image,
     });
 
     // 추가된 제품의 db 데이터를 프론트에 다시 보내줌
@@ -93,7 +93,7 @@ productRouter.patch('/:productId', async function (req, res, next) {
     const productId = req.params.productId;
 
     // body data 로부터 업데이트할 제품 정보를 추출.
-    const { name, price, description, category, image } = req.body;
+    const { name, price, description, category, image, stock } = req.body;
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
     // 보내주었다면, 업데이트용 객체에 삽입함.
@@ -103,6 +103,7 @@ productRouter.patch('/:productId', async function (req, res, next) {
       ...(description && { description }),
       ...(category && { category }),
       ...(image && { image }),
+      ...(stock && { stock }),
     };
 
     // 제품 정보를 업데이트함.
@@ -123,14 +124,13 @@ productRouter.delete('/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
     const result = await productService.removeProduct(productId);
-
     res.status(200).json(result);
   } catch (error) {
     next(error);
   }
 });
 
-//** 멀터 정의 내용 삽입
+//** 멀터 정의 내용
 // 참고 https://wayhome25.github.io/nodejs/2017/02/21/nodejs-15-file-upload/
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpg" || file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/gif" || file.mimetype === "image/webp"){
@@ -143,14 +143,14 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage: multer.diskStorage({
+    
     //폴더위치 지정
     destination: (req, file, done) => {
       done(null, 'src/views/images/');
     },
+
+    //파일명칭 설정
     filename: (req, file, done) => {
-      // const ext = path.extname(file.originalname);
-      // aaa.txt => aaa+&&+129371271654.txt
-      // const fileName = path.basename(file.originalname, ext) + Date.now() + ext;
       done(null, `${Date.now()}.jpg`);
     },
   }),
@@ -169,21 +169,51 @@ productRouter.post('/imageUpload', upload.single("image"), (req, res, next) => {
   }
 });
 
-// 8. fs 이용 이미지 삭제(하드 삭제)
-productRouter.delete('/imageUpload/:image', async (req, res, next) => {
-// productRouter.delete('/image/:image', async (req, res, next) => {
-  
-  const image = req.params.image;
-  const path = 'src/views/images/';
-
-  try {
-    fs.unlinkSync(path + image);
-    res.status(200).send('이미지가 성공적으로 삭제되었습니다.');
-  } catch (error) {
-    error.message = '이미지가 서버에 존재하지 않습니다.';
-    next(error);
-  }
-})
-
-
 export { productRouter };
+
+  
+  
+  
+  
+  
+
+  
+// !!!!!!!! 추후 안정화 이후 삭제 예정   
+
+  
+  
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     //폴더위치 지정
+//     destination: (req, file, done) => {
+//       done(null, 'src/views/images/');
+//     },
+//     filename: (req, file, done) => {
+//       // const ext = path.extname(file.originalname);
+//       // aaa.txt => aaa+&&+129371271654.txt
+//       // const fileName = path.basename(file.originalname, ext) + Date.now() + ext;
+//       done(null, `${Date.now()}.jpg`);
+//     },
+//   }),
+//   fileFilter: fileFilter,
+//   limits: { fileSize: 5 * 1024 * 1024 },
+// });
+  
+  
+  
+  
+// // 8. fs 이용 이미지 삭제(하드 삭제)
+// productRouter.delete('/imageUpload/:image', async (req, res, next) => {
+// // productRouter.delete('/image/:image', async (req, res, next) => {
+  
+//   const image = req.params.image;
+//   const path = 'src/views/images/';
+
+//   try {
+//     fs.unlinkSync(path + image);
+//     res.status(200).send('이미지가 성공적으로 삭제되었습니다.');
+//   } catch (error) {
+//     error.message = '이미지가 서버에 존재하지 않습니다.';
+//     next(error);
+//   }
+// })
