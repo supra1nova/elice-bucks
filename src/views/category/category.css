@@ -22,6 +22,9 @@ body {
 }
 
 /* 제품 목록 컨테이너 */
+#content {
+    padding: 50px;
+}
 #container {
     display: flex;
     justify-content: space-evenly;

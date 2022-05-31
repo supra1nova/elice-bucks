@@ -16,7 +16,7 @@
     <script type="module" src="notice.js" defer></script>
     <!-- <script type="module" src="../components/page.js" defer></script> -->
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
         
   </head>
   <body>
@@ -57,7 +57,7 @@
     <!-- 상단바 아래 컨텐츠 영역 -->
     <div class="content">
 
-      <h1>NOTICE</h1>
+      <h1 class="tableTitle">NOTICE</h1>
 
       <!-- 공지사항 테이블 -->
       <table class="table is-hoverable">
@@ -69,11 +69,12 @@
             <th class="date">날짜</th>
           </tr>
         </thead>
-        <tbody class="noticeList" id="list">
+        <tbody class="noticeContainer" id="list">
           <!-- 공지사항 리스트 -->
         </tbody>
       </table>
 
+      <!-- 페이지네이션 - 페이징 번호 목록 -->
       <nav class="pagination is-rounded is-small is-centered" role="navigation" aria-label="pagination">
         <ul class="pagination-list">
 

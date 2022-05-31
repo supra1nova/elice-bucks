@@ -24,13 +24,19 @@ li {
   text-decoration: none;
 }
 
-/* 공지사항 컨테이너 */
+/* 공지사항 */
 .content {
   margin: 50px;
 }
 .content h1 {
   text-align: center;
+  font-size: 3rem;
+  font-family: 'Do Hyeon', sans-serif;
   color: #2D4039;
+  margin-bottom: 2rem;
+}
+.table {
+  width: 100%;
 }
 .table thead tr {
   background-color: #88A394;
@@ -47,6 +53,9 @@ li {
 }
 
 /* 페이지네이션 */
+.pagination {
+  margin-top: 2em;
+}
 .pagination-link:hover {
 	background-color: #2D4039;
 	color: white;
