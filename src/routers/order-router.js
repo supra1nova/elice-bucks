@@ -96,12 +96,14 @@ orderRouter.get('/admin/orders', async function (req, res, next) {
     try {
       const orders = await orderService.getOrders();
       let orderId;
-      let products = new Object();
+      let products = [];
+      let orderlist = [];
       for (let i = 0; i < orders.length; i++) {
         orderId = orders[i]._id;
         let product = await orderItemService.getSameOrderId(orderId);
-        let key = orders[i];
-        products[key] = product;
+        orderlist.push(orders[i]);
+        orderlist.push(product); 
+        products.push(orderlist);
       }
       res.status(200).json(products);
     } catch (error) {
