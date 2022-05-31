@@ -23,11 +23,11 @@ async function insertProductList() {
   const pageId = new URLSearchParams(window.location.search).get('page')
 
   // 페이지네이션 - 각 페이지에 해당하는 url에 들어갔을 때 해당 글 10개만 보여줌
-  const pageList = await Api.get('/api/product/products', `?page=${pageId}&&perPage=12`);
+  const productList = await Api.get('/api/product/products', `?page=${pageId}&&perPage=12`);
 
   // 페이지네이션 목록
-  const products = pageList.posts;
-  const totalPage = pageList.totalPage;
+  const products = productList.posts;
+  const totalPage = productList.totalPage;
 
   // forEach로 돌면서 상품 id, image, name, price를 각 자리에 할당
   products.forEach((product) => {
