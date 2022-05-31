@@ -7,14 +7,15 @@ class NoticeService {
   }
 
 
+  
   async countNotices() {
-    const notices = await this.noticeModel.countAll();
-    return notices;
+    const noticeQty = await this.noticeModel.countAll();
+    return noticeQty;
   }
 
-  async countCurrentNotice(page,perPage) {
-    const notices = await this.noticeModel.count(page, perPage);
-    return notices;
+  async getRangedNotices(page,perPage) {
+    const rangedNoticesInfo = await this.noticeModel.getInRange(page, perPage);
+    return rangedNoticesInfo;
   }
 
 
