@@ -10,18 +10,16 @@ async function get(endpoint, params = '') {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
-
-  // 응답 코드가 4XX 계열일 때 (400, 403 등)
-  endLoading();
+  // 응답 코드가 4XX 계열일 때 (400, 403 등)=
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
 
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 
@@ -44,15 +42,15 @@ async function post(endpoint, data) {
     body: bodyData,
   });
   console.log(res);
-  endLoading();
+
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 // api 로 POST 요청 (/endpoint 로, form 데이터 형태로 요청함)
@@ -101,17 +99,17 @@ async function patch(endpoint, params = '', data) {
     },
     body: bodyData,
   });
-  endLoading();
+
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
 
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 
@@ -133,17 +131,17 @@ async function del(endpoint, params = '', data = {}) {
     },
     body: bodyData,
   });
-  endLoading();
+
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
 
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 
