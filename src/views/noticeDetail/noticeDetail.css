@@ -36,3 +36,6 @@ text-decoration: none;
 .noticeDetail {
   font-size: 1em;
 }
+.content{
+  white-space: pre-line;
+}
