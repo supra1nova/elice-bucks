@@ -7,6 +7,7 @@ import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
+import { addCommas } from '../useful-functions.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
@@ -25,22 +26,51 @@ async function addAllElements() {
   const orderTotalNum = await getOrderstotalNum();
   console.log(orderTotalNum);
   const userTotalNum = await getTotalnumOfusers();
+  const totalSale = await getTotalSale();
   dashboard_content.innerHTML = await adminContent.render(
     userTotalNum,
-    orderTotalNum
+    orderTotalNum,
+    totalSale
   );
 }
 
 const adminContent = {
-  render: (userTotalNum, orderTotalNum) => {
+  render: (userTotalNum, orderTotalNum, totalSale) => {
     return `
     <h1>쇼핑몰 현황</h1>
-    <div>
+    <!---<div>
       <div>총 유저수 : ${userTotalNum}</div>
       <div>총 주문수 : ${orderTotalNum}</div>
-      <div>총 매출 : ${orderTotalNum}</div>
+      <div>총 매출 : ${totalSale}</div>
       <div>css적용 예정</div>
     </div>
+    -->
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">총 유저수</p>
+          <p class="title">${addCommas(userTotalNum)}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">총 주문수</p>
+          <p class="title">${addCommas(orderTotalNum)}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">총 매출</p>
+          <p class="title">${addCommas(totalSale)}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Likes</p>
+          <p class="title">789</p>
+        </div>
+      </div>
+    </nav>
     `;
   },
 };
@@ -60,6 +90,16 @@ async function getOrderstotalNum() {
 async function getTotalnumOfusers() {
   try {
     const data = await Api.get('/api/user', 'numbers');
+    return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}
+//admin/price get
+async function getTotalSale() {
+  try {
+    const data = await Api.get('/api/order/admin', 'price');
     return data;
   } catch (err) {
     console.error(err.stack);

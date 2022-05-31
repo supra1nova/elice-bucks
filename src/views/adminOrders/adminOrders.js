@@ -29,9 +29,9 @@ async function addAllElements() {
 }
 
 async function getOrders() {
-  // 제품가져오기 api 요청
+  // 주문가져오기 api 요청/admin/orders
   try {
-    const data = await Api.get('/api', 'orderlists');
+    const data = await Api.get('/api/order/admin', 'orders');
     return data;
   } catch (err) {
     console.error(err.stack);

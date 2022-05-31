@@ -1,28 +1,28 @@
-.HolyGrail,
-.HolyGrail-body {
+.holyGrail,
+.holyGrail-body {
   display: flex;
   flex-direction: column;
 
 }
 
-.HolyGrail-nav {
+.holyGrail-nav {
   order: -1;
   
   padding-left: 20px;
 }
-.HolyGrail-nav li{
+.holyGrail-nav li{
   padding-bottom: 5px;
 }
 
 @media (min-width: 768px) {
-  .HolyGrail-body {
+  .holyGrail-body {
     flex-direction: row;
     flex: 1;
   }
-  .HolyGrail-content {
+  .holyGrail-content {
     flex: 1;
   }
-  .HolyGrail-nav {
+  .holyGrail-nav {
     /* 12em is the width of the columns */
     flex: 0 0 12em;
   }
@@ -50,6 +50,8 @@ button.primary {
   margin: 3px;
   margin-bottom: 10px;
 }
+
+
 table {
   width: 100%;
   border-top: 1px solid #a0a0a0;
@@ -148,3 +150,21 @@ select::-ms-expand {
   color: #fff;
   padding: 3px 0;
 }
+
+  /* 로딩 */
+  .overlay {
+	  display:none;
+	  position:fixed;
+	  z-index:1000;
+	  background-color: rgba(16,16,16,0.5);
+	  top:0;
+	  left:0;
+	  width:100%;
+	  height:100%;
+  }
+  .overlay.active {
+	  display:flex;
+	  justify-content: center;
+	  align-items: center;
+	  color:#fff;
+  }
