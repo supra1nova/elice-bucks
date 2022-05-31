@@ -32,23 +32,18 @@ async function insertNoticeDetail() {
   const content = notice.content;
   const author = notice.author;
 
-  // 공지사항 줄바꿈 처리
-  const replaceContent = content.replace(/\n/gi,"<br/>"); 
-  console.log(replaceContent);
-
   noticeTitle.insertAdjacentHTML(
     'beforeend',
     ` 
       <th class="title">${title}</th>
     `
   );
-
-  // 공지사항 title, timestamps, author를 각 자리에 할당
+  
   noticeDetail.insertAdjacentHTML(
     'beforeend',
     ` 
       <td class="content">
-        ${replaceContent}
+        ${content}
       </td>
     `
   );

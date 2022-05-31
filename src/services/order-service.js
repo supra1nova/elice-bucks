@@ -64,9 +64,6 @@ class OrderService {
   // 4. 해당 유저의 주문 목록 반환
   async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
-    if(order.deletedAt !== order.createdAt) { //deletedAt 이 수정되었다는건 주문이 취소되었음을 의미하므로 
-      return null;
-    }
     return order;
   }
 
@@ -84,25 +81,28 @@ class OrderService {
 
   // 5-1. 해당 유저의 주문목록 취소처리
   async cancelOrder(orderId) {
-    const order = await this.orderModel.findByOrderId(orderId);
+    let order = await this.orderModel.findByOrderId(orderId);
     order.deletedAt = new Date();
-    const cancelOrder = await this.orderModel.update(orderId, order);
+    console.log("cancelOrder",order.deletedAt);
+    const cancelOrder = await this.orderModel.update({orderId, order});
     return cancelOrder;
   }
 
   // 5-2. 해당 유저의 delevered update
   async updateDelivered(orderId) {
-    // const order = await this.orderModel.findByOrderId(orderId);
-    // order.delivered = new Date();
-    const delivered = await this.orderModel.update(orderId, delivered = new Date());
+    let order = await this.orderModel.findByOrderId(orderId);
+    order.delivered = new Date();
+    console.log("delivered",order.delivered);
+    const delivered = await this.orderModel.update({orderId, order});
     return delivered;
   }
 
   // 5-3. 해당 유저의 payment update
   async updatePayment(orderId) {
-    const order = await this.orderModel.findByOrderId(orderId);
+    let order = await this.orderModel.findByOrderId(orderId);
     order.paid = new Date();
-    const paid = await this.orderModel.update(orderId, order);
+    console.log("paid",order.paid);
+    const paid = await this.orderModel.update({orderId, order});
     return paid;
   }
 }
