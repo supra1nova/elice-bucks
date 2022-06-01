@@ -26,7 +26,7 @@ const orderslist = {
           <tbody class="noticeContainer" id="list">
           ${orders
             .map(
-              (order) =>
+              (order, index) =>
                 `
                 <tr>
                   <td class="productImage1">${order[0].userId}</td>
@@ -38,9 +38,7 @@ const orderslist = {
                   <td>${order[0].updatedAt ? order[0].updatedAt : ''}</td>
                   <!---<td class="productImage1">-->
                   <td>
-                    <button id="${
-                      order[0]._id
-                    }" class="product-edit-button button is-primary  is-light">상세보기</button>
+                    <button id="${index}" class="product-edit-button button is-primary  is-light">상세보기</button>
                     <button id="${
                       order._id
                     }" class="product-delete-button is-danger button is-light">삭제</button>
