@@ -48,16 +48,16 @@ productRouter.get('/products', async function (req, res, next) {
     // url 쿼리에서 perRage 받기, 기본값 12
     const perPage = Number(req.query.perPage) || 12;
     
-    // total, products 를 Promise.all 을 사용해 동시에 호출
+    // total(전체 제품수), posts(현재 페이지에 있는 제품 정보) 를 Promise.all 을 사용해 동시에 호출
     const [total, posts] = await Promise.all([
       await productService.countProducts(),
       await productService.getRangedProducts(page, perPage)
     ]);
     
     const totalPage = Math.ceil(total / perPage);
-
+    
     // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
-    res.status(200).json({ posts, page, perPage, totalPage });
+    res.status(200).json({ posts, page, perPage, totalPage, total });
   } catch (error) {
     next(error);
   }
