@@ -24,6 +24,21 @@ async function addAllElements() {
   await headerNavbar.componentDidMount();
   const datas = await getOrders();
   dashboard_content.innerHTML = orderslist.render(datas);
+
+  //주문 상세보기
+  const productEditButtons = document.getElementsByClassName(
+    'product-edit-button'
+  );
+  Array.from(productEditButtons).forEach((button) => {
+    button.addEventListener('click', async () => {
+      dashboard_content.innerHTML = adminDetail.render(datas[button.id]);
+      // const cancleButton = document.getElementById('cancleButton');
+      // cancleButton.addEventListener('click', async () => {
+      //   //addAllElements();
+      //   window.location.href = `/adminProducts`;
+      // });
+    });
+  });
 }
 
 async function getOrders() {
