@@ -55,7 +55,7 @@ const noticesDetail = {
   },
   render: (notice, isEdit) => {
     const title = notice.title ? notice.title : '';
-    const content = notice.content ? notice.title : '';
+    const content = notice.content ? notice.content : '';
     return `
     <tbody class="noticeDetail">
         <tr class="noticeTitle content" >

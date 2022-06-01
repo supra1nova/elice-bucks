@@ -12,6 +12,8 @@ const productCreate = {
       const categoryId = options[options.selectedIndex].id;
       const image = document.getElementById('imageInput').value;
       const description = document.getElementById('descriptionInput').value;
+      const stock = document.getElementById('stockInput').value;
+
       try {
         const data = {
           name,
@@ -19,6 +21,7 @@ const productCreate = {
           category: { _id: `${categoryId}`, name: `${categoryName}` },
           image,
           description,
+          stock,
         };
         const result = await Api.post('/api/product/register', data);
         alert(`정상적으로 제품 추가되었습니다.`);
@@ -96,6 +99,20 @@ const productCreate = {
                 )
                 .join('\n')}
             </select>
+            </div>
+
+            <div class="field mb-2">
+              <label class="label" for="stockInput">재고</label>
+              <div class="control">
+                  <input
+                  class="input"
+                  id="stockInput"
+                  type="text"
+                  placeholder="가격"
+                  autocomplete="on"
+                  value="${product.stock}"
+                  />
+              </div>
             </div>
 
             <div class="field mb-2">

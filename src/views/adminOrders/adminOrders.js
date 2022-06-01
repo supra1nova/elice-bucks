@@ -3,11 +3,11 @@
 // 코드 예시를 남겨 두었습니다.
 
 import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import orderslist from './orderslist.js';
+import adminDetail from './adminDetail.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
@@ -22,10 +22,8 @@ async function addAllElements() {
     selected: 'orders',
   });
   await headerNavbar.componentDidMount();
-
   const datas = await getOrders();
-  console.log(datas);
-  //dashboard_content.innerHTML = await orderslist.render(datas);
+  dashboard_content.innerHTML = orderslist.render(datas);
 }
 
 async function getOrders() {
