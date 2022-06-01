@@ -14,7 +14,7 @@ const orderslist = {
           <thead>
             <tr>
               <th>유저</th>
-              <th>가격</th>
+              <th>총 가격</th>
               <th>주문일</th>
               <th>결제일</th>
               <th>배달일</th>
@@ -26,24 +26,38 @@ const orderslist = {
           <tbody class="noticeContainer" id="list">
           ${orders
             .map((oneOrder, index) => {
-              console.log(oneOrder);
-              order = oneOrder.orderId;
+              const order = oneOrder.orderId;
               return `
                 <tr>
-                  <!--<td class="productImage1">${order[0].userId}</td>
-                  <td>${order[0].totalPrice}</td>
-                  <td>${order[0].createdAt}</td>
-                  <td>${order[0].paid}</td>
-                  <td>${order[0].delivered}</td>
-                  <td>${order[0].deletedAt ? order[0].deletedAt : ''}</td>
-                  <td>${order[0].updatedAt ? order[0].updatedAt : ''}</td>
-                  -->
-                  <!---<td class="productImage1">-->
+                  <td class="productImage1">${
+                    order?.userId && order.userId
+                  }</td>
+                  <td>${order?.totalPrice}</td>
+                  <td>${order?.createdAt}</td>
+                  <td>${
+                    order?.paid
+                      ? order.paid
+                      : `
+                  <button id="${order?._id}" class="product-edit-button button is-success  is-light">결제처리</button>
+                  `
+                  }</td>
+                  <td>${
+                    order?.delivered
+                      ? order.deliverd
+                      : `
+                  <button id="${order?._id}" class="product-edit-button button is-info   is-light">배송처리</button>
+                  `
+                  }</td>
+                  <td>${
+                    order?.deletedAt
+                      ? order.deletedAt
+                      : `
+                  <button id="${order?._id}" class="product-delete-button is-danger button is-light">주문취소</button>
+                  `
+                  }</td>
+                  <td>${order?.updatedAt}</td>
                   <td>
                     <button id="${index}" class="product-edit-button button is-primary  is-light">상세보기</button>
-                    <button id="${
-                      order._id
-                    }" class="product-delete-button is-danger button is-light">삭제</button>
                   </td>
                 </tr>
             `;
