@@ -7,6 +7,7 @@ import logincheck from './logincheck.js';
 logincheck();
 kakaomap();
 paymentInf();
+insertCategoryList();
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const paymentHtml = document.querySelector('.paymentHtml');
