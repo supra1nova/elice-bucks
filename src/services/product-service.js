@@ -127,8 +127,10 @@ class ProductService {
 
       // 제품 정보에서 이미지 이름을 가져온다.
       const image = product.image;
+      console.log(image);
 
-      const path = 'src/views/images/';
+      const path = 'src/views';
+      console.log(path);
       
       // 이미지 파일이 존재하는지 확인 후 삭제
       if (fs.existsSync(path + image)) {
