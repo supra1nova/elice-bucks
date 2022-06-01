@@ -93,21 +93,9 @@ orderRouter.get('/user/qty/:userId', async function (req, res, next) {
   }
 });
 
-// 2-2-1. (admin) 전체 주문목록 조회 --> 수정중입니다 ! 
+// 2-2-1. (admin) 전체 주문목록 조회 -> 수정 완료
 orderRouter.get('/admin/orders', async function (req, res, next) {
     try {
-      // const orders = await orderService.getOrders();
-      // let orderId;
-      // let products = [];
-      // let orderlist = [];
-      // for (let i = 0; i < orders.length; i++) {
-      //   orderId = orders[i]._id;
-      //   let product = await orderItemService.getSameOrderId(orderId);
-      //   orderlist.push(orders[i]);
-      //   orderlist.push(product); 
-      //   products.push(orderlist);
-      //   orderlist = [];
-      // }
       const products = await orderItemService.getAllProducts();
       res.status(200).json(products);
     } catch (error) {
