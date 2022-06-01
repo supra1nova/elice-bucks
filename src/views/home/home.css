@@ -140,6 +140,7 @@ body {
 .recipe, .recycle {
 	overflow: hidden;
 	position: relative;
+	width: 100%;
 }
 .story .zoom img {
 	width: 100%;
