@@ -5,14 +5,49 @@
 	padding: 20px;
 	display: flex;
 	justify-content: space-between;
-  align-items: center;
+	align-items: center;
 }
 .navbar a {
 	margin: 0 10px;
 	font-family: 'Noto Sans KR', sans-serif;
 	color: black;
 	text-decoration: none;
+	font-size: 0.8rem;
 }
+
+/* navBar 수직 정렬 안맞음 기본 CSS 제거 */
+.mt-3 {
+	margin-top: 0 !important;;
+}
+/* 회원 드롭다운 메뉴 정렬 수정*/
+.breadcrumb a {
+	justify-content: flex-start;
+}
+
+@media screen and (max-width: 1023px) {
+	.navbar-brand {
+		position: relative;
+	}
+	.navbar-menu {
+		display: block;
+		box-shadow: none;
+		/* 커피 메뉴와 정렬을 맞춤 */
+		padding-left: 0.5rem;
+    padding-right: 0.5rem;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.breadcrumb ol, .breadcrumb ul {
+		flex-direction: column;
+		align-items: center;
+		display: inline;
+	}
+	.breadcrumb li+li::before {
+    content:none;
+	}
+}
+
 
 #main-container{
   padding-top: 4rem;
