@@ -122,15 +122,11 @@ class ProductService {
   async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
-    console.log(product);
     if (product) {
 
       // 제품 정보에서 이미지 이름을 가져온다.
       const image = product.image;
-      console.log(image);
-
       const path = 'src/views';
-      console.log(path);
       
       // 이미지 파일이 존재하는지 확인 후 삭제
       if (fs.existsSync(path + image)) {
