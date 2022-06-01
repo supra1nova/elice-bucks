@@ -25,6 +25,10 @@ class OrderItemService {
     return productsNum;
   }
 
+  async getAllProducts() {
+    const products = await this.orderItemModel.findAll();
+    return products;
+  }
 }
 
 const orderItemService = new OrderItemService( orderItemModel );

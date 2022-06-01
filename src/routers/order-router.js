@@ -8,58 +8,49 @@ import { orderItemService } from '../services/';
 
 const orderRouter = Router();
 
-// 1. 주문목록으로 등록
-orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
-  try {
-    if (is.emptyObject(req.body)) {
-      throw new Error('Error in order request');
-    }
-    const cart = req.body;
+// test) register orderitems 
+orderRouter.post('/orderitem', async (req, res, next) => {
+  try{
+    const orderItem = req.body;
+    const newOrderItem = await orderItemService.addOrderItemList(orderItem);
+    console.log(newOrderItem);
 
-    const { userId, address, orderItemQty, totalQty, totalPrice } = cart;
-    const newOrder = await orderService.addOrderList({
-      userId,
-      address,
-      orderItemQty,
-      totalQty,
-      totalPrice,
-    });
+    res.status(201).json(newOrderItem);
 
-    const orderId = newOrder._id;
-    for (let i = 0; i < newOrder.orderItemQty; i++) {
-      const { productId, productQty, productPrice } = cart;
-      const newOrderItem = await orderItemService.addOrderItemList({
-        orderId,
-        productId,
-        productQty,
-        productPrice,
-      });
-      console.log(newOrderItem);
-    }
+  } catch(err) {
+    next(err);
+  }
+});
+// test) register order
+orderRouter.post('/order', async (req, res, next) => {
+  try{
+    const order = req.body;
+    const newOrder = await orderService.addOrderList(order);
+    console.log(newOrder);
 
     res.status(201).json(newOrder);
-  } catch (error) {
-    next(error);
+  } catch(err) {
+    next(err);
   }
 });
 
-//-> orderItems 등록하는 router 따로 구현 ; 사실 test 를 위해 구현했기 때문에 쓸일이 없을수도 ..?
-orderRouter.post('/items', async (req, res, next) => {
-  try {
-    if (is.emptyObject(req.body)) {
-      throw new Error('Error in order request');
-    }
-    const cart = req.body;
-    const { orderId, productId, productQty, productPrice } = cart;
-    const newOrderItem = await orderItemService.addOrderItemList({
-      orderId,
-      productId,
-      productQty,
-      productPrice,
-    });
-    console.log(newOrderItem);
-    res.status(201).json(newOrderItem);
-  } catch (error) {
+// 1. 주문목록으로 등록
+orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
+    try{
+      if(is.emptyObject(req.body)){
+          throw new Error(
+              'Error in order request'
+          );
+      } 
+      const cart = req.body;
+
+      const { userId, address, totalQty, totalPrice, productsId } = cart;
+      const newOrder = await orderService.addOrderList({ userId, address, totalQty, totalPrice });
+      const orderId = newOrder._id;
+      const newOrderItem = await orderItemService.addOrderItemList({ orderId, productsId });
+      res.status(201).json(newOrder);
+    } catch (error) {
+
     next(error);
   }
 });
@@ -103,25 +94,15 @@ orderRouter.get('/user/qty/:userId', async function (req, res, next) {
   }
 });
 
-// 2-2-1. (admin) 전체 주문목록 조회
+// 2-2-1. (admin) 전체 주문목록 조회 -> 수정 완료
 orderRouter.get('/admin/orders', async function (req, res, next) {
-  try {
-    const orders = await orderService.getOrders();
-    let orderId;
-    let products = [];
-    let orderlist = [];
-    for (let i = 0; i < orders.length; i++) {
-      orderId = orders[i]._id;
-      let product = await orderItemService.getSameOrderId(orderId);
-      orderlist.push(orders[i]);
-      orderlist.push(product);
-      products.push(orderlist);
-      orderlist = [];
+    try {
+      const products = await orderItemService.getAllProducts();
+      res.status(200).json(products);
+    } catch (error) {
+      next(error);
     }
     res.status(200).json(products);
-  } catch (error) {
-    next(error);
-  }
 });
 
 // 2-2-2. (admin) 전체 주문 목록 개수 반환
@@ -134,7 +115,8 @@ orderRouter.get('/admin/qty', async function (req, res, next) {
     next(error);
   }
 });
-// 2-2-3. (admin) 제품별 판매 개수 반환
+
+// 2-2-3. (admin) 제품별 판매 개수 반환 -> 하고 있습니다..
 orderRouter.get('/admin/qty/:productId', async function (req, res, next) {
   try {
     const { productId } = req.params;
@@ -156,7 +138,7 @@ orderRouter.get('/admin/price', async function (req, res, next) {
   }
 });
 
-// 3. 주문목록 취소 (admin 과 user 모두 사용 가능)
+// 3. 주문목록 취소 (admin 과 user 모두 사용 가능) -> 하고 있습니다..
 orderRouter.patch('/cancel/:orderId', async function (req, res, next) {
   try {
     const { orderId } = req.params;
@@ -167,11 +149,12 @@ orderRouter.patch('/cancel/:orderId', async function (req, res, next) {
   }
 });
 
-// 4. 배송 시작
+// 4. 배송 시작 -> 하고 있습니다..
 orderRouter.patch('/delivered/:orderId', async function (req, res, next) {
   try {
     const { orderId } = req.params;
-    const result = await orderService.updateDelivered(orderId);
+    
+    const result = await orderService.updateDelivered(orderId, toUpdate);
 
     res.status(200).json(result);
   } catch (error) {
@@ -179,7 +162,7 @@ orderRouter.patch('/delivered/:orderId', async function (req, res, next) {
   }
 });
 
-// 5. 결제 완료
+// 5. 결제 완료 -> 하고 있습니다..
 orderRouter.patch('/paid/:orderId', async function (req, res, next) {
   try {
     const { orderId } = req.params;
