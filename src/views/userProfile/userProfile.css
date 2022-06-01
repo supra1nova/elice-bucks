@@ -24,6 +24,7 @@
 	justify-content: flex-start;
 }
 
+/* 로그인 메뉴 수평 유지 */
 @media screen and (max-width: 1023px) {
 	.navbar-brand {
 		position: relative;
@@ -39,16 +40,22 @@
 		right: 0;
 	}
 	.breadcrumb ol, .breadcrumb ul {
-		flex-direction: column;
 		align-items: center;
-		display: inline;
 	}
 	.breadcrumb li+li::before {
     content:none;
 	}
 }
 
+/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
+@media screen and (max-width: 479px) {
+	.breadcrumb ol, .breadcrumb ul {
+		flex-direction: column;
+	}
+}
 
+
+/* 유저 프로필 */
 #main-container{
   padding-top: 4rem;
   margin: auto;
@@ -58,6 +65,7 @@
   justify-content: center;
   margin-bottom: 5rem;
 }
+
 .register-user-form-container {
   display: flex;
   align-items: center;
@@ -68,7 +76,6 @@
   max-width: 700px;
   
 }
-
 
 .register-user-form-box {
   /* max-width: 700px; */
@@ -95,8 +102,6 @@
 .register-user-form-box .button {
   font-weight: bold;
 }
-
-
 
 .register-user-form-box .input:focus {
   border-color: #00d1b2;
@@ -127,24 +132,24 @@
   font-weight: bold;
 }
 
-  /* 로딩 */
-  .overlay {
-	  display:none;
-	  position:fixed;
-	  z-index:1000;
-	  background-color: rgba(16,16,16,0.5);
-	  top:0;
-	  left:0;
-	  width:100%;
-	  height:100%;
-  }
-  .overlay.active {
-	  display:flex;
-	  justify-content: center;
-	  align-items: center;
-	  color:#fff;
-  }
+/* 로딩 */
+.overlay {
+  display:none;
+  position:fixed;
+  z-index:1000;
+  background-color: rgba(16,16,16,0.5);
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.overlay.active {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+}
 /* readonly */
-  input:read-only, textarea:read-only {
-    background-color: rgb(238, 238, 238);
-  }
+input:read-only, textarea:read-only {
+  background-color: rgb(238, 238, 238);
+}

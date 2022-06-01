@@ -48,6 +48,7 @@ body {
 	justify-content: flex-start;
 }
 
+/* 로그인 메뉴 수평 유지 */
 @media screen and (max-width: 1023px) {
 	.navbar-brand {
 		position: relative;
@@ -63,15 +64,22 @@ body {
 		right: 0;
 	}
 	.breadcrumb ol, .breadcrumb ul {
-		flex-direction: column;
 		align-items: center;
-		display: inline;
 	}
 	.breadcrumb li+li::before {
     content:none;
 	}
 }
 
+/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
+@media screen and (max-width: 479px) {
+	.breadcrumb ol, .breadcrumb ul {
+		flex-direction: column;
+	}
+}
+
+
+/* 주문 */
 .container {
   flex-grow: 1;
   margin: 0 auto;
