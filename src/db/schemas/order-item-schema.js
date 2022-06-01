@@ -1,4 +1,13 @@
 import { Schema } from 'mongoose';
+const product  = new Schema({
+  productId :{
+    type: Schema.Types.ObjectId,
+    ref: 'Product',
+    require: true
+  },
+  productQty: Number,
+  productPrice: Number
+});
 
 const OrderItemSchema = new Schema(
   {
@@ -7,21 +16,7 @@ const OrderItemSchema = new Schema(
       ref: 'Order',
       required: true
     },
-    productId: { //여기서 price / name 가져오기
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-      require: true
-    },
-    productQty: {
-      type: Number,
-      require: true,
-      default: 1
-    },
-    productPrice: {
-      type: Number,
-      require: true,
-      default: 0
-    }
+    productsId: [product]
   },
   {
     timestamps: true,

@@ -19,10 +19,6 @@ const OrderSchema = new Schema(
         }),
       required: true
     },
-    orderItemQty: { // 제품 종류 가짓수
-      type: Number,
-      required: true,
-    },
     totalQty: { // 총 제품 수 
       type: Number,
       required: true
@@ -33,15 +29,18 @@ const OrderSchema = new Schema(
     },
     delivered: {
       type : Date,
-      required: false,
+      required: true,
+      default: new Date(0)
     },
     paid: {
       type: Date,
-      required: false,
+      required: true,
+      default: new Date(0)
     },
     deletedAt: {
       type: Date,
-      required: false,
+      required: true,
+      default: new Date(0)
     },
   },
   {
