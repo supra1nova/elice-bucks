@@ -124,3 +124,15 @@ tbody tr:nth-child(2n+1) {
 .noticeList {
   font-size: 1em;
 }
+
+/* 주문상세정보 디자인 */
+.infoSection {
+  margin-top: 3rem;
+}
+.infoSection h1 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: 'Do Hyeon', sans-serif;
+    color: #2D4039;
+    margin-bottom: -1rem;
+}
