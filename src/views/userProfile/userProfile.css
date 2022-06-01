@@ -109,3 +109,7 @@
 	  align-items: center;
 	  color:#fff;
   }
+/* readonly */
+  input:read-only, textarea:read-only {
+    background-color: rgb(238, 238, 238);
+  }
