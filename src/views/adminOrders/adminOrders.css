@@ -1,0 +1,126 @@
+.holyGrail,
+.holyGrail-body {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.holyGrail-nav {
+  order: -1;
+  
+  padding-left: 20px;
+}
+.holyGrail-nav li{
+  padding-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  .holyGrail-body {
+    flex-direction: row;
+    flex: 1;
+  }
+  .holyGrail-content {
+    flex: 1;
+  }
+  .holyGrail-nav {
+    /* 12em is the width of the columns */
+    flex: 0 0 12em;
+  }
+}
+
+.dashboard h1{
+  font-size:1.5rem;
+  margin: 0.6rem;
+}
+.dashboard-content{
+  padding:0.2rem;
+}
+.leftMenu a:hover {
+  color: black;
+}
+.leftMenu li.selected a {
+  font-size: large;
+  color: #26ac26;
+}
+.product-list button{
+  padding:0.4rem;
+}
+button.primary {
+  background-color: #e2ffe9;
+  margin: 3px;
+  margin-bottom: 10px;
+}
+table {
+  width: 100%;
+  border-top: 1px solid #a0a0a0;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+th, td {
+  border-bottom: 1px solid #a0a0a0;
+  padding: 10px;
+  text-align: center;
+  overflow:hidden;	text-overflow: ellipsis;	
+}
+
+thead tr {
+  background-color: #e3ece5;
+  color: #ffffff;
+}
+tbody tr:nth-child(2n) {
+
+}
+tbody tr:nth-child(2n+1) {
+  background-color: #f9fffb;
+}
+.tr-action{
+  text-align: center;
+  width:10rem;
+}
+
+  /* 로딩 */
+  .overlay {
+	  display:none;
+	  position:fixed;
+	  z-index:1000;
+	  background-color: rgba(16,16,16,0.5);
+	  top:0;
+	  left:0;
+	  width:100%;
+	  height:100%;
+  }
+  .overlay.active {
+	  display:flex;
+	  justify-content: center;
+	  align-items: center;
+	  color:#fff;
+  }
+
+  /* from notice.css*/
+  /* 공지사항 */
+.content {
+  margin: 50px;
+}
+.content h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: 'Do Hyeon', sans-serif;
+  color: #2D4039;
+  margin-bottom: 2rem;
+}
+.table {
+  width: 100%;
+}
+.table thead tr {
+  background-color: #88A394;
+}
+
+/* 제목 기본 폰트 크기 조정 */
+.title {
+  font-size: 1em;
+}
+
+/* 공지사항 테이블 */
+.noticeList {
+  font-size: 1em;
+}

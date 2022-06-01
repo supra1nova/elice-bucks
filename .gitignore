@@ -2,3 +2,11 @@
 node_modules
 yarn.lock
 
+.DS_Store
+
+#images/*.jpg
+#images/*.png
+#src/views/images/*.jpg
+#src/views/images/*.png
+
+.env

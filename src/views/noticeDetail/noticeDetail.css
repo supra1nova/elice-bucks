@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 상단바 */
+.navbar {
+width: 100%;
+padding: 20px;
+display: flex;
+justify-content: space-between;
+  align-items: center;
+}
+.navbar a {
+margin: 0 10px;
+font-family: 'Noto Sans KR', sans-serif;
+color: black;
+text-decoration: none;
+}
+
+/* 공지사항 컨테이너 */
+.content {
+  margin: 50px;
+}
+.content h1 {
+  text-align: center;
+  color: #2D4039;
+}
+
+/* 제목 기본 폰트 크기 조정 */
+.title {
+  font-size: 1em;
+}
+
+/* 공지사항 테이블 */
+.noticeDetail {
+  font-size: 1em;
+}
+.content{
+  white-space: pre-line;
+}
+
+  /* 로딩 */
+  .overlay {
+	  display:none;
+	  position:fixed;
+	  z-index:1000;
+	  background-color: rgba(16,16,16,0.5);
+	  top:0;
+	  left:0;
+	  width:100%;
+	  height:100%;
+  }
+  .overlay.active {
+	  display:flex;
+	  justify-content: center;
+	  align-items: center;
+	  color:#fff;
+  }

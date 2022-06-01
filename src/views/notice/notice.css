@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: #000;
+}
+li {
+	list-style-type: none;
+}
+
+/* 상단바 */
+.navbar {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar a {
+  margin: 0 10px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: black;
+  text-decoration: none;
+}
+
+/* 공지사항 */
+.content {
+  margin: 50px;
+}
+.content h1 {
+  text-align: center;
+  font-size: 3rem;
+  font-family: 'Do Hyeon', sans-serif;
+  color: #2D4039;
+  margin-bottom: 2rem;
+}
+.table {
+  width: 100%;
+  word-break: break-all;
+  table-layout: fixed;
+}
+.table thead tr {
+  background-color: #88A394;
+}
+
+/* 공지사항 body */
+.noticeContainer {
+  font-size: 1em;
+}
+.no {
+  width: 5%;
+}
+.title {
+  /* 제목 기본 폰트 사이즈 조정 */
+  font-size: 1em;
+  width: 60%;
+}
+
+/* 페이지네이션 */
+.pagination {
+  margin-top: 2em;
+}
+.pagination-link:hover {
+	background-color: #2D4039;
+	color: white;
+}
+
+/* 로딩 */
+.overlay {
+  display:none;
+  position:fixed;
+  z-index:1000;
+  background-color: rgba(16,16,16,0.5);
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.overlay.active {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+}

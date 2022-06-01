@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>쇼핑-데모</title>
+
+    <!-- 아이콘 -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+    <!-- bulma css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <!-- 폰트 어썸: 아이콘 -->
+    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+    <!-- 구글 OAuth -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- 카카오 OAuth -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="userProfile.css" />
+    <script src="userProfile.js" type="module" defer></script>
+  </head>
+  <body>
+    <!--로딩-->
+    <div class="overlay" id="loadingOverlay">로딩...</div>
+    <!-- 헤더 -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container mt-3">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img src="/coffee-beans.png" width="30" height="30" />
+          </a>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="/product">커피 둘러보기</a>
+  
+          <!-- 카테고리 목록 -->
+          <div class="navbar-dropdown">
+            <!-- ../components/navCategoryList.js -->
+          </div>
+        </div>
+
+        <!-- 공지사항 -->
+        <div class="navbar-item notice">
+          <a href="/notice/?page=1&perPage=10">공지사항</a>
+        </div>
+        
+        <!-- 로그인 상태에 따른 로그인 메뉴 -->
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
+            <!-- ../components/headerNavbar.js -->
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div id="main-container">
+    <!-- 회원가입 폼(Form) -->
+    <div class="register-user-form-container">
+      <form class="box register-user-form-box" id="registerUserForm">
+        
+        <p class="title is-5 has-text-primary">수정하세요!</p>
+        <div id="form-container">
+   
+        <div class="field">
+          <label class="label" for="fullNameInput">이름</label>
+          <div class="control">
+            <input
+              class="input"
+              id="fullNameInput"
+              type="text"
+              placeholder="유재석"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="emailInput">이메일</label>
+          <div class="control">
+            <input
+              readonly
+              class="input"
+              id="emailInput"
+              type="email"
+              placeholder="abc@example.com"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+        
+        <div class="field mb-2">
+          <label class="label" for="phoneNumberInput">전화번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="phoneNumberInput"
+              type="text"
+              placeholder="전화번호(선택)"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+
+        <div class="field mb-2">
+          <label class="label" for="postalCodeInput">우편번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="postalCodeInput"
+              type="text"
+              placeholder="우편번호(선택)"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+
+        <div class="field mb-2">
+          <label class="label" for="address1Input">주소1</label>
+          <div class="control">
+            <textarea
+              class="input"
+              name ="textarea"
+              id="address1Input"
+              type="text"
+              rows="10"
+              maxlength="300"
+              placeholder="주소1(선택)"
+              autocomplete="on"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="field mb-2">
+          <label class="label" for="address2Input">주소2</label>
+          <div class="control">
+            <textarea
+              class="input"
+              name ="textarea"
+              id="address2Input"
+              type="text"
+              rows="10"
+              maxlength="300"
+              placeholder="주소2(선택)"
+              autocomplete="on"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="passwordInput">새로운 비밀번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="passwordInput"
+              type="password"
+              placeholder="새로운 비밀번호"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div class="field ">
+          <label class="label" for="passwordConfirmInput">새로운 비밀번호 확인</label>
+          <div class="control">
+            <input
+              class="input"
+              id="passwordConfirmInput"
+              type="password"
+              placeholder="새로운 비밀번호 확인"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+   
+        <div class="field">
+        
+          <label class="label" for="curpasswordInput">현재 비밀번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="curpasswordInput"
+              type="password"
+              placeholder="현재 비밀번호"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+    </div>
+    <input type="submit" value="회원 정보 수정하기" id="submitButton" class="button is-primary mt-5 is-fullwidth">
+      
+      
+      </form>
+      <!--회원탈퇴 폼-->
+    </div>
+    <div class="login-form-container">
+      <form class="box login-form-box" id="loginForm">
+        <p class="title is-5 has-text-danger">회원 탈퇴</p>
+
+        <div class="field mb-5">
+          <label class="label" for="userDeletePasswordInput">비밀번호</label>
+          <div class="control">
+            <input
+              class="input"
+              id="userDeletePasswordInput"
+              type="password"
+              placeholder="비밀번호"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+        <input type="submit" value="회원 탈퇴 하기" id="submitButton" class="button is-danger is-fullwidth">
+      </form>
+    </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #2E593D;
+}
+
+/* 상단바 */
+.navbar {
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
+  	align-items: center;
+}
+.navbar a {
+	margin: 0 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: black;
+	text-decoration: none;
+}
+
+/* 제품 목록 컨테이너 */
+#content {
+    padding: 50px;
+}
+#container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+#prouduct-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#product-img {
+    width: 350px;
+}
+#product-img:hover {
+	transform: scale(1.1);
+	transition: all 0.1s;
+}
+#product-des {
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    z-index: 5;
+    text-align: center;
+}
+
+  /* 로딩 */
+  .overlay {
+    display:none;
+    position:fixed;
+    z-index:1000;
+    background-color: rgba(16,16,16,0.5);
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+.overlay.active {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+}

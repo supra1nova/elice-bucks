@@ -4,6 +4,8 @@ const UserSchema = new Schema(
   {
     email: {
       type: String,
+      index: true,
+      unique: true,
       required: true,
     },
     fullName: {
@@ -38,8 +40,8 @@ const UserSchema = new Schema(
     },
   },
   {
-    collection: 'users',
     timestamps: true,
+    collection : 'users',
   }
 );
 

@@ -1,7 +1,7 @@
-import { model } from 'mongoose';
+import { model, Types } from 'mongoose';
 import { UserSchema } from '../schemas/user-schema';
 
-const User = model('users', UserSchema);
+const User = model('User', UserSchema);
 
 export class UserModel {
   async findByEmail(email) {
@@ -10,7 +10,7 @@ export class UserModel {
   }
 
   async findById(userId) {
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: new Types.ObjectId(userId) });
     return user;
   }
 
@@ -24,12 +24,26 @@ export class UserModel {
     return users;
   }
 
+  async totalUsers(){
+    const total_num = await User.find({}).count();
+    return total_num;
+  }
+
   async update({ userId, update }) {
-    const filter = { _id: userId };
+    const filter = { _id: new Types.ObjectId(userId) };
     const option = { returnOriginal: false };
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
+  }
+
+  async del(userId) {
+    try{
+      await User.deleteOne({ _id: new Types.ObjectId(userId)});
+      return "Successed to delete";
+    }catch{
+      return "Failed to delete";
+    }
   }
 }
 
