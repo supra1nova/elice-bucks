@@ -35,7 +35,7 @@ const noticeslist = {
                     <button id="${index}" class="product-edit-button button is-primary  is-light">수정</button>
                     <button id="${
                       notice._id
-                    }" class="product-delete-buttonbutton is-danger button is-light">삭제</button>
+                    }" class="product-delete-button is-danger button is-light">삭제</button>
                   </td>
                 </tr>
             `

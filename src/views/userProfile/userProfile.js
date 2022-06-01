@@ -63,7 +63,13 @@ async function handleSubmit(e) {
   const phoneNumber = phoneNumber1.value;
   // 잘 입력했는지 확인
   try {
-    validateProfile(fullName, email, password, passwordConfirm);
+    validateProfile(
+      fullName,
+      email,
+      currentPassword,
+      password,
+      passwordConfirm
+    );
   } catch (err) {
     return alert(err);
   }

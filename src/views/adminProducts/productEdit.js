@@ -8,11 +8,12 @@ const ProductEdit = {
       const name = document.getElementById('nameInput').value;
       const price = document.getElementById('priceInput').value;
       const category = document.getElementById('categoriesSelect').value;
-
+      const stock = document.getElementById('stockInput').value;
       const image = document.getElementById('imageInput').value;
       console.log(image);
       const description = document.getElementById('descriptionInput').value;
       console.log(description);
+
       try {
         const data = {
           name,
@@ -20,6 +21,7 @@ const ProductEdit = {
           category,
           image,
           description,
+          stock,
         };
         await Api.patch('/api/product', `${_id}`, data);
         alert(`정상적으로 수정되었습니다.`);
@@ -99,6 +101,20 @@ const ProductEdit = {
                 )
                 .join('\n')}
             </select>
+            </div>
+
+            <div class="field mb-2">
+              <label class="label" for="stockInput">재고</label>
+              <div class="control">
+                  <input
+                  class="input"
+                  id="stockInput"
+                  type="text"
+                  placeholder="가격"
+                  autocomplete="on"
+                  value="${product.stock}"
+                  />
+              </div>
             </div>
 
             <div class="field mb-2">

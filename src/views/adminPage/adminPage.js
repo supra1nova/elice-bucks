@@ -38,39 +38,34 @@ const adminContent = {
   render: (userTotalNum, orderTotalNum, totalSale) => {
     return `
     <h1>쇼핑몰 현황</h1>
-    <!---<div>
-      <div>총 유저수 : ${userTotalNum}</div>
-      <div>총 주문수 : ${orderTotalNum}</div>
-      <div>총 매출 : ${totalSale}</div>
-      <div>css적용 예정</div>
+    <div class="tile is-ancestor">
+      <div class="tile is-4 is-vertical is-parent">
+        <div class="tile is-child box tileContent">
+          <p class="subtitle">총 유저수</p>
+          <div class="titleContent">
+            <p class="title">${addCommas(userTotalNum)}</p>
+            <i class="title title-icon fa-solid fa-people-group"></i>
+          </div>
+          </div>
+        <div class="tile is-child box tileContent">
+          <p class="subtitle">총 주문수</p>
+          <div class="titleContent">
+            <p class="title">${addCommas(orderTotalNum)}</p>
+            <i class="title title-icon fa-solid fa-receipt"></i>
+          </div>
+        </div>
+      </div>
+      <div class="tile is-parent">
+        <div class="tile is-child box tileContent">
+          <p class="subtitle">총 매출</p>
+          <div class="titleContent">
+            <p class="title">${addCommas(totalSale)}</p>
+            <i class="title title-icon fa-solid fa-won-sign"></i>
+          </div>
+        </div>
+      </div>
     </div>
-    -->
-    <nav class="level">
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">총 유저수</p>
-          <p class="title">${addCommas(userTotalNum)}</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">총 주문수</p>
-          <p class="title">${addCommas(orderTotalNum)}</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">총 매출</p>
-          <p class="title">${addCommas(totalSale)}</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Likes</p>
-          <p class="title">789</p>
-        </div>
-      </div>
-    </nav>
+
     `;
   },
 };

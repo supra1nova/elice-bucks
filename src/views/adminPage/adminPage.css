@@ -168,3 +168,33 @@ select::-ms-expand {
 	  align-items: center;
 	  color:#fff;
   }
+  .is-ancestor {
+    padding-top:1rem;
+  }
+
+  .tileContent {
+    display:flex;
+    flex-direction: column;
+    
+    height:100%;
+  }
+  .tileContent .titleContent{
+    height:100%;
+    flex-grow: 1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .tileContent .title {
+    vertical-align: middle;
+    margin:0;
+  }
+  .tileContent .title-icon{
+    margin-left: 0.5rem;
+  }
+  h1 {
+    text-align: center;
+    color: #2D4039;
+    font-size: 1em;
+    font-weight: bold;
+  }
