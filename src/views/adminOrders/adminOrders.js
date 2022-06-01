@@ -3,11 +3,11 @@
 // 코드 예시를 남겨 두었습니다.
 
 import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import orderslist from './orderslist.js';
+import adminDetail from './adminDetail.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');

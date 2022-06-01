@@ -61,8 +61,7 @@ th, td {
   border-bottom: 1px solid #a0a0a0;
   padding: 10px;
   text-align: center;
-  overflow:wrap;	
-
+  overflow:hidden;	text-overflow: ellipsis;
 }
 
 td.productContent  {
