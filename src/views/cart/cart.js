@@ -299,7 +299,7 @@ function buyBtnEvent() {
     let totalPrice = document
       .querySelector('#productsTotal')
       .innerHTML.replace(/[^0-9]/g, '');
-    let productIds = [];
+    let productsId = [];
     onRequest.onsuccess = () => {
       const database = onRequest.result;
       // 읽기 전용으로 transaction 적용. (빠름)
@@ -316,12 +316,12 @@ function buyBtnEvent() {
             let productId = cart[i]._id;
             let productQty = cart[i].cnt;
             let productPrice = cart[i].price;
-            productIds.push({ productId, productQty, productPrice });
+            productsId.push({ productId, productQty, productPrice });
           }
         }
         let data = {
-          productIds,
-          totalCount: totalCount,
+          productsId,
+          totalQty: totalCount,
           totalPrice: totalPrice,
         };
         console.log(data);

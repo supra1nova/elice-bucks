@@ -1,8 +1,8 @@
-import * as Api from '/api.js';
 import headerNavbar from '../components/headerNavbar.js';
 import { kakaomap } from './kakaomap/kakaomap.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import logincheck from './logincheck.js';
+import * as Api from '/api.js';
 
 logincheck();
 kakaomap();
@@ -81,34 +81,33 @@ async function doCheckout() {
   if (!receiverName || !receiverPhoneNumber || !postalCode || !address2) {
     return alert('배송지 정보를 모두 입력해 주세요.');
   }
+  let onRequest = indexedDB.open('cart', 1);
+  onRequest.onsuccess = () => {
+    const database = onRequest.result;
+    const order = database
+      .transaction('order', 'readwrite')
+      .objectStore('order');
+    let orderget = order.get('summary');
+    orderget.onsuccess = async () => {
+      let orderindexedDB = orderget.result;
+      let data = {
+        ...orderindexedDB,
+        address: { postalCode, address1, address2 },
+        userId,
+      };
+      console.log(data);
+      // JSON 만듦
+      let apiUrl = '/api/order/user/register';
+      // POST 요청
+      let res = await Api.post(apiUrl, data);
 
-  // 객체 만듦
-  const data = {
-    receiverName,
-    receiverPhoneNumber,
-    postalCode,
-    address1,
-    address2,
+      if (res) {
+        alert('주문에 성공하였습니다!');
+      } else {
+        alert('주문에 실패하였습니다...');
+      }
+    };
   };
-
-  // JSON 만듦
-  const dataJson = JSON.stringify(data);
-  const apiUrl = '/api/order/register';
-
-  // POST 요청
-  const res = await fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: dataJson,
-  });
-
-  if (res.status === 201) {
-    alert('주문에 성공하였습니다!');
-  } else {
-    alert('주문에 실패하였습니다...');
-  }
 }
 
 async function addAllElements() {
@@ -146,7 +145,7 @@ function paymentInf() {
     let ordergetAll = orderdb.get('summary');
     ordergetAll.onsuccess = () => {
       let orderlist = ordergetAll.result;
-      let totalCount = orderlist.totalCount;
+      let totalQty = orderlist.totalQty;
       let totalPrice = orderlist.totalPrice;
       const paymentContent = `<div class="box order-summary">
                             <div class="header">
@@ -157,8 +156,8 @@ function paymentInf() {
                                 <p>주문상품</p>
                                 <p class="products-title" id="products">
                                   ${
-                                    totalCount
-                                      ? totalCount
+                                    totalQty
+                                      ? totalQty
                                       : '주문하신 상품이 없습니다'
                                   } 개
                                 </p>
