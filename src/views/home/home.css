@@ -167,6 +167,12 @@ body {
 	color: #fff;
 }
 
+@media screen and (max-width: 768px) {
+	.story {
+		display: block;
+	}
+}
+
 /* 푸터 */
 footer {
 	width: 100%;
