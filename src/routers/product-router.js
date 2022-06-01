@@ -2,6 +2,7 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 import multer from 'multer';
 import fs from 'fs';
+import { loginRequired, adminRequired } from '../middlewares'
 
 // 폴더에서 import하면, 자동으로 폴더의 관련파일에서 가져옴
 import { productService } from '../services';
@@ -9,7 +10,8 @@ import { productService } from '../services';
 const productRouter = Router();
 
 // 1. 제품등록
-productRouter.post('/register', async (req, res, next) => {
+// productRouter.post('/register', loginRequired, adminRequired, async (req, res, next) => {
+productRouter.post('/register', loginRequired, adminRequired, async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -95,7 +97,7 @@ productRouter.get(
 
 // 5. 제품 정보 수정
 // (예를 들어 /api/products/abc12345 로 요청하면 req.params.productId는 'abc12345' 문자열로 됨)
-productRouter.patch('/:productId', async function (req, res, next) {
+productRouter.patch('/:productId', loginRequired, adminRequired, async function (req, res, next) {
   try {
     // content-type 을 application/json 로 프론트에서
     // 설정 안 하고 요청하면, body가 비어 있게 됨.
@@ -137,7 +139,7 @@ productRouter.patch('/:productId', async function (req, res, next) {
 
 
 // 6. 특정 제품 삭제
-productRouter.delete('/:productId', async function (req, res, next) {
+productRouter.delete('/:productId', loginRequired, adminRequired, async function (req, res, next) {
   try {
     const { productId } = req.params;
     const result = await productService.removeProduct(productId);
@@ -178,7 +180,7 @@ const upload = multer({
 
 
 // 7. 멀터 이용 이미지 삽입
-productRouter.post('/imageUpload', upload.single("image"), (req, res, next) => {
+productRouter.post('/imageUpload', loginRequired, adminRequired, upload.single("image"), (req, res, next) => {
 // productRouter.post('/image', upload.single("image"), (req, res, next) => {
   try {
     res.status(200).send({ image: `/images/${req.file.filename}` });
@@ -189,7 +191,7 @@ productRouter.post('/imageUpload', upload.single("image"), (req, res, next) => {
 
 
 // 8. fs 이용 이미지 삭제(하드 삭제)
-productRouter.delete('/imageUpload/:image', async (req, res, next) => {
+productRouter.delete('/imageUpload/:image', loginRequired, adminRequired, async (req, res, next) => {
 // productRouter.delete('/image/:image', async (req, res, next) => {
 
 const image = req.params.image;
