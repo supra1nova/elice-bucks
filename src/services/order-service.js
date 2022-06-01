@@ -13,7 +13,7 @@ class OrderService {
     let preOrder = await this.orderModel.findById(userId);
     
     if(!preOrder) {
-      if(!paid){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다.
+      if(!paid){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다. -> 조건 바꿔야할것 같습니다..! 근데 안에는 안바꾸도록 노력할게요 !
         let finalQty = 0;
         let finalPrice = 0;
         let preQty = preOrder.totalQty;
