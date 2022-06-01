@@ -25,17 +25,19 @@ const orderslist = {
           </thead>
           <tbody class="noticeContainer" id="list">
           ${orders
-            .map(
-              (order, index) =>
-                `
+            .map((oneOrder, index) => {
+              console.log(oneOrder);
+              order = oneOrder.orderId;
+              return `
                 <tr>
-                  <td class="productImage1">${order[0].userId}</td>
+                  <!--<td class="productImage1">${order[0].userId}</td>
                   <td>${order[0].totalPrice}</td>
                   <td>${order[0].createdAt}</td>
                   <td>${order[0].paid}</td>
                   <td>${order[0].delivered}</td>
                   <td>${order[0].deletedAt ? order[0].deletedAt : ''}</td>
                   <td>${order[0].updatedAt ? order[0].updatedAt : ''}</td>
+                  -->
                   <!---<td class="productImage1">-->
                   <td>
                     <button id="${index}" class="product-edit-button button is-primary  is-light">상세보기</button>
@@ -44,8 +46,8 @@ const orderslist = {
                     }" class="product-delete-button is-danger button is-light">삭제</button>
                   </td>
                 </tr>
-            `
-            )
+            `;
+            })
             .join('\n')}
             </tbody>
           </table>
