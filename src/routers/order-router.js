@@ -102,14 +102,12 @@ orderRouter.get('/admin/orders', async function (req, res, next) {
     } catch (error) {
       next(error);
     }
-    res.status(200).json(products);
 });
 
 // 2-2-2. (admin) 전체 주문 목록 개수 반환
 orderRouter.get('/admin/qty', async function (req, res, next) {
   try {
     const ordersnum = await orderService.getOrdersNum();
-    // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(ordersnum);
   } catch (error) {
     next(error);
