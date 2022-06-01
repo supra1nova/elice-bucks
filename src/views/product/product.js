@@ -56,8 +56,12 @@ async function insertProductList() {
   for (let i = 1; i <= totalPage; i++) {
     paginationList.insertAdjacentHTML(
       'beforeend',
-      `<li><a class="pagination-link" href="?page=${i}&perPage=12">${i}</a></li>`
+      `<li><a class="pagination-link" id="${i}" href="?page=${i}&perPage=12">${i}</a></li>`
     );
   }
-
+  
+  // 현재 페이지에 해당하는 페이징 버튼 활성화
+  const pageBtn = document.getElementById(`${pageId}`);
+  pageBtn.classList.add('active');
+  
 }

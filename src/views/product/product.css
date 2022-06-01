@@ -97,11 +97,17 @@ body {
     margin-top: 50px;
 }
 .pagination-link {
-    background-color: #F2F1F0;
+    background-color: #F1F0EB;
     color: #000;
 }
 .pagination-link:hover {
-	background-color: #F2D750;
+	background-color: #9F7F55;
+	color: #fff;
+}
+/* 활성화 된 페이징 버튼 */
+.active {
+  background-color: #9F7F55;
+	color: #fff;
 }
 
 /* 로딩 */
