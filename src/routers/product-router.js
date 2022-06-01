@@ -180,7 +180,7 @@ const upload = multer({
 
 
 // 7. 멀터 이용 이미지 삽입
-productRouter.post('/imageUpload', loginRequired, adminRequired, upload.single("image"), (req, res, next) => {
+productRouter.post('/image', loginRequired, adminRequired, upload.single("image"), (req, res, next) => {
 // productRouter.post('/image', upload.single("image"), (req, res, next) => {
   try {
     res.status(200).send({ image: `/images/${req.file.filename}` });
@@ -191,7 +191,7 @@ productRouter.post('/imageUpload', loginRequired, adminRequired, upload.single("
 
 
 // 8. fs 이용 이미지 삭제(하드 삭제)
-productRouter.delete('/imageUpload/:image', loginRequired, adminRequired, async (req, res, next) => {
+productRouter.delete('/image/:image', loginRequired, adminRequired, async (req, res, next) => {
 // productRouter.delete('/image/:image', async (req, res, next) => {
 
 const image = req.params.image;
