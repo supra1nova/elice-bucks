@@ -239,6 +239,10 @@ select::-ms-expand {
 	background-color: #2D4039;
 	color: white;
 }
+.activePagination {
+  background-color: #2D4039;
+  color: white;
+}
 
 #button-td {
   display:flex;

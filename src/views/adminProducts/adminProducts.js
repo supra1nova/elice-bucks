@@ -33,12 +33,25 @@ async function addAllElements() {
   //페이지네이션
   const totalPage = datas.totalPage;
   for (let i = 1; i <= totalPage; i++) {
-    document
-      .querySelector('.pagination-list')
-      .insertAdjacentHTML(
-        'beforeend',
-        `<li><a class="pagination-link" href="?page=${i}&&perPage=10">${i}</a></li>`
-      );
+    document.querySelector('.pagination-list').insertAdjacentHTML(
+      'beforeend',
+      `${
+        datas.page === i
+          ? `<li>
+            <a
+              class="pagination-link activePagination"
+              href="?page=${i}&perPage=10"
+            >
+              ${i}
+            </a>
+          </li>`
+          : `<li>
+            <a class="pagination-link" href="?page=${i}&perPage=10">
+              ${i}
+            </a>
+          </li>`
+      }`
+    );
   }
   //제품생성
   document
