@@ -19,13 +19,13 @@ export class OrderModel {
 
   // orders 에서 해당 유저 값 찾기
   async findById(userId) {
-    const userOrder = await Order.findOne({ userId : userId}).populate('userId');
+    const userOrder = await Order.find({ userId : userId}).populate('userId');
     return userOrder;
   }
 
   // 여기서의 orderId 는 order schema 에서의 _id 를 의미
   async findByOrderId(orderId) { 
-    const order = await Order.findOne({ orderId : orderId});
+    const order = await Order.find({ orderId : orderId});
     return order;
   }
 
