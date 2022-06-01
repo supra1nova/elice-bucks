@@ -1,4 +1,4 @@
-import { model, Types } from 'mongoose';
+import { model } from 'mongoose';
 import { OrderSchema } from '../schemas/order-schema';
 
 const Order = model('Order', OrderSchema);
@@ -29,7 +29,7 @@ export class OrderModel {
     return order;
   }
 
-  //  
+  //  order update
   async update(toUpdate) {
     const filter = { _id: toUpdate._id };
     const option = { returnOriginal: false };
