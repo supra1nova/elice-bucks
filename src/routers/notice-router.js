@@ -43,7 +43,7 @@ noticeRouter.get('/notices', async function (req, res, next) {
     // url 쿼리에서 perRage 받기, 기본값 10
     const perPage = Number(req.query.perPage) || 10;
     
-    // total, posts 를 Promise.all 을 사용해 동시에 호출
+    // total(전체 공지사항 글 갯수), posts(현재 페이지에 있는 공지사항 글 정보) 를 Promise.all 을 사용해 동시에 호출
     const [total, posts] = await Promise.all([
       await noticeService.countNotices(),
       await noticeService.getRangedNotices(page, perPage)
@@ -51,7 +51,7 @@ noticeRouter.get('/notices', async function (req, res, next) {
     
     const totalPage = Math.ceil(total / perPage);
     
-    res.status(200).json( { posts, page, perPage, totalPage } );
+    res.status(200).json( { posts, page, perPage, totalPage, total } );
   } catch (error) {
     next(error);
   }

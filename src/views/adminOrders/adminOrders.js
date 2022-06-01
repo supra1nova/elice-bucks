@@ -3,11 +3,11 @@
 // 코드 예시를 남겨 두었습니다.
 
 import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
 import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import orderslist from './orderslist.js';
+import adminDetail from './adminDetail.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
@@ -22,16 +22,29 @@ async function addAllElements() {
     selected: 'orders',
   });
   await headerNavbar.componentDidMount();
-
   const datas = await getOrders();
-  console.log(datas);
-  //dashboard_content.innerHTML = await orderslist.render(datas);
+  dashboard_content.innerHTML = orderslist.render(datas);
+
+  //주문 상세보기
+  const productEditButtons = document.getElementsByClassName(
+    'product-edit-button'
+  );
+  Array.from(productEditButtons).forEach((button) => {
+    button.addEventListener('click', async () => {
+      dashboard_content.innerHTML = adminDetail.render(datas[button.id]);
+      // const cancleButton = document.getElementById('cancleButton');
+      // cancleButton.addEventListener('click', async () => {
+      //   //addAllElements();
+      //   window.location.href = `/adminProducts`;
+      // });
+    });
+  });
 }
 
 async function getOrders() {
-  // 제품가져오기 api 요청
+  // 주문가져오기 api 요청/admin/orders
   try {
-    const data = await Api.get('/api', 'orderlists');
+    const data = await Api.get('/api/order/admin', 'orders');
     return data;
   } catch (err) {
     console.error(err.stack);

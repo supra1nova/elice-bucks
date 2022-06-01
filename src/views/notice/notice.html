@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>제품 목록</title>
+    <title>공지사항</title>
 
     <!-- 아이콘 -->
     <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
@@ -20,6 +20,8 @@
         
   </head>
   <body>
+    <!--로딩-->
+    <div class="overlay" id="loadingOverlay">로딩...</div>
     <!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container mt-3">
@@ -40,7 +42,7 @@
 
         <!-- 공지사항 -->
         <div class="navbar-item notice">
-          <a href="/notice">공지사항</a>
+          <a href="/notice/?page=1&perPage=10">공지사항</a>
         </div>
   
         <!-- 로그인 상태에 따른 로그인 메뉴 -->
@@ -61,7 +63,7 @@
       <table class="table is-hoverable">
         <thead>
           <tr>
-            <th class="bullet"></th>
+            <th class="no">NO.</th>
             <th class="title">제목</th>
             <th class="author">작성자</th>
             <th class="date">날짜</th>

@@ -115,7 +115,7 @@ userRouter.get('/numbers', loginRequired, async function (req, res, next) {
   }
 });
 
-//user 기본 정보 
+//user 기본 정보
 userRouter.get('/', loginRequired, async function (req, res, next) {
   try {
     const user = await userService.getUser(req.currentUserId);
@@ -185,7 +185,6 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
       toUpdate
     );
     console.log('update: ',updatedUserInfo);
-
     console.log(userInfoRequired);
     console.log({email, password});
     
@@ -196,7 +195,6 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
       const userToken1 = await userService.getUserToken({ email, password: currentPassword });
       res.status(200).json(userToken1);
     }
-
   } catch (error) {
     next(error);
   }

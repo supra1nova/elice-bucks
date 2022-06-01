@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>관리자페이지</title>
+    <title>쇼핑-데모</title>
     <!-- 아이콘 -->
     <link
       rel="icon"
@@ -27,10 +27,10 @@
     <!-- 카카오 OAuth -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="adminProducts.css" />
+    <link rel="stylesheet" href="adminNotice.css" />
 
 
-    <script src="adminProducts.js" type="module" defer></script>
+    <script src="adminNotice.js" type="module" defer></script>
   </head>
   <body>
     <!--로딩-->
@@ -46,7 +46,7 @@
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="/product">커피 둘러보기</a>
-  
+
           <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
             <!-- ../components/navCategoryList.js -->
@@ -73,14 +73,22 @@
         <main class="holyGrail-content" id="mainContent">
           <div class="dashboard">
             <div class="dashboard-content" id = "dashboard-content">
-              <!--동적할당-->
-              </div>
+              <!-- adminPage.js-->
           </div>
+          <!--페이지네이션-->
+          <nav class="pagination is-rounded is-small is-centered mt-3 mb-5" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+    
+            </ul>
+          </nav>
+          <!--페이지네이션 끝-->
         </main>
         <nav class="holyGrail-nav">
           <div id="leftMenuAdmin"></div>
         </nav>
+        
       </div>
+      
     </div>
 
   </body>

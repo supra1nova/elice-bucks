@@ -50,6 +50,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
       const newOrderItem = await orderItemService.addOrderItemList({ orderId, productsId });
       res.status(201).json(newOrder);
     } catch (error) {
+
     next(error);
   }
 });
@@ -101,22 +102,23 @@ orderRouter.get('/admin/orders', async function (req, res, next) {
     } catch (error) {
       next(error);
     }
-  });
+    res.status(200).json(products);
+});
 
 // 2-2-2. (admin) 전체 주문 목록 개수 반환
-orderRouter.get('/admin/qty', async function (req, res, next){
-    try {
-        const ordersnum = await orderService.getOrdersNum();
-        // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
-        res.status(200).json(ordersnum);
-      } catch (error) {
-        next(error);
-      }
+orderRouter.get('/admin/qty', async function (req, res, next) {
+  try {
+    const ordersnum = await orderService.getOrdersNum();
+    // 제품 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(ordersnum);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // 2-2-3. (admin) 제품별 판매 개수 반환 -> 하고 있습니다..
 orderRouter.get('/admin/qty/:productId', async function (req, res, next) {
-  try{
+  try {
     const { productId } = req.params;
     const orderNum = await orderItemService.getSameProductId(productId);
 
@@ -128,13 +130,13 @@ orderRouter.get('/admin/qty/:productId', async function (req, res, next) {
 
 // 2-2-4. (admin) 총 주문 금액 반환
 orderRouter.get('/admin/price', async function (req, res, next) {
-  try{
+  try {
     const total = await orderService.getOrdersPrice();
     res.status(200).json(total);
   } catch (error) {
     next(error);
   }
-})
+});
 
 // 3. 주문목록 취소 (admin 과 user 모두 사용 가능) -> 하고 있습니다..
 orderRouter.patch('/cancel/:orderId', async function (req, res, next) {
@@ -162,7 +164,6 @@ orderRouter.patch('/delivered/:orderId', async function (req, res, next) {
 
 // 5. 결제 완료 -> 하고 있습니다..
 orderRouter.patch('/paid/:orderId', async function (req, res, next) {
-
   try {
     const { orderId } = req.params;
     const result = await orderService.updatePayment(orderId);

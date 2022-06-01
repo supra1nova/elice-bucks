@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-데모</title>
+    <title>관리자페이지</title>
     <!-- 아이콘 -->
     <link
       rel="icon"
@@ -33,6 +33,8 @@
     <script src="adminPage.js" type="module" defer></script>
   </head>
   <body>
+    <!--로딩-->
+    <div class="overlay" id="loadingOverlay">로딩...</div>
     <!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container mt-3">
@@ -53,7 +55,7 @@
 
         <!-- 공지사항 -->
         <div class="navbar-item notice">
-          <a href="/notice">공지사항</a>
+          <a href="/notice/?page=1&perPage=10">공지사항</a>
         </div>
         
         <!-- 로그인 상태에 따른 로그인 메뉴 -->
@@ -66,15 +68,15 @@
     </nav>
 
     <!-- admin 폼(Form) -->
-    <div class="HolyGrail container mt-3">
-      <div class="HolyGrail-body">
-        <main class="HolyGrail-content" id="mainContent">
+    <div class="holyGrail container mt-3">
+      <div class="holyGrail-body">
+        <main class="holyGrail-content" id="mainContent">
           <div class="dashboard">
             <div class="dashboard-content" id = "dashboard-content">
               <!-- adminPage.js-->
           </div>
         </main>
-        <nav class="HolyGrail-nav">
+        <nav class="holyGrail-nav">
           <div id="leftMenuAdmin"></div>
         </nav>
       </div>

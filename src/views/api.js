@@ -1,5 +1,7 @@
 // api 로 GET 요청 (/endpoint/params 형태로 요청함)
+import { startLoading, endLoading } from '/utils/loading.js';
 async function get(endpoint, params = '') {
+  startLoading();
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
   const res = await fetch(apiUrl, {
@@ -8,22 +10,22 @@ async function get(endpoint, params = '') {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
-
-  // 응답 코드가 4XX 계열일 때 (400, 403 등)
+  // 응답 코드가 4XX 계열일 때 (400, 403 등)=
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
 
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 
 // api 로 POST 요청 (/endpoint 로, JSON 데이터 형태로 요청함)
 async function post(endpoint, data) {
+  startLoading();
   const apiUrl = endpoint;
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
@@ -40,14 +42,15 @@ async function post(endpoint, data) {
     body: bodyData,
   });
   console.log(res);
+
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 // api 로 POST 요청 (/endpoint 로, form 데이터 형태로 요청함)
@@ -80,6 +83,7 @@ async function postImage(endpoint, bodyData) {
 
 // api 로 PATCH 요청 (/endpoint/params 로, JSON 데이터 형태로 요청함)
 async function patch(endpoint, params = '', data) {
+  startLoading();
   const apiUrl = `${endpoint}/${params}`;
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
@@ -100,18 +104,19 @@ async function patch(endpoint, params = '', data) {
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
 
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 
 // 아래 함수명에 관해, delete 단어는 자바스크립트의 reserved 단어이기에,
 // 여기서는 우선 delete 대신 del로 쓰고 아래 export 시에 delete로 alias 함.
 async function del(endpoint, params = '', data = {}) {
+  startLoading();
   const apiUrl = `${endpoint}/${params}`;
   const bodyData = JSON.stringify(data);
 
@@ -131,12 +136,12 @@ async function del(endpoint, params = '', data = {}) {
   if (!res.ok) {
     const errorContent = await res.json();
     const { reason } = errorContent;
-
+    endLoading();
     throw new Error(reason);
   }
 
   const result = await res.json();
-
+  endLoading();
   return result;
 }
 

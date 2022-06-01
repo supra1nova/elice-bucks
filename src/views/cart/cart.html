@@ -26,9 +26,8 @@
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="cart.css" />
-    <script src="./indexedDB/indexedDB.js"></script>
-    <script src="./nav.js" type="module"></script>
-    <script defer src="./cart.js" ></script>
+    <script src="./indexedDB/indexedDB.js" ></script>
+    <script defer src="./cart.js" type="module"></script>
     
     <!-- btn -->
     <!-- <script defer src="./indexedDB/Btn.js" ></script> -->
@@ -42,6 +41,8 @@
 
   </head>
   <body>
+    <!--로딩-->
+    <div class="overlay" id="loadingOverlay">로딩...</div>
         <!-- 헤더 -->    
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container mt-3">
@@ -58,6 +59,11 @@
           <div class="navbar-dropdown">
             <!-- ../components/navCategoryList.js -->
           </div>
+        </div>
+
+        <!-- 공지사항 -->
+        <div class="navbar-item notice">
+          <a href="/notice/?page=1&perPage=10">공지사항</a>
         </div>
 
         <!-- 로그인 상태에 따른 로그인 메뉴 -->

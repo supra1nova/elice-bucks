@@ -103,48 +103,6 @@ const kakaomap = () => {
       </div>
     </div>
   </div>
-
-  <div class="field is-horizontal">
-    <div class="field-label is-normal">
-      <label class="label" for="requestSelectBox">요청사항</label>
-    </div>
-    <div class="field-body">
-      <div class="select">
-        <select id="requestSelectBox">
-          <option value="배송시 요청사항을 선택해 주세요.">
-            배송시 요청사항을 선택해 주세요.
-          </option>
-          <option value="직접 수령하겠습니다." class="select-option">
-            직접 수령하겠습니다.
-          </option>
-          <option value="배송 전 연락바랍니다." class="select-option">
-            배송 전 연락바랍니다.
-          </option>
-          <option
-            value="부재 시 경비실에 맡겨주세요."
-            class="select-option"
-          >
-            부재 시 경비실에 맡겨주세요.
-          </option>
-          <option
-            value="부재 시 문 앞에 놓아주세요."
-            class="select-option"
-          >
-            부재 시 문 앞에 놓아주세요.
-          </option>
-          <option
-            value="부재 시 택배함에 넣어주세요."
-            class="select-option"
-          >
-            부재 시 택배함에 넣어주세요.
-          </option>
-          <option value="직접 입력" class="select-option">
-            직접 입력
-          </option>
-        </select>
-      </div>
-    </div>
-  </div>
 </div>
 </div>`;
 

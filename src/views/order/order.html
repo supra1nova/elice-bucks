@@ -28,8 +28,6 @@
     <link rel="stylesheet" href="order.css" />
     <script src="order.js" type="module" defer></script>
 
-    <!-- <script defer src="./indexedDB/Btn.js" ></script> -->
-    <script defer src="./kakaomap/kakaoAPi.js"></script>
     <!-- Kakao 주소 API 사용하기 위한 파일 -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- Google Font -->
@@ -39,6 +37,8 @@
     />
   </head>
   <body>
+    <!--로딩-->
+    <div class="overlay" id="loadingOverlay">로딩...</div>
     <!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container mt-3">
@@ -55,6 +55,11 @@
           <div class="navbar-dropdown">
             <!-- ../components/navCategoryList.js -->
           </div>
+        </div>
+
+        <!-- 공지사항 -->
+        <div class="navbar-item notice">
+          <a href="/notice/?page=1&perPage=10">공지사항</a>
         </div>
 
         <!-- 로그인 상태에 따른 로그인 메뉴 -->
@@ -85,37 +90,8 @@
           </div>
 
           <!-- 주문 정보 요약 -->
-          <div class="tile is-parent tile-order-summary">
-            <div class="box order-summary">
-              <div class="header">
-                <p>결제정보</p>
-              </div>
-              <div class="order-info">
-                <div class="info">
-                  <p>주문상품</p>
-                  <p class="products-title" id="productsTitle">
-                    주문하신 상품이 없습니다. / 0개
-                  </p>
-                </div>
-                <div class="info">
-                  <p>상품총액</p>
-                  <p id="productsTotal">0 원</p>
-                </div>
-                <div class="info">
-                  <p>배송비</p>
-                  <p id="deliveryFee">0 원</p>
-                </div>
-              </div>
-              <div class="total">
-                <p class="total-label">결제금액</p>
-                <p class="total-price" id="orderTotal">0 원</p>
-              </div>
-              <div class="purchase">
-                <button class="button is-info" id="checkoutButton">
-                  결제하기
-                </button>
-              </div>
-            </div>
+          <div class="tile is-parent tile-order-summary paymentHtml">
+            <!-- cart.js -->
           </div>
         </div>
       </div>

@@ -107,9 +107,9 @@ class UserService {
     }
 
     // 이제, 정보 수정을 위해 사용자가 입력한 비밀번호가 올바른 값인지 확인해야 함
-
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
+
     const isPasswordCorrect = await bcrypt.compare(
       currentPassword,
       correctPasswordHash

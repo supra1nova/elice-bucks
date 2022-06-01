@@ -55,14 +55,16 @@ table {
   border-top: 1px solid #a0a0a0;
   border-collapse: collapse;
   table-layout: fixed;
+  
 }
 th, td {
   border-bottom: 1px solid #a0a0a0;
   padding: 10px;
   text-align: center;
-  overflow:wrap;		
+  overflow:hidden;	text-overflow: ellipsis;
 }
-td.productImage1  {
+
+td.productContent  {
   overflow:hidden;		white-space : nowrap;		text-overflow: ellipsis;
 }
 thead tr {
@@ -73,15 +75,11 @@ tbody tr:nth-child(2n) {
 
 }
 tbody tr:nth-child(2n+1) {
- 
+  /*background-color: #f9fffb;*/
 }
 .tr-action{
   text-align: center;
   width:8rem;
-}
-.ctr-action{
-  text-align: center;
-  width:10rem;
 }
 
 /*  product edit form       */
@@ -128,14 +126,7 @@ tbody tr:nth-child(2n+1) {
   border-color: #00d1b2;
   box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
 }
-#product-image-file {
-  margin-right:0.2rem;
-}
-#image-control {
-  margin-top:0.2rem;
-  display:flex;
-  align-items: center;
-}
+
 
 /****************************************/
 /**select 부분*/
@@ -158,20 +149,6 @@ select::-ms-expand {
   background: #00d1b2;
   color: #fff;
   padding: 3px 0;
-}
-
-/* 페이지네이션 */
-.pagination-link:hover {
-	background-color: #2D4039;
-	color: white;
-}
-
-#button-td {
-  display:flex;
-  justify-content: end;
-}
-#button-td button {
-  margin:0.3rem;
 }
 
 /*    from notice        */
@@ -198,6 +175,20 @@ select::-ms-expand {
 /* 공지사항 테이블 */
 .noticeList {
   font-size: 1em;
+}
+
+/* 페이지네이션 */
+.pagination-link:hover {
+	background-color: #2D4039;
+	color: white;
+}
+
+#button-td {
+  display:flex;
+  justify-content: end;
+}
+#button-td button {
+  margin:0.3rem;
 }
 
   /* 로딩 */
