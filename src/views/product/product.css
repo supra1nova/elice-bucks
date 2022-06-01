@@ -109,6 +109,10 @@ body {
   background-color: #9F7F55;
 	color: #fff;
 }
+.activePagination {
+	background-color: #F2D750;
+	color: white;
+  }
 
 /* 로딩 */
 .overlay {

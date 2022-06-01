@@ -27,12 +27,27 @@ async function addAllElements() {
   console.log(notices);
   const totalPage = notices.totalPage;
   dashboard_content.innerHTML = noticeslist.render(notices);
-  console.log(notices);
   //페이지
+  //페이지네이션
   for (let i = 1; i <= totalPage; i++) {
-    paginationList.insertAdjacentHTML(
+    document.querySelector('.pagination-list').insertAdjacentHTML(
       'beforeend',
-      `<li><a class="pagination-link" href="?page=${i}&&perPage=10">${i}</a></li>`
+      `${
+        notices.page === i
+          ? `<li>
+            <a
+              class="pagination-link activePagination"
+              href="?page=${i}&perPage=10"
+            >
+              ${i}
+            </a>
+          </li>`
+          : `<li>
+            <a class="pagination-link" href="?page=${i}&perPage=10">
+              ${i}
+            </a>
+          </li>`
+      }`
     );
   }
   //////////

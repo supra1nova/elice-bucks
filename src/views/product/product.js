@@ -20,10 +20,13 @@ function addAllElements() {
 // 전체 상품의 데이터를 html에 삽입
 async function insertProductList() {
   // 쿼리에서 현재 해당하는 페이지를 가져와서 pageId에 할당
-  const pageId = new URLSearchParams(window.location.search).get('page')
+  const pageId = new URLSearchParams(window.location.search).get('page');
 
   // 페이지네이션 - 각 페이지에 해당하는 url에 들어갔을 때 해당 글 10개만 보여줌
-  const productList = await Api.get('/api/product/products', `?page=${pageId}&perPage=12`);
+  const productList = await Api.get(
+    '/api/product/products',
+    `?page=${pageId}&perPage=12`
+  );
 
   // 페이지네이션 목록
   const products = productList.posts;
@@ -54,7 +57,7 @@ async function insertProductList() {
 
   // 페이징 번호 목록
   for (let i = 1; i <= totalPage; i++) {
-    paginationList.insertAdjacentHTML(
+    document.querySelector('.pagination-list').insertAdjacentHTML(
       'beforeend',
       `<li><a class="pagination-link" id="${i}" href="?page=${i}&perPage=12">${i}</a></li>`
     );
