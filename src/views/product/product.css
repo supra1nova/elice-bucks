@@ -31,37 +31,6 @@ body {
 	justify-content: flex-start;
 }
 
-/* 로그인 메뉴 수평 유지 */
-@media screen and (max-width: 1023px) {
-	.navbar-brand {
-		position: relative;
-	}
-	.navbar-menu {
-		display: block;
-		box-shadow: none;
-		/* 커피 메뉴와 정렬을 맞춤 */
-		padding-left: 0.5rem;
-    padding-right: 0.5rem;
-		position: absolute;
-		top: 0;
-		right: 0;
-	}
-	.breadcrumb ol, .breadcrumb ul {
-		align-items: center;
-	}
-	.breadcrumb li+li::before {
-    content:none;
-	}
-}
-
-/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
-@media screen and (max-width: 479px) {
-	.breadcrumb ol, .breadcrumb ul {
-		flex-direction: column;
-	}
-}
-
-
 /* 제품 목록 */
 #content {
     padding: 50px;
@@ -112,7 +81,7 @@ body {
 .activePagination {
 	background-color: #F2D750;
 	color: white;
-  }
+}
 
 /* 로딩 */
 .overlay {
@@ -130,4 +99,43 @@ body {
     justify-content: center;
     align-items: center;
     color:#fff;
+}
+
+/* -- 미디어쿼리 -- */
+
+/* 로그인 메뉴 수평 유지 */
+@media screen and (max-width: 1023px) {
+	.navbar-brand {
+		position: relative;
+	}
+	.navbar-menu {
+		display: block;
+		box-shadow: none;
+		/* 커피 메뉴와 정렬을 맞춤 */
+		padding-left: 0.5rem;
+    padding-right: 0.5rem;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.breadcrumb ol, .breadcrumb ul {
+		align-items: center;
+	}
+	.breadcrumb li+li::before {
+    content:none;
+	}
+}
+
+/* 화면이 작아지면 상품 목록 여백 줄임 */
+@media screen and (max-width: 768px) {
+    #content {
+        padding: 20px;
+    }
+}
+
+/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
+@media screen and (max-width: 479px) {
+	.breadcrumb ol, .breadcrumb ul {
+		flex-direction: column;
+	}
 }
