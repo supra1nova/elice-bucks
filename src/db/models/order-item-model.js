@@ -14,7 +14,6 @@ export class OrderItemModel {
     // 2. order-items 전부 불러오기 (전체 유저의 주문목록아이템 불러오기)
     async findAll() {
       const orderItemlist = await OrderItem.find({}).populate('orderId').populate({path: 'productsId', populate:{path:'productId'}});
-      console.log(orderItemlist);
       return orderItemlist;
     }
   
