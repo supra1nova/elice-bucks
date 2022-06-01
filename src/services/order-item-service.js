@@ -28,6 +28,18 @@ class OrderItemService {
     const products = await this.orderItemModel.findAll();
     return products;
   }
+
+  // 2-3-1. (pagination) order 개수 반환
+  async countOrders() {
+    const orderItemsQty = await this.orderItemModel.countAll();
+    return orderItemsQty;
+  }
+
+  // 2-3-2. (pagination) 특정 페이지에 위치한 order정보 조회
+  async getRangedOrders(page, perPage) {
+    const rangedOrderItemsInfo = await this.orderItemModel.getInRange(page, perPage);
+    return rangedOrderItemsInfo;
+  }
 }
 
 const orderItemService = new OrderItemService( orderItemModel );

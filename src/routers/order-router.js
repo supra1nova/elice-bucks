@@ -55,7 +55,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
 });
 
 // 2-1. 해당 유저의 주문목록 반환
-orderRouter.get('/user/:userId', loginRequired, async function (req, res, next) {
+orderRouter.get('/user/orders', loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
     const order = await orderService.getUserOrder(userId);
@@ -69,7 +69,7 @@ orderRouter.get('/user/:userId', loginRequired, async function (req, res, next) 
 });
 
 // 2-1-2. 해당 유저의 주문금액 조회
-orderRouter.get('/user/price/:userId', loginRequired, async function (req, res, next) {
+orderRouter.get('/user/price', loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
     const finalPrice = await orderService.finalPrice(userId);
@@ -81,7 +81,7 @@ orderRouter.get('/user/price/:userId', loginRequired, async function (req, res, 
 });
 
 // 2-1-3. 해당 유저의 주문물품개수 조회
-orderRouter.get('/user/qty/:userId', loginRequired, async function (req, res, next) {
+orderRouter.get('/user/qty', loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
     const orderCnt = await orderService.finalQty(userId);
@@ -92,8 +92,25 @@ orderRouter.get('/user/qty/:userId', loginRequired, async function (req, res, ne
     next(error);
   }
 });
+// 2-2-1-1. (admin) 전체 주문목록 조회(pagination)
+orderRouter.get('/admin/orders/pagination', async (req, res) => {
+  try{
+    const page = Number(req.query.page) || 1;
+    const perPage = Number(req.query.perPage) || 10;
 
-// 2-2-1. (admin) 전체 주문목록 조회 -> 수정 완료
+    const [total, posts] = await Promise.all([
+      await orderItemService.countOrders(),
+      await orderItemService.getRangedOrders(page, perPage)
+    ]);
+    const totalPage = Math.ceil(total / perPage);
+
+    res.status(200).json({ posts, page, perPage, totalPage, total });
+  } catch (error) {
+    next(error);
+  }
+})
+
+// 2-2-1. (admin) 전체 주문목록 조회 
 orderRouter.get('/admin/orders', loginRequired, adminRequired, async function (req, res, next) {
     try {
       const products = await orderItemService.getAllProducts();
@@ -113,8 +130,8 @@ orderRouter.get('/admin/qty',loginRequired, adminRequired, async function (req, 
   }
 });
 
-// 2-2-3. (admin) 제품별 판매 개수 반환
-orderRouter.get('/admin/qty/:productId', loginRequired, adminRequired, async function (req, res, next) {
+// 2-2-3. (admin) 총 제품별 판매 개수 반환
+orderRouter.get('/admin/productsQty', loginRequired, adminRequired, async function (req, res, next) {
   try {
     const { productId } = req.params;
     const orderNum = await orderItemService.getSameProductId(productId);
