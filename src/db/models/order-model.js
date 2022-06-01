@@ -29,17 +29,15 @@ export class OrderModel {
     return order;
   }
 
-  // 이미 존재하는 user라면 update -> service 에서 addOrderList method 에 구현 해둬서 딱히 쓸일이 없을것 같음.
-  async update({orderId, update}) {
-    const filter = { _id: new Types.ObjectId(orderId) };
+  //  
+  async update(toUpdate) {
+    const filter = { _id: toUpdate._id };
     const option = { returnOriginal: false };
-    console.log('update : ', update);
     const updatedOrders = await Order.findOneAndUpdate(
       filter,
-      update,
+      toUpdate,
       option,
     );
-    console.log('updatedOrders : ', updatedOrders);
     return updatedOrders;
   }
 }

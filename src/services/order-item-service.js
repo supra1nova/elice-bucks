@@ -7,7 +7,6 @@ class OrderItemService {
  
   // 1. order item schema 구현 
   async addOrderItemList(orderInfo) {
-    console.log(orderInfo);
     const newOrderItem = await this.orderItemModel.createItems(orderInfo);
     return newOrderItem;
   }

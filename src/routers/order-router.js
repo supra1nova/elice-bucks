@@ -13,7 +13,6 @@ orderRouter.post('/orderitem', async (req, res, next) => {
   try{
     const orderItem = req.body;
     const newOrderItem = await orderItemService.addOrderItemList(orderItem);
-    console.log(newOrderItem);
 
     res.status(201).json(newOrderItem);
 
@@ -26,7 +25,6 @@ orderRouter.post('/order', async (req, res, next) => {
   try{
     const order = req.body;
     const newOrder = await orderService.addOrderList(order);
-    console.log(newOrder);
 
     res.status(201).json(newOrder);
   } catch(err) {
@@ -151,9 +149,7 @@ orderRouter.patch('/cancel/:orderId', async function (req, res, next) {
 orderRouter.patch('/delivered/:orderId', async function (req, res, next) {
   try {
     const { orderId } = req.params;
-    
-    const result = await orderService.updateDelivered(orderId, toUpdate);
-
+    const result = await orderService.updateDelivered(orderId);
     res.status(200).json(result);
   } catch (error) {
     next(error);
