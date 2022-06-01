@@ -5,6 +5,7 @@ onRequest.onsuccess = () => {
 onRequest.onupgradeneeded = () => {
   const database = onRequest.result;
   database.createObjectStore('carts');
+  database.createObjectStore('order');
 };
 onRequest.onerror = () => {
   console.log('Error creating or accessing db');
