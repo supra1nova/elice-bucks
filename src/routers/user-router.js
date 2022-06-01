@@ -184,11 +184,19 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
       userInfoRequired,
       toUpdate
     );
+    console.log('update: ',updatedUserInfo);
+
+    console.log(userInfoRequired);
+    console.log({email, password});
     
-    const updatedUserInfoRequired = { email , password };
-    const userToken = await userService.getUserToken(updatedUserInfoRequired);
-    // 업데이트 이후의 유저 데이터를 Token 으로 프론트에 보내줌
-    res.status(200).json(userToken);
+    if (password) {
+      const userToken = await userService.getUserToken({ email, password });
+      res.status(200).json(userToken);
+    } else{
+      const userToken1 = await userService.getUserToken({ email, password: currentPassword });
+      res.status(200).json(userToken1);
+    }
+
   } catch (error) {
     next(error);
   }

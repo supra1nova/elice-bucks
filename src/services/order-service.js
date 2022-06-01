@@ -12,8 +12,8 @@ class OrderService {
     // 주문목록에 사용자가 이미 존재한다면 주문 목록을 합쳐준다.
     let preOrder = await this.orderModel.findById(userId);
     
-    if(preOrder) {
-      if(paid){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다.
+    if(!preOrder) {
+      if(!paid){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다.
         let finalQty = 0;
         let finalPrice = 0;
         let preQty = preOrder.totalQty;
@@ -83,15 +83,13 @@ class OrderService {
   async cancelOrder(orderId) {
     let order = await this.orderModel.findByOrderId(orderId);
     order.deletedAt = new Date();
-    const cancelOrder = await this.orderModel.update({orderId, update: order});
+    const cancelOrder = await this.orderModel.update({orderId, order});
     return cancelOrder;
   }
 
   // 5-2. 해당 유저의 delevered update
-  async updateDelivered(orderId) {
-    let order = await this.orderModel.findByOrderId(orderId);
-    order.delivered = new Date();
-    const delivered = await this.orderModel.update({orderId, update: order, });
+  async updateDelivered(orderId, toUpdate) {
+    const delivered = await this.orderModel.update({orderId, toUpdate});
     return delivered;
   }
 

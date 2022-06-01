@@ -12,7 +12,7 @@ export class OrderModel {
 
   // orders 전체 반환
   async findAll() {
-    const orders = await Order.find({});
+    const orders = await Order.find({}).populate('userId');
 
     return orders;
   }
@@ -31,7 +31,7 @@ export class OrderModel {
 
   // 이미 존재하는 user라면 update -> service 에서 addOrderList method 에 구현 해둬서 딱히 쓸일이 없을것 같음.
   async update({orderId, update}) {
-    const filter = { orderId: orderId };
+    const filter = { _id: new Types.ObjectId(orderId) };
     const option = { returnOriginal: false };
     console.log('update : ', update);
     const updatedOrders = await Order.findOneAndUpdate(
