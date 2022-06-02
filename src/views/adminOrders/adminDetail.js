@@ -1,4 +1,35 @@
+import { setPaid, setDelivered, setDeletedAt } from './adminOrders.js';
 const adminDetail = {
+  componentDidMount: async () => {
+    //결제처리
+    const paidButton = document.getElementsByClassName('paid-button');
+    Array.from(paidButton).forEach((button) => {
+      button.addEventListener('click', async () => {
+        //await setPaid(button.id);
+        await setDelivered('6296e9d8e09e915f852d2fb3');
+      });
+    });
+    //배송처리
+    const deliveredButton = document.getElementsByClassName('delivered-button');
+    Array.from(deliveredButton).forEach((button) => {
+      button.addEventListener('click', async () => {
+        //await setDelivered(button.id);
+        await setDelivered('6296e9d8e09e915f852d2fb3');
+      });
+    });
+    //주문 취소 처리
+    const deletedAtButton = document.getElementsByClassName('deletedAt-button');
+    Array.from(deletedAtButton).forEach((button) => {
+      button.addEventListener('click', async () => {
+        //await setDeletedAt(button.id);
+        await setDelivered('6296e9d8e09e915f852d2fb3');
+      });
+    });
+    const goBackButton = document.getElementById('goBack');
+    goBackButton.addEventListener('click', () => {
+      window.location.href = `/adminOrders`;
+    });
+  },
   render: (oneOrder) => {
     console.log(oneOrder);
     const order = oneOrder.orderId;
@@ -21,25 +52,25 @@ const adminDetail = {
             <div class="field">
                 <label class="label">유저 아이디</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="Name" value="${user}">
+                <input readOnly class="input" type="text" placeholder="Name" value="${user}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">유저 이름</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="Name" value="${user}">
+                <input readOnly class="input" type="text" placeholder="Name" value="${user}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">총 가격</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="가격" value="${totalPrice}">
+                <input readOnly class="input" type="text" placeholder="가격" value="${totalPrice}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">주문일</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="Name" value="${createdAt}">
+                <input readOnly class="input" type="text" placeholder="Name" value="${createdAt}">
                 </p>
             </div>
         </div>
@@ -49,25 +80,61 @@ const adminDetail = {
             <div class="field">
                 <label class="label">결제일</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="결제일" value="${paid}">
+                
+                ${
+                  delivered
+                    ? `<input readOnly class="input" type="text" placeholder="결제일" value="${paid}">`
+                    : `<input
+                      readOnly
+                      class="input paid-button button is-success  is-light"
+                      type="text"
+                      value="결제처리"
+                    >`
+                }
                 </p>
             </div>
             <div class="field">
                 <label class="label">배달일</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="배달일" value="${delivered}">
+                ${
+                  delivered
+                    ? `<input
+                      readOnly
+                      class="input"
+                      type="text"
+                      placeholder="배달일"
+                      value="${delivered}"
+                    >`
+                    : `<input
+                    readOnly
+                    class="input delivered-button button is-info is-light"
+                    type="text"
+                    placeholder="배달일"
+                    value="배달처리"
+                  >`
+                }
                 </p>
             </div>
             <div class="field">
                 <label class="label">주문취소</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="주문취소" value="${deletedAt}">
+                
+                ${
+                  delivered
+                    ? `<input readOnly class="input" type="text" placeholder="주문취소" value="${deletedAt}">`
+                    : `<input
+                      readOnly
+                      class="input deletedAt-button is-danger button is-light"
+                      type="text"
+                      value="주문취소"
+                    >`
+                }
                 </p>
             </div>
             <div class="field">
                 <label class="label">수정일</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="수정일" value="${updatedAt}">
+                <input readOnly class="input" type="text" placeholder="수정일" value="${updatedAt}">
                 </p>
             </div>
         </div>
@@ -79,19 +146,19 @@ const adminDetail = {
             <div class="field">
                 <label class="label">우편번호</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="Name" value="${postalCode}">
+                <input readOnly class="input" type="text" placeholder="Name" value="${postalCode}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">주소 1</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="Name" value="${address1}">
+                <input readOnly class="input" type="text" placeholder="Name" value="${address1}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">주소 2</label>
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="가격" value="${address2}">
+                <input readOnly class="input" type="text" placeholder="가격" value="${address2}">
                 </p>
             </div>
         </div>
@@ -110,7 +177,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">${index + 1}번 제품 이름</label>
               <p class="control is-expanded">
-              <input class="input" type="text" placeholder="결제일" value="${
+              <input readOnly class="input" type="text" placeholder="결제일" value="${
                 product.name
               }">
               </p>
@@ -118,7 +185,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">1개 가격</label>
               <p class="control is-expanded">
-              <input class="input" type="text" placeholder="배달일" value="${
+              <input readOnly class="input" type="text" placeholder="배달일" value="${
                 product.price
               }">
               </p>
@@ -126,7 +193,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">재고</label>
               <p class="control is-expanded">
-              <input class="input" type="text" placeholder="수정일" value="${
+              <input readOnly class="input" type="text" placeholder="수정일" value="${
                 product.stock
               }">
               </p>
@@ -138,7 +205,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">이미지</label>
               <p class="control is-expanded">
-              <input class="input" type="text" placeholder="이미지" value="${
+              <input readOnly class="input" type="text" placeholder="이미지" value="${
                 product.image
               }">
               </p>
@@ -146,7 +213,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">주문수량</label>
               <p class="control is-expanded">
-              <input class="input" type="text" placeholder="배달일" value="${
+              <input readOnly class="input" type="text" placeholder="배달일" value="${
                 productInfo.productQty
               }">
               </p>
@@ -154,7 +221,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">주문금액</label>
               <p class="control is-expanded">
-              <input class="input" type="text" placeholder="주문취소" value="${
+              <input readOnly class="input" type="text" placeholder="주문취소" value="${
                 productInfo.productQty * productInfo.productPrice
               }">
               </p>
@@ -166,8 +233,7 @@ const adminDetail = {
       `;
       })
       .join('\n')}
-    <button class="product-edit-button button is-primary is-fullwidth mb-1">수정</button>
-      <button class="product-delete-button button is-danger is-fullwidth mb-5 ">취소</button>
+      <button id="goBack" class="is-medium product-delete-button button is-warning is-light is-fullwidth mb-5 ">뒤로가기</button>
     `;
   },
 };

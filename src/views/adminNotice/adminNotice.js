@@ -30,26 +30,17 @@ async function addAllElements() {
   //페이지
   //페이지네이션
   for (let i = 1; i <= totalPage; i++) {
-    document.querySelector('.pagination-list').insertAdjacentHTML(
-      'beforeend',
-      `${
-        notices.page === i
-          ? `<li>
-            <a
-              class="pagination-link activePagination"
-              href="?page=${i}&perPage=10"
-            >
-              ${i}
-            </a>
-          </li>`
-          : `<li>
-            <a class="pagination-link" href="?page=${i}&perPage=10">
-              ${i}
-            </a>
-          </li>`
-      }`
-    );
+    document
+      .querySelector('.pagination-list')
+      .insertAdjacentHTML(
+        'beforeend',
+        `<li><a class="pagination-link" id="pagination${i}" href="?page=${i}&perPage=10">${i}</a></li>`
+      );
   }
+
+  // 현재 페이지에 해당하는 페이징 버튼 활성화
+  const pageBtn = document.getElementById(`pagination${notices.page}`);
+  pageBtn.classList.add('activePagination');
   //////////
 
   //공지사항 생성

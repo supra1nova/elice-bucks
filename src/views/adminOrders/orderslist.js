@@ -1,4 +1,31 @@
+import { setPaid, setDelivered, setDeletedAt } from './adminOrders.js';
 const orderslist = {
+  componentDidMount: async () => {
+    //결제처리
+    const paidButton = document.getElementsByClassName('paid-button');
+    Array.from(paidButton).forEach((button) => {
+      button.addEventListener('click', async () => {
+        //await setPaid(button.id);
+        await setPaid('6296eb01e09e915f852d2fb5');
+      });
+    });
+    //배송처리
+    const deliveredButton = document.getElementsByClassName('delivered-button');
+    Array.from(deliveredButton).forEach((button) => {
+      button.addEventListener('click', async () => {
+        //await setDelivered(button.id);
+        await setDelivered('6296eb01e09e915f852d2fb5');
+      });
+    });
+    //주문 취소 처리
+    const deletedAtButton = document.getElementsByClassName('deletedAt-button');
+    Array.from(deletedAtButton).forEach((button) => {
+      button.addEventListener('click', async () => {
+        //await setDeletedAt(button.id);
+        await setDeletedAt('6296eb01e09e915f852d2fb5');
+      });
+    });
+  },
   render: (orders) => {
     console.log(orders);
     return `
@@ -29,33 +56,28 @@ const orderslist = {
               const order = oneOrder.orderId;
               return `
                 <tr>
-                  <td class="productImage1">${
-                    order?.userId && order.userId
-                  }</td>
-                  <td>${order?.totalPrice}</td>
-                  <td>${order?.createdAt}</td>
+                  <td class="productImage1">${order?.userId || ''}</td>
+                  <td>${order?.totalPrice || ''}</td>
+                  <td>${order?.createdAt || ''}</td>
                   <td>${
-                    order?.paid
-                      ? order.paid
-                      : `
-                  <button id="${order?._id}" class="product-edit-button button is-success  is-light">결제처리</button>
+                    order?.paid ||
+                    `
+                  <button id="${order?._id}" class="paid-button button is-success  is-light">결제처리</button>
                   `
                   }</td>
                   <td>${
-                    order?.delivered
-                      ? order.deliverd
-                      : `
-                  <button id="${order?._id}" class="product-edit-button button is-info   is-light">배송처리</button>
+                    order?.delivered ||
+                    `
+                  <button id="${order?._id}" class="delivered-button button is-info   is-light">배송처리</button>
                   `
                   }</td>
                   <td>${
-                    order?.deletedAt
-                      ? order.deletedAt
-                      : `
-                  <button id="${order?._id}" class="product-delete-button is-danger button is-light">주문취소</button>
+                    order?.deletedAt ||
+                    `
+                  <button id="${order?._id}" class="deletedAt-button is-danger button is-light">주문취소</button>
                   `
                   }</td>
-                  <td>${order?.updatedAt}</td>
+                  <td>${order?.updatedAt || ''}</td>
                   <td>
                     <button id="${index}" class="product-edit-button button is-primary  is-light">상세보기</button>
                   </td>
@@ -68,7 +90,13 @@ const orderslist = {
             
           </div>
         </div>
-              
+        <!--페이지네이션-->
+        <nav class="pagination is-rounded is-small is-centered mt-3 mb-5" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+
+        </ul>
+      </nav>
+      <!--페이지네이션 끝-->
       `;
   },
 };

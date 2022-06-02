@@ -193,3 +193,22 @@ tbody tr:nth-child(2n+1) {
     color: #2D4039;
     margin-bottom: -1rem;
 }
+
+/* 페이지네이션 */
+.pagination-link:hover {
+	background-color: #2D4039;
+	color: white;
+}
+.activePagination {
+  background-color: #2D4039;
+  color: white;
+}
+
+/* readonly */
+input:read-only, textarea:read-only {
+  background-color: rgb(252, 252, 252);
+}
+.button {
+  padding-left: 11px;
+  padding-right:11px;
+}
