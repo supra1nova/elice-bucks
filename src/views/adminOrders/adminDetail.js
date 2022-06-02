@@ -41,7 +41,6 @@ const adminDetail = {
     });
   },
   render: (oneOrder) => {
-    console.log(oneOrder);
     const order = oneOrder.orderId;
     const user = order?.userId;
     const totalPrice = order?.totalPrice;
@@ -229,10 +228,7 @@ const adminDetail = {
     <hr/>
     ${productsInfos
       .map((productInfo, index) => {
-        console.log(productsInfos);
-        console.log(productInfo);
         const product = productInfo.productId;
-        console.log(product);
         return `
       <div class="field is-horizontal">
       <div class="field-body">

@@ -41,7 +41,6 @@ async function post(endpoint, data) {
     },
     body: bodyData,
   });
-  console.log(res);
 
   if (!res.ok) {
     const errorContent = await res.json();

@@ -1,4 +1,5 @@
 import * as Api from '/api.js';
+import { validateProduct } from './../utils/validateForm.js';
 const ProductEdit = {
   componentDidMount: async (_id, productCat) => {
     let formData;
@@ -26,10 +27,12 @@ const ProductEdit = {
       const category = document.getElementById('categoriesSelect').value;
       const stock = document.getElementById('stockInput').value;
 
-      console.log(image);
       const description = document.getElementById('descriptionInput').value;
-      console.log(description);
-
+      try {
+        validateProduct(name, price, description, stock);
+      } catch (err) {
+        return alert(err);
+      }
       try {
         const data = {
           name,
@@ -56,7 +59,6 @@ const ProductEdit = {
       .getElementById('image-file')
       .addEventListener('change', async (e) => {
         const file = e.target.files[0];
-        console.log('/images/' + e.target.files[0].name);
         const formData = new FormData();
         formData.append('image', file);
         setFormData(formData);
@@ -134,6 +136,7 @@ const ProductEdit = {
             <label class="label" for="imageInput">이미지</label>
             <div class="control">
                 <input
+                readOnly
                 class="input"
                 id="imageInput"
                 name="image"

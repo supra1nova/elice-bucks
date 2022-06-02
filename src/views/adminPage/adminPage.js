@@ -24,7 +24,6 @@ async function addAllElements() {
   });
   await headerNavbar.componentDidMount();
   const orderTotalNum = await getOrderstotalNum();
-  console.log(orderTotalNum);
   const userTotalNum = await getTotalnumOfusers();
   const totalSale = await getTotalSale();
   dashboard_content.innerHTML = await adminContent.render(

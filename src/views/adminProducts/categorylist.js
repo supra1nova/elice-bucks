@@ -1,6 +1,5 @@
 const categorylist = {
   render: (categories) => {
-    console.log(categories);
     return `
     <div class="content">
       <h1>카테고리</h1>
