@@ -64,7 +64,7 @@ async function setUserOrders(orders) {
   </div>`;
   for (let i = 0; i < orders.length; i++) {
     let createdAt = orders[i][0].createdAt.match(/\d\d\d\d-\d\d-\d\d/g, '');
-    let price = orders[i][0].orderId.totalPrice;
+    let price = (orders[i][0].orderId.totalPrice + 3000).toLocaleString();
     let productArr = orders[i][0].products;
     let product = '';
     let orderId = orders[i][0].orderId._id;
@@ -74,7 +74,6 @@ async function setUserOrders(orders) {
       let productQty = productArr[j].productQty;
       product += `<div class='orderItem'>${productname} / ${productQty} 개</div>`;
     }
-    console.log(deletedAt);
     //주문 목록 생성기
     let order = `
     <div class="columns orders-item box" id="order">
@@ -85,7 +84,7 @@ async function setUserOrders(orders) {
       ${product}
     </div>
     <div class="column is-2 div-center orderStatus">
-      <div class="orderprice">${Number(price) + 3000} 원</div>
+      <div class="orderprice">${price} 원</div>
     </div>
     <div class="column is-1 div-center orderStatus">
       <div class="Status">${
@@ -108,7 +107,7 @@ async function deleteBntEvnet() {
   let deleteBtn = document.getElementsByClassName(`deleteButton`);
   let Status = document.getElementsByClassName(`Status`);
   for (let k = 0; k < deleteBtn.length; k++) {
-    Status.innerHTML === '취소완료' ? true : (deleteBtn[k].disabled = true);
+    Status[k].innerHTML === '취소완료' ? (deleteBtn[k].disabled = true) : true;
     deleteBtn[k].addEventListener('click', async () => {
       try {
         await Api.patch(`/api/order/cancel/${deleteBtn[k].id}`);
