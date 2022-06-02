@@ -55,14 +55,15 @@ async function addAllElements() {
       history.pushState(null, null, '?' + queryParams.toString());
 
       const data = {
-        name: `수정해주세요${Date.now()}`,
+        name: ``,
         price: 0,
-        image: '수정해주세요',
+        image: '',
+        stock: 0,
         category: {
           _id: `${categoriesdatas[0]._id}`,
           name: `${categoriesdatas[0].name}`,
         },
-        description: '수정해주세요',
+        description: '',
       };
       dashboard_content.innerHTML = productCreate.render(data, categoriesdatas);
       await productCreate.componentDidMount(data.category);
@@ -104,7 +105,6 @@ async function addAllElements() {
     button.addEventListener('click', async () => {
       if (confirm('정말로 지우시겠습니까?')) {
         const result = await removeProduct(button.id);
-        console.log(result);
         window.location.href = `/adminProducts`;
       }
     });
@@ -118,7 +118,6 @@ async function addAllElements() {
         return;
       }
       const result = await createCategory(value);
-      console.log(result);
       window.location.href = `/adminProducts`;
     });
 
@@ -131,7 +130,6 @@ async function addAllElements() {
     button.addEventListener('click', async () => {
       const nameInput = document.querySelector(`#nameInput${button.id}`);
       const name = nameInput.value;
-      console.log(name);
       try {
         const data = {
           name,
@@ -156,7 +154,6 @@ async function addAllElements() {
     button.addEventListener('click', async () => {
       if (confirm('정말로 지우시겠습니까?')) {
         const result = await removeCategory(button.id);
-        console.log(result);
         window.location.href = `/adminProducts`;
       }
     });
@@ -171,7 +168,6 @@ async function getProducts() {
       '/api/product/products',
       `?page=${pageId}&&perPage=10`
     );
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err.stack);
@@ -183,7 +179,6 @@ async function getProducts() {
 export async function getCategories() {
   try {
     const data = await Api.get('/api/category', 'categories');
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err.stack);
@@ -195,7 +190,6 @@ async function getProduct(id) {
   // 제품가져오기 api 요청
   try {
     const data = await Api.get('/api/product', `${id}`);
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err.stack);
@@ -223,7 +217,6 @@ async function removeProduct(id) {
   // 제품삭제 api 요청
   try {
     const data = await Api.delete(`/api/product/${id}`);
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err.stack);
@@ -235,7 +228,6 @@ async function removeCategory(id) {
   // 카테고리삭제 api 요청
   try {
     const data = await Api.delete(`/api/category/${id}`);
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err.stack);

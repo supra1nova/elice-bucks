@@ -25,7 +25,7 @@ const noticeslist = {
             .map(
               (notice, index) => `
                 <tr>
-                  <td>${index + 1 + (notices.page - 1) * notices.perPage}</td>
+                  <td>${notices.total - (notices.page - 1) * 10 - index}</td>
                   <td>${notice.title}</td>
                   <td class="productContent">${notice.content}</td>
                   <td>${notice.author}</td>

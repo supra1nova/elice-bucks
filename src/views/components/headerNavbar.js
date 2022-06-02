@@ -16,6 +16,9 @@ const headerNavbar = {
                       <a class="navbar-item" href="/myPage">
                         마이페이지
                       </a>
+                      <a class="navbar-item" href="/myOrder">
+                        주문 조회
+                      </a>
                     </div>
                   </div>
                 </nav>

@@ -24,7 +24,6 @@ async function addAllElements() {
   });
   headerNavbar.componentDidMount();
   const notices = await getAllNotices();
-  console.log(notices);
   const totalPage = notices.totalPage;
   dashboard_content.innerHTML = noticeslist.render(notices);
   //페이지
@@ -75,7 +74,6 @@ async function addAllElements() {
       queryParams.set('detail', `${button.id}`);
       history.pushState(null, null, '?' + queryParams.toString());
       const result = notices.posts[button.id];
-      console.log(result);
       dashboard_content.innerHTML = noticesDetail.render(result, true);
       noticesDetail.componentDidMount();
       await noticesDetail.componentDidMountEdit(result);

@@ -36,7 +36,6 @@ async function addAllEvents() {
   headerNavbar.componentDidMount();
   const result = await Api.get(`/api/user`);
   setUserId(result._id);
-  console.log(result);
   address1Input.value = result.address ? result.address.address1 : '';
   address2Input.value = result.address ? result.address.address2 : '';
   postalCodeInput.value = result.address ? result.address.postalCode : '';
@@ -50,7 +49,6 @@ async function addAllEvents() {
 
 // 회원정보 수정 진행
 async function handleSubmit(e) {
-  console.log(e);
   e.preventDefault();
   const address1 = address1Input.value;
   const address2 = address2Input.value;
@@ -86,7 +84,6 @@ async function handleSubmit(e) {
     };
 
     const result = await Api.patch('/api/user', `${userId}`, data);
-    console.log(result);
     const token = result.token;
 
     // 수정 성공, 토큰을 세션 스토리지에 저장
@@ -102,8 +99,6 @@ async function handleSubmit(e) {
 //userRouter.delete('/user/:userId'
 async function deleteUser(e) {
   e.preventDefault();
-
-  console.log(e);
 
   const password = userDeletePasswordInput.value;
   try {
