@@ -28,6 +28,12 @@ export class OrderItemModel {
     return orderItems;
   }
 
+  // 4-1. 특정 제품의 주문 횟수 불러오기 
+  async findQtyByProductId(productId){
+    const orderItemsQty = await OrderItem.find({ productId : new Types.ObjectId(productId) }).populate({path: 'productsId', populate:{path:'productId', select: {productQty:1}}}); 
+    return orderItemsQty;
+  }
+
   // 5-1. 전체 order 조회
   async countAll() {
     const countOrderItems = await OrderItem.countDocuments({});
@@ -39,8 +45,8 @@ export class OrderItemModel {
     const orderItemsInRange = await OrderItem.find({}).populate('orderId').populate({path: 'productsId', populate:{path:'productId'}}).skip(perPage * (page - 1)).limit(perPage);
     return orderItemsInRange;
   }
-  }
+}
 
-  const orderItemModel = new OrderItemModel();
+const orderItemModel = new OrderItemModel();
 
-  export { orderItemModel };
+export { orderItemModel };

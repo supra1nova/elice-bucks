@@ -59,25 +59,25 @@ class OrderService {
 
   // 5-1. 해당 유저의 주문목록 취소처리
   async cancelOrder(orderId) {
-    let order = await this.orderModel.findByOrderId(orderId);
-    order.deletedAt = new Date();
-    const cancelOrder = await this.orderModel.update(order);
+    const orderCancel = await this.orderModel.findByOrderId(orderId);
+    orderCancel[0].deletedAt = new Date();
+    const cancelOrder = await this.orderModel.update(orderCancel);
     return cancelOrder;
   }
 
   // 5-2. 해당 유저의 delivered update
   async updateDelivered(orderId) {
-    const order = await this.orderModel.findByOrderId(orderId);
-    order.delivered = new Date();
-    const delivered = await this.orderModel.update(order);
+    const orderDelivered = await this.orderModel.findByOrderId(orderId);
+    orderDelivered[0].delivered = new Date();
+    const delivered = await this.orderModel.update(orderDelivered);
     return delivered;
   }
 
   // 5-3. 해당 유저의 payment update
   async updatePayment(orderId) {
-    let order = await this.orderModel.findByOrderId(orderId);
-    order.paid = new Date();
-    const paid = await this.orderModel.update(order);
+    const orderPaid = await this.orderModel.findByOrderId(orderId);
+    orderPaid[0].paid = new Date();
+    const paid = await this.orderModel.update(orderPaid);
     return paid;
   }
 }

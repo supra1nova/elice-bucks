@@ -43,7 +43,7 @@ class ProductService {
   }
   
   
-  // 2. 제품 전체 조회 - 페이지네이션에서 이미 조회를 다 하고 있는데 과연 필요 있을지...?
+  // 2. 제품 전체 조회 - 페이지네이션에서 이미 조회를 다 하고 있는데 과연 필요 있을지...? -> /zinger/ 제가 씁니다..!
   async getProducts() {
     const products = await this.productModel.findAll();
     return products;
