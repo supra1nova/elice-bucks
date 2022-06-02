@@ -1,15 +1,31 @@
 import * as Api from '/api.js';
 const ProductEdit = {
   componentDidMount: async (_id, productCat) => {
+    let formData;
+    const setFormData = (formData1) => {
+      formData = formData1;
+    };
     const submitButton = document.querySelector('#submitButton');
     document.getElementById(`${productCat._id}`).selected = true;
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
+      let image = document.getElementById('imageInput').value;
+      if (formData) {
+        const data = await Api.postImage('/api/product/image', formData);
+        if (data.error) {
+          alert(
+            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${data.error}`
+          );
+        } else {
+          image = data.image;
+        }
+      }
+
       const name = document.getElementById('nameInput').value;
       const price = document.getElementById('priceInput').value;
       const category = document.getElementById('categoriesSelect').value;
       const stock = document.getElementById('stockInput').value;
-      const image = document.getElementById('imageInput').value;
+
       console.log(image);
       const description = document.getElementById('descriptionInput').value;
       console.log(description);
@@ -40,18 +56,15 @@ const ProductEdit = {
       .getElementById('image-file')
       .addEventListener('change', async (e) => {
         const file = e.target.files[0];
+        console.log('/images/' + e.target.files[0].name);
         const formData = new FormData();
         formData.append('image', file);
-        console.log(formData);
-        const data = await Api.postImage('/api/product/imageUpload', formData);
-        if (data.error) {
-          alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${data.error}`
-          );
-        } else {
-          document.getElementById('imageInput').value = data.image;
-          document.getElementById('product-image-file').src = `${data.image}`;
-        }
+        setFormData(formData);
+        document.getElementById('imageInput').value =
+          '/images/' + e.target.files[0].name;
+        document.getElementById('product-image-file').src = URL.createObjectURL(
+          e.target.files[0]
+        );
       });
   },
   render: (product, categories) => {
@@ -130,7 +143,9 @@ const ProductEdit = {
                 value="${product.image ? product.image : ''}"
                 />
                 <div id = "image-control"> 
-                <img  width="30" height="30" id="product-image-file" />
+                <img src = "${
+                  product.image ? product.image : ''
+                }"  width="30" height="30" id="product-image-file" />
                 <input type="file" name="image-file" id="image-file"/>
                 
                 </div>

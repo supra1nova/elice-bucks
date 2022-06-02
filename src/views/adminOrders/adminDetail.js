@@ -5,24 +5,34 @@ const adminDetail = {
     const paidButton = document.getElementsByClassName('paid-button');
     Array.from(paidButton).forEach((button) => {
       button.addEventListener('click', async () => {
-        //await setPaid(button.id);
-        await setDelivered('6296e9d8e09e915f852d2fb3');
+        if (!confirm('결제처리 하시겠습니까?')) {
+          return;
+        }
+        await setPaid(button.id);
       });
     });
     //배송처리
     const deliveredButton = document.getElementsByClassName('delivered-button');
     Array.from(deliveredButton).forEach((button) => {
       button.addEventListener('click', async () => {
-        //await setDelivered(button.id);
-        await setDelivered('6296e9d8e09e915f852d2fb3');
+        if (button.classList.contains('false')) {
+          alert('먼저 결제처리 해주세요');
+          return;
+        }
+        if (!confirm('배송처리 하시겠습니까?')) {
+          return;
+        }
+        await setDelivered(button.id);
       });
     });
     //주문 취소 처리
     const deletedAtButton = document.getElementsByClassName('deletedAt-button');
     Array.from(deletedAtButton).forEach((button) => {
       button.addEventListener('click', async () => {
-        //await setDeletedAt(button.id);
-        await setDelivered('6296e9d8e09e915f852d2fb3');
+        if (!confirm('정말로 삭제하시겠습니까?')) {
+          return;
+        }
+        await setDeletedAt(button.id);
       });
     });
     const goBackButton = document.getElementById('goBack');
@@ -44,6 +54,14 @@ const adminDetail = {
     const postalCode = order?.address?.postalCode;
     const address1 = order?.address?.address1;
     const address2 = order?.address?.address2;
+    let deletedFlag = false;
+    if (order?.deletedAt && !order?.deletedAt?.startsWith('1')) {
+      deletedFlag = true;
+    }
+    let paidFlag = false;
+    if (order?.paid && !order?.paid?.startsWith('1')) {
+      paidFlag = true;
+    }
     return `
     <label class="label infoSection"><h1>주문정보</h1></label>
     <hr/>
@@ -80,15 +98,38 @@ const adminDetail = {
             <div class="field">
                 <label class="label">결제일</label>
                 <p class="control is-expanded">
-                
                 ${
-                  delivered
-                    ? `<input readOnly class="input" type="text" placeholder="결제일" value="${paid}">`
-                    : `<input
+                  (order?.paid?.startsWith('1') &&
+                    (deletedFlag
+                      ? `<input
                       readOnly
-                      class="input paid-button button is-success  is-light"
+                      class="input"
                       type="text"
+                      placeholder="결제일"
+                      value="주문취소"
+                    >`
+                      : `<input
+                      readOnly
+                      id = "${order?._id}"
+                      class="input paid-button button is-success is-light"
+                      type="text"
+                      placeholder="결제일"
                       value="결제처리"
+                    >`)) ||
+                  (order?.delivered &&
+                    `<input
+                    readOnly
+                    class="input"
+                    type="text"
+                    placeholder="결제일"
+                  value="${order.paid}"
+                >`) ||
+                  `<input
+                      readOnly
+                      class="input"
+                      type="text"
+                      placeholder="결제일"
+                      value=""
                     >`
                 }
                 </p>
@@ -97,37 +138,58 @@ const adminDetail = {
                 <label class="label">배달일</label>
                 <p class="control is-expanded">
                 ${
-                  delivered
-                    ? `<input
+                  (order?.delivered?.startsWith('1') &&
+                    (deletedFlag
+                      ? `<input
                       readOnly
                       class="input"
                       type="text"
-                      placeholder="배달일"
-                      value="${delivered}"
+                      placeholder="배송일"
+                      value="주문취소"
                     >`
-                    : `<input
+                      : `<input
+                      readOnly
+                      id = "${order?._id}"
+                      class="${paidFlag} input delivered-button button is-info is-light"
+                      type="text"
+                      placeholder="배송일"
+                      value="배송처리"
+                    >`)) ||
+                  (order?.delivered &&
+                    `<input
                     readOnly
-                    class="input delivered-button button is-info is-light"
+                    class="input"
                     type="text"
-                    placeholder="배달일"
-                    value="배달처리"
-                  >`
+                    placeholder="배송일"
+                  value="${order.delivered}"
+                >`) ||
+                  `<input
+                      readOnly
+                      class="input"
+                      type="text"
+                      placeholder="배송일"
+                      value=""
+                    >`
                 }
                 </p>
             </div>
             <div class="field">
                 <label class="label">주문취소</label>
                 <p class="control is-expanded">
-                
                 ${
-                  delivered
-                    ? `<input readOnly class="input" type="text" placeholder="주문취소" value="${deletedAt}">`
-                    : `<input
-                      readOnly
-                      class="input deletedAt-button is-danger button is-light"
-                      type="text"
-                      value="주문취소"
-                    >`
+                  (order?.deletedAt?.startsWith('1') &&
+                    `
+                    <input
+                    readOnly
+                    id = "${order?._id}"
+                    class="input deletedAt-button is-danger button is-light"
+                    type="text"
+                    value="주문취소"
+                  >
+                  `) ||
+                  (order?.deletedAt &&
+                    `<input readOnly class="input" type="text" placeholder="주문취소" value="${order.deletedAt}">`) ||
+                  `<input readOnly class="input" type="text" placeholder="주문취소" value="">`
                 }
                 </p>
             </div>

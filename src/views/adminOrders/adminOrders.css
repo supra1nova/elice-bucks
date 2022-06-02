@@ -112,17 +112,27 @@ table {
   border-top: 1px solid #a0a0a0;
   border-collapse: collapse;
   table-layout: fixed;
+   text-align: center;
+   
 }
 th, td {
   border-bottom: 1px solid #a0a0a0;
   padding: 10px;
   text-align: center;
   overflow:hidden;	text-overflow: ellipsis;	
+  
+}
+.content table td {
+  vertical-align: middle;
 }
 
 thead tr {
   background-color: #e3ece5;
   color: #ffffff;
+  
+}
+tbody tr.deletedFlag {
+  background-image: linear-gradient(to bottom right,  transparent calc(50% - 1px), #88A394, transparent calc(50% + 1px)); 
 }
 .tr-action{
   /*text-align: center;

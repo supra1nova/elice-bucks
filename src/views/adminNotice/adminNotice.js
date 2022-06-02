@@ -42,14 +42,18 @@ async function addAllElements() {
   const pageBtn = document.getElementById(`pagination${notices.page}`);
   pageBtn.classList.add('activePagination');
   //////////
-
+  //url처리
+  let queryParams = new URLSearchParams(window.location.search);
+  window.onpopstate = function (event) {
+    history.go();
+  };
   //공지사항 생성
   document
     .getElementById('create-product-button')
     .addEventListener('click', async () => {
-      //const result = await createProduct(categoriesdatas[0]);
-      //console.log(result);
-      //window.location.href = `/adminProducts`;
+      queryParams.set('create', `notice`);
+      history.pushState(null, null, '?' + queryParams.toString());
+
       const author = document
         .getElementById('userName')
         .innerText.split(' ')[0];
@@ -68,6 +72,8 @@ async function addAllElements() {
   );
   Array.from(productEditButtons).forEach((button) => {
     button.addEventListener('click', async () => {
+      queryParams.set('detail', `${button.id}`);
+      history.pushState(null, null, '?' + queryParams.toString());
       const result = notices.posts[button.id];
       console.log(result);
       dashboard_content.innerHTML = noticesDetail.render(result, true);

@@ -68,7 +68,7 @@ const adminContent = {
     </div>
     <div class="tile">
         <div class="tile is-child box tileContent">
-          <p class="subtitle">총 매출</p>
+          <p class="subtitle">제품별 판매현황</p>
           <div class="titleContent">
             <canvas id="myChart" width="400" height="400"></canvas>
           </div>

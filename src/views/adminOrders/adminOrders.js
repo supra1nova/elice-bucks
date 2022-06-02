@@ -38,7 +38,7 @@ async function addAllElements() {
   Array.from(productEditButtons).forEach((button) => {
     button.addEventListener('click', async () => {
       dashboard_content.innerHTML = adminDetail.render(datas.posts[button.id]);
-      await adminDetail.componentDidMount();
+      await adminDetail.componentDidMount(datas.posts[button.id]);
       queryParams.set('detail', `${button.id}`);
       history.pushState(null, null, '?' + queryParams.toString());
 

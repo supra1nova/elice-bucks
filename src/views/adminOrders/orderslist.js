@@ -5,24 +5,37 @@ const orderslist = {
     const paidButton = document.getElementsByClassName('paid-button');
     Array.from(paidButton).forEach((button) => {
       button.addEventListener('click', async () => {
-        //await setPaid(button.id);
-        await setPaid('6296eb01e09e915f852d2fb5');
+        if (!confirm('결제처리 하시겠습니까?')) {
+          return;
+        }
+        await setPaid(button.id);
+        //await setPaid('6296e9d8e09e915f852d2fb3');
       });
     });
     //배송처리
     const deliveredButton = document.getElementsByClassName('delivered-button');
     Array.from(deliveredButton).forEach((button) => {
       button.addEventListener('click', async () => {
-        //await setDelivered(button.id);
-        await setDelivered('6296eb01e09e915f852d2fb5');
+        if (button.classList.contains('false')) {
+          alert('먼저 결제처리 해주세요');
+          return;
+        }
+        if (!confirm('배송처리 하시겠습니까?')) {
+          return;
+        }
+        await setDelivered(button.id);
+        //await setDelivered('6296e9d8e09e915f852d2fb3');
       });
     });
     //주문 취소 처리
     const deletedAtButton = document.getElementsByClassName('deletedAt-button');
     Array.from(deletedAtButton).forEach((button) => {
       button.addEventListener('click', async () => {
-        //await setDeletedAt(button.id);
-        await setDeletedAt('6296eb01e09e915f852d2fb5');
+        if (!confirm('정말로 삭제하시겠습니까?')) {
+          return;
+        }
+        await setDeletedAt(button.id);
+        //await setDeletedAt('6296e9d8e09e915f852d2fb3');
       });
     });
   },
@@ -54,28 +67,47 @@ const orderslist = {
           ${orders
             .map((oneOrder, index) => {
               const order = oneOrder.orderId;
+              let deletedFlag = false;
+              if (order?.deletedAt && !order?.deletedAt?.startsWith('1')) {
+                deletedFlag = true;
+              }
+              let paidFlag = false;
+              if (order?.paid && !order?.paid?.startsWith('1')) {
+                paidFlag = true;
+              }
               return `
-                <tr>
+                <tr class="${deletedFlag && 'deletedFlag'}">
                   <td class="productImage1">${order?.userId || ''}</td>
                   <td>${order?.totalPrice || ''}</td>
                   <td>${order?.createdAt || ''}</td>
                   <td>${
+                    (order?.paid?.startsWith('1') &&
+                      (deletedFlag
+                        ? '주문취소'
+                        : `
+                      <button id="${order?._id}" class="paid-button button is-success  is-light">결제처리</button>
+                    `)) ||
                     order?.paid ||
-                    `
-                  <button id="${order?._id}" class="paid-button button is-success  is-light">결제처리</button>
-                  `
-                  }</td>
+                    ''
+                  }
+                  </td>
                   <td>${
+                    (order?.delivered?.startsWith('1') &&
+                      (deletedFlag
+                        ? '주문취소'
+                        : `
+                      <button id="${order?._id}" class="${paidFlag} delivered-button button is-info   is-light">배송처리</button>
+                    `)) ||
                     order?.delivered ||
-                    `
-                  <button id="${order?._id}" class="delivered-button button is-info   is-light">배송처리</button>
-                  `
+                    ''
                   }</td>
                   <td>${
+                    (order?.deletedAt?.startsWith('1') &&
+                      `
+                    <button id="${order?._id}" class="deletedAt-button is-danger button is-light">주문취소</button>
+                    `) ||
                     order?.deletedAt ||
-                    `
-                  <button id="${order?._id}" class="deletedAt-button is-danger button is-light">주문취소</button>
-                  `
+                    ''
                   }</td>
                   <td>${order?.updatedAt || ''}</td>
                   <td>
