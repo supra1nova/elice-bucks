@@ -108,6 +108,7 @@ async function setUserOrders(orders) {
     <ul class="main-menu column is-1 orderStatus">
         <li class="item">
           <div class="item__name">배송정보</div>
+          <div>
           <div class="item__contents">
             <div class="contents__menu container orders-container box">
               <ul class="inner">
@@ -133,6 +134,7 @@ async function setUserOrders(orders) {
                 </li>
               </ul>
             </div>
+          </div>
           </div>
         </li>
       </div>
