@@ -12,25 +12,55 @@ export class OrderItemModel {
 
   // 2. order-items 전부 불러오기 (전체 유저의 주문목록아이템 불러오기)
   async findAll() {
-    const orderItemlist = await OrderItem.find({}).populate('orderId').populate({path: 'productsId', populate:{path:'productId'}});
+    const orderItemlist = await OrderItem
+            .find({})
+            .populate('orderId')
+            .populate({
+              path: 'productsId', 
+              populate:{
+                path:'productId'
+              }
+            });
     return orderItemlist;
   }
 
   // 3. 특정 주문 목록의 물품 내역 불러오기
   async findByOrderId(orderId) {
-    const orderItem = await OrderItem.find({ orderId : new Types.ObjectId(orderId) }).populate({path: 'productsId', populate:{path:'productId'}});
+    const orderItem = await OrderItem
+            .find({ orderId : new Types.ObjectId(orderId) })
+            .populate({
+              path: 'productsId', 
+              populate:{
+                path:'productId'
+              }
+            });
     return orderItem;
   }
 
   // 4. 특정 제품의 주문 목록 불러오기
   async findByProductId(productId){
-    const orderItems = await OrderItem.find({ productId : new Types.ObjectId(productId) }).populate({path: 'productsId', populate:{path:'productId'}});
+    const orderItems = await OrderItem
+            .find({ productId : new Types.ObjectId(productId) })
+            .populate({
+              path: 'productsId', 
+              populate:{
+                path:'productId'
+              }
+            });
     return orderItems;
   }
 
   // 4-1. 특정 제품의 주문 횟수 불러오기 
   async findQtyByProductId(productId){
-    const orderItemsQty = await OrderItem.find({ productId : new Types.ObjectId(productId) }).populate({path: 'productsId', populate:{path:'productId', select: {productQty:1}}}); 
+    const orderItemsQty = await OrderItem
+            .find({ productId : new Types.ObjectId(productId) })
+            .populate({
+              path: 'productsId', 
+              populate:{
+                path:'productId', 
+                select: { productQty : 1 }
+              }
+            }); 
     return orderItemsQty;
   }
 

@@ -19,11 +19,8 @@ class OrderItemService {
 
   // 2-2. 제품별 목록개수 반환
   async getSameProductId(productId) {
-    const products = await this.orderItemModel.findQtyByProductId(productId);
-    console.log('******',products);
-    const productsNum = products.productId;
-    console.log('***------***',productsNum);
-    return productsNum;
+    const products = await this.orderItemModel.findByProductId(productId);
+    return products;
   }
 
   async getAllProducts() {
