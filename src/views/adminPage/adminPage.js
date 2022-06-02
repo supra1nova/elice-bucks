@@ -65,7 +65,15 @@ const adminContent = {
         </div>
       </div>
     </div>
-
+    <div class="tile">
+        <div class="tile is-child box tileContent">
+          <p class="subtitle">총 매출</p>
+          <div class="titleContent">
+            <p class="title">${addCommas(totalSale)}</p>
+            <i class="title title-icon fa-solid fa-won-sign"></i>
+          </div>
+        </div>
+      </div>
     `;
   },
 };

@@ -124,12 +124,6 @@ thead tr {
   background-color: #e3ece5;
   color: #ffffff;
 }
-tbody tr:nth-child(2n) {
-
-}
-tbody tr:nth-child(2n+1) {
-  background-color: #f9fffb;
-}
 .tr-action{
   /*text-align: center;
   width:6.5rem;*/
