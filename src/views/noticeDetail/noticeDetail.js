@@ -26,7 +26,7 @@ async function insertNoticeDetail() {
   const notice = await res.json();
   
   const title = notice.title;
-  const timestamps = notice.timestamps;
+  const time = Date(notice.timestamps).split(' ', 4).join(' ');
   const content = notice.content;
   const author = notice.author;
 
@@ -34,13 +34,14 @@ async function insertNoticeDetail() {
     'beforeend',
     ` 
       <th class="title">${title}</th>
+      <th class="time">${time}</th>
     `
   );
   
   noticeDetail.insertAdjacentHTML(
     'beforeend',
     ` 
-      <td class="content">
+      <td class="content" colspan="2">
         ${content}
       </td>
     `
