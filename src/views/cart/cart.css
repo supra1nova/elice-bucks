@@ -24,72 +24,73 @@
 
 /* 상단바 */
 .navbar {
-	width: 100%;
-	padding: 20px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .navbar a {
-	margin: 0 10px;
-	font-family: 'Noto Sans KR', sans-serif;
-	color: black;
-	text-decoration: none;
-	font-size: 0.8rem;
+  margin: 0 10px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: black;
+  text-decoration: none;
+  font-size: 0.8rem;
 }
 /* navBar 수직 정렬 안맞음 기본 CSS 제거 */
 .mt-3 {
-	margin-top: 0 !important;;
+  margin-top: 0 !important;
 }
 /* 로그인 부분 정렬 수정 */
 .breadcrumb ul {
-	justify-content: center;
-	align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 /* 로그인 메뉴의 맨 앞의 요소만 살짝 정렬 안 맞는 것을 막기 위해 */
 .breadcrumb li:first-child:before {
-	color: rgba(255,255,255,0);
-	content: "\0002f";
+  color: rgba(255, 255, 255, 0);
+  content: '\0002f';
 }
 /* 로그인 메뉴의 맨 앞 요소만 왼쪽 padding 제외한 거 무효화  */
 .breadcrumb li:first-child a {
-	padding-left: 9.6px;
+  padding-left: 9.6px;
 }
 /* 회원 드롭다운 메뉴 정렬 수정*/
 .breadcrumb a {
-	justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 /* 로그인 메뉴 수평 유지 */
 @media screen and (max-width: 1023px) {
-	.navbar-brand {
-		position: relative;
-	}
-	.navbar-menu {
-		display: block;
-		box-shadow: none;
-		/* 커피 메뉴와 정렬을 맞춤 */
-		padding-left: 0.5rem;
+  .navbar-brand {
+    position: relative;
+  }
+  .navbar-menu {
+    display: block;
+    box-shadow: none;
+    /* 커피 메뉴와 정렬을 맞춤 */
+    padding-left: 0.5rem;
     padding-right: 0.5rem;
-		position: absolute;
-		top: 0;
-		right: 0;
-	}
-	.breadcrumb ol, .breadcrumb ul {
-		align-items: center;
-	}
-	.breadcrumb li+li::before {
-    content:none;
-	}
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .breadcrumb ol,
+  .breadcrumb ul {
+    align-items: center;
+  }
+  .breadcrumb li + li::before {
+    content: none;
+  }
 }
 
 /* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
 @media screen and (max-width: 479px) {
-	.breadcrumb ol, .breadcrumb ul {
-		flex-direction: column;
-	}
+  .breadcrumb ol,
+  .breadcrumb ul {
+    flex-direction: column;
+  }
 }
-
 
 /* 장바구니 */
 /* Basic styling */
@@ -149,7 +150,7 @@
   margin-left: 3rem;
 }
 
-.titPage {
+.orderitemPage {
   width: 100%;
   display: flex;
   align-items: center;
@@ -157,7 +158,7 @@
   border-bottom: 1px solid black;
 }
 
-.titPage .tit {
+.orderitemPage .orderItems {
   font-size: 40px;
   margin: 0px auto;
 }

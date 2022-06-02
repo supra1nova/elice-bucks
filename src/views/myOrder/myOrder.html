@@ -29,8 +29,10 @@
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="myOrder.css" />
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+      rel="stylesheet"
+    />
 
     <script src="myOrder.js" type="module" defer></script>
   </head>
@@ -41,13 +43,15 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container mt-3">
         <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-                <img src="/coffee-beans.png" width="30" height="30" />
-            </a>
+          <a class="navbar-item" href="/">
+            <img src="/coffee-beans.png" width="30" height="30" />
+          </a>
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="/product/?page=1&perPage=12">커피 둘러보기</a>
+          <a class="navbar-link" href="/product/?page=1&perPage=12"
+            >커피 둘러보기</a
+          >
 
           <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
@@ -59,10 +63,14 @@
         <div class="navbar-item notice">
           <a href="/notice/?page=1&perPage=10">공지사항</a>
         </div>
-        
+
         <!-- 로그인 상태에 따른 로그인 메뉴 -->
         <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-end breadcrumb my-auto" id="headerNavbar" aria-label="breadcrumbs">
+          <div
+            class="navbar-end breadcrumb my-auto"
+            id="headerNavbar"
+            aria-label="breadcrumbs"
+          >
             <!-- ../components/headerNavbar.js -->
           </div>
         </div>
@@ -70,19 +78,25 @@
     </nav>
 
     <!-- myOrder 폼(Form) -->
-    <div class="holyGrail container mt-3">
-      <div class="holyGrail-body">
-        <main class="holyGrail-content" id="mainContent">
-          <div class="dashboard">
-            <div class="dashboard-content" id = "dashboard-content">
-              <!-- adminPage.js-->
+    <section class="section">
+      <div class="container">
+        <div class="cart-header">
+          <div class="title">
+            <p class="is-size-2">주문 목록</p>
           </div>
-        </main>
-        <nav class="holyGrail-nav">
-          <div id="leftMenuAdmin"></div>
-        </nav>
+        </div>
+        <div class="container orders-container box" id="ordersContainer">
+          <div
+            class="columns notification is-info is-light is-mobile orders-top"
+          >
+            <div class="column is-2">날짜</div>
+            <div class="column is-5">주문정보</div>
+            <div class="column is-2">가격</div>
+            <div class="column is-1">상태</div>
+            <div class="column is-2">신청</div>
+          </div>
+        </div>
       </div>
-    </div>
-
+    </section>
   </body>
 </html>
