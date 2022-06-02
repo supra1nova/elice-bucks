@@ -167,6 +167,7 @@ function paymentInf() {
       let orderlist = ordergetAll.result;
       let totalQty = orderlist.totalQty;
       let totalPrice = orderlist.totalPrice;
+      let totalPricefee = Number(totalPrice) + 3000;
       const paymentContent = `<div class="box order-summary">
                             <div class="header">
                               <p>결제정보</p>
@@ -193,9 +194,7 @@ function paymentInf() {
                             </div>
                             <div class="total">
                               <p class="total-label">결제금액</p>
-                              <p class="total-price" id="orderTotal">${
-                                Number(totalPrice) + 3000
-                              } 원</p>
+                              <p class="total-price" id="orderTotal">${totalPricefee} 원</p>
                             </div>
                             <div class="purchase">
                               <button class="button is-info" id="orderButton">
