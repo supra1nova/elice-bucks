@@ -7,10 +7,6 @@ const headerNavbar1 = document.querySelector('#headerNavbar');
 const noticeContainer = document.querySelector('.noticeContainer');
 const paginationList = document.querySelector('.pagination-list');
 
-// if ( window.location == '/notice' ) {
-//   window.location.href='/notice/?page=1&&perPage=10';
-// }
-
 addAllElements();
 insertCategoryList();
 insertNoticeList();
