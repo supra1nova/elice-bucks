@@ -32,16 +32,15 @@ async function addAllElements() {
     totalSale
   );
   const productsQty = await getProductsQty();
-  console.log(productsQty);
   const labels = productsQty.map((d) => d[0]);
   const counts = productsQty.map((d) => d[1]);
   //let labels = ['January', 'February', 'March', 'April', 'May', 'June'];
-
+  counts.push(Math.max(...counts) + 1);
   const data = {
     labels: labels,
     datasets: [
       {
-        label: 'My First dataset',
+        label: '제품들',
         backgroundColor: 'rgb(136, 163, 148)',
         borderColor: 'rgb(255, 99, 132)',
         data: counts,
