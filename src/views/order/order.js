@@ -17,7 +17,7 @@ const postalCodeInput = document.querySelector('#postalCode');
 const searchAddressButton = document.querySelector('#searchAddressButton');
 const address1Input = document.querySelector('#address1');
 const address2Input = document.querySelector('#address2');
-
+const regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
 userdata();
 let userId = '';
 const setUserId = (_id) => {
@@ -87,6 +87,11 @@ async function doCheckout() {
   if (!receiverName || !receiverPhoneNumber || !postalCode || !address2) {
     return alert('배송지 정보를 모두 입력해 주세요.');
   }
+
+  if (regPhone.test(receiverPhoneNumber) === false) {
+    return alert('전화번호 형식을 확인해주세요.');
+  }
+
   let onRequest = indexedDB.open('cart', 1);
   onRequest.onsuccess = () => {
     const database = onRequest.result;
@@ -98,6 +103,8 @@ async function doCheckout() {
       let orderindexedDB = orderget.result;
       let data = {
         ...orderindexedDB,
+        receiverName: receiverName,
+        receiverPhoneNumber: receiverPhoneNumber,
         address: { postalCode, address1, address2 },
         userId,
       };
@@ -114,7 +121,7 @@ async function doCheckout() {
           .objectStore('carts');
         let clear = carts.clear();
         clear.onsuccess = () => {
-          location.pathname = '/';
+          location.pathname = '/myOrder';
         };
       } else {
         alert('주문에 실패하였습니다...');
@@ -160,6 +167,7 @@ function paymentInf() {
       let orderlist = ordergetAll.result;
       let totalQty = orderlist.totalQty;
       let totalPrice = orderlist.totalPrice;
+      let totalPricefee = Number(totalPrice) + 3000;
       const paymentContent = `<div class="box order-summary">
                             <div class="header">
                               <p>결제정보</p>
@@ -186,9 +194,7 @@ function paymentInf() {
                             </div>
                             <div class="total">
                               <p class="total-label">결제금액</p>
-                              <p class="total-price" id="orderTotal">${
-                                Number(totalPrice) + 3000
-                              } 원</p>
+                              <p class="total-price" id="orderTotal">${totalPricefee} 원</p>
                             </div>
                             <div class="purchase">
                               <button class="button is-info" id="orderButton">
