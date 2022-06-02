@@ -32,6 +32,7 @@ async function addAllElements() {
     orderTotalNum,
     totalSale
   );
+  const myChart = new Chart(document.getElementById('myChart'), config);
 }
 
 const adminContent = {
@@ -65,7 +66,14 @@ const adminContent = {
         </div>
       </div>
     </div>
-
+    <div class="tile">
+        <div class="tile is-child box tileContent">
+          <p class="subtitle">제품별 판매현황</p>
+          <div class="titleContent">
+            <canvas id="myChart" width="400" height="400"></canvas>
+          </div>
+        </div>
+      </div>
     `;
   },
 };
@@ -101,3 +109,29 @@ async function getTotalSale() {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
+
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'My First dataset',
+      backgroundColor: 'rgb(136, 163, 148)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+    },
+  ],
+};
+
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+};

@@ -33,33 +33,27 @@ async function addAllElements() {
   //페이지네이션
   const totalPage = datas.totalPage;
   for (let i = 1; i <= totalPage; i++) {
-    document.querySelector('.pagination-list').insertAdjacentHTML(
-      'beforeend',
-      `${
-        datas.page === i
-          ? `<li>
-            <a
-              class="pagination-link activePagination"
-              href="?page=${i}&perPage=10"
-            >
-              ${i}
-            </a>
-          </li>`
-          : `<li>
-            <a class="pagination-link" href="?page=${i}&perPage=10">
-              ${i}
-            </a>
-          </li>`
-      }`
-    );
+    document
+      .querySelector('.pagination-list')
+      .insertAdjacentHTML(
+        'beforeend',
+        `<li><a class="pagination-link" id="pagination${i}" href="?page=${i}&perPage=10">${i}</a></li>`
+      );
   }
+  // 현재 페이지에 해당하는 페이징 버튼 활성화
+  const pageBtn = document.getElementById(`pagination${datas.page}`);
+  pageBtn.classList.add('activePagination');
+  let queryParams = new URLSearchParams(window.location.search);
+  window.onpopstate = function (event) {
+    history.go();
+  };
   //제품생성
   document
     .getElementById('create-product-button')
     .addEventListener('click', async () => {
-      //const result = await createProduct(categoriesdatas[0]);
-      //console.log(result);
-      //window.location.href = `/adminProducts`;
+      queryParams.set('product', `create`);
+      history.pushState(null, null, '?' + queryParams.toString());
+
       const data = {
         name: `수정해주세요${Date.now()}`,
         price: 0,
@@ -73,7 +67,7 @@ async function addAllElements() {
       dashboard_content.innerHTML = productCreate.render(data, categoriesdatas);
       await productCreate.componentDidMount(data.category);
       const cancleButton = document.getElementById('cancleButton');
-      cancleButton.addEventListener('click', async () => {
+      cancleButton.addEventListener('click', () => {
         window.location.href = `/adminProducts`;
       });
     });
@@ -84,19 +78,24 @@ async function addAllElements() {
   );
   Array.from(productEditButtons).forEach((button) => {
     button.addEventListener('click', async () => {
-      const result = await getProduct(button.id);
-      console.log(result);
-      dashboard_content.innerHTML = ProductEdit.render(result, categoriesdatas);
-      await ProductEdit.componentDidMount(result._id, result.category);
+      queryParams.set('detail', `${button.id}`);
+      history.pushState(null, null, '?' + queryParams.toString());
+      dashboard_content.innerHTML = ProductEdit.render(
+        datas.posts[button.id],
+        categoriesdatas
+      );
+      await ProductEdit.componentDidMount(
+        datas.posts[button.id]._id,
+        datas.posts[button.id].category
+      );
       const cancleButton = document.getElementById('cancleButton');
-      cancleButton.addEventListener('click', async () => {
-        //addAllElements();
+      cancleButton.addEventListener('click', () => {
         window.location.href = `/adminProducts`;
       });
     });
   });
-  //제품 수정 취소
 
+  //제품 수정 취소
   //제품 삭제
   const productDelButtons = document.getElementsByClassName(
     'product-delete-button'
@@ -114,7 +113,11 @@ async function addAllElements() {
   document
     .getElementById('create-category-button')
     .addEventListener('click', async () => {
-      const result = await createCategory();
+      const value = prompt('카테고리명을 입력해주세요');
+      if (!value) {
+        return;
+      }
+      const result = await createCategory(value);
       console.log(result);
       window.location.href = `/adminProducts`;
     });
@@ -200,11 +203,11 @@ async function getProduct(id) {
   }
 }
 
-async function createCategory() {
+async function createCategory(value) {
   // 카테고리생성 api 요청
   try {
     const data = {
-      name: `수정해주세요${Date.now()}`,
+      name: `${value}`,
     };
     const result = await Api.post('/api/category/register', data);
 

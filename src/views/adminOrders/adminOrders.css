@@ -125,27 +125,31 @@ table {
   border-top: 1px solid #a0a0a0;
   border-collapse: collapse;
   table-layout: fixed;
+   text-align: center;
+   
 }
 th, td {
   border-bottom: 1px solid #a0a0a0;
   padding: 10px;
   text-align: center;
   overflow:hidden;	text-overflow: ellipsis;	
+  
+}
+.content table td {
+  vertical-align: middle;
 }
 
 thead tr {
   background-color: #e3ece5;
   color: #ffffff;
+  
 }
-tbody tr:nth-child(2n) {
-
-}
-tbody tr:nth-child(2n+1) {
-  background-color: #f9fffb;
+tbody tr.deletedFlag {
+  background-image: linear-gradient(to bottom right,  transparent calc(50% - 1px), #88A394, transparent calc(50% + 1px)); 
 }
 .tr-action{
-  text-align: center;
-  width:10rem;
+  /*text-align: center;
+  width:6.5rem;*/
 }
 
 /* 로딩 */
@@ -205,4 +209,23 @@ tbody tr:nth-child(2n+1) {
     font-family: 'Do Hyeon', sans-serif;
     color: #2D4039;
     margin-bottom: -1rem;
+}
+
+/* 페이지네이션 */
+.pagination-link:hover {
+	background-color: #2D4039;
+	color: white;
+}
+.activePagination {
+  background-color: #2D4039;
+  color: white;
+}
+
+/* readonly */
+input:read-only, textarea:read-only {
+  background-color: rgb(252, 252, 252);
+}
+.button {
+  padding-left: 11px;
+  padding-right:11px;
 }
