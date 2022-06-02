@@ -24,10 +24,23 @@ li {
 	text-decoration: none;
 	font-size: 0.8rem;
 }
-
 /* navBar 수직 정렬 안맞음 기본 CSS 제거 */
 .mt-3 {
 	margin-top: 0 !important;;
+}
+/* 로그인 부분 정렬 수정 */
+.breadcrumb ul {
+	justify-content: center;
+	align-items: center;
+}
+/* 로그인 메뉴의 맨 앞의 요소만 살짝 정렬 안 맞는 것을 막기 위해 */
+.breadcrumb li:first-child:before {
+	color: rgba(255,255,255,0);
+	content: "\0002f";
+}
+/* 로그인 메뉴의 맨 앞 요소만 왼쪽 padding 제외한 거 무효화  */
+.breadcrumb li:first-child a {
+	padding-left: 9.6px;
 }
 /* 회원 드롭다운 메뉴 정렬 수정*/
 .breadcrumb a {

@@ -9,6 +9,7 @@ class ProductService {
   }
   
   // 1. 신규 제품 등록 - 주의!! postman에서 테스트시, 수동으로 카테고리 생성 후 _id와 name 입력 필요
+  //  프론트에서 카테고리 아이디와 이름을 별도로 전달해주고 있으므로!!
   async addProduct(productInfo) {
     const { name, price, category, description, image } = productInfo;
     const { _id: categoryId, name: categoryName  } = category;
