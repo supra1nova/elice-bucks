@@ -163,7 +163,7 @@ orderRouter.get(
       for (let i = 0; i < allProducts.length; i++) {
         const product = allProducts[i]._id;
         const orderProduct = await orderItemService.getSameProductId(product);
-        setProduct.push(product);
+        setProduct.push(allProducts[i].name);
         setProduct.push(orderProduct);
         Products.push(setProduct);
         setProduct = [];
