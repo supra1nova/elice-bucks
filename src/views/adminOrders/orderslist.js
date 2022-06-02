@@ -56,7 +56,7 @@ const orderslist = {
               <th>총 가격</th>
               <th>주문일</th>
               <th>결제일</th>
-              <th>배달일</th>
+              <th>배송일</th>
               <th>주문취소</th>
               <th>수정일</th>
               <th class="tr-action"></th>

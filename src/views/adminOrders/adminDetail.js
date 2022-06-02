@@ -37,22 +37,20 @@ const adminDetail = {
     });
     const goBackButton = document.getElementById('goBack');
     goBackButton.addEventListener('click', () => {
-      window.location.href = `/adminOrders`;
+      history.go();
     });
   },
   render: (oneOrder) => {
     const order = oneOrder.orderId;
-    const user = order?.userId;
-    const totalPrice = order?.totalPrice;
-    const createdAt = order?.createdAt;
-    const paid = order?.paid;
-    const delivered = order?.delivered;
-    const deletedAt = order?.deletedAt;
-    const updatedAt = order?.updatedAt;
-    const productsInfos = oneOrder.productsId; // schema 바뀌어서 여기 products 로 바꾸셔야 할 듯 합니다..!(zinger)
-    const postalCode = order?.address?.postalCode;
-    const address1 = order?.address?.address1;
-    const address2 = order?.address?.address2;
+    const user = order?.userId || '';
+    const totalPrice = order?.totalPrice || '';
+    const createdAt = order?.createdAt || '';
+    const updatedAt = order?.updatedAt || '';
+    const productsInfos = oneOrder.products || ''; // schema 바뀌어서 여기 products 로 바꾸셔야 할 듯 합니다..!(zinger)
+    const postalCode = order?.address?.postalCode || '';
+    const address1 = order?.address?.address1 || '';
+    const address2 = order?.address?.address2 || '';
+
     let deletedFlag = false;
     if (order?.deletedAt && !order?.deletedAt?.startsWith('1')) {
       deletedFlag = true;
@@ -69,25 +67,27 @@ const adminDetail = {
             <div class="field">
                 <label class="label">유저 아이디</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${user}">
+                <input readOnly class="input" type="text" placeholder="유저 아이디" value="${
+                  user || ''
+                }">
                 </p>
             </div>
             <div class="field">
                 <label class="label">유저 이름</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${user}">
+                <input readOnly class="input" type="text" placeholder="유저 이름" value="${user}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">총 가격</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="가격" value="${totalPrice}">
+                <input readOnly class="input" type="text" placeholder="총 가격" value="${totalPrice}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">주문일</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${createdAt}">
+                <input readOnly class="input" type="text" placeholder="주문일" value="${createdAt}">
                 </p>
             </div>
         </div>
@@ -134,7 +134,7 @@ const adminDetail = {
                 </p>
             </div>
             <div class="field">
-                <label class="label">배달일</label>
+                <label class="label">배송일</label>
                 <p class="control is-expanded">
                 ${
                   (order?.delivered?.startsWith('1') &&
@@ -207,19 +207,19 @@ const adminDetail = {
             <div class="field">
                 <label class="label">우편번호</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${postalCode}">
+                <input readOnly class="input" type="text" placeholder="우편번호" value="${postalCode}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">주소 1</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${address1}">
+                <input readOnly class="input" type="text" placeholder="주소 1" value="${address1}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">주소 2</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="가격" value="${address2}">
+                <input readOnly class="input" type="text" placeholder="주소 2" value="${address2}">
                 </p>
             </div>
         </div>
@@ -235,7 +235,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">${index + 1}번 제품 이름</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="결제일" value="${
+              <input readOnly class="input" type="text" placeholder="제품 이름" value="${
                 product.name
               }">
               </p>
@@ -243,7 +243,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">1개 가격</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="배달일" value="${
+              <input readOnly class="input" type="text" placeholder="1개 가격" value="${
                 product.price
               }">
               </p>
@@ -251,7 +251,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">재고</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="수정일" value="${
+              <input readOnly class="input" type="text" placeholder="재고" value="${
                 product.stock
               }">
               </p>
@@ -271,7 +271,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">주문수량</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="배달일" value="${
+              <input readOnly class="input" type="text" placeholder="주문수량" value="${
                 productInfo.productQty
               }">
               </p>
@@ -279,7 +279,7 @@ const adminDetail = {
           <div class="field">
               <label class="label">주문금액</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="주문취소" value="${
+              <input readOnly class="input" type="text" placeholder="주문금액" value="${
                 productInfo.productQty * productInfo.productPrice
               }">
               </p>

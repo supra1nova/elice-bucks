@@ -69,7 +69,7 @@ async function addAllElements() {
       await productCreate.componentDidMount(data.category);
       const cancleButton = document.getElementById('cancleButton');
       cancleButton.addEventListener('click', () => {
-        window.location.href = `/adminProducts`;
+        history.back();
       });
     });
 
@@ -91,7 +91,7 @@ async function addAllElements() {
       );
       const cancleButton = document.getElementById('cancleButton');
       cancleButton.addEventListener('click', () => {
-        window.location.href = `/adminProducts`;
+        history.back();
       });
     });
   });
