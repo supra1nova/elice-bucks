@@ -20,12 +20,10 @@ async function addAllElements() {
 async function insertNoticeDetail() {
   // url에서 id에 해당하는 부분만 가져와서 id 변수에 할당
   const id = location.pathname.replace(/\/notice\/([\d\w]*)\/?/g, '$1');
-  console.log(id);
 
   // '/api/notice/${id}' 에서 상품의 상세 내용을 json으로 받아옴
   const res = await fetch(`/api/notice/${id}`);
   const notice = await res.json();
-  console.log(notice);
   
   const title = notice.title;
   const timestamps = notice.timestamps;
