@@ -11,7 +11,7 @@ a {
 
 /* 상단바 */
 .navbar {
-	width: 100%;
+    width: 100%;;
 	padding: 20px;
 	display: flex;
 	justify-content: space-between;
@@ -57,7 +57,7 @@ a {
 		box-shadow: none;
 		/* 커피 메뉴와 정렬을 맞춤 */
 		padding-left: 0.5rem;
-    padding-right: 0.5rem;
+        padding-right: 0.5rem;
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -80,11 +80,13 @@ a {
 
 /* 제품 상세 */
 #content {
-    padding: 50px;
+    display: flex;
+    align-items: center;
     width: 100%;
     height: 100vh;
+    padding: 50px;
 }
-#container {
+#detailContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -142,7 +144,7 @@ a {
 
 /* 화면이 작아지면 상품 이미지와 상품 설명이 수직으로 나열 */
 @media screen and (max-width: 768px) {
-    #container {
+    #detailContainer {
         display: block;
     }
     #text, #image {
