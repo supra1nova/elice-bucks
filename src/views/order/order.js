@@ -24,15 +24,21 @@ const setUserId = (_id) => {
   userId = _id;
 };
 async function userdata() {
-  const result = await Api.get(`/api/user`);
-  setUserId(result._id);
-  console.log(result);
-  console.log(userId);
-  address1Input.value = result.address ? result.address.address1 : '';
-  address2Input.value = result.address ? result.address.address2 : '';
-  postalCodeInput.value = result.address ? result.address.postalCode : '';
-  receiverPhoneNumberInput.value = result.phoneNumber ? result.phoneNumber : '';
-  receiverNameInput.value = result.fullName;
+  try {
+    const result = await Api.get(`/api/user`);
+    setUserId(result._id);
+    console.log(result);
+    console.log(userId);
+    address1Input.value = result.address ? result.address.address1 : '';
+    address2Input.value = result.address ? result.address.address2 : '';
+    postalCodeInput.value = result.address ? result.address.postalCode : '';
+    receiverPhoneNumberInput.value = result.phoneNumber
+      ? result.phoneNumber
+      : '';
+    receiverNameInput.value = result.fullName;
+  } catch (err) {
+    console.log(err.stack);
+  }
 }
 
 function searchAddress() {
@@ -103,6 +109,13 @@ async function doCheckout() {
 
       if (res) {
         alert('주문에 성공하였습니다!');
+        const carts = database
+          .transaction('carts', 'readwrite')
+          .objectStore('carts');
+        let clear = carts.clear();
+        clear.onsuccess = () => {
+          location.pathname = '/';
+        };
       } else {
         alert('주문에 실패하였습니다...');
       }

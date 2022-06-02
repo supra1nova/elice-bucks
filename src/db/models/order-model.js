@@ -3,7 +3,7 @@ import { OrderSchema } from '../schemas/order-schema';
 
 const Order = model('Order', OrderSchema);
 
-export class OrderModel {  
+export class OrderModel {
   // 주문 목록 만들기 (orders)
   async create(orderList) {
     const makeNewOrder = await Order.create(orderList);
@@ -19,13 +19,13 @@ export class OrderModel {
 
   // orders 에서 해당 유저 값 찾기
   async findById(userId) {
-    const userOrder = await Order.find({ userId : userId}).populate('userId');
+    const userOrder = await Order.find({ userId: userId }).populate('userId');
     return userOrder;
   }
 
   // 여기서의 orderId 는 order schema 에서의 _id 를 의미
-  async findByOrderId(orderId) { 
-    const order = await Order.find({ _id : orderId});
+  async findByOrderId(orderId) {
+    const order = await Order.find({ _id: orderId });
     return order;
   }
 
@@ -36,7 +36,7 @@ export class OrderModel {
     const updatedOrders = await Order.findOneAndUpdate(
       filter,
       toUpdate[0],
-      option,
+      option
     );
     return updatedOrders;
   }
