@@ -37,7 +37,7 @@ const uploadCart = () => {
       }
 
       for (let i = 0; i < indexedDBcarts.length; i++) {
-        let { name, price, image, cnt } = indexedDBcarts[i];
+        let { name, price, image, cnt, _id } = indexedDBcarts[i];
         const cartlist = `
                         <div class="list">
                             <div class="listItem">
@@ -46,10 +46,10 @@ const uploadCart = () => {
                             <span class="ico"></span>
                           </label>
                           <div class="goods">
-                            <a href="#" class="image is-96x96"><img src="${image}"></a>
+                            <a href="/detail/${_id}" class="image is-96x96"><img src="${image}"></a>
                             <div class="itemName">
                               <div class="inner_name">
-                                <a href="#" class="package name">${name}</a>
+                                <a href="/detail/${_id}" class="package name">${name}</a>
                               </div>
                             </div>
                             <div class="price">
@@ -114,7 +114,7 @@ const totalPaymentInf = () => {
           <div class="order-info">
             <div class="info">
               <p>상품수</p>
-              <p id="productsCount">${totalCnt}개</p>
+              <p id="productsCount">${totalCnt} 개</p>
             </div>
             <div class="info">
               <p>상품금액</p>
@@ -122,15 +122,17 @@ const totalPaymentInf = () => {
             </div>
             <div class="info">
               <p>배송비</p>
-              <p id="deliveryFee">3000원</p>
+              <p id="deliveryFee">${totalCnt === 0 ? 0 : 3000} 원</p>
             </div>
           </div>
           <div class="total">
             <p class="total-label">총 결제금액</p>
-            <p class="total-price" id="totalPrice">${totalPrice + 3000} 원</p>
+            <p class="total-price" id="totalPrice">${
+              totalCnt === 0 ? 0 : totalPrice + 3000
+            } 원</p>
           </div>
           <div class="purchase">
-            <a href="#">
+            <a href="javascript:void(0)">
               <button class="button is-info" id="purchaseButton">
               구매하기
               </button>
@@ -300,6 +302,10 @@ function buyBtnEvent() {
       .querySelector('#productsTotal')
       .innerHTML.replace(/[^0-9]/g, '');
     let productsId = [];
+    if (totalCount === '0') {
+      alert('장바구니가 비어있습니다.');
+      return;
+    }
     onRequest.onsuccess = () => {
       const database = onRequest.result;
       // 읽기 전용으로 transaction 적용. (빠름)

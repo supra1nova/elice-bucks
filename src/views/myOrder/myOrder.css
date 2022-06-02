@@ -1,0 +1,264 @@
+/* 상단바 */
+.navbar {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar a {
+  margin: 0 10px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: black;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+/* navBar 수직 정렬 안맞음 기본 CSS 제거 */
+.mt-3 {
+  margin-top: 0 !important;
+}
+/* 로그인 부분 정렬 수정 */
+.breadcrumb ul {
+  justify-content: center;
+  align-items: center;
+}
+/* 로그인 메뉴의 맨 앞의 요소만 살짝 정렬 안 맞는 것을 막기 위해 */
+.breadcrumb li:first-child:before {
+  color: rgba(255, 255, 255, 0);
+  content: '\0002f';
+}
+/* 로그인 메뉴의 맨 앞 요소만 왼쪽 padding 제외한 거 무효화  */
+.breadcrumb li:first-child a {
+  padding-left: 9.6px;
+}
+/* 회원 드롭다운 메뉴 정렬 수정*/
+.breadcrumb a {
+  justify-content: flex-start;
+}
+
+/* 로그인 메뉴 수평 유지 */
+@media screen and (max-width: 1023px) {
+  .navbar-brand {
+    position: relative;
+  }
+  .navbar-menu {
+    display: block;
+    box-shadow: none;
+    /* 커피 메뉴와 정렬을 맞춤 */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .breadcrumb ol,
+  .breadcrumb ul {
+    align-items: center;
+  }
+  .breadcrumb li + li::before {
+    content: none;
+  }
+}
+
+/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
+@media screen and (max-width: 479px) {
+  .breadcrumb ol,
+  .breadcrumb ul {
+    flex-direction: column;
+  }
+}
+
+/* 관리자페이지 */
+.holyGrail,
+.holyGrail-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.holyGrail-nav {
+  order: -1;
+
+  padding-left: 20px;
+}
+.holyGrail-nav li {
+  padding-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  .holyGrail-body {
+    flex-direction: row;
+    flex: 1;
+  }
+  .holyGrail-content {
+    flex: 1;
+  }
+  .holyGrail-nav {
+    /* 12em is the width of the columns */
+    flex: 0 0 12em;
+  }
+}
+
+.dashboard h1 {
+  font-size: 1.5rem;
+  margin: 0.6rem;
+}
+.dashboard-content {
+  padding: 0.2rem;
+}
+.leftMenu a:hover {
+  color: black;
+}
+.leftMenu li.selected a {
+  font-size: large;
+  color: #26ac26;
+}
+.product-list button {
+  padding: 0.4rem;
+}
+button.primary {
+  background-color: #e2ffe9;
+  margin: 3px;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-top: 1px solid #a0a0a0;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+th,
+td {
+  border-bottom: 1px solid #a0a0a0;
+  padding: 10px;
+  text-align: center;
+  overflow: wrap;
+}
+td.productImage1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+thead tr {
+  background-color: #e3ece5;
+  color: #ffffff;
+}
+tbody tr:nth-child(2n) {
+}
+tbody tr:nth-child(2n + 1) {
+  background-color: #f9fffb;
+}
+.tr-action {
+  text-align: center;
+  width: 8rem;
+}
+
+/*  product edit form       */
+.register-user-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.register-user-form-box {
+  max-width: 700px;
+  width: 100%;
+}
+#form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 10px;
+}
+
+.register-user-form-box .input {
+  height: 45px;
+  width: 100%;
+  display: block;
+}
+
+.register-user-form-box .title {
+}
+
+.register-user-form-box .button {
+  font-weight: bold;
+}
+
+.register-user-form-box .input:focus {
+  border-color: #00d1b2;
+  box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
+}
+
+/****************************************/
+/**select 부분*/
+select::-ms-expand {
+  display: none;
+}
+.select {
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 150px;
+  height: 35px;
+  background-size: 20px;
+  padding: 5px 30px 5px 10px;
+  border-radius: 4px;
+  outline: 0 none;
+}
+.select option {
+  background: #00d1b2;
+  color: #fff;
+  padding: 3px 0;
+}
+
+/* 로딩 */
+.overlay {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  background-color: rgba(16, 16, 16, 0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.overlay.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.is-ancestor {
+  padding-top: 1rem;
+}
+
+.tileContent {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+}
+.tileContent .titleContent {
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tileContent .title {
+  vertical-align: middle;
+  margin: 0;
+}
+.tileContent .title-icon {
+  margin-left: 0.5rem;
+}
+h1 {
+  text-align: center;
+  color: #2d4039;
+  font-size: 1em;
+  font-weight: bold;
+}
