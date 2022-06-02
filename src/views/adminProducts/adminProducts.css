@@ -111,6 +111,7 @@
 .leftMenu li.selected a {
   font-size: large;
   color: #26ac26;
+  font-weight:bold;
 }
 .product-list button{
   padding:0.4rem;

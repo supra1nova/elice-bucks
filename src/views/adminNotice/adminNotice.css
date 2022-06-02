@@ -101,6 +101,7 @@
 .dashboard h1{
   font-size:1.5rem;
   margin: 0.6rem;
+  font-weight: bold;
 }
 .dashboard-content{
   padding:0.2rem;
@@ -111,6 +112,7 @@
 .leftMenu li.selected a {
   font-size: large;
   color: #26ac26;
+  font-weight:bold;
 }
 .product-list button{
   padding:0.4rem;
