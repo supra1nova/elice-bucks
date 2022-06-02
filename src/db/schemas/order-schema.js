@@ -27,6 +27,14 @@ const OrderSchema = new Schema(
       type: Number,
       required: true
     },
+    receiverName: {
+      type: String,
+      required: true
+    },
+    receiverPhoneNumber: {
+      type: Number,
+      required: true
+    },
     delivered: {
       type : Date,
       required: true,
