@@ -37,22 +37,19 @@ const adminDetail = {
     });
     const goBackButton = document.getElementById('goBack');
     goBackButton.addEventListener('click', () => {
-      window.location.href = `/adminOrders`;
+      history.go();
     });
   },
   render: (oneOrder) => {
     const order = oneOrder.orderId;
-    const user = order?.userId;
-    const totalPrice = order?.totalPrice;
-    const createdAt = order?.createdAt;
-    const paid = order?.paid;
-    const delivered = order?.delivered;
-    const deletedAt = order?.deletedAt;
-    const updatedAt = order?.updatedAt;
-    const productsInfos = oneOrder.productsId;
-    const postalCode = order?.address?.postalCode;
-    const address1 = order?.address?.address1;
-    const address2 = order?.address?.address2;
+    const user = order?.userId || '';
+    const totalPrice = order?.totalPrice || '';
+    const createdAt = order?.createdAt || '';
+    const updatedAt = order?.updatedAt || '';
+    const productsInfos = oneOrder.productsId || '';
+    const postalCode = order?.address?.postalCode || '';
+    const address1 = order?.address?.address1 || '';
+    const address2 = order?.address?.address2 || '';
     let deletedFlag = false;
     if (order?.deletedAt && !order?.deletedAt?.startsWith('1')) {
       deletedFlag = true;
@@ -69,25 +66,27 @@ const adminDetail = {
             <div class="field">
                 <label class="label">유저 아이디</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${user}">
+                <input readOnly class="input" type="text" placeholder="유저 아이디" value="${
+                  user || ''
+                }">
                 </p>
             </div>
             <div class="field">
                 <label class="label">유저 이름</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${user}">
+                <input readOnly class="input" type="text" placeholder="유저 이름" value="${user}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">총 가격</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="가격" value="${totalPrice}">
+                <input readOnly class="input" type="text" placeholder="총 가격" value="${totalPrice}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">주문일</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="Name" value="${createdAt}">
+                <input readOnly class="input" type="text" placeholder="주문일" value="${createdAt}">
                 </p>
             </div>
         </div>
@@ -134,7 +133,7 @@ const adminDetail = {
                 </p>
             </div>
             <div class="field">
-                <label class="label">배달일</label>
+                <label class="label">배송일</label>
                 <p class="control is-expanded">
                 ${
                   (order?.delivered?.startsWith('1') &&
