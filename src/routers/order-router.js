@@ -41,12 +41,15 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
     }
     const cart = req.body;
     const userId = req.currentUserId;
-    const { address, totalQty, totalPrice, products } = cart;
+    const { address, totalQty, totalPrice, receiverName,
+      receiverPhoneNumber, products } = cart;
     const newOrder = await orderService.addOrderList({
       userId,
       address,
       totalQty,
       totalPrice,
+      receiverName,
+      receiverPhoneNumber,
     });
     const orderId = newOrder._id;
     const newOrderItem = await orderItemService.addOrderItemList({
@@ -152,17 +155,18 @@ orderRouter.get(
 
 // 2-2-3. (admin) 각각의 제품별 판매 개수 반환 --> 왜안됨 ..?
 orderRouter.get(
-  '/admin/productsQty',
-  /*loginRequired,*/
-  /*adminRequired,*/ async function (req, res, next) {
+  '/admin/productsQty', loginRequired, adminRequired, async function (req, res, next) {
     try {
       const allProducts = await productService.getProducts();
       let Products = [];
+      let setProduct = [];
       for (let i = 0; i < allProducts.length; i++) {
         const product = allProducts[i]._id;
         const orderProduct = await orderItemService.getSameProductId(product);
-        console.log(orderProduct);
-        Products.push(orderProduct);
+        setProduct.push(product);
+        setProduct.push(orderProduct);
+        Products.push(setProduct);
+        setProduct = [];
       }
       
       res.status(200).json(Products);
@@ -172,7 +176,7 @@ orderRouter.get(
   }
 );
 
-// 2-2-3-1. product 한개 주문 목록 조회 (2-2-3을 위한 test 근데 안됨 왜..?)
+// 2-2-3-1. product 한개 주문 목록 조회 (2-2-3을 위한 test)
 orderRouter.get(
   '/productsQty/:productId', async function (req, res, next) {
     try {

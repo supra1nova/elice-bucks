@@ -39,20 +39,20 @@ export class OrderItemModel {
     return orderItem;
   }
 
-  //  전체 다 구현이 안됨... 왜... 왜이래 ...
-  // 4. 특정 제품의 주문 목록 불러오기
-  async findByProductId(productId){
-    const orderItems = await OrderItem
-      .find({
-        products,productId : productId
-      })
-      .populate({
-        path: 'products', 
-        populate:{
-          path:'productId'
+  // 4. 특정 제품의 productQty 불러오기
+  async findByProductId(myproductId){
+    const orderItems = await OrderItem.find({});
+    let foundId;
+    let foundQty = 0;
+    for(let i = 0; i < orderItems.length; i++){
+      for (let j =0; j < orderItems[i].products.length; j++){
+        foundId = orderItems[i].products[j].productId;
+        if(foundId.equals(new Types.ObjectId(myproductId))){
+          foundQty += parseInt(orderItems[i].products[j].productQty);
         }
-      }); 
-    return orderItems;
+      }
+    }
+    return foundQty;
   }
 
   // 5-1. 전체 order 조회
