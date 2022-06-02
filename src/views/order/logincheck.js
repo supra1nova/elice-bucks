@@ -6,6 +6,5 @@ const logincheck = () => {
     alert('로그인 이후 사용 가능합니다.');
     location.pathname = '/login';
   }
-  console.log(getUserData());
 };
 export default logincheck;

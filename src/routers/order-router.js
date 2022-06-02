@@ -65,9 +65,14 @@ orderRouter.get('/user/orders', loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
     const order = await orderService.getUserOrder(userId);
-    const orderId = order._id;
-    const products = await orderItemService.getSameOrderId(orderId);
-
+    let products = [];
+    console.log(order.length);
+    for (let i = 0; i< order.length; i++) {
+      let orderId = order[i]._id;
+      let product = await orderItemService.getSameOrderId(orderId);
+      products.push(product);
+    }
+    
     res.status(200).json(products);
   } catch (error) {
     next(error);
@@ -147,14 +152,33 @@ orderRouter.get(
 
 // 2-2-3. (admin) 각각의 제품별 판매 개수 반환 --> 수정중
 orderRouter.get(
-  '/admin/productsQty/:productId',
-  loginRequired,
+  '/admin/productsQty',
+  /*loginRequired,*/
   /*adminRequired,*/ async function (req, res, next) {
     try {
-      //const allProducts = await productService.getProducts();
-      const { productId } = req.params.productId;
-      const orderProduct = await orderItemService.getSameProductId(productId);
-      res.status(200).json(orderProduct);
+      const allProducts = await productService.getProducts();
+      let Products = [];
+      for (let i = 0; i < allProducts.length; i++) {
+        const product = allProducts[i]._id;
+        const orderProduct = await orderItemService.getSameProductId(product);
+        console.log(orderProduct);
+        Products.push(orderProduct);
+      }
+      
+      res.status(200).json(Products);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// 2-2-3-1. product 한개 주문 목록 조회
+orderRouter.get(
+  '/admin/productsQty/:productId', async function (req, res, next) {
+    try {
+      const productId = req.params.productId;
+      const products = await orderItemService.getSameProductId(productId);
+      res.status(200).json(products);
     } catch (error) {
       next(error);
     }
