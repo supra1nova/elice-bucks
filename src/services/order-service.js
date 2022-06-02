@@ -1,5 +1,7 @@
 import { orderModel } from '../db';
-
+const isSameDateAndTime = (date1, date2) => {
+  return date1.getTime() === date2.getTime();
+}
 class OrderService {
   constructor(orderModel) {
     this.orderModel = orderModel;
@@ -7,33 +9,9 @@ class OrderService {
   
   // 1. order-schema 생성
   async addOrderList(orderInfo) {
-    const { userId : userId } = orderInfo;
-
-    // 주문목록에 사용자가 이미 존재한다면 주문 목록을 합쳐준다.
-    let preOrder = await this.orderModel.findById(userId);
-    
-    if(!preOrder) {
-      if(!paid){ // 돈을 아직 안냈다면 주문 목록을 합쳐준다. -> 조건 바꿔야할것 같습니다..! 근데 안에는 안바꾸도록 노력할게요 !
-        let finalQty = 0;
-        let finalPrice = 0;
-        let preQty = preOrder.totalQty;
-        finalQty = preQty + orderInfo.totalQty;
-        let prePrice = preOrder.totalPrice;
-        finalPrice = prePrice + orderInfo.totalPrice;
-
-        preOrder.totalQty = finalQty;
-        preOrder.totalPrice = finalPrice;
-
-        return preOrder;
-      } else{
-        const createdNewOrder = await this.orderModel.create(orderInfo);
-        return createdNewOrder;
-      }
-    }
-    else{ // 돈을 이미 냈거나, 배송이 시작되었거나, 주문이 취소되었을때에는 주문 목록을 만들어준다
-        const createdNewOrder = await this.orderModel.create(orderInfo);
-        return createdNewOrder;
-    }
+    // 주문목록에 사용자가 이미 존재한다면 주문 목록을 합쳐준다. -> 생각해보니까 주문 목록을 합쳐주는일은 없을듯 ..! 주문을 완료 안했으면 다시 장바구니로 돌아가야지 주문목록이 update 될 일은 없을듯
+    const createdNewOrder = await this.orderModel.create(orderInfo);
+    return createdNewOrder;
   }
 
   // 2. 주문목록 전체 조회
@@ -81,23 +59,25 @@ class OrderService {
 
   // 5-1. 해당 유저의 주문목록 취소처리
   async cancelOrder(orderId) {
-    let order = await this.orderModel.findByOrderId(orderId);
-    order.deletedAt = new Date();
-    const cancelOrder = await this.orderModel.update({orderId, order});
+    const orderCancel = await this.orderModel.findByOrderId(orderId);
+    orderCancel[0].deletedAt = new Date();
+    const cancelOrder = await this.orderModel.update(orderCancel);
     return cancelOrder;
   }
 
-  // 5-2. 해당 유저의 delevered update
-  async updateDelivered(orderId, toUpdate) {
-    const delivered = await this.orderModel.update({orderId, toUpdate});
+  // 5-2. 해당 유저의 delivered update
+  async updateDelivered(orderId) {
+    const orderDelivered = await this.orderModel.findByOrderId(orderId);
+    orderDelivered[0].delivered = new Date();
+    const delivered = await this.orderModel.update(orderDelivered);
     return delivered;
   }
 
   // 5-3. 해당 유저의 payment update
   async updatePayment(orderId) {
-    let order = await this.orderModel.findByOrderId(orderId);
-    order.paid = new Date();
-    const paid = await this.orderModel.update({orderId, update: order});
+    const orderPaid = await this.orderModel.findByOrderId(orderId);
+    orderPaid[0].paid = new Date();
+    const paid = await this.orderModel.update(orderPaid);
     return paid;
   }
 }

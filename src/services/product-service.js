@@ -43,36 +43,43 @@ class ProductService {
     return createdNewProduct;
   }
   
+  
+  // 2. 제품 전체 조회 - 페이지네이션에서 이미 조회를 다 하고 있는데 과연 필요 있을지...? -> /zinger/ 제가 씁니다..!
+  async getProducts() {
+    const products = await this.productModel.findAll();
+    return products;
+  }
+  
 
-  // 2. 전체 제품 품목 수(SKU) 조회
+  // 3. 전체 제품 품목 수(SKU) 조회
   async countProducts() {
     const productQty = await this.productModel.countAll();
     return productQty;
   }
 
 
-  // 3. 특정 범위(페이지) 위치한 제품 정보 조회
+  // 4. 특정 범위(페이지) 위치한 제품 정보 조회
   async getRangedProducts(page,perPage) {
     const rangedProductsInfo = await this.productModel.getInRange(page, perPage);
     return rangedProductsInfo;
   }
 
 
-  // 4. ID 이용 단일 품목 조회
+  // 5. ID 이용 단일 품목 조회
   async findProduct(productId) {
     const product = await this.productModel.findById(productId);
     return product;
   }
 
 
-  // 5. 카테고리 아이디별 검색
+  // 6. 카테고리 아이디별 검색
   async findByCategoryId(categoryId) {
     const product = await this.productModel.findByCategory(categoryId);
     return product;
   }
 
 
-  // 6. 제품 정보 수정
+  // 7. 제품 정보 수정
   async setProduct(productId, toUpdate) {
     // 우선 해당 명칭의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
@@ -112,7 +119,7 @@ class ProductService {
   }
 
 
-  // 7. 제품 삭제
+  // 8. 제품 삭제
   async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
