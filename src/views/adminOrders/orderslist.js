@@ -40,7 +40,6 @@ const orderslist = {
     });
   },
   render: (orders) => {
-    console.log(orders);
     return `
     <div class="content">
       <h1 class="tableTitle">주문</h1>

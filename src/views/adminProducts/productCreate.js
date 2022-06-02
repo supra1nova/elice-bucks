@@ -1,4 +1,5 @@
 import * as Api from '/api.js';
+import { validateProduct } from './../utils/validateForm.js';
 const productCreate = {
   componentDidMount: async (productCat) => {
     let formData;
@@ -9,6 +10,9 @@ const productCreate = {
     document.getElementById(`${productCat._id}`).selected = true;
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
+      if (!formData) {
+        return alert('사진(파일)을 선택해주세요!');
+      }
       const data = await Api.postImage('/api/product/image', formData);
       if (data.error) {
         alert(
@@ -21,10 +25,14 @@ const productCreate = {
       const categoryName = document.getElementById('categoriesSelect').value;
       let options = document.getElementById('categoriesSelect').options;
       const categoryId = options[options.selectedIndex].id;
-      //const image = document.getElementById('imageInput').value;
       const image = data.image;
       const description = document.getElementById('descriptionInput').value;
       const stock = document.getElementById('stockInput').value;
+      try {
+        validateProduct(name, price, description, stock);
+      } catch (err) {
+        return alert(err);
+      }
 
       try {
         const data = {
@@ -50,7 +58,6 @@ const productCreate = {
       .getElementById('image-file')
       .addEventListener('change', async (e) => {
         const file = e.target.files[0];
-        console.log('/images/' + e.target.files[0].name);
         const formData = new FormData();
         formData.append('image', file);
         setFormData(formData);
@@ -128,6 +135,7 @@ const productCreate = {
             <label class="label" for="imageInput">이미지</label>
             <div class="control">
                 <input
+                readOnly
                 class="input"
                 id="imageInput"
                 name="image"
@@ -165,7 +173,7 @@ const productCreate = {
         <button class="button is-primary mt-5 is-fullwidth" id="submitButton">
           제품 생성하기
         </button>
-        <button class="button is-danger mt-3 is-fullwidth" id="cancleButton">
+        <button class="button is-danger is-fullwidth" id="cancleButton">
           취소하기
         </button>
       
