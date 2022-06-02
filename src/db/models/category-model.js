@@ -4,6 +4,7 @@ import { CategorySchema } from '../schemas/category-schema';
 const Category = model('Category', CategorySchema);
 
 export class CategoryModel {
+
   // 1. 카테고리 생성
   async create(categoryInfo) {
     const createdNewCategory = await Category.create(categoryInfo);
@@ -11,20 +12,21 @@ export class CategoryModel {
   }
   
   
-  // 2. 카테고리 목록 조회
+  // 2. 카테고리 전체 목록 조회
   async findAll() {
     const categories = await Category.find({});
     return categories;
   }
   
   
-  // 3. 카테고리 아이디를 이용한 조회
+  // 3. 특정 카테고리 조회 - _id 이용
   async findById(categoryId) {
     const category = await Category.findOne({ _id: categoryId });
     return category;
   }
   
-  // 4. 모든 카테고리의 명칭만 추출하여 조회
+  
+  // 4. 전체 카테고리의 명칭 추출 - aggregate 사용
   async getCategoryNames() {
     const categoryNameList = await Category.aggregate([{ $project: { name: 1, _id: 0 } }]);
     const result = categoryNameList.map(key => key.name);
@@ -39,15 +41,6 @@ export class CategoryModel {
     return updatedCategory;
   }
 
-  // // 6. 카테고리 삭제
-  // async del(categoryId) {
-  //   const result = await Category.findByIdAndRemove({ _id: categoryId });
-  //   console.log(result);
-  //   if (result) {
-  //     return 'Successfully deleted';
-  //   }
-  //   return result;
-  // }
 
   // 6. 카테고리 삭제 수정
   async del(categoryId) {

@@ -52,15 +52,6 @@ class CategoryService {
   }
 
 
-  // // 5. 카테고리 삭제
-  // async removeCategory(categoryId) {
-  //   const result = await this.categoryModel.del(categoryId);
-  //   if (result) {
-  //     return result;
-  //   }
-  //   throw new Error('삭제할 수 없습니다. 등록되지 않은 카테고리입니다. 다시 한 번 확인해주세요.');
-  // }
-
   // 5. 카테고리 삭제 수정
   async removeCategory(categoryId) {
     const category = await this.categoryModel.findById(categoryId);

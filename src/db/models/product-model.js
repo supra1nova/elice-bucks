@@ -10,25 +10,24 @@ export class ProductModel {
     const createdNewProduct = await Product.create(productInfo);
     return createdNewProduct;
   }
-    
-    
-  // 2. 제품 전체 조회 - 페이지네이션에서 이미 조회를 다 하고 있는데 과연 필요 있을지...?
+
+  
+  // 2. 제품 전체 조회 - 페이지네이션에서 이미 조회를 다 하고 있는데 과연 필요 있을지 -> 프론트에서 사용중
   async findAll() {
     const products = await Product.find({}).populate('category', 'name').sort({ "createdAt": -1 });
     return products;
   }
   
 
-  //  3. 전체 제품 품목 수(SKU) 조회
+  // 3. 전체 제품 품목 수(SKU) 조회
   async countAll() {
     const productSKU = await Product.countDocuments({});
     return productSKU;
   }
 
 
-  //  4. 특정 범위(페이지) 위치한 제품 정보 조회
+  // 4. 특정 범위(페이지) 위치한 제품 정보 조회
   async getInRange(page, perPage) {
-    // url 쿼리에서 page 받기, 기본값 1
     const productsInRange = await Product.find({}).populate('category', 'name').sort({ createdAt: -1 }).skip(perPage * (page - 1)).limit(perPage);
     return productsInRange;
   }
@@ -55,7 +54,7 @@ export class ProductModel {
   }
 
   
-  // 8. 제품 관련 수정
+  // 8. 제품 정보 수정
   async update({ productId, update }) {
     const filter = { _id: productId };
     const option = { returnOriginal: false };
@@ -74,18 +73,3 @@ export class ProductModel {
 const productModel = new ProductModel();
 
 export { productModel };
-
-  
-  
-  
-  
-  
-  
-  
-  
-
-  // // 6. 가격 기준 제품 조회
-  // async findByPrice(price) {
-  //   const products = await Product.find({ price });
-  //   return products;
-  // }
