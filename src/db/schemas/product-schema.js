@@ -17,7 +17,6 @@ const ProductSchema = new Schema(
     },
     image: {
       type: String,
-      // 기본 이미지를 image 폴더에 넣고 그 이미지를 호출하는 방식으로 하면 어떨까?
       default : '-',
       required: true,
     },
