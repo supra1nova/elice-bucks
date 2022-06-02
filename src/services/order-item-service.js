@@ -17,12 +17,13 @@ class OrderItemService {
       return products;
   }
 
-  // 2-2. 제품별 목록개수 반환
+  // 2-2. 제품별 orderItemModel 반환
   async getSameProductId(productId) {
     const products = await this.orderItemModel.findByProductId(productId);
     return products;
   }
 
+  // 2-3. 전체 주문목록 반환
   async getAllProducts() {
     const products = await this.orderItemModel.findAll();
     return products;

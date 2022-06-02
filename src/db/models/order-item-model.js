@@ -1,4 +1,5 @@
 import { model, Types } from 'mongoose';
+import { productService } from '../../services';
 import { OrderItemSchema } from '../schemas/order-item-schema';
 
 const OrderItem = model('OrderItem', OrderItemSchema);
@@ -33,34 +34,39 @@ export class OrderItemModel {
               populate:{
                 path:'productId'
               }
-            });
+            }).exec();
     return orderItem;
   }
 
+  // 4 전체 다 구현이 안됨... 왜... 왜이래 ...
   // 4. 특정 제품의 주문 목록 불러오기
   async findByProductId(productId){
     const orderItems = await OrderItem
-            .find({ productId : new Types.ObjectId(productId) })
-            .populate({
-              path: 'productsId', 
-              populate:{
-                path:'productId'
-              }
-            });
+      .find({
+        path: 'productsId',
+        productId: productId
+      })
+      .populate({
+        path: 'productsId', 
+        populate:{
+          path:'productId', 
+          select: { productQty : 1 }
+        }
+      }); 
     return orderItems;
   }
 
-  // 4-1. 특정 제품의 주문 횟수 불러오기 
-  async findQtyByProductId(productId){
+  // 4-1. 전체 제품의 각각의 주문 횟수 불러오기 
+  async findQtyByProductId(){
     const orderItemsQty = await OrderItem
-            .find({ productId : new Types.ObjectId(productId) })
-            .populate({
-              path: 'productsId', 
-              populate:{
-                path:'productId', 
-                select: { productQty : 1 }
-              }
-            }); 
+      .find({ productId : new Types.ObjectId(productId) })
+      .populate({
+        path: 'productsId', 
+        populate:{
+          path:'productId', 
+          select: { productQty : 1 }
+        }
+      }); 
     return orderItemsQty;
   }
 
