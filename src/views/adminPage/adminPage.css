@@ -268,3 +268,7 @@ h1 {
   font-size: 1em;
   font-weight: bold;
 }
+
+#lastTile {
+  margin-bottom: 7rem;
+}

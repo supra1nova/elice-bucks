@@ -4,6 +4,7 @@
 }
 body {
     background-color: #2E593D;
+	height:100vh;
 }
 
 /* 상단바 */
@@ -49,10 +50,13 @@ body {
     padding-bottom: 50px;
 }
 #categoryContainer {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-end;
-    flex-wrap: wrap;
+    display: grid;
+	grid-template-columns: repeat(auto-fill, 350px);
+	justify-content: space-between;
+	grid-gap: 20px;
+}
+.newContainer:not(.is-max-desktop):not(.is-max-widescreen) {
+    max-width: 1544px;
 }
 #prouduct-item {
     display: flex;
