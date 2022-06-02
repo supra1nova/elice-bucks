@@ -46,10 +46,11 @@ const adminDetail = {
     const totalPrice = order?.totalPrice || '';
     const createdAt = order?.createdAt || '';
     const updatedAt = order?.updatedAt || '';
-    const productsInfos = oneOrder.productsId || '';
+    const productsInfos = oneOrder.productsId || ''; // schema 바뀌어서 여기 products 로 바꾸셔야 할 듯 합니다..!(zinger)
     const postalCode = order?.address?.postalCode || '';
     const address1 = order?.address?.address1 || '';
     const address2 = order?.address?.address2 || '';
+
     let deletedFlag = false;
     if (order?.deletedAt && !order?.deletedAt?.startsWith('1')) {
       deletedFlag = true;

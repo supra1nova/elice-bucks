@@ -301,7 +301,7 @@ function buyBtnEvent() {
     let totalPrice = document
       .querySelector('#productsTotal')
       .innerHTML.replace(/[^0-9]/g, '');
-    let productsId = [];
+    let productsId = []; //여기 schema 바뀌어서 products 로 바꾸셔야 할듯 합니다 !(zinger)
     if (totalCount === '0') {
       alert('장바구니가 비어있습니다.');
       return;
@@ -322,11 +322,11 @@ function buyBtnEvent() {
             let productId = cart[i]._id;
             let productQty = cart[i].cnt;
             let productPrice = cart[i].price;
-            productsId.push({ productId, productQty, productPrice });
+            productsId.push({ productId, productQty, productPrice }); //여기 schema 바뀌어서 products 로 바꾸셔야 할듯 합니다 !(zinger)
           }
         }
         let data = {
-          productsId,
+          productsId, //여기 schema 바뀌어서 products 로 바꾸셔야 할듯 합니다 !(zinger)
           totalQty: totalCount,
           totalPrice: totalPrice,
         };

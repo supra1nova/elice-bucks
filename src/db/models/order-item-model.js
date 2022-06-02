@@ -1,4 +1,5 @@
 import { model, Types } from 'mongoose';
+import { productService } from '../../services';
 import { OrderItemSchema } from '../schemas/order-item-schema';
 
 const OrderItem = model('OrderItem', OrderItemSchema);
@@ -16,7 +17,7 @@ export class OrderItemModel {
             .find({})
             .populate('orderId')
             .populate({
-              path: 'productsId', 
+              path: 'products', 
               populate:{
                 path:'productId'
               }
@@ -28,40 +29,30 @@ export class OrderItemModel {
   async findByOrderId(orderId) {
     const orderItem = await OrderItem
             .find({ orderId : new Types.ObjectId(orderId) })
+            .populate('orderId')
             .populate({
-              path: 'productsId', 
+              path: 'products', 
               populate:{
                 path:'productId'
               }
-            });
+            }).exec();
     return orderItem;
   }
 
+  //  전체 다 구현이 안됨... 왜... 왜이래 ...
   // 4. 특정 제품의 주문 목록 불러오기
   async findByProductId(productId){
     const orderItems = await OrderItem
-            .find({ productId : new Types.ObjectId(productId) })
-            .populate({
-              path: 'productsId', 
-              populate:{
-                path:'productId'
-              }
-            });
+      .find({
+        products,productId : productId
+      })
+      .populate({
+        path: 'products', 
+        populate:{
+          path:'productId'
+        }
+      }); 
     return orderItems;
-  }
-
-  // 4-1. 특정 제품의 주문 횟수 불러오기 
-  async findQtyByProductId(productId){
-    const orderItemsQty = await OrderItem
-            .find({ productId : new Types.ObjectId(productId) })
-            .populate({
-              path: 'productsId', 
-              populate:{
-                path:'productId', 
-                select: { productQty : 1 }
-              }
-            }); 
-    return orderItemsQty;
   }
 
   // 5-1. 전체 order 조회
@@ -72,7 +63,7 @@ export class OrderItemModel {
 
   // 5-2. 특정 페이지에 위치한 제품 정보 조회
   async getInRange(page, perPage) {
-    const orderItemsInRange = await OrderItem.find({}).populate('orderId').populate({path: 'productsId', populate:{path:'productId'}}).skip(perPage * (page - 1)).limit(perPage);
+    const orderItemsInRange = await OrderItem.find({}).populate('orderId').populate({path: 'products', populate:{path:'productId'}}).skip(perPage * (page - 1)).limit(perPage);
     return orderItemsInRange;
   }
 }

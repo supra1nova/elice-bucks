@@ -42,20 +42,27 @@ class OrderService {
   // 4. 해당 유저의 주문 목록 반환
   async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
-    console.log(order);
     return order;
   }
 
   // 4-1. 해당 유저의 주문목록 전체 상품개수 반환
   async finalQty(userId) {
     const order = await this.orderModel.findById(userId);
-    return order.totalQty;
+    let totalQty = 0;
+    for (let i = 0; i < order.length;i++){
+      totalQty = totalQty + parseInt(order[i].totalQty);
+    }
+    return totalQty;
   }
 
   // 4-2. 해당 유저의 주문목록 전체 가격 반환
   async finalPrice(userId) {
     const order = await this.orderModel.findById(userId);
-    return order.totalPrice;
+    let totalPrice = 0;
+    for (let i = 0; i < order.length;i++){
+      totalPrice = totalPrice + parseInt(order[i].totalPrice);
+    }
+    return totalPrice;
   }
 
   // 5-1. 해당 유저의 주문목록 취소처리
