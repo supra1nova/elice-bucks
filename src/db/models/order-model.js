@@ -25,17 +25,17 @@ export class OrderModel {
 
   // 여기서의 orderId 는 order schema 에서의 _id 를 의미
   async findByOrderId(orderId) { 
-    const order = await Order.find({ orderId : orderId});
+    const order = await Order.find({ _id : orderId});
     return order;
   }
 
   //  order update
   async update(toUpdate) {
-    const filter = { _id: toUpdate._id };
+    const filter = { _id: toUpdate[0]._id };
     const option = { returnOriginal: false };
     const updatedOrders = await Order.findOneAndUpdate(
       filter,
-      toUpdate,
+      toUpdate[0],
       option,
     );
     return updatedOrders;

@@ -6,6 +6,7 @@ import { loginRequired } from '../middlewares';
 import { adminRequired } from '../middlewares';
 import { orderService } from '../services';
 import { orderItemService } from '../services/';
+import { productService } from '../services/';
 
 const orderRouter = Router();
 
@@ -59,7 +60,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
   }
 });
 
-// 2-1. 해당 유저의 주문목록 반환
+// 2-1. 해당 유저의 주문목록 반환 --> 약간 애매 .. 수정중!
 orderRouter.get('/user/orders', loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
@@ -144,17 +145,16 @@ orderRouter.get(
   }
 );
 
-// 2-2-3. (admin) 총 제품별 판매 개수 반환
+// 2-2-3. (admin) 각각의 제품별 판매 개수 반환 --> 수정중
 orderRouter.get(
-  '/admin/productsQty',
+  '/admin/productsQty/:productId',
   loginRequired,
-  adminRequired,
-  async function (req, res, next) {
+  /*adminRequired,*/ async function (req, res, next) {
     try {
-      const { productId } = req.params;
-      const orderNum = await orderItemService.getSameProductId(productId);
-
-      res.status(200).json(orderNum);
+      //const allProducts = await productService.getProducts();
+      const { productId } = req.params.productId;
+      const orderProduct = await orderItemService.getSameProductId(productId);
+      res.status(200).json(orderProduct);
     } catch (error) {
       next(error);
     }
