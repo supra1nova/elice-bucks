@@ -42,6 +42,7 @@ class OrderService {
   // 4. 해당 유저의 주문 목록 반환
   async getUserOrder(userId) {
     const order = await this.orderModel.findById(userId);
+    console.log(order);
     return order;
   }
 
