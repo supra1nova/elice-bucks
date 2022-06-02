@@ -41,7 +41,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
     }
     const cart = req.body;
     const userId = req.currentUserId;
-    const { address, totalQty, totalPrice, productsId } = cart;
+    const { address, totalQty, totalPrice, products } = cart;
     const newOrder = await orderService.addOrderList({
       userId,
       address,
@@ -51,7 +51,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
     const orderId = newOrder._id;
     const newOrderItem = await orderItemService.addOrderItemList({
       orderId,
-      productsId,
+      products,
     });
     const newOrderInfo = { newOrder, newOrderItem };
     res.status(201).json(newOrderInfo); // newOrder 과 newOrderItem 을 같이 불러옴
@@ -172,7 +172,7 @@ orderRouter.get(
   }
 );
 
-// 2-2-3-1. product 한개 주문 목록 조회
+// 2-2-3-1. product 한개 주문 목록 조회 (2-2-3을 위한 test 근데 안됨 왜..?)
 orderRouter.get(
   '/productsQty/:productId', async function (req, res, next) {
     try {

@@ -17,7 +17,7 @@ class OrderItemService {
       return products;
   }
 
-  // 2-2. 제품별 orderItemModel 반환
+  // 2-2. 제품별 orderItemModel 반환 -> 수정중 ...
   async getSameProductId(productId) {
     const products = await this.orderItemModel.findByProductId(productId);
     return products;

@@ -16,7 +16,7 @@ const OrderItemSchema = new Schema(
       ref: 'Order',
       required: true
     },
-    productsId: [product]
+    products: [product]
   },
   {
     timestamps: true,
