@@ -41,7 +41,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
     }
     const cart = req.body;
     const userId = req.currentUserId;
-    const { address, totalQty, totalPrice, productsId } = cart;
+    const { address, totalQty, totalPrice, products } = cart;
     const newOrder = await orderService.addOrderList({
       userId,
       address,
@@ -51,7 +51,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
     const orderId = newOrder._id;
     const newOrderItem = await orderItemService.addOrderItemList({
       orderId,
-      productsId,
+      products,
     });
     const newOrderInfo = { newOrder, newOrderItem };
     res.status(201).json(newOrderInfo); // newOrder 과 newOrderItem 을 같이 불러옴
@@ -60,7 +60,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
   }
 });
 
-// 2-1. 해당 유저의 주문목록 반환 --> 약간 애매 .. 수정중!
+// 2-1. 해당 유저의 주문목록 반환 
 orderRouter.get('/user/orders', loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
@@ -150,7 +150,7 @@ orderRouter.get(
   }
 );
 
-// 2-2-3. (admin) 각각의 제품별 판매 개수 반환 --> 수정중
+// 2-2-3. (admin) 각각의 제품별 판매 개수 반환 --> 왜안됨 ..?
 orderRouter.get(
   '/admin/productsQty',
   /*loginRequired,*/
@@ -172,9 +172,9 @@ orderRouter.get(
   }
 );
 
-// 2-2-3-1. product 한개 주문 목록 조회
+// 2-2-3-1. product 한개 주문 목록 조회 (2-2-3을 위한 test 근데 안됨 왜..?)
 orderRouter.get(
-  '/admin/productsQty/:productId', async function (req, res, next) {
+  '/productsQty/:productId', async function (req, res, next) {
     try {
       const productId = req.params.productId;
       const products = await orderItemService.getSameProductId(productId);
