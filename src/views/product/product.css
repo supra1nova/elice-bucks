@@ -1,9 +1,9 @@
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 body {
-    background-color: #2E593D;
+	background-color: #2E593D;
 }
 
 /* 상단바 */
@@ -45,18 +45,18 @@ body {
 }
 /* 제품 목록 */
 #content {
-    padding: 50px;
+	padding-bottom: 50px;
 }
-#container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
+#productContainer {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-end;
+	flex-wrap: wrap;
 }
 #prouduct-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 #product-img {
     width: 350px;
@@ -66,20 +66,20 @@ body {
 	transition: all 0.1s;
 }
 #product-des {
-    color: #fff;
-    font-size: 1.2rem;
-    font-family: 'Noto Sans KR', sans-serif;
-    z-index: 5;
-    text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	font-family: 'Noto Sans KR', sans-serif;
+	z-index: 5;
+	text-align: center;
 }
 
 /* 페이지네이션 */
 .pagination {
-    margin-top: 50px;
+	margin-top: 50px;
 }
 .pagination-link {
-    background-color: #F1F0EB;
-    color: #000;
+	background-color: #F1F0EB;
+	color: #000;
 }
 .pagination-link:hover {
 	background-color: #9F7F55;
@@ -97,20 +97,20 @@ body {
 
 /* 로딩 */
 .overlay {
-    display:none;
-    position:fixed;
-    z-index:1000;
-    background-color: rgba(16,16,16,0.5);
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+	display:none;
+	position:fixed;
+	z-index:1000;
+	background-color: rgba(16,16,16,0.5);
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
 }
 .overlay.active {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color:#fff;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	color:#fff;
 }
 
 /* -- 미디어쿼리 -- */
@@ -136,13 +136,6 @@ body {
 	.breadcrumb li+li::before {
     content:none;
 	}
-}
-
-/* 화면이 작아지면 상품 목록 여백 줄임 */
-@media screen and (max-width: 768px) {
-    #content {
-        padding: 20px;
-    }
 }
 
 /* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */

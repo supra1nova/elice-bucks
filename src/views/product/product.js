@@ -4,7 +4,7 @@ import insertCategoryList from '../components/navCategoryList.js';
 import * as Api from '/api.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const container = document.querySelector('#container');
+const productContainer = document.querySelector('#productContainer');
 const paginationList = document.querySelector('.pagination-list');
 
 addAllElements();
@@ -39,7 +39,7 @@ async function insertProductList() {
     const name = product.name;
     const price = product.price.toLocaleString();
 
-    container.insertAdjacentHTML(
+    productContainer.insertAdjacentHTML(
       'beforeend',
       `
         <div id="prouduct-item">

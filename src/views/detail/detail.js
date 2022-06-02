@@ -2,7 +2,7 @@ import headerNavbar from '/components/headerNavbar.js';
 import insertCategoryList from '/components/navCategoryList.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const container = document.querySelector('#container');
+const detailContainer = document.querySelector('#detailContainer');
 
 addAllElements();
 insertCategoryList();
@@ -29,7 +29,7 @@ async function insertProductDetail() {
   const image = product.image;
 
   // 상품 name, description, price, image를 각 자리에 할당
-  container.insertAdjacentHTML(
+  detailContainer.insertAdjacentHTML(
     'beforeend',
     `
           <div id="text">

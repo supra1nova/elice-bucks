@@ -46,12 +46,12 @@ body {
 
 /* 카테고리별 제품 목록 */
 #content {
-    padding: 50px;
+    padding-bottom: 50px;
 }
-#container {
+#categoryContainer {
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
 }
 #prouduct-item {
@@ -115,13 +115,6 @@ body {
 	.breadcrumb li+li::before {
     content:none;
 	}
-}
-
-/* 화면이 작아지면 상품 목록 여백 줄임 */
-@media screen and (max-width: 768px) {
-    #content {
-        padding: 20px;
-    }
 }
 
 /* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */

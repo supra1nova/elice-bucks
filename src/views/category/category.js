@@ -3,7 +3,7 @@ import headerNavbar from '/components/headerNavbar.js';
 import insertCategoryList from '/components/navCategoryList.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const container = document.querySelector('#container');
+const categoryContainer = document.querySelector('#categoryContainer');
 
 addAllElements();
 insertCategoryList();
@@ -32,7 +32,7 @@ async function insertProductCategory() {
         const name = product.name;
         const price = product.price.toLocaleString();
       
-        container.insertAdjacentHTML('beforeend',`
+        categoryContainer.insertAdjacentHTML('beforeend',`
             <div id="prouduct-item">
                 <div id="product-img">
                     <a href='/detail/${id}'><img src="${image}"></a>
