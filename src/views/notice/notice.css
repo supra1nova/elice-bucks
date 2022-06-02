@@ -54,6 +54,7 @@ li {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	padding: 2rem 0;
 }
 .tableTitle {
   text-align: center;
@@ -73,20 +74,20 @@ li {
 
 /* 공지사항 body */
 .noticeContainer {
-  font-size: 1em;
+  font-size: 1rem;
 }
 .no {
   width: 7%;
 }
 .title {
   /* 제목 기본 폰트 사이즈 조정 */
-  font-size: 1em;
+  font-size: 1rem;
   width: 60%;
 }
 
 /* 페이지네이션 */
 .pagination {
-  margin-top: 2em;
+  margin: 1rem 0;
 }
 .pagination-link:hover {
 	background-color: #2D4039;
