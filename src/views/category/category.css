@@ -1,10 +1,9 @@
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 body {
-    background-color: #2E593D;
-	height:100vh;
+  background-color: #2E593D;
 }
 
 /* 상단바 */
@@ -47,53 +46,54 @@ body {
 
 /* 카테고리별 제품 목록 */
 #content {
-    padding-bottom: 50px;
+  padding-bottom: 50px;
 }
 #categoryContainer {
-    display: grid;
+  display: grid;
 	grid-template-columns: repeat(auto-fill, 350px);
 	justify-content: space-between;
 	grid-gap: 20px;
 }
 .newContainer:not(.is-max-desktop):not(.is-max-widescreen) {
-    max-width: 1544px;
+	max-width: 1544px;
 }
 #prouduct-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
 }
 #product-img {
-    width: 350px;
+	width: 350px;
 }
 #product-img:hover {
 	transform: scale(1.1);
 	transition: all 0.1s;
 }
 #product-des {
-    color: #fff;
-    font-size: 1.2rem;
-    font-family: 'Noto Sans KR', sans-serif;
-    z-index: 5;
-    text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	font-family: 'Noto Sans KR', sans-serif;
+	z-index: 5;
+	text-align: center;
 }
 
 /* 로딩 */
 .overlay {
-    display:none;
-    position:fixed;
-    z-index:1000;
-    background-color: rgba(16,16,16,0.5);
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+	display:none;
+	position:fixed;
+	z-index:1000;
+	background-color: rgba(16,16,16,0.5);
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
 }
 .overlay.active {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color:#fff;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	color:#fff;
 }
 
 /* -- 미디어쿼리 -- */
