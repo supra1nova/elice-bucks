@@ -292,6 +292,6 @@ select::-ms-expand {
   color:#fff;
 }
 
-#cancleButton {
+.cancleButton {
   margin-top:0.2rem;
 }

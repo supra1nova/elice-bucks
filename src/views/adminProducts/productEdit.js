@@ -176,7 +176,7 @@ const ProductEdit = {
         <button class="button is-primary mt-5 is-fullwidth" id="submitButton">
           제품 정보 수정하기
         </button>
-        <button class="button is-danger mt-3 is-fullwidth" id="cancleButton">
+        <button class="cancleButton button is-danger is-fullwidth" id="cancleButton">
           취소하기
         </button>
       
