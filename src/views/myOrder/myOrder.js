@@ -39,7 +39,8 @@ class="columns notification is-info is-light is-mobile orders-top"
 <div class="column is-5">주문정보</div>
 <div class="column is-2">가격</div>
 <div class="column is-1">상태</div>
-<div class="column is-2">신청</div>
+<div class="column is-1">신청</div>
+<div class="column is-1">배송정보</div>
 </div>`;
 let disabled = 'disabled';
 // 주문목록 띄우기
@@ -60,8 +61,10 @@ async function setUserOrders(orders) {
   <div class="column is-5">주문정보</div>
   <div class="column is-2">가격</div>
   <div class="column is-1">상태</div>
-  <div class="column is-2">신청</div>
+  <div class="column is-1">신청</div>
+  <div class="column is-1">배송정보</div>
   </div>`;
+  console.log(orders);
   for (let i = 0; i < orders.length; i++) {
     let createdAt = orders[i][0].createdAt.match(/\d\d\d\d-\d\d-\d\d/g, '');
     let price = (orders[i][0].orderId.totalPrice + 3000).toLocaleString();
@@ -69,6 +72,12 @@ async function setUserOrders(orders) {
     let product = '';
     let orderId = orders[i][0].orderId._id;
     let deletedAt = orders[i][0].orderId.deletedAt.match(/\d\d\d\d/g, '');
+    let receiverName = orders[i][0].orderId.receiverName;
+    let receiverPhoneNumber = orders[i][0].orderId.receiverPhoneNumber.replace(
+      /^(\d{2,3})(\d{3,4})(\d{4})$/,
+      `$1-$2-$3`
+    );
+    let { postalCode, address1, address2 } = orders[i][0].orderId.address;
     for (let j = 0; j < productArr.length; j++) {
       let productname = productArr[j].productId.name;
       let productQty = productArr[j].productQty;
@@ -91,11 +100,42 @@ async function setUserOrders(orders) {
         Number(deletedAt) === 1970 ? '준비중' : '취소완료'
       }</div>
     </div>
-    <div class="column is-2 div-center">
+    <div class="column is-1 div-center">
       <button class="button deleteButton" id="${orderId}">
         주문 취소
       </button>
     </div>
+    <ul class="main-menu column is-1 orderStatus">
+        <li class="item">
+          <div class="item__name">배송정보</div>
+          <div class="item__contents">
+            <div class="contents__menu container orders-container box">
+              <ul class="inner">
+                <li class="column is-3">
+                  <h4>수령인</h4>
+                  <ul >
+                    <li >${receiverName}</li>
+                  </ul>
+                </li>
+                <li class="column is-3"> 
+                  <h4>휴대폰 번호</h4>
+                  <ul>
+                    <li>${receiverPhoneNumber}</li>
+                  </ul>
+                </li>
+                <li class="column is-4">
+                  <h4>주소</h4>
+                  <ul>
+                    <li>우편번호 : ${postalCode}</li>
+                    <li>${address1}</li>
+                    <li>${address2}</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </div>
   </div>
   `;
     ordersContainer.insertAdjacentHTML('beforeend', order);

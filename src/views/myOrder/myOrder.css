@@ -161,3 +161,57 @@ h1 {
   font-size: 1em;
   font-weight: bold;
 }
+
+/* 배송 정보 */
+.main-menu {
+  display: flex;
+  bottom: 0;
+  right: 0;
+}
+
+.main-menu .item .item__name {
+  padding: 21px 0px 23px 5px;
+  font-size: 13px;
+}
+
+.main-menu .item:hover .item__name {
+  color: #669900;
+  border-radius: 6px 6px 0 0;
+}
+
+.main-menu .item .item__contents {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  display: none;
+}
+
+.main-menu .item:hover .item__contents {
+  display: block;
+  z-index: 9;
+}
+
+.main-menu .item .item__contents .contents__menu {
+  background-color: #f0f8ff;
+}
+
+.main-menu .item .item__contents .contents__menu > ul {
+  display: flex;
+  padding: 5px 0;
+}
+
+.main-menu .item .item__contents .contents__menu > ul > li > h4 {
+  padding: 3px 0 12px 0;
+  font-size: 16px;
+  color: black;
+}
+
+.main-menu .item .item__contents .contents__menu > ul > li ul li {
+  padding: 5px 0;
+  color: #999;
+  cursor: pointer;
+}
+
+.main-menu .item .item__contents .contents__menu > ul > li ul li:hover {
+  color: #669900;
+}
