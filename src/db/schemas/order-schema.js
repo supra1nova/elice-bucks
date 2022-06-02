@@ -32,7 +32,7 @@ const OrderSchema = new Schema(
       required: true
     },
     receiverPhoneNumber: {
-      type: Number,
+      type: String,
       required: true
     },
     delivered: {
