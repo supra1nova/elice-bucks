@@ -110,6 +110,7 @@
 }
 .leftMenu li.selected a {
   font-size: large;
+  font-weight:bold;
   color: #26ac26;
 }
 .product-list button{

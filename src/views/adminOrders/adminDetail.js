@@ -302,7 +302,7 @@ const adminDetail = {
       `;
       })
       .join('\n')}
-      <button id="goBack" class="is-medium product-delete-button button is-warning is-light is-fullwidth mb-5 ">뒤로가기</button>
+      <button id="goBack" class="input is-medium product-delete-button button is-warning is-light is-fullwidth mb-5 ">뒤로가기</button>
     `;
   },
 };
