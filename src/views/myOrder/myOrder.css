@@ -167,11 +167,18 @@ h1 {
   display: flex;
   bottom: 0;
   right: 0;
+  justify-content: center;
+  align-items: center;
 }
-
+.main-menu .item {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .main-menu .item .item__name {
-  padding: 21px 0px 23px 5px;
-  font-size: 13px;
+  padding: 10px 0px 10px 5px;
+  font-size: 15px;
 }
 
 .main-menu .item:hover .item__name {
@@ -180,10 +187,12 @@ h1 {
 }
 
 .main-menu .item .item__contents {
+  margin-top: 50px;
   width: 100%;
   position: fixed;
   left: 0;
   display: none;
+  height: 50px;
 }
 
 .main-menu .item:hover .item__contents {
