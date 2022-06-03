@@ -135,22 +135,18 @@ th, td {
   overflow:wrap;		
 }
 td.productImage1  {
-  overflow:hidden;		white-space : nowrap;		text-overflow: ellipsis;
+  overflow:hidden;		white-space : nowrap;	
 }
 thead tr {
   background-color: #e3ece5;
   color: #ffffff;
 }
-tbody tr:nth-child(2n) {
 
-}
-tbody tr:nth-child(2n+1) {
- 
-}
-.tr-action{
+.tr-action {
   text-align: center;
   width:8rem;
 }
+
 .ctr-action{
   text-align: center;
   width:10rem;
