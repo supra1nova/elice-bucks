@@ -119,7 +119,6 @@ async function addAllElements() {
         return;
       }
       const result = await createCategory(value);
-      window.location.href = `/adminProducts`;
     });
 
   //카테고리 수정
@@ -221,7 +220,10 @@ async function createCategory(value) {
   } catch (err) {
     console.error(err.stack);
     alertModal.alertModalActivate(
-      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
+      function () {
+        window.location.href = `/adminProducts`;
+      }
     );
   }
 }

@@ -116,13 +116,17 @@ async function doCheckout() {
       let res = await Api.post(apiUrl, data);
 
       if (res) {
-        alertGreenModal.alertModalActivate('주문에 성공하였습니다!');
         const carts = database
           .transaction('carts', 'readwrite')
           .objectStore('carts');
         let clear = carts.clear();
         clear.onsuccess = () => {
-          location.pathname = '/myOrder';
+          alertGreenModal.alertModalActivate(
+            '주문에 성공하였습니다!',
+            function () {
+              location.pathname = '/myOrder';
+            }
+          );
         };
       } else {
         alertModal.alertModalActivate('주문에 실패하였습니다...');

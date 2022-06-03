@@ -46,10 +46,13 @@ async function addAllEvents() {
   headerNavbar.componentDidMount();
   const result = await Api.get(`/api/user`);
   setUserId(result._id);
-  console.log(result);
-  //address1Input.value = result.address ? result.address.address1 : '';
-  //address2Input.value = result.address ? result.address.address2 : '';
-  //postalCodeInput.value = result.address ? result.address.postalCode : '';
+
+  address1Input.value = result.address ? result.address.address1 : '';
+  address1Input.style.height = 'auto';
+  let height = address1Input.scrollHeight; // 높이
+  address1Input.style.height = `${height}px`;
+  address2Input.value = result.address ? result.address.address2 : '';
+  postalCodeInput.value = result.address ? result.address.postalCode : '';
   phoneNumber1.value = result.phoneNumber ? result.phoneNumber : '';
   emailInput.value = result.email;
   fullNameInput.value = result.fullName;

@@ -49,10 +49,14 @@ async function handleSubmit(e) {
     } else {
       await Api.post('/api/user/register', data);
     }
-    alertGreenModal.alertModalActivate(`정상적으로 회원가입되었습니다.`);
+    alertGreenModal.alertModalActivate(
+      `정상적으로 회원가입되었습니다.`,
+      function () {
+        window.location.href = '/login';
+      }
+    );
 
     // 로그인 페이지 이동
-    window.location.href = '/login';
   } catch (err) {
     console.error(err.stack);
     alertModal.alertModalActivate(

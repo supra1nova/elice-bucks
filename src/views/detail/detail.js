@@ -76,8 +76,9 @@ const saveItem = async (e) => {
     const a = carts.get(name);
     a.onsuccess = () => {
       if (a.result) {
-        alertModal.alertModalActivate('장바구니에 이미 존재하는 상품입니다.');
-        return;
+        return alertModal.alertModalActivate(
+          '장바구니에 이미 존재하는 상품입니다.'
+        );
       }
       // 없다면 Put 하고 알림창 띄우기
       const addcmp = carts.put(item, name);
