@@ -1,7 +1,9 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
 import insertCategoryList from '../components/navCategoryList.js';
-import { validateProfile } from '../utils/validateForm.js';
+import { validateRegister } from '../utils/validateForm.js';
+import alertModal from '/components/alertModal.js';
+import alertGreenModal from '/components/alertGreenModal.js';
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
@@ -34,10 +36,11 @@ async function handleSubmit(e) {
 
   // 잘 입력했는지 확인
   try {
-    validateProfile(fullName, email, password, passwordConfirm);
+    validateRegister(fullName, email, password, passwordConfirm);
   } catch (err) {
-    return alert(err);
+    return alertModal.alertModalActivate(err);
   }
+
   // 회원가입 api 요청
   try {
     const data = { fullName, email, password };
@@ -46,12 +49,18 @@ async function handleSubmit(e) {
     } else {
       await Api.post('/api/user/register', data);
     }
-    alert(`정상적으로 회원가입되었습니다.`);
+    alertGreenModal.alertModalActivate(
+      `정상적으로 회원가입되었습니다.`,
+      function () {
+        window.location.href = '/login';
+      }
+    );
 
     // 로그인 페이지 이동
-    window.location.href = '/login';
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }

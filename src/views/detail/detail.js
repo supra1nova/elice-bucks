@@ -1,5 +1,7 @@
 import headerNavbar from '/components/headerNavbar.js';
 import insertCategoryList from '/components/navCategoryList.js';
+import alertGreenModal from '/components/alertGreenModal.js';
+import alertModal from '/components/alertModal.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const detailContainer = document.querySelector('#detailContainer');
@@ -74,13 +76,14 @@ const saveItem = async (e) => {
     const a = carts.get(name);
     a.onsuccess = () => {
       if (a.result) {
-        alert('장바구니에 이미 존재하는 상품입니다.');
-        return;
+        return alertModal.alertModalActivate(
+          '장바구니에 이미 존재하는 상품입니다.'
+        );
       }
       // 없다면 Put 하고 알림창 띄우기
       const addcmp = carts.put(item, name);
       addcmp.onsuccess = () => {
-        alert('장바구니 넣었습니다.');
+        alertGreenModal.alertModalActivate('장바구니 넣었습니다.');
       };
     };
   };

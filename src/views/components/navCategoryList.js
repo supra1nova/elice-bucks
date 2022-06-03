@@ -1,5 +1,5 @@
 import * as Api from '/api.js';
-
+import { startLoading, endLoading } from '/utils/loading.js';
 // 카테고리 목록 삽입
 async function insertCategoryList() {
   // 카테고리 리스트 삽입할 nav div
@@ -20,6 +20,7 @@ async function insertCategoryList() {
       `
     );
   });
+  endLoading();
 }
 
 export default insertCategoryList;

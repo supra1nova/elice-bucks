@@ -1,4 +1,5 @@
 import { setPaid, setDelivered, setDeletedAt } from './adminOrders.js';
+import alertModal from '/components/alertModal.js';
 const orderslist = {
   componentDidMount: async () => {
     //결제처리
@@ -17,7 +18,7 @@ const orderslist = {
     Array.from(deliveredButton).forEach((button) => {
       button.addEventListener('click', async () => {
         if (button.classList.contains('false')) {
-          alert('먼저 결제처리 해주세요');
+          alertModal.alertModalActivate('먼저 결제처리 해주세요');
           return;
         }
         if (!confirm('배송처리 하시겠습니까?')) {
@@ -49,6 +50,7 @@ const orderslist = {
           </button>
           -->
           <div class="product-list">
+          <div class = "table-container">
           <table class="table is-hoverable">
           <thead>
             <tr>
@@ -118,6 +120,7 @@ const orderslist = {
             .join('\n')}
             </tbody>
           </table>
+          </div>
             
           </div>
         </div>

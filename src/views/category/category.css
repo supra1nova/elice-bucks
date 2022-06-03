@@ -4,6 +4,7 @@
 }
 body {
   background-color: #2E593D;
+	min-height: 100vh;
 }
 
 /* 상단바 */
@@ -61,8 +62,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-
+	justify-content: flex-end;
 }
 #product-img {
 	width: 350px;
