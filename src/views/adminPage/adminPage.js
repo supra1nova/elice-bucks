@@ -18,15 +18,15 @@ addAllElements();
 insertCategoryList();
 
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  leftMenuAdmin.innerHTML = await leftMenu.render({
+  headerNavbar1.innerHTML = headerNavbar.render();
+  leftMenuAdmin.innerHTML = leftMenu.render({
     selected: 'dashboard',
   });
-  await headerNavbar.componentDidMount();
+  headerNavbar.componentDidMount();
   const orderTotalNum = await getOrderstotalNum();
   const userTotalNum = await getTotalnumOfusers();
   const totalSale = await getTotalSale();
-  dashboard_content.innerHTML = await adminContent.render(
+  dashboard_content.innerHTML = adminContent.render(
     userTotalNum,
     orderTotalNum,
     totalSale

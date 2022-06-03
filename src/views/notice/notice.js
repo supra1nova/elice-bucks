@@ -13,8 +13,8 @@ insertNoticeList();
 
 // navbar 로그인 상태에 따른 로그인 메뉴 삽입
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
+  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar.componentDidMount();
 }
 
 // 공지사항 데이터를 html에 삽입 (페이지네이션 적용)
@@ -56,14 +56,15 @@ async function insertNoticeList() {
 
   // 페이징 버튼 목록
   for (let i = 1; i <= totalPage; i++) {
-    document.querySelector('.pagination-list').insertAdjacentHTML(
-      'beforeend',
-      `<li><a class="pagination-link" id="${i}" href="?page=${i}&perPage=10">${i}</a></li>`
-    );
+    document
+      .querySelector('.pagination-list')
+      .insertAdjacentHTML(
+        'beforeend',
+        `<li><a class="pagination-link" id="${i}" href="?page=${i}&perPage=10">${i}</a></li>`
+      );
   }
 
   // 현재 페이지에 해당하는 페이징 버튼 활성화
   const pageBtn = document.getElementById(`${pageId}`);
   pageBtn.classList.add('active');
-
 }

@@ -131,8 +131,8 @@ async function doCheckout() {
 }
 
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
+  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar.componentDidMount();
 }
 
 function createindexedDB() {

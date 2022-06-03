@@ -17,13 +17,13 @@ addAllElements();
 insertCategoryList();
 
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  leftMenuAdmin.innerHTML = await leftMenu.render({
+  headerNavbar1.innerHTML = headerNavbar.render();
+  leftMenuAdmin.innerHTML = leftMenu.render({
     selected: 'orders',
   });
-  await headerNavbar.componentDidMount();
+  headerNavbar.componentDidMount();
   const datas = await getOrders();
-  console.log(datas);
+
   dashboard_content.innerHTML = orderslist.render(datas.posts);
   await orderslist.componentDidMount();
 
