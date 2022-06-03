@@ -9,4 +9,4 @@ yarn.lock
 #src/views/images/*.jpg
 #src/views/images/*.png
 
-.env
+# .env
