@@ -1,5 +1,8 @@
 import * as Api from '/api.js';
 import { validateProduct } from './../utils/validateForm.js';
+import alertModal from '/components/alertModal.js';
+import alertGreenModal from '/components/alertGreenModal.js';
+
 const ProductEdit = {
   componentDidMount: async (_id, productCat) => {
     let formData;
@@ -14,7 +17,7 @@ const ProductEdit = {
       if (formData) {
         const data = await Api.postImage('/api/product/image', formData);
         if (data.error) {
-          alert(
+          alertModal.alertModalActivate(
             `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${data.error}`
           );
         } else {
@@ -31,7 +34,7 @@ const ProductEdit = {
       try {
         validateProduct(name, price, description, stock);
       } catch (err) {
-        return alert(err);
+        return alertModal.alertModalActivate(err);
       }
       try {
         const data = {
@@ -43,13 +46,17 @@ const ProductEdit = {
           stock,
         };
         await Api.patch('/api/product', `${_id}`, data);
-        alert(`정상적으로 수정되었습니다.`);
+        alertGreenModal.alertModalActivate(
+          `정상적으로 수정되었습니다.`,
+          function () {
+            window.location.href = '/adminProducts/';
+          }
+        );
 
         // 홈 페이지 이동
-        window.location.href = '/adminProducts/';
       } catch (err) {
         console.error(err.stack);
-        alert(
+        alertModal.alertModalActivate(
           `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
         );
       }

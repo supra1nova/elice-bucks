@@ -8,6 +8,8 @@ import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import orderslist from './orderslist.js';
 import adminDetail from './adminDetail.js';
+import alertModal from '/components/alertModal.js';
+import alertGreenModal from '/components/alertGreenModal.js';
 
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
@@ -79,39 +81,56 @@ async function getOrders() {
     return data;
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
 //결제 완료
 export async function setPaid(orderId) {
   try {
     const result = await Api.patch('/api/order/paid', `${orderId}`);
-    alert(`결제 완료처리 되었습니다.`);
-    window.location.reload();
+    alertGreenModal.alertModalActivate(
+      `결제 완료처리 되었습니다.`,
+      function () {
+        window.location.reload();
+      }
+    );
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
 //배송 처리
 export async function setDelivered(orderId) {
   try {
     const result = await Api.patch('/api/order/delivered', `${orderId}`);
-    alert(`배송 처리되었습니다.`);
-    window.location.reload();
+    alertGreenModal.alertModalActivate(`배송 처리되었습니다.`, function () {
+      window.location.reload();
+    });
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
 //주문 취소 처리
 export async function setDeletedAt(orderId) {
   try {
     const result = await Api.patch('/api/order/cancel', `${orderId}`);
-    alert(`주문 취소 처리되었습니다.`);
-    window.location.reload();
+    alertGreenModal.alertModalActivate(
+      `주문 취소 처리되었습니다.`,
+      function () {
+        window.location.reload();
+      }
+    );
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
