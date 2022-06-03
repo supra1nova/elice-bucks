@@ -65,17 +65,16 @@
 
 /* 제목 기본 폰트 크기 조정 */
 .title {
-  font-size: 1rem;
+	font-size: 1rem;
 }
 
 /* 공지사항 테이블 */
-.noticeDetail {
-  font-size: 1rem;
-}
 .content{
+	font-size: 0.8rem;
   white-space: pre-line;
 }
 .time {
+	font-size: 1rem;
 	width: 15%;
 }
 
