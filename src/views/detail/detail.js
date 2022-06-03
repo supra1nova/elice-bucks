@@ -32,15 +32,15 @@ async function insertProductDetail() {
   detailContainer.insertAdjacentHTML(
     'beforeend',
     `
-          <div id="text">
-              <p id="name">${name}</p>
-              <p id="description">${description}</p>
-              <p id="price">${price}원</p>
-          </div>
-          <div id="image">
-              <img src="${image}">
-          </div>
-      `
+      <div id="text">
+        <p id="name">${name}</p>
+        <p id="description">${description}</p>
+        <p id="price">${price}원</p>
+      </div>
+      <div id="image">
+        <img src="${image}">
+      </div>
+    `
   );
 }
 
@@ -54,7 +54,7 @@ const saveItem = async (e) => {
   // 값이 불려졌는지 확인
 
   if (!name) {
-    console.log('DB에 넣을 글 존제하지않습니다.');
+    console.log('DB에 넣을 글 존재하지않습니다.');
     return;
   }
   // indexed 구조 생성
@@ -82,7 +82,7 @@ const saveItem = async (e) => {
       const addcmp = carts.put(item, name);
       console.log(addcmp);
       addcmp.onsuccess = () => {
-        alert('장바구니 넣었습니다.');
+        alert('장바구니에 넣었습니다.');
       };
     };
   };
@@ -107,7 +107,7 @@ const buyItem = async (e) => {
   // 값이 불려졌는지 확인
 
   if (!name) {
-    console.log('DB에 넣을 글 존제하지않습니다.');
+    console.log('DB에 넣을 글 존재하지않습니다.');
     return;
   }
   // indexed 구조 생성
