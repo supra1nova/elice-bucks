@@ -8,10 +8,10 @@ import headerNavbar from '../components/headerNavbar.js';
 import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import { addCommas } from '../useful-functions.js';
-
+import alertModal from '/components/alertModal.js';
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const mainContent = document.querySelector('#mainContent');
+
 const dashboard_content = document.querySelector('#dashboard-content');
 
 addAllElements();
@@ -112,7 +112,9 @@ async function getOrderstotalNum() {
     return data;
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
 
@@ -123,7 +125,9 @@ async function getTotalnumOfusers() {
     return data;
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
 //admin/price get
@@ -133,7 +137,9 @@ async function getTotalSale() {
     return data;
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
 
@@ -145,6 +151,8 @@ async function getProductsQty() {
     return data;
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }

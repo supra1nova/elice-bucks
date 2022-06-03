@@ -8,6 +8,7 @@ const productlist = {
             제품 생성 +
           </button>
           <div class="product-list">
+          <div class ="table-container">
           <table class="table is-hoverable">
           <thead>
             <tr>
@@ -28,7 +29,7 @@ const productlist = {
                   <td>${product.name}</td>
                   <td>${product.price}</td>
                   <td class="productImage1">${
-                    product.category.name ? product.category.name : ''
+                    product.category?.name ? product.category.name : ''
                   }</td>
                   <td class="productImage1">
                   <img src ="${
@@ -48,7 +49,7 @@ const productlist = {
             .join('\n')}
             </tbody>
           </table>
-            
+          </div>
           </div>
           </div>
           <!--페이지네이션-->

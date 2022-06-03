@@ -2,11 +2,13 @@ import * as Api from '/api.js';
 
 import { validateLogin } from '/utils/validateForm.js';
 import insertCategoryList from '../components/navCategoryList.js';
-// 요소(element), input 혹은 상수
+import alertModal from '/components/alertModal.js';
+import alertGreenModal from '/components/alertGreenModal.js';
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const loginForm = document.querySelector('#loginForm');
 
+// 요소(element), input 혹은 상수
 addAllElements();
 addAllEvents();
 insertCategoryList();
@@ -31,7 +33,7 @@ async function handleSubmit(e) {
   try {
     validateLogin(email, password);
   } catch (err) {
-    return alert(err);
+    return alertModal.alertModalActivate(err);
   }
 
   // 로그인 api 요청
@@ -43,14 +45,21 @@ async function handleSubmit(e) {
     // 로그인 성공, 토큰을 세션 스토리지에 저장
     // 물론 다른 스토리지여도 됨
     localStorage.setItem('token', token);
-    alert(`정상적으로 로그인되었습니다.`);
+    alertGreenModal.alertModalActivate(
+      `정상적으로 로그인되었습니다.`,
+      afterLogin
+    );
 
     // 로그인 성공
-
     // 기본 페이지로 이동
-    window.location.href = '/';
+    //window.location.href = '/';
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
+const afterLogin = () => {
+  window.location.href = '/';
+};

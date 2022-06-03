@@ -8,7 +8,9 @@ import leftMenu from '../components/leftMenu.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import noticeslist from './noticeslist.js';
 import noticesDetail from './noticeDetail.js';
+import alertModal from '/components/alertModal.js';
 
+const modal = document.querySelector('.modal');
 const leftMenuAdmin = document.querySelector('#leftMenuAdmin');
 const headerNavbar1 = document.querySelector('#headerNavbar');
 const paginationList = document.querySelector('.pagination-list');
@@ -109,7 +111,9 @@ async function getAllNotices() {
     return data;
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }
 //delete('/:noticeId'
@@ -121,6 +125,8 @@ async function removeNotice(id) {
     await Api.delete('/api/notice', `${id}`);
   } catch (err) {
     console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+    alertModal.alertModalActivate(
+      `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`
+    );
   }
 }

@@ -3,6 +3,8 @@ import { kakaomap } from './kakaomap/kakaomap.js';
 import insertCategoryList from '../components/navCategoryList.js';
 import logincheck from './logincheck.js';
 import * as Api from '/api.js';
+import alertModal from '/components/alertModal.js';
+import alertGreenModal from '/components/alertGreenModal.js';
 
 logincheck();
 kakaomap();
@@ -83,11 +85,11 @@ async function doCheckout() {
 
   // 입력이 안 되어 있을 시
   if (!receiverName || !receiverPhoneNumber || !postalCode || !address2) {
-    return alert('배송지 정보를 모두 입력해 주세요.');
+    return alertModal.alertModalActivate('배송지 정보를 모두 입력해 주세요.');
   }
 
   if (regPhone.test(receiverPhoneNumber) === false) {
-    return alert('전화번호 형식을 확인해주세요.');
+    return alertModal.alertModalActivate('전화번호 형식을 확인해주세요.');
   }
 
   let onRequest = indexedDB.open('cart', 1);
@@ -113,7 +115,7 @@ async function doCheckout() {
       let res = await Api.post(apiUrl, data);
 
       if (res) {
-        alert('주문에 성공하였습니다!');
+        alertGreenModal.alertModalActivate('주문에 성공하였습니다!');
         const carts = database
           .transaction('carts', 'readwrite')
           .objectStore('carts');
@@ -122,7 +124,7 @@ async function doCheckout() {
           location.pathname = '/myOrder';
         };
       } else {
-        alert('주문에 실패하였습니다...');
+        alertModal.alertModalActivate('주문에 실패하였습니다...');
       }
     };
   };
