@@ -54,6 +54,7 @@ const saveItem = async (e) => {
   // 값이 불려졌는지 확인
 
   if (!name) {
+    console.log('DB에 넣을 글 존재하지않습니다.');
     return;
   }
   // indexed 구조 생성
