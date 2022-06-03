@@ -81,7 +81,7 @@ userRouter.post('/login', async function (req, res, next) {
 userRouter.get('/users', loginRequired, async function (req, res, next) {
   try {
     const users = await userService.getUsers();
-
+    
     res.status(200).json(users);
   } catch (error) {
     next(error);
@@ -155,16 +155,12 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
       ...(phoneNumber && { phoneNumber: phoneNumber }),
       ...(role && { role }),
     };
-    console.log(toUpdate);
 
     // 사용자 정보를 업데이트함.
     const updatedUserInfo = await userService.setUser(
       userInfoRequired,
       toUpdate
     );
-    console.log('update: ',updatedUserInfo);
-    console.log(userInfoRequired);
-    console.log({email, password});
     
     if (password) {
       const userToken = await userService.getUserToken({ email, password });

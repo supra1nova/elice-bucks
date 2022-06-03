@@ -57,7 +57,7 @@ orderRouter.post('/user/register', loginRequired, async (req, res, next) => {
       products,
     });
     const newOrderInfo = { newOrder, newOrderItem };
-    res.status(201).json(newOrderInfo); // newOrder 과 newOrderItem 을 같이 불러옴
+    res.status(201).json(newOrderInfo);
   } catch (error) {
     next(error);
   }
@@ -69,7 +69,6 @@ orderRouter.get('/user/orders', loginRequired, async function (req, res, next) {
     const userId = req.currentUserId;
     const order = await orderService.getUserOrder(userId);
     let products = [];
-    console.log(order.length);
     for (let i = 0; i< order.length; i++) {
       let orderId = order[i]._id;
       let product = await orderItemService.getSameOrderId(orderId);
@@ -106,6 +105,7 @@ orderRouter.get('/user/qty', loginRequired, async function (req, res, next) {
     next(error);
   }
 });
+
 // 2-2-1-1. (admin) 전체 주문목록 조회(pagination)
 orderRouter.get('/admin/orders/pagination', async (req, res) => {
   try {
@@ -153,7 +153,7 @@ orderRouter.get(
   }
 );
 
-// 2-2-3. (admin) 각각의 제품별 판매 개수 반환 --> 왜안됨 ..?
+// 2-2-3. (admin) 각각의 제품별 판매 개수 반환
 orderRouter.get(
   '/admin/productsQty', loginRequired, adminRequired, async function (req, res, next) {
     try {
@@ -176,7 +176,7 @@ orderRouter.get(
   }
 );
 
-// 2-2-3-1. product 한개 주문 목록 조회 (2-2-3을 위한 test)
+// 2-2-3-1. product 한개 주문 목록 조회
 orderRouter.get(
   '/productsQty/:productId', async function (req, res, next) {
     try {

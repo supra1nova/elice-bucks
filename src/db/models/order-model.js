@@ -12,8 +12,7 @@ export class OrderModel {
 
   // orders 전체 반환
   async findAll() {
-    const orders = await Order.find({}).populate('userId');
-
+    const orders = await Order.find({}).populate('userId').sort({ "createdAt": -1 });
     return orders;
   }
 
