@@ -50,7 +50,7 @@ const orderslist = {
           </button>
           -->
           <div class="product-list">
-          <div class = "table-container">
+ 
           <table class="table is-hoverable">
           <thead>
             <tr>
@@ -120,7 +120,7 @@ const orderslist = {
             .join('\n')}
             </tbody>
           </table>
-          </div>
+
             
           </div>
         </div>
