@@ -1,8 +1,20 @@
+import headerNavbar from '../components/headerNavbar.js';
+import insertCategoryList from '../components/navCategoryList.js';
+
+const headerNavbar1 = document.querySelector('#headerNavbar');
+
+addAllElements();
+insertCategoryList();
+
+function addAllElements() {
+  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar.componentDidMount();
+}
+
 const uploadCart = () => {
   // indexed 열기
   let onRequest = indexedDB.open('cart', 1);
   onRequest.onsuccess = () => {
-    console.log('update성공');
     const database = onRequest.result;
     // 읽기 전용으로 transaction 적용. (빠름)
     const transaction = database.transaction('carts', 'readonly');
@@ -11,11 +23,11 @@ const uploadCart = () => {
     const list = document.querySelector('.cartItemlist');
     // 장바구니 내역 초기화.
     list.innerHTML = '';
-    const c = carts.getAll();
-    c.onsuccess = () => {
-      let a = c.result;
+    const Indcartslist = carts.getAll();
+    Indcartslist.onsuccess = () => {
+      let indexedDBcarts = Indcartslist.result;
       // getAll 값이 없으면 비어있다는 말 띄우기
-      if (a.length === 0) {
+      if (indexedDBcarts.length === 0) {
         list.innerHTML = '';
         const emptycart = `<div class='emptycart'>장바구니가 비어있습니다.</div>`;
         list.insertAdjacentHTML('beforeend', emptycart);
@@ -23,8 +35,8 @@ const uploadCart = () => {
         return;
       }
 
-      for (let i = 0; i < a.length; i++) {
-        let { name, price, image, cnt } = a[i];
+      for (let i = 0; i < indexedDBcarts.length; i++) {
+        let { name, price, image, cnt, _id } = indexedDBcarts[i];
         const cartlist = `
                         <div class="list">
                             <div class="listItem">
@@ -33,10 +45,10 @@ const uploadCart = () => {
                             <span class="ico"></span>
                           </label>
                           <div class="goods">
-                            <a href="#" class="image is-96x96"><img src="${image}"></a>
+                            <a href="/detail/${_id}" class="image is-96x96"><img src="${image}"></a>
                             <div class="itemName">
                               <div class="inner_name">
-                                <a href="#" class="package name">${name}</a>
+                                <a href="/detail/${_id}" class="package name">${name}</a>
                               </div>
                             </div>
                             <div class="price">
@@ -70,7 +82,7 @@ const uploadCart = () => {
       allCheckBtnEvent();
     };
 
-    c.onerror = (error) => {
+    Indcartslist.onerror = (error) => {
       console.log(error);
     };
   };
@@ -92,7 +104,7 @@ const totalPaymentInf = () => {
       totalCnt += Number(count[i].value);
     }
   }
-  const Inf = (totalPrice, totalCnt) => `
+  const paymentInf = (totalPrice, totalCnt) => `
         <div class="tile is-parent tile-order-summary">
         <div class="box order-summary">
           <div class="header">
@@ -101,7 +113,7 @@ const totalPaymentInf = () => {
           <div class="order-info">
             <div class="info">
               <p>상품수</p>
-              <p id="productsCount">${totalCnt}개</p>
+              <p id="productsCount">${totalCnt} 개</p>
             </div>
             <div class="info">
               <p>상품금액</p>
@@ -109,15 +121,17 @@ const totalPaymentInf = () => {
             </div>
             <div class="info">
               <p>배송비</p>
-              <p id="deliveryFee">3,000원</p>
+              <p id="deliveryFee">${totalCnt === 0 ? 0 : 3000} 원</p>
             </div>
           </div>
           <div class="total">
             <p class="total-label">총 결제금액</p>
-            <p class="total-price" id="totalPrice">${totalPrice + 3000} 원</p>
+            <p class="total-price" id="totalPrice">${
+              totalCnt === 0 ? 0 : totalPrice + 3000
+            } 원</p>
           </div>
           <div class="purchase">
-            <a href="/order">
+            <a href="javascript:void(0)">
               <button class="button is-info" id="purchaseButton">
               구매하기
               </button>
@@ -126,7 +140,9 @@ const totalPaymentInf = () => {
         </div>
         </div>
         `;
-  paymentMain.insertAdjacentHTML('beforeend', Inf(totalPrice, totalCnt));
+  paymentMain.insertAdjacentHTML('beforeend', paymentInf(totalPrice, totalCnt));
+
+  buyBtnEvent();
 };
 
 // 결제 정보
@@ -146,7 +162,6 @@ function plusBtnEvent() {
       count++;
       document.getElementsByClassName('cntNumber')[i].value = count;
       updateCnt(count, name, i);
-      totalPaymentInf();
     });
   }
 }
@@ -164,7 +179,6 @@ function minusBtnEvent() {
       count--;
       document.getElementsByClassName('cntNumber')[i].value = count;
       updateCnt(count, name, i);
-      totalPaymentInf();
     });
   }
 }
@@ -185,31 +199,14 @@ const updateCnt = (cnt, name, i) => {
       document.getElementsByClassName('pricecnt')[i].innerHTML = cnt * price;
       const updatecount = carts.put(Item, name);
       updatecount.onsuccess = () => {
-        console.log('cnt 수정');
+        totalPaymentInf();
       };
     };
     getItem.onerror = () => {
-      console.log('cnt를 업데이트 할수 없습니다.');
+      console.log('get error');
     };
   };
 };
-
-// const getprice = (name, count, i) => {
-//   let onRequest = indexedDB.open('cart', 1);
-//   onRequest.onsuccess = () => {
-//     const database = onRequest.result;
-//     // 읽기 전용으로 transaction 적용. (빠름)
-//     const transaction = database.transaction('carts', 'readonly');
-//     // cart 저장소 가져오기
-//     const carts = transaction.objectStore('carts');
-//     const getItem = carts.get(name);
-//     getItem.onsuccess = () => {
-//       const Item = getItem.result;
-//       const price = Item.price;
-//       document.getElementsByClassName(`pricecnt`).innerHTML = price * count;
-//     };
-//   };
-// };
 
 const deleteBtnEvent = () => {
   let deleteBtns = document.getElementsByClassName('delete');
@@ -223,7 +220,7 @@ const deleteBtnEvent = () => {
         const transaction = database.transaction('carts', 'readwrite');
         // cart 저장소 가져오기
         const carts = transaction.objectStore('carts');
-        const getItem = carts.delete(name);
+        let getItem = carts.delete(name);
         getItem.onsuccess = () => {
           console.log('삭제완료');
         };
@@ -233,7 +230,7 @@ const deleteBtnEvent = () => {
   }
 };
 
-const selectDeleteBtnEvent = () => {
+function selectDeleteBtnEvent() {
   let seleteDeleteBtn = document.querySelector('#checkedDel');
   seleteDeleteBtn.addEventListener('click', () => {
     let checkboxes = document.getElementsByClassName('itemCheck');
@@ -256,17 +253,16 @@ const selectDeleteBtnEvent = () => {
     };
     uploadCart();
   });
-};
+}
 
-const checkboxBtnEvent = () => {
+function checkboxBtnEvent() {
   let checkboxes = document.getElementsByClassName('itemCheck');
   for (let i = 0; i < checkboxes.length; i++) {
     checkboxes[i].addEventListener('click', () => {
-      console.log('checkbox event');
       totalPaymentInf();
     });
   }
-};
+}
 
 function allCheckBtnEvent() {
   let allCheckBtn = document.querySelector('#allCheck');
@@ -287,6 +283,60 @@ function allCheckBtnEvent() {
       return;
     }
     totalPaymentInf();
+  });
+}
+
+function buyBtnEvent() {
+  let buyBtn = document.getElementById('purchaseButton');
+  buyBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    let onRequest = indexedDB.open('cart', 1);
+    let checkboxes = document.getElementsByClassName('itemCheck');
+    let totalCount = document
+      .querySelector('#productsCount')
+      .innerHTML.replace(/[^0-9]/g, '');
+    let totalPrice = document
+      .querySelector('#productsTotal')
+      .innerHTML.replace(/[^0-9]/g, '');
+    let products = [];
+    if (totalCount === '0') {
+      alert('장바구니가 비어있습니다.');
+      return;
+    }
+    onRequest.onsuccess = () => {
+      const database = onRequest.result;
+      // 읽기 전용으로 transaction 적용. (빠름)
+      // cart 저장소 가져오기
+      const carts = database
+        .transaction('carts', 'readonly')
+        .objectStore('carts');
+
+      let cartlist = carts.getAll();
+      cartlist.onsuccess = () => {
+        let cart = cartlist.result;
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            let productId = cart[i]._id;
+            let productQty = cart[i].cnt;
+            let productPrice = cart[i].price;
+            products.push({ productId, productQty, productPrice });
+          }
+        }
+        let data = {
+          products,
+          totalQty: totalCount,
+          totalPrice: totalPrice,
+        };
+        console.log(data);
+        const order = database
+          .transaction('order', 'readwrite')
+          .objectStore('order');
+        let orderput = order.put(data, 'summary');
+        orderput.onsuccess = () => {
+          location.pathname = '/order';
+        };
+      };
+    };
   });
 }
 

@@ -1,18 +1,38 @@
 import * as Api from '/api.js';
+import { validateProduct } from './../utils/validateForm.js';
 const productCreate = {
   componentDidMount: async (productCat) => {
+    let formData;
+    const setFormData = (formData1) => {
+      formData = formData1;
+    };
     const submitButton = document.querySelector('#submitButton');
     document.getElementById(`${productCat._id}`).selected = true;
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
+      if (!formData) {
+        return alert('사진(파일)을 선택해주세요!');
+      }
+      const data = await Api.postImage('/api/product/image', formData);
+      if (data.error) {
+        alert(
+          `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${data.error}`
+        );
+      }
+
       const name = document.getElementById('nameInput').value;
       const price = document.getElementById('priceInput').value;
       const categoryName = document.getElementById('categoriesSelect').value;
       let options = document.getElementById('categoriesSelect').options;
       const categoryId = options[options.selectedIndex].id;
-      const image = document.getElementById('imageInput').value;
+      const image = data.image;
       const description = document.getElementById('descriptionInput').value;
       const stock = document.getElementById('stockInput').value;
+      try {
+        validateProduct(name, price, description, stock);
+      } catch (err) {
+        return alert(err);
+      }
 
       try {
         const data = {
@@ -40,16 +60,12 @@ const productCreate = {
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append('image', file);
-        console.log(formData);
-        const data = await Api.postImage('/api/product/imageUpload', formData);
-        if (data.error) {
-          alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${data.error}`
-          );
-        } else {
-          document.getElementById('imageInput').value = data.image;
-          document.getElementById('product-image-file').src = `${data.image}`;
-        }
+        setFormData(formData);
+        document.getElementById('imageInput').value =
+          '/images/' + e.target.files[0].name;
+        document.getElementById('product-image-file').src = URL.createObjectURL(
+          e.target.files[0]
+        );
       });
   },
   render: (product, categories) => {
@@ -119,6 +135,7 @@ const productCreate = {
             <label class="label" for="imageInput">이미지</label>
             <div class="control">
                 <input
+                readOnly
                 class="input"
                 id="imageInput"
                 name="image"
@@ -156,7 +173,7 @@ const productCreate = {
         <button class="button is-primary mt-5 is-fullwidth" id="submitButton">
           제품 생성하기
         </button>
-        <button class="button is-danger mt-3 is-fullwidth" id="cancleButton">
+        <button class="cancleButton button is-danger is-fullwidth" id="cancleButton">
           취소하기
         </button>
       

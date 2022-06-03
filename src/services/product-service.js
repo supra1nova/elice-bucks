@@ -9,8 +9,9 @@ class ProductService {
   }
   
   // 1. 신규 제품 등록 - 주의!! postman에서 테스트시, 수동으로 카테고리 생성 후 _id와 name 입력 필요
+  //  프론트에서 카테고리 아이디와 이름을 별도로 전달해주고 있으므로!!
   async addProduct(productInfo) {
-    const { name, price, category, description, image } = productInfo;
+    const { name, price, category, description, image, stock } = productInfo;
     const { _id: categoryId, name: categoryName  } = category;
     
     // 제품명 중복 확인
@@ -37,13 +38,14 @@ class ProductService {
       description,
       category: categoryId,
       image,
+      stock,
     };
     const createdNewProduct = await this.productModel.create(newProductInfo);
     return createdNewProduct;
   }
   
   
-  // 2. 제품 전체 조회 - 페이지네이션에서 이미 조회를 다 하고 있는데 과연 필요 있을지...?
+  // 2. 제품 전체 조회 - 페이지네이션에서 이미 조회를 다 하고 있는데 과연 필요 있을지...? -> /zinger/ 제가 씁니다..!
   async getProducts() {
     const products = await this.productModel.findAll();
     return products;
@@ -122,15 +124,11 @@ class ProductService {
   async removeProduct(productId) {
     // 우선 해당 id의 제품이 db에 있는지 확인
     let product = await this.productModel.findById(productId);
-    console.log(product);
     if (product) {
 
       // 제품 정보에서 이미지 이름을 가져온다.
       const image = product.image;
-      console.log(image);
-
       const path = 'src/views';
-      console.log(path);
       
       // 이미지 파일이 존재하는지 확인 후 삭제
       if (fs.existsSync(path + image)) {

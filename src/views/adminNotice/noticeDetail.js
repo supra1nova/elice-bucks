@@ -1,4 +1,5 @@
 import * as Api from '/api.js';
+import { validateNotice } from './../utils/validateForm.js';
 const noticesDetail = {
   componentDidMount: () => {
     //취소 뒤로가기
@@ -34,13 +35,19 @@ const noticesDetail = {
     //post('/register',\
     const editButton = document.getElementById('edit-button');
     editButton.addEventListener('click', async () => {
+      const content = document.querySelector('#contentInput').value;
+      const title = document.querySelector('#titleInput').value;
+      try {
+        validateNotice(title, content);
+      } catch (err) {
+        return alert(err);
+      }
       try {
         const newNotice = {
           ...notice,
-          content: document.querySelector('#contentInput').value,
-          title: document.querySelector('#titleInput').value,
+          content,
+          title,
         };
-        console.log(newNotice);
         await Api.post('/api/notice/register', newNotice);
         alert(`정상적으로 등록되었습니다.`);
         // 홈 페이지 이동

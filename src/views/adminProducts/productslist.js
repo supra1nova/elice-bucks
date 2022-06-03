@@ -5,7 +5,7 @@ const productlist = {
     <div class="content">
         <h1>제품</h1>
           <button id="create-product-button" class = "button is-info is-light mb-2">
-            공지사항 생성 +
+            제품 생성 +
           </button>
           <div class="product-list">
           <table class="table is-hoverable">
@@ -23,7 +23,7 @@ const productlist = {
           <tbody >
           ${products
             .map(
-              (product) => `
+              (product, index) => `
                 <tr>
                   <td>${product.name}</td>
                   <td>${product.price}</td>
@@ -37,9 +37,7 @@ const productlist = {
                   <td>${product.description}</td>
                   <td>${product.stock}</td>
                   <td>
-                    <button id="${
-                      product._id
-                    }" class="product-edit-button button is-primary  is-light">수정</button>
+                    <button id="${index}" class="product-edit-button button is-primary  is-light">수정</button>
                     <button id="${
                       product._id
                     }" class="product-delete-button button is-danger   is-light">삭제</button>

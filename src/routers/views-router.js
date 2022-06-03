@@ -18,6 +18,7 @@ viewsRouter.use('/adminProducts', serveStatic('adminProducts'));
 viewsRouter.use('/adminNotice', serveStatic('adminNotice'));
 viewsRouter.use('/cart', serveStatic('cart'));
 viewsRouter.use('/order', serveStatic('order'));
+viewsRouter.use('/myOrder', serveStatic('myOrder'));
 viewsRouter.use('/myPage', serveStatic('userProfile'));
 viewsRouter.use('/notice', serveStatic('notice'));
 viewsRouter.use('/notice/:id', serveStatic('noticeDetail'));

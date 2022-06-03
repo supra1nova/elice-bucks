@@ -43,7 +43,6 @@ async function handleSubmit(e) {
     const data = { fullName, email, password };
     if (isAdmin) {
       await Api.post('/api/user/admin', data);
-      console.log('admianidnianaamdin');
     } else {
       await Api.post('/api/user/register', data);
     }

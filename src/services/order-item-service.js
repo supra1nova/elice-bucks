@@ -7,7 +7,6 @@ class OrderItemService {
  
   // 1. order item schema 구현 
   async addOrderItemList(orderInfo) {
-    console.log(orderInfo);
     const newOrderItem = await this.orderItemModel.createItems(orderInfo);
     return newOrderItem;
   }
@@ -18,13 +17,29 @@ class OrderItemService {
       return products;
   }
 
-  // 2-2. 제품별 목록개수 반환
+  // 2-2. 제품별 orderItemModel 반환 -> 수정중 ...
   async getSameProductId(productId) {
     const products = await this.orderItemModel.findByProductId(productId);
-    const productsNum = products.length;
-    return productsNum;
+    return products;
   }
 
+  // 2-3. 전체 주문목록 반환
+  async getAllProducts() {
+    const products = await this.orderItemModel.findAll();
+    return products;
+  }
+
+  // 2-3-1. (pagination) order 개수 반환
+  async countOrders() {
+    const orderItemsQty = await this.orderItemModel.countAll();
+    return orderItemsQty;
+  }
+
+  // 2-3-2. (pagination) 특정 페이지에 위치한 order정보 조회
+  async getRangedOrders(page, perPage) {
+    const rangedOrderItemsInfo = await this.orderItemModel.getInRange(page, perPage);
+    return rangedOrderItemsInfo;
+  }
 }
 
 const orderItemService = new OrderItemService( orderItemModel );

@@ -32,7 +32,7 @@
         </div>
   
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="/product">커피 둘러보기</a>
+          <a class="navbar-link" href="/product/?page=1&perPage=12">커피 둘러보기</a>
   
           <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
@@ -55,31 +55,34 @@
     </nav>
 
     <!-- 상단바 아래 컨텐츠 영역 -->
-    <div class="content">
+    <div class="holyGrail container mt-3">
+      <!-- 카테고리별 제품 목록 컨테이너 -->
+      <div class="holyGrail-body" id="noticeListContaniner">
 
-      <h1 class="tableTitle">NOTICE</h1>
+        <h1 class="tableTitle">NOTICE</h1>
 
-      <!-- 공지사항 테이블 -->
-      <table class="table is-hoverable">
-        <thead>
-          <tr>
-            <th class="no">NO.</th>
-            <th class="title">제목</th>
-            <th class="author">작성자</th>
-            <th class="date">날짜</th>
-          </tr>
-        </thead>
-        <tbody class="noticeContainer" id="list">
-          <!-- 공지사항 리스트 -->
-        </tbody>
-      </table>
+        <!-- 공지사항 테이블 -->
+        <table class="table is-hoverable">
+          <thead>
+            <tr>
+              <th class="no">번호</th>
+              <th class="title">제목</th>
+              <th class="author">작성자</th>
+              <th class="date">날짜</th>
+            </tr>
+          </thead>
+          <tbody class="noticeContainer" id="list">
+            <!-- 공지사항 리스트 -->
+          </tbody>
+        </table>
 
-      <!-- 페이지네이션 - 페이징 번호 목록 -->
-      <nav class="pagination is-rounded is-small is-centered" role="navigation" aria-label="pagination">
-        <ul class="pagination-list">
+        <!-- 페이지네이션 - 페이징 번호 목록 -->
+        <nav class="pagination is-rounded is-small is-centered" role="navigation" aria-label="pagination">
+          <ul class="pagination-list">
+          </ul>
+        </nav>
 
-        </ul>
-      </nav>
+      </div>
     </div>
 
   </body>

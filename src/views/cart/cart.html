@@ -26,9 +26,8 @@
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="cart.css" />
-    <script src="./indexedDB/indexedDB.js"></script>
-    <script src="./nav.js" type="module"></script>
-    <script defer src="./cart.js" ></script>
+    <script src="./indexedDB/indexedDB.js" ></script>
+    <script defer src="./cart.js" type="module"></script>
     
     <!-- btn -->
     <!-- <script defer src="./indexedDB/Btn.js" ></script> -->
@@ -54,7 +53,7 @@
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="/product">커피 둘러보기</a>
+          <a class="navbar-link" href="/product/?page=1&perPage=12">커피 둘러보기</a>
 
           <!-- 카테고리 목록 -->
           <div class="navbar-dropdown">
@@ -82,8 +81,8 @@
     <div class="main">
       <div class="box cart">
         <button class="button is-danger" id="allCheck">전체 선택<button class="button is-info ml-2" id="checkedDel">선택 삭제</button>
-        <div class="titPage">
-          <div class="tit">장바구니</div>
+        <div class="orderitemPage">
+          <div class="orderItems">장바구니</div>
         </div>
           <div class="cartItemlist">
             <!-- cartItemadd.js -->

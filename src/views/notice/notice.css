@@ -11,24 +11,52 @@ li {
 
 /* 상단바 */
 .navbar {
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .navbar a {
-  margin: 0 10px;
-  font-family: 'Noto Sans KR', sans-serif;
-  color: black;
-  text-decoration: none;
+	margin: 0 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: black;
+	text-decoration: none;
+	font-size: 0.8rem;
+}
+/* navBar 수직 정렬 안맞음 기본 CSS 제거 */
+.mt-3 {
+	margin-top: 0 !important;;
+}
+/* 로그인 부분 정렬 수정 */
+.breadcrumb ul {
+	justify-content: center;
+	align-items: center;
+}
+/* 로그인 메뉴의 맨 앞의 요소만 살짝 정렬 안 맞는 것을 막기 위해 */
+.breadcrumb li:first-child:before {
+	color: rgba(255,255,255,0);
+	content: "\0002f";
+}
+/* 로그인 메뉴의 맨 앞 요소만 왼쪽 padding 제외한 거 무효화  */
+.breadcrumb li:first-child a {
+	padding-left: 9.6px;
+}
+/* 회원 드롭다운 메뉴 정렬 수정*/
+.breadcrumb a {
+	justify-content: flex-start;
 }
 
+
 /* 공지사항 */
-.content {
-  margin: 50px;
+#noticeListContaniner {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem 0;
 }
-.content h1 {
+.tableTitle {
   text-align: center;
   font-size: 3rem;
   font-family: 'Do Hyeon', sans-serif;
@@ -39,30 +67,33 @@ li {
   width: 100%;
   word-break: break-all;
   table-layout: fixed;
+	font-size: 0.8rem;
 }
 .table thead tr {
   background-color: #88A394;
 }
 
 /* 공지사항 body */
-.noticeContainer {
-  font-size: 1em;
-}
 .no {
   width: 5%;
 }
 .title {
   /* 제목 기본 폰트 사이즈 조정 */
-  font-size: 1em;
+  font-size: 0.8rem;
   width: 60%;
 }
 
 /* 페이지네이션 */
 .pagination {
-  margin-top: 2em;
+  margin: 1rem 0;
 }
 .pagination-link:hover {
 	background-color: #2D4039;
+	color: white;
+}
+/* 활성화 된 페이징 버튼 */
+.active {
+  background-color: #2D4039;
 	color: white;
 }
 
@@ -82,4 +113,39 @@ li {
   justify-content: center;
   align-items: center;
   color:#fff;
+}
+
+/* -- 미디어쿼리 -- */
+
+/* 로그인 메뉴 수평 유지 */
+@media screen and (max-width: 1023px) {
+	.navbar-brand {
+		position: relative;
+	}
+	.navbar-menu {
+		display: block;
+		box-shadow: none;
+		/* 커피 메뉴와 정렬을 맞춤 */
+		padding-left: 0.5rem;
+    padding-right: 0.5rem;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.breadcrumb ol, .breadcrumb ul {
+		align-items: center;
+	}
+	.breadcrumb li+li::before {
+    content:none;
+	}
+	#noticeListContaniner {
+		margin: 30px;
+	}
+}
+
+/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
+@media screen and (max-width: 479px) {
+	.breadcrumb ol, .breadcrumb ul {
+		flex-direction: column;
+	}
 }

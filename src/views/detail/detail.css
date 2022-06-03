@@ -11,26 +11,82 @@ a {
 
 /* 상단바 */
 .navbar {
-	width: 100%;
+    width: 100%;;
 	padding: 20px;
 	display: flex;
 	justify-content: space-between;
-  	align-items: center;
+	align-items: center;
 }
 .navbar a {
 	margin: 0 10px;
 	font-family: 'Noto Sans KR', sans-serif;
 	color: black;
 	text-decoration: none;
+	font-size: 0.8rem;
+}
+/* navBar 수직 정렬 안맞음 기본 CSS 제거 */
+.mt-3 {
+	margin-top: 0 !important;;
+}
+/* 로그인 부분 정렬 수정 */
+.breadcrumb ul {
+	justify-content: center;
+	align-items: center;
+}
+/* 로그인 메뉴의 맨 앞의 요소만 살짝 정렬 안 맞는 것을 막기 위해 */
+.breadcrumb li:first-child:before {
+	color: rgba(255,255,255,0);
+	content: "\0002f";
+}
+/* 로그인 메뉴의 맨 앞 요소만 왼쪽 padding 제외한 거 무효화  */
+.breadcrumb li:first-child a {
+	padding-left: 9.6px;
+}
+/* 회원 드롭다운 메뉴 정렬 수정*/
+.breadcrumb a {
+	justify-content: flex-start;
 }
 
-/* 제품 상세 컨테이너 */
+/* 로그인 메뉴 수평 유지 */
+@media screen and (max-width: 1023px) {
+	.navbar-brand {
+		position: relative;
+	}
+	.navbar-menu {
+		display: block;
+		box-shadow: none;
+		/* 커피 메뉴와 정렬을 맞춤 */
+		padding-left: 0.5rem;
+        padding-right: 0.5rem;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.breadcrumb ol, .breadcrumb ul {
+		align-items: center;
+	}
+	.breadcrumb li+li::before {
+    content:none;
+	}
+}
+
+/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
+@media screen and (max-width: 479px) {
+	.breadcrumb ol, .breadcrumb ul {
+		flex-direction: column;
+	}
+}
+
+
+/* 제품 상세 */
 #content {
-    padding: 50px;
+    display: flex;
+    align-items: center;
     width: 100%;
     height: 100vh;
+    padding: 50px;
 }
-#container {
+#detailContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -57,37 +113,53 @@ a {
     width: 100%;
 }
 
-/* 장바구니에 담기 버튼 */
-#cartBtn {
+/* 버튼 */
+/* 장바구니 버튼, 바로구매 버튼 공통 */
+.btn {
     position: fixed;
-    bottom: 110px;
-    right: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
     padding: 10px;
-    border-radius: 40px;
+    font-size: 1.5rem;
     background-color: #F1EEEB;
     color: #333333;
-    font-size: 1rem;
 }
-#cartBtn:hover {
+.btn:hover {
     background-color: #fff;
 }
-/* 바로 구매하기 버튼 */
+/* 장바구니 버튼 위치 조정 */
+#cartBtn {
+    bottom: 120px;
+    right: 50px;  
+}
+/* 바로 구매 버튼 위치 조정 */
 #buyBtn {
-    position: fixed;
     bottom: 50px;
     right: 50px;
-    padding: 10px;
-    border-radius: 40px;
-    background-color: #F1EEEB;
-    color: #333333;
-    font-size: 1rem;
-}
-#buyBtn:hover {
-    background-color: #fff;
 }
 
-  /* 로딩 */
-  .overlay {
+/* 화면이 작아지면 상품 이미지와 상품 설명이 수직으로 나열 */
+@media screen and (max-width: 768px) {
+    #detailContainer {
+        display: block;
+    }
+    #text, #image {
+        width: 100%;
+    }
+    #name {
+        font-size: 1.6rem;
+    }
+    #description, #price {
+        font-size: 1rem;
+    }
+}
+
+/* 로딩 */
+.overlay {
     display:none;
     position:fixed;
     z-index:1000;

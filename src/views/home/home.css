@@ -1,172 +1,230 @@
 *{
 	margin: 0;
 	padding: 0;
-  }
-  li {
-	  list-style-type: none;
-  }
-  body {
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  justify-content: center;
-  }
-  
-  /* 상단바 */
-  .navbar {
-	  width: 100%;
-	  padding: 20px;
-	  display: flex;
-	  justify-content: space-between;
+}
+li {
+	list-style-type: none;
+}
+body {
+	background-color: #273832;
+}
+
+
+/* 상단바 */
+.navbar {
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.navbar a {
+	margin: 0 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: black;
+	text-decoration: none;
+	font-size: 0.8rem;
+}
+/* navBar 수직 정렬 안맞음 기본 CSS 제거 */
+.mt-3 {
+	margin-top: 0 !important;;
+}
+/* 로그인 부분 정렬 수정 */
+.breadcrumb ul {
+	justify-content: center;
+	align-items: center;
+}
+/* 로그인 메뉴의 맨 앞의 요소만 살짝 정렬 안 맞는 것을 막기 위해 */
+.breadcrumb li:first-child:before {
+	color: rgba(255,255,255,0);
+	content: "\0002f";
+}
+/* 로그인 메뉴의 맨 앞 요소만 왼쪽 padding 제외한 거 무효화  */
+.breadcrumb li:first-child a {
+	padding-left: 9.6px;
+}
+/* 회원 드롭다운 메뉴 정렬 수정*/
+.breadcrumb a {
+	justify-content: flex-start;
+}
+
+
+/* 슬라이드 배너 */
+.section {
+	position: relative;
+	padding: 0;
+	width: 100%;
+}
+.section [id*="slide"] {display:none;} */
+
+/* 슬라이드 영역 - max-width 크기를 조절*/
+.section .slide-container {
+	margin:0 auto;
+	overflow:hidden;
+	position:relative;
+}
+.section .slides {
+	white-space:nowrap;
+	font-size:0;
+}
+.section .slides > li {
+	display:inline-block;
+	vertical-align:middle;
+	width:100%;
+	transition:all .5s;
+}
+.section .slides > li > a {
+	display:block;
+	position:relative;
+}
+
+/* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
+.section .slide-control {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:10;
+	width:100%;
+	height:100%;
+}
+.section .slide-control label {
+	position:absolute;
+	z-index:1;
+	top:50%;
+	transform:translateY(-50%);
+	padding:50px;
+	cursor:pointer;
+}
+.section .slide-control .left {
+	left:0px;
+	background:url('./images/left.png') center center / 50% no-repeat;
+}
+.section .slide-control .right {
+	right:0px;
+	background:url('./images/right.png') center center / 50% no-repeat;
+}
+.section .slide-control [class*="control"] { display:none; }
+
+/* INPUT이 체크되면 변화값이 li까지 전달되는 스타일 */
+.section [id="slide01"]:checked ~ .slide-container .slides > li { transform:translateX(0%); }
+.section [id="slide02"]:checked ~ .slide-container .slides > li { transform:translateX(-100%); }
+.section [id="slide03"]:checked ~ .slide-container .slides > li { transform:translateX(-200%); }
+.section [id="slide04"]:checked ~ .slide-container .slides > li { transform:translateX(-300%); }
+
+/*  INPUT이 체크되면 변화값이 좌우 슬라이드 버튼을 담고 있는 div 까지 전달되는 스타일 */
+.section [id="slide01"]:checked ~ .slide-container .control01 { display:block; }
+.section [id="slide02"]:checked ~ .slide-container .control02 { display:block; }
+.section [id="slide03"]:checked ~ .slide-container .control03 { display:block; }
+.section [id="slide04"]:checked ~ .slide-container .control04 { display:block; }
+
+.slides img { width: 100%; } 
+
+
+/* 더 알아보기 */
+.story {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+}
+.recipe, .elicebucks, .recycle {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.story .zoom img {
+	width: 100%;
+	vertical-align: middle;
+}
+.story .zoom:hover {
+	transform: scale(1.1);
+	transition: all 0.5s ease-in-out;
+}
+.story .text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	text-align: center;
+	transform: translate( -50%, -50% );
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.3rem;
+	color: #fff;
+}
+
+/* 푸터 */
+footer {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 0.8rem;
+	background-color: #273832;
+	color: #76817D;
+	padding: 3rem;
+}
+footer .team {
+	font-weight: bolder;
+}
+footer .logo img {
+	width: 30%;
+	float: right;
+}
+
+/* 로딩 */
+.overlay {
+	display:none;
+	position:fixed;
+	z-index:1000;
+	background-color: rgba(16,16,16,0.5);
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+.overlay.active {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	color:#fff;
+}
+
+/* 로그인 메뉴 수평 유지 */
+@media screen and (max-width: 1023px) {
+	.navbar-brand {
+		position: relative;
+	}
+	.navbar-menu {
+		display: block;
+		box-shadow: none;
+		/* 커피 메뉴와 정렬을 맞춤 */
+		padding-left: 0.5rem;
+    padding-right: 0.5rem;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.breadcrumb ol, .breadcrumb ul {
 		align-items: center;
-  }
-  .navbar a {
-	  margin: 0 10px;
-	  font-family: 'Noto Sans KR', sans-serif;
-	  color: black;
-	  text-decoration: none;
-  }
-  
-  /* 콘텐츠
-  .content {
-	  width: 100%;
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  justify-content: center;
-  } */
-  
-  /* 슬라이드 배너 */
-  .section {
-	  position: relative;
-		padding: 0;
-	  width: 100%;
-  }
-  .section [id*="slide"] {display:none;} */
-  
-  /* 슬라이드 영역 - max-width 크기를 조절*/
-  .section .slide-container {
-	  margin:0 auto;
-	  overflow:hidden;
-	  position:relative;
-  }
-  .section .slides {
-	  white-space:nowrap;
-	  font-size:0;
-  }
-  .section .slides > li {
-	  display:inline-block;
-	  vertical-align:middle;
-	  width:100%;
-	  transition:all .5s;
-  }
-  .section .slides > li > a {
-	  display:block;
-	  position:relative;
-  }
-  
-  /* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
-  .section .slide-control {
-	  position:absolute;
-	  top:0;
-	  left:0;
-	  z-index:10;
-	  width:100%;
-	  height:100%;
-  }
-  .section .slide-control label {
-	  position:absolute;
-	  z-index:1;
-	  top:50%;
-	  transform:translateY(-50%);
-	  padding:50px;
-	  cursor:pointer;
-  }
-  .section .slide-control .left {
-	  left:0px;
-	  background:url('./images/left.png') center center / 50% no-repeat;
-  }
-  .section .slide-control .right {
-	  right:0px;
-	  background:url('./images/right.png') center center / 50% no-repeat;
-  }
-  .section .slide-control [class*="control"] { display:none; }
-  
-  /* INPUT이 체크되면 변화값이 li까지 전달되는 스타일 */
-  .section [id="slide01"]:checked ~ .slide-container .slides > li { transform:translateX(0%); }
-  .section [id="slide02"]:checked ~ .slide-container .slides > li { transform:translateX(-100%); }
-  .section [id="slide03"]:checked ~ .slide-container .slides > li { transform:translateX(-200%); }
-  .section [id="slide04"]:checked ~ .slide-container .slides > li { transform:translateX(-300%); }
-  
-  /*  INPUT이 체크되면 변화값이 좌우 슬라이드 버튼을 담고 있는 div 까지 전달되는 스타일 */
-  .section [id="slide01"]:checked ~ .slide-container .control01 { display:block; }
-  .section [id="slide02"]:checked ~ .slide-container .control02 { display:block; }
-  .section [id="slide03"]:checked ~ .slide-container .control03 { display:block; }
-  .section [id="slide04"]:checked ~ .slide-container .control04 { display:block; }
-  
-  .slides img { width: 100%; } 
-  
-  /* 레시피, 캡슐 재활용 */
-  .story {
-	  width: 100%;
-	  display: flex;
-	  justify-content: center;
-  }
-  .recipe, .recycle {
-	  overflow: hidden;
-	  position: relative;
-  }
-  .story .zoom img {
-	  width: 100%;
-	  vertical-align: middle;
-  }
-  .story .zoom:hover {
-	  transform: scale(1.1);
-	  transition: all 0.5s ease-in-out;
-  }
-  .story .text {
-	  position: absolute;
-	  top: 50%;
-	  left: 50%;
-	  text-align: center;
-	  transform: translate( -50%, -50% );
-	  font-family: 'Do Hyeon', sans-serif;
-	  font-size: 2em;
-	  color: #fff;
-  }
-  
-  /* 푸터 */
-  footer {
-	  width: 100%;
-	  display: flex;
-	  justify-content: space-between;
-	  font-family: 'Noto Sans KR', sans-serif;
-	  background-color: #273832;
-	  color: #76817D;
-	  padding: 3em;
-  }
-  footer .team {
-	  font-weight: bolder;
-  }
-  footer .logo img {
-	  width: 30%;
-	  float: right;
-  }
-  
-  /* 로딩 */
-  .overlay {
-	  display:none;
-	  position:fixed;
-	  z-index:1000;
-	  background-color: rgba(16,16,16,0.5);
-	  top:0;
-	  left:0;
-	  width:100%;
-	  height:100%;
-  }
-  .overlay.active {
-	  display:flex;
-	  justify-content: center;
-	  align-items: center;
-	  color:#fff;
-  }
+	}
+	.breadcrumb li+li::before {
+    content:none;
+	}
+}
+
+/* 화면이 작아지면 더 알아보기 박스들이 수직으로 떨어짐 */
+@media screen and (max-width: 768px) {
+	.story {
+		display: block;
+	}
+	.story .text {
+		font-size: 1rem;
+	}
+}
+
+/* 화면이 작아지면 메뉴들이 겹치는 것을 방지하게 위해 로그인 수직 정렬 */
+@media screen and (max-width: 479px) {
+	.breadcrumb ol, .breadcrumb ul {
+		flex-direction: column;
+	}
+}

@@ -2,7 +2,7 @@ import headerNavbar from '/components/headerNavbar.js';
 import insertCategoryList from '/components/navCategoryList.js';
 
 const headerNavbar1 = document.querySelector('#headerNavbar');
-const container = document.querySelector('#container');
+const detailContainer = document.querySelector('#detailContainer');
 
 addAllElements();
 insertCategoryList();
@@ -10,8 +10,8 @@ insertProductDetail();
 
 // navbar 로그인 상태에 따른 로그인 메뉴 삽입
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
+  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar.componentDidMount();
 }
 
 // 각 상품의 데이터를 html에 삽입
@@ -29,7 +29,7 @@ async function insertProductDetail() {
   const image = product.image;
 
   // 상품 name, description, price, image를 각 자리에 할당
-  container.insertAdjacentHTML(
+  detailContainer.insertAdjacentHTML(
     'beforeend',
     `
           <div id="text">
@@ -54,7 +54,7 @@ const saveItem = async (e) => {
   // 값이 불려졌는지 확인
 
   if (!name) {
-    console.log('DB에 넣을 글 존제하지않습니다.');
+    console.log('DB에 넣을 글 존재하지않습니다.');
     return;
   }
   // indexed 구조 생성
@@ -74,13 +74,11 @@ const saveItem = async (e) => {
     const a = carts.get(name);
     a.onsuccess = () => {
       if (a.result) {
-        console.log(a);
         alert('장바구니에 이미 존재하는 상품입니다.');
         return;
       }
       // 없다면 Put 하고 알림창 띄우기
       const addcmp = carts.put(item, name);
-      console.log(addcmp);
       addcmp.onsuccess = () => {
         alert('장바구니 넣었습니다.');
       };
@@ -107,7 +105,6 @@ const buyItem = async (e) => {
   // 값이 불려졌는지 확인
 
   if (!name) {
-    console.log('DB에 넣을 글 존제하지않습니다.');
     return;
   }
   // indexed 구조 생성
@@ -132,7 +129,6 @@ const buyItem = async (e) => {
       }
       // 없다면 Put 하고 알림창 띄우기
       const addcmp = carts.put(item, name);
-      console.log(addcmp);
       addcmp.onsuccess = () => {
         location.pathname = '/cart';
       };

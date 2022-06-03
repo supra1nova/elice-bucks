@@ -11,7 +11,7 @@ const noticeslist = {
           <table class="table is-hoverable">
           <thead>
             <tr>
-              <th>번호</th>
+              <th class="userTh">번호</th>
               <th>제목</th>
               <th>내용</th>
               <th>작성자</th>
@@ -25,7 +25,7 @@ const noticeslist = {
             .map(
               (notice, index) => `
                 <tr>
-                  <td>${index + 1 + (notices.page - 1) * notices.perPage}</td>
+                  <td>${notices.total - (notices.page - 1) * 10 - index}</td>
                   <td>${notice.title}</td>
                   <td class="productContent">${notice.content}</td>
                   <td>${notice.author}</td>

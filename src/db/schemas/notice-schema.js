@@ -1,9 +1,7 @@
 const { Schema } = require('mongoose');
-// const shortId = require('./types/short-id');
 
 const NoticeSchema = new Schema(
   {
-    // shortId,
     title: {
       type: String,
       required: true,
