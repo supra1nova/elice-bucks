@@ -20,36 +20,29 @@ class NoticeService {
     return createdNewNotice;
   }
   
-
-  // // 2. 전체 공지사항 조회
-  // async getNotices() {
-  //   const notices = await this.noticeModel.findAll();
-  //   return notices;
-  // }
   
-  
-  // 3. 전체 공지사항 갯수 조회
+  // 2. 전체 공지사항 갯수 조회
   async countNotices() {
     const noticeQty = await this.noticeModel.countAll();
     return noticeQty;
   }
   
 
-  // 4. 특정 범위(페이지) 위치한 공지사항 정보 조회
+  // 3. 특정 범위(페이지) 위치한 공지사항 정보 조회
   async getRangedNotices(page,perPage) {
     const rangedNoticesInfo = await this.noticeModel.getInRange(page, perPage);
     return rangedNoticesInfo;
   }
   
   
-  // 5. 특정 공지사항 조회
+  // 4. 특정 공지사항 조회
   async findNotice(noticeId) {
     const notice = await this.noticeModel.findById(noticeId);
     return notice;
   }
   
   
-  // 6. 특정 공지 정보 수정
+  // 5. 특정 공지 정보 수정
   async setNotice(noticeId, toUpdate) {
     let notice = await this.noticeModel.findById(noticeId);
     if (!notice) {
@@ -65,7 +58,7 @@ class NoticeService {
   }
 
 
-  // 7. 공지 삭제
+  // 6. 공지 삭제
   async removeNotice(noticeId) {
     let notice = await this.noticeModel.findById(noticeId);
     
