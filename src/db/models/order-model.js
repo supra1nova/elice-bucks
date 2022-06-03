@@ -24,7 +24,7 @@ export class OrderModel {
 
   // 여기서의 orderId 는 order schema 에서의 _id 를 의미
   async findByOrderId(orderId) {
-    const order = await Order.sort({ "createdAt": -1 }).find({ _id: orderId });
+    const order = await Order.find({ _id: orderId }).sort({ "createdAt": -1 });
     return order;
   }
 
