@@ -17,11 +17,11 @@ addAllElements();
 insertCategoryList();
 
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  leftMenuAdmin.innerHTML = await leftMenu.render({
+  headerNavbar1.innerHTML = headerNavbar.render();
+  leftMenuAdmin.innerHTML = leftMenu.render({
     selected: 'orders',
   });
-  await headerNavbar.componentDidMount();
+  headerNavbar.componentDidMount();
   const datas = await getOrders();
   dashboard_content.innerHTML = orderslist.render(datas.posts);
   await orderslist.componentDidMount();
@@ -63,7 +63,9 @@ async function addAllElements() {
 
   // 현재 페이지에 해당하는 페이징 버튼 활성화
   const pageBtn = document.getElementById(`pagination${datas.page}`);
-  pageBtn.classList.add('activePagination');
+  if (pageBtn) {
+    pageBtn.classList.add('activePagination');
+  }
 }
 
 async function getOrders() {

@@ -18,19 +18,47 @@ addAllElements();
 insertCategoryList();
 
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  leftMenuAdmin.innerHTML = await leftMenu.render({
+  headerNavbar1.innerHTML = headerNavbar.render();
+  leftMenuAdmin.innerHTML = leftMenu.render({
     selected: 'dashboard',
   });
-  await headerNavbar.componentDidMount();
+  headerNavbar.componentDidMount();
   const orderTotalNum = await getOrderstotalNum();
   const userTotalNum = await getTotalnumOfusers();
   const totalSale = await getTotalSale();
-  dashboard_content.innerHTML = await adminContent.render(
+  dashboard_content.innerHTML = adminContent.render(
     userTotalNum,
     orderTotalNum,
     totalSale
   );
+  const productsQty = await getProductsQty();
+  const labels = productsQty.map((d) => d[0]);
+  const counts = productsQty.map((d) => d[1]);
+  //let labels = ['January', 'February', 'March', 'April', 'May', 'June'];
+  counts.push(Math.max(...counts) + 1);
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: '제품들',
+        backgroundColor: 'rgb(136, 163, 148)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: counts,
+      },
+    ],
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  };
   const myChart = new Chart(document.getElementById('myChart'), config);
 }
 
@@ -65,7 +93,7 @@ const adminContent = {
         </div>
       </div>
     </div>
-    <div class="tile">
+    <div class="tile" id="lastTile">
         <div class="tile is-child box tileContent">
           <p class="subtitle">제품별 판매현황</p>
           <div class="titleContent">
@@ -109,28 +137,14 @@ async function getTotalSale() {
   }
 }
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
-
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgb(136, 163, 148)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 45],
-    },
-  ],
-};
-
-const config = {
-  type: 'bar',
-  data: data,
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-};
+//r.get(
+//  '/admin/productsQty',
+async function getProductsQty() {
+  try {
+    const data = await Api.get('/api/order/admin', 'productsQty');
+    return data;
+  } catch (err) {
+    console.error(err.stack);
+    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+}

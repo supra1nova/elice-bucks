@@ -12,8 +12,8 @@ insertNoticeDetail();
 
 // navbar 로그인 상태에 따른 로그인 메뉴 삽입
 async function addAllElements() {
-  headerNavbar1.innerHTML = await headerNavbar.render();
-  await headerNavbar.componentDidMount();
+  headerNavbar1.innerHTML = headerNavbar.render();
+  headerNavbar.componentDidMount();
 }
 
 // 공지사항 데이터를 html에 삽입
@@ -24,9 +24,9 @@ async function insertNoticeDetail() {
   // '/api/notice/${id}' 에서 상품의 상세 내용을 json으로 받아옴
   const res = await fetch(`/api/notice/${id}`);
   const notice = await res.json();
-  
+
   const title = notice.title;
-  const timestamps = notice.timestamps;
+  const time = Date(notice.timestamps).split(' ', 4).join(' ');
   const content = notice.content;
   const author = notice.author;
 
@@ -34,13 +34,14 @@ async function insertNoticeDetail() {
     'beforeend',
     ` 
       <th class="title">${title}</th>
+      <th class="time">${time}</th>
     `
   );
-  
+
   noticeDetail.insertAdjacentHTML(
     'beforeend',
     ` 
-      <td class="content">
+      <td class="content" colspan="2">
         ${content}
       </td>
     `

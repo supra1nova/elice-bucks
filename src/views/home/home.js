@@ -31,7 +31,7 @@ recipe.addEventListener('mouseout', () => {
 })
 
 elicebucks.addEventListener('mouseover', () => {
-  elicebucksText.innerHTML = "엘리스벅스는 100% 아라비카 원두만을 사용하여, 최상의 맛을 선사하는 커피 한 잔을 드립니다."
+  elicebucksText.innerHTML = "엘리스벅스는 100% 아라비카 원두만을 사용하여<br/>최상의 맛을 선사하는 커피 한 잔을 드립니다."
 })
 elicebucks.addEventListener('mouseout', () => {
   elicebucksText.innerHTML = "엘리스벅스만의 특징"

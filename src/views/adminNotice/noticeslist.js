@@ -11,7 +11,7 @@ const noticeslist = {
           <table class="table is-hoverable">
           <thead>
             <tr>
-              <th>번호</th>
+              <th class="userTh">번호</th>
               <th>제목</th>
               <th>내용</th>
               <th>작성자</th>

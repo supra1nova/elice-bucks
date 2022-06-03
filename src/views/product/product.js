@@ -57,14 +57,15 @@ async function insertProductList() {
 
   // 페이징 번호 목록
   for (let i = 1; i <= totalPage; i++) {
-    document.querySelector('.pagination-list').insertAdjacentHTML(
-      'beforeend',
-      `<li><a class="pagination-link" id="${i}" href="?page=${i}&perPage=12">${i}</a></li>`
-    );
+    document
+      .querySelector('.pagination-list')
+      .insertAdjacentHTML(
+        'beforeend',
+        `<li><a class="pagination-link" id="${i}" href="?page=${i}&perPage=12">${i}</a></li>`
+      );
   }
-  
+
   // 현재 페이지에 해당하는 페이징 버튼 활성화
   const pageBtn = document.getElementById(`${pageId}`);
   pageBtn.classList.add('active');
-  
 }

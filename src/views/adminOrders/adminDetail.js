@@ -43,6 +43,7 @@ const adminDetail = {
   render: (oneOrder) => {
     const order = oneOrder.orderId;
     const user = order?.userId || '';
+    const userName = order?.receiverName || '';
     const totalPrice = order?.totalPrice || '';
     const createdAt = order?.createdAt || '';
     const updatedAt = order?.updatedAt || '';
@@ -50,7 +51,7 @@ const adminDetail = {
     const postalCode = order?.address?.postalCode || '';
     const address1 = order?.address?.address1 || '';
     const address2 = order?.address?.address2 || '';
-
+    const phoneNum = order?.receiverPhoneNumber || '';
     let deletedFlag = false;
     if (order?.deletedAt && !order?.deletedAt?.startsWith('1')) {
       deletedFlag = true;
@@ -67,17 +68,25 @@ const adminDetail = {
             <div class="field">
                 <label class="label">유저 아이디</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="유저 아이디" value="${
-                  user || ''
-                }">
+                <input readOnly class="input" type="text" placeholder="유저 아이디" value="${user}">
                 </p>
             </div>
             <div class="field">
                 <label class="label">유저 이름</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="유저 이름" value="${user}">
+                <input readOnly class="input" type="text" placeholder="유저 이름" value="${userName}">
                 </p>
             </div>
+            <div class="field">
+              <label class="label">전화번호</label>
+                <p class="control is-expanded">
+                  <input readOnly class="input" type="text" placeholder="전화번호" value="${phoneNum}">
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-body">
             <div class="field">
                 <label class="label">총 가격</label>
                 <p class="control is-expanded">
@@ -88,6 +97,12 @@ const adminDetail = {
                 <label class="label">주문일</label>
                 <p class="control is-expanded">
                 <input readOnly class="input" type="text" placeholder="주문일" value="${createdAt}">
+                </p>
+            </div>
+            <div class="field">
+                <label class="label">수정일</label>
+                <p class="control is-expanded">
+                <input readOnly class="input" type="text" placeholder="수정일" value="${updatedAt}">
                 </p>
             </div>
         </div>
@@ -192,12 +207,6 @@ const adminDetail = {
                 }
                 </p>
             </div>
-            <div class="field">
-                <label class="label">수정일</label>
-                <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="수정일" value="${updatedAt}">
-                </p>
-            </div>
         </div>
     </div>
     <label class="label infoSection"><h1>주소정보</h1></label>
@@ -222,6 +231,8 @@ const adminDetail = {
                 <input readOnly class="input" type="text" placeholder="주소 2" value="${address2}">
                 </p>
             </div>
+            
+            
         </div>
     </div>
     <label class="label infoSection"><h1>주문 제품</h1></label>
@@ -291,7 +302,7 @@ const adminDetail = {
       `;
       })
       .join('\n')}
-      <button id="goBack" class="is-medium product-delete-button button is-warning is-light is-fullwidth mb-5 ">뒤로가기</button>
+      <button id="goBack" class="input is-medium product-delete-button button is-warning is-light is-fullwidth mb-5 ">뒤로가기</button>
     `;
   },
 };

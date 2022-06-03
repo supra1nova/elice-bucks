@@ -110,6 +110,7 @@
 }
 .leftMenu li.selected a {
   font-size: large;
+  font-weight:bold;
   color: #26ac26;
 }
 .product-list button{
@@ -267,4 +268,8 @@ h1 {
   color: #2D4039;
   font-size: 1em;
   font-weight: bold;
+}
+
+#lastTile {
+  margin-bottom: 7rem;
 }
