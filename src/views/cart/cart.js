@@ -20,17 +20,17 @@ const uploadCart = () => {
     const transaction = database.transaction('carts', 'readonly');
     // cart 저장소 가져오기
     const carts = transaction.objectStore('carts');
-    const list = document.querySelector('.cartItemlist');
+    const cartItemlist = document.querySelector('.cartItemlist');
     // 장바구니 내역 초기화.
-    list.innerHTML = '';
+    cartItemlist.innerHTML = '';
     const Indcartslist = carts.getAll();
     Indcartslist.onsuccess = () => {
       let indexedDBcarts = Indcartslist.result;
       // getAll 값이 없으면 비어있다는 말 띄우기
       if (indexedDBcarts.length === 0) {
-        list.innerHTML = '';
+        cartItemlist.innerHTML = '';
         const emptycart = `<div class='emptycart'>장바구니가 비어있습니다.</div>`;
-        list.insertAdjacentHTML('beforeend', emptycart);
+        cartItemlist.insertAdjacentHTML('beforeend', emptycart);
         totalPaymentInf();
         return;
       }
@@ -38,15 +38,16 @@ const uploadCart = () => {
       for (let i = 0; i < indexedDBcarts.length; i++) {
         let { name, price, image, cnt, _id } = indexedDBcarts[i];
         const cartlist = `
-                        <div class="list">
-                            <div class="listItem">
-                            <label class="check" for="">
+                        <div class="list box order-summary field is-horizontal">
+                            <div class="listItem container">
+                            
+                          <div class="goods is-ancestor">
+                          <label class="check ml-1" for="">
                             <input type="checkbox" name="chkItem" class="itemCheck" checked>
                             <span class="ico"></span>
                           </label>
-                          <div class="goods">
                             <a href="/detail/${_id}" class="image is-96x96"><img src="${image}"></a>
-                            <div class="itemName">
+                            <div class="itemName tile">
                               <div class="inner_name">
                                 <a href="/detail/${_id}" class="package name">${name}</a>
                               </div>
@@ -66,7 +67,7 @@ const uploadCart = () => {
                           </div>
                         </div>
                         `;
-        list.insertAdjacentHTML('beforeend', cartlist);
+        cartItemlist.insertAdjacentHTML('beforeend', cartlist);
 
         // 체크 박스 체크
         // let checkboxCheck = document.querySelector(`.check${i}`);
@@ -105,7 +106,7 @@ const totalPaymentInf = () => {
     }
   }
   const paymentInf = (totalPrice, totalCnt) => `
-        <div class="tile is-parent tile-order-summary">
+        <div class="tile tile-order-summary">
         <div class="box order-summary">
           <div class="header">
             <p>결제정보</p>
