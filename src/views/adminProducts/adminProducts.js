@@ -215,8 +215,12 @@ async function createCategory(value) {
     };
     const result = await Api.post('/api/category/register', data);
 
-    alertGreenModal.alertModalActivate(`정상적으로 카테고리 추가되었습니다.`);
-    return result;
+    return alertGreenModal.alertModalActivate(
+      `정상적으로 카테고리 추가되었습니다.`,
+      function () {
+        window.location.reload();
+      }
+    );
   } catch (err) {
     console.error(err.stack);
     alertModal.alertModalActivate(
