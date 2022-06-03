@@ -28,11 +28,7 @@
     <link rel="stylesheet" href="cart.css" />
     <script src="./indexedDB/indexedDB.js" ></script>
     <script defer src="./cart.js" type="module"></script>
-    
-    <!-- btn -->
-    <!-- <script defer src="./indexedDB/Btn.js" ></script> -->
-    <!-- <script defer src="./kakaomap/kakaomap.js"></script>
-    <script defer src="./kakaomap/kakaoAPi.js"></script> -->
+
     <!-- Kakao 주소 API 사용하기 위한 파일 -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- Google Font -->
@@ -75,21 +71,26 @@
       </div>
     </nav>
   
+<!-- 장바구니 -->
 
-    <!-- 장바구니 -->
-  <section>
-    <div class="main">
-      <div class="box cart">
-        <button class="button is-danger" id="allCheck">전체 선택<button class="button is-info ml-2" id="checkedDel">선택 삭제</button>
-        <div class="orderitemPage">
-          <div class="orderItems">장바구니</div>
+  <section class="section">
+    <div class="container">
+      <div class="cart-header">
+        <div class="title">
+          <p class="is-size-2">장바구니</p>
         </div>
-          <div class="cartItemlist">
-            <!-- cartItemadd.js -->
-          </div>
-
       </div>
-      <div class="pamentMain"></div>
+      <button class="button is-danger" id="allCheck">전체 선택<button class="button is-info ml-2" id="checkedDel">선택 삭제</button>
+      <div class="tile is-ancestor">
+        <div class="tile is-parent  cart-products main cartItemlist box is-9">
+          <!-- kakaomap.js -->
+        </div>
+
+        <!-- 주문 정보 요약 -->
+        <div class="tile is-parent tile-order-summary pamentMain is-3">
+          <!-- order.js -->
+        </div>
+      </div>
     </div>
   </section>
   <!--modal-->

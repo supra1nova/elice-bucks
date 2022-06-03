@@ -1,6 +1,6 @@
 import headerNavbar from '../components/headerNavbar.js';
 import insertCategoryList from '../components/navCategoryList.js';
-
+import { addCommas, convertToNumber } from '../useful-functions.js';
 const headerNavbar1 = document.querySelector('#headerNavbar');
 
 addAllElements();
@@ -20,41 +20,41 @@ const uploadCart = () => {
     const transaction = database.transaction('carts', 'readonly');
     // cart 저장소 가져오기
     const carts = transaction.objectStore('carts');
-    const list = document.querySelector('.cartItemlist');
+    const cartItemlist = document.querySelector('.cartItemlist');
     // 장바구니 내역 초기화.
-    list.innerHTML = '';
+    cartItemlist.innerHTML = '';
     const Indcartslist = carts.getAll();
     Indcartslist.onsuccess = () => {
       let indexedDBcarts = Indcartslist.result;
       // getAll 값이 없으면 비어있다는 말 띄우기
       if (indexedDBcarts.length === 0) {
-        list.innerHTML = '';
+        cartItemlist.innerHTML = '';
         const emptycart = `<div class='emptycart'>장바구니가 비어있습니다.</div>`;
-        list.insertAdjacentHTML('beforeend', emptycart);
+        cartItemlist.insertAdjacentHTML('beforeend', emptycart);
         totalPaymentInf();
         return;
       }
 
       for (let i = 0; i < indexedDBcarts.length; i++) {
         let { name, price, image, cnt, _id } = indexedDBcarts[i];
+        let priceadd = addCommas(Number(price) * Number(cnt));
         const cartlist = `
-                        <div class="list">
-                            <div class="listItem">
-                            <label class="check" for="">
+                        <div class="list box order-summary field is-horizontal">
+                            <div class="listItem container">
+                            
+                          <div class="goods is-ancestor">
+                          <label class="check ml-1" for="">
                             <input type="checkbox" name="chkItem" class="itemCheck" checked>
                             <span class="ico"></span>
                           </label>
-                          <div class="goods">
                             <a href="/detail/${_id}" class="image is-96x96"><img src="${image}"></a>
-                            <div class="itemName">
+                            <div class="itemName tile">
                               <div class="inner_name">
                                 <a href="/detail/${_id}" class="package name">${name}</a>
                               </div>
                             </div>
                             <div class="price">
-                              <span class="pricecnt">${
-                                Number(price) * Number(cnt)
-                              }</span><span class="won">원</span>
+                              <span class="pricecnt">${priceadd}</span><span class="won">원</span>
                             </div>
                             <div class="countbar">
                               <button type="button" class="btn minus" name="decrease"><i class="fa-solid fa-minus"></i></button>
@@ -66,7 +66,7 @@ const uploadCart = () => {
                           </div>
                         </div>
                         `;
-        list.insertAdjacentHTML('beforeend', cartlist);
+        cartItemlist.insertAdjacentHTML('beforeend', cartlist);
 
         // 체크 박스 체크
         // let checkboxCheck = document.querySelector(`.check${i}`);
@@ -100,12 +100,18 @@ const totalPaymentInf = () => {
   //
   for (let i = 0; i < price.length; i++) {
     if (checkboxes[i].checked) {
-      totalPrice += Number(price[i].innerHTML);
+      totalPrice += Number(convertToNumber(price[i].innerHTML));
       totalCnt += Number(count[i].value);
     }
   }
-  const paymentInf = (totalPrice, totalCnt) => `
-        <div class="tile is-parent tile-order-summary">
+  let totalPriceaddCommas = addCommas(totalPrice);
+  let totalPriceaddCommasdel = addCommas(totalPrice + 3000);
+  const paymentInf = (
+    totalPriceaddCommas,
+    totalCnt,
+    totalPriceaddCommasdel
+  ) => `
+        <div class="tile tile-order-summary">
         <div class="box order-summary">
           <div class="header">
             <p>결제정보</p>
@@ -117,17 +123,17 @@ const totalPaymentInf = () => {
             </div>
             <div class="info">
               <p>상품금액</p>
-              <p id="productsTotal">${totalPrice} 원</p>
+              <p id="productsTotal">${totalPriceaddCommas} 원</p>
             </div>
             <div class="info">
               <p>배송비</p>
-              <p id="deliveryFee">${totalCnt === 0 ? 0 : 3000} 원</p>
+              <p id="deliveryFee">${totalCnt === 0 ? 0 : '3,000'} 원</p>
             </div>
           </div>
           <div class="total">
             <p class="total-label">총 결제금액</p>
             <p class="total-price" id="totalPrice">${
-              totalCnt === 0 ? 0 : totalPrice + 3000
+              totalCnt === 0 ? 0 : totalPriceaddCommasdel
             } 원</p>
           </div>
           <div class="purchase">
@@ -140,14 +146,16 @@ const totalPaymentInf = () => {
         </div>
         </div>
         `;
-  paymentMain.insertAdjacentHTML('beforeend', paymentInf(totalPrice, totalCnt));
+  paymentMain.insertAdjacentHTML(
+    'beforeend',
+    paymentInf(totalPriceaddCommas, totalCnt, totalPriceaddCommasdel)
+  );
 
   buyBtnEvent();
 };
 
 // 결제 정보
 
-// 예시넣기
 function plusBtnEvent() {
   let list = document.getElementsByClassName('list');
   for (let i = 0; i < list.length; i++) {
@@ -196,7 +204,9 @@ const updateCnt = (cnt, name, i) => {
       const Item = getItem.result;
       let price = Item.price;
       Item.cnt = Number(cnt);
-      document.getElementsByClassName('pricecnt')[i].innerHTML = cnt * price;
+      document.getElementsByClassName('pricecnt')[i].innerHTML = addCommas(
+        cnt * price
+      );
       const updatecount = carts.put(Item, name);
       updatecount.onsuccess = () => {
         totalPaymentInf();
@@ -226,6 +236,7 @@ const deleteBtnEvent = () => {
         };
       };
       uploadCart();
+      allCheckBtnEvent();
     });
   }
 };
@@ -250,6 +261,7 @@ function selectDeleteBtnEvent() {
           };
         }
       }
+      allCheckBtnEvent();
     };
     uploadCart();
   });

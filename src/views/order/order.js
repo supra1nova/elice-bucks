@@ -5,6 +5,7 @@ import logincheck from './logincheck.js';
 import * as Api from '/api.js';
 import alertModal from '/components/alertModal.js';
 import alertGreenModal from '/components/alertGreenModal.js';
+import { addCommas, convertToNumber } from '../useful-functions.js';
 
 logincheck();
 kakaomap();
@@ -183,16 +184,20 @@ function paymentInf() {
                               </div>
                               <div class="info">
                                 <p>상품총액</p>
-                                <p id="productsTotal">${totalPrice} 원</p>
+                                <p id="productsTotal">${addCommas(
+                                  totalPrice
+                                )} 원</p>
                               </div>
                               <div class="info">
                                 <p>배송비</p>
-                                <p id="deliveryFee">3000 원</p>
+                                <p id="deliveryFee">3,000 원</p>
                               </div>
                             </div>
                             <div class="total">
                               <p class="total-label">결제금액</p>
-                              <p class="total-price" id="orderTotal">${totalPricefee} 원</p>
+                              <p class="total-price" id="orderTotal">${addCommas(
+                                totalPricefee
+                              )} 원</p>
                             </div>
                             <div class="purchase">
                               <button class="button is-info" id="orderButton">

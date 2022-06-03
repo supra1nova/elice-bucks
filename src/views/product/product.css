@@ -4,6 +4,7 @@
 }
 body {
 	background-color: #2E593D;
+	min-height: 100vh;
 }
 .newContainer:not(.is-max-desktop):not(.is-max-widescreen) {
     max-width: 1544px;
