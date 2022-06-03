@@ -27,8 +27,6 @@ async function userdata() {
   try {
     const result = await Api.get(`/api/user`);
     setUserId(result._id);
-    console.log(result);
-    console.log(userId);
     address1Input.value = result.address ? result.address.address1 : '';
     address2Input.value = result.address ? result.address.address2 : '';
     postalCodeInput.value = result.address ? result.address.postalCode : '';
@@ -40,7 +38,7 @@ async function userdata() {
     console.log(err.stack);
   }
 }
-
+// 주소 검색부분
 function searchAddress() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -74,7 +72,7 @@ function searchAddress() {
     },
   }).open();
 }
-
+// 입력값 체크
 async function doCheckout() {
   // 각 입력값 가져옴
   const receiverName = receiverNameInput.value;
@@ -108,7 +106,7 @@ async function doCheckout() {
         address: { postalCode, address1, address2 },
         userId,
       };
-      console.log(data);
+
       // JSON 만듦
       let apiUrl = '/api/order/user/register';
       // POST 요청
@@ -129,17 +127,15 @@ async function doCheckout() {
     };
   };
 }
-
+// nav 바 체크
 async function addAllElements() {
   headerNavbar1.innerHTML = headerNavbar.render();
   headerNavbar.componentDidMount();
 }
-
+// indexedDB 오픈
 function createindexedDB() {
   let onRequest = indexedDB.open('cart', 1);
-  onRequest.onsuccess = () => {
-    console.log('orderDB 생성');
-  };
+  onRequest.onsuccess = () => {};
   onRequest.onupgradeneeded = () => {
     const database = onRequest.result;
     database.createObjectStore('carts');

@@ -23,7 +23,6 @@ async function addAllElements() {
   });
   headerNavbar.componentDidMount();
   const datas = await getOrders();
-
   dashboard_content.innerHTML = orderslist.render(datas.posts);
   await orderslist.componentDidMount();
 

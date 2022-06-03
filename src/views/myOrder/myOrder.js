@@ -50,7 +50,6 @@ async function setUserOrders(orders) {
       'beforeend',
       `${orderListHeader}<div class='div-center'>주문 목록이 비어있습니다.</div>`
     );
-    console.log('주문 목록 없음');
     return;
   }
   // 내용 초기화
@@ -64,9 +63,9 @@ async function setUserOrders(orders) {
   <div class="column is-1">신청</div>
   <div class="column is-1">배송정보</div>
   </div>`;
-  console.log(orders);
+  // 값 대입
   for (let i = 0; i < orders.length; i++) {
-    let createdAt = orders[i][0].createdAt.match(/\d\d\d\d-\d\d-\d\d/g, '');
+    let createdAt = orders[i][0].createdAt.match(/\d\d\d\d-\d\d-\d\d/g, ''); // 날짜 match
     let price = (orders[i][0].orderId.totalPrice + 3000).toLocaleString();
     let productArr = orders[i][0].products;
     let product = '';
@@ -153,7 +152,6 @@ async function deleteBntEvnet() {
     deleteBtn[k].addEventListener('click', async () => {
       try {
         await Api.patch(`/api/order/cancel/${deleteBtn[k].id}`);
-        console.log('취소 완료');
         Status[k].innerHTML = '취소완료';
         deleteBtn[k].disabled = true;
       } catch (err) {

@@ -54,7 +54,7 @@ const saveItem = async (e) => {
   // 값이 불려졌는지 확인
 
   if (!name) {
-    console.log('DB에 넣을 글 존제하지않습니다.');
+    console.log('DB에 넣을 글 존재하지않습니다.');
     return;
   }
   // indexed 구조 생성
@@ -74,13 +74,11 @@ const saveItem = async (e) => {
     const a = carts.get(name);
     a.onsuccess = () => {
       if (a.result) {
-        console.log(a);
         alert('장바구니에 이미 존재하는 상품입니다.');
         return;
       }
       // 없다면 Put 하고 알림창 띄우기
       const addcmp = carts.put(item, name);
-      console.log(addcmp);
       addcmp.onsuccess = () => {
         alert('장바구니 넣었습니다.');
       };
@@ -107,7 +105,6 @@ const buyItem = async (e) => {
   // 값이 불려졌는지 확인
 
   if (!name) {
-    console.log('DB에 넣을 글 존제하지않습니다.');
     return;
   }
   // indexed 구조 생성
@@ -132,7 +129,6 @@ const buyItem = async (e) => {
       }
       // 없다면 Put 하고 알림창 띄우기
       const addcmp = carts.put(item, name);
-      console.log(addcmp);
       addcmp.onsuccess = () => {
         location.pathname = '/cart';
       };

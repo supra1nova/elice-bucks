@@ -106,6 +106,9 @@
 
 /****************************************/
 /**select 부분*/
+section {
+  margin-bottom: 12rem;
+}
 .columns {
   text-align: center;
 }
@@ -175,6 +178,8 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 .main-menu .item .item__name {
   padding: 10px 0px 10px 5px;
