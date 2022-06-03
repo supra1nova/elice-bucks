@@ -1,3 +1,4 @@
+import { addCommas } from '/useful-functions.js';
 const productlist = {
   render: (products) => {
     return `
@@ -27,7 +28,7 @@ const productlist = {
               (product, index) => `
                 <tr>
                   <td>${product.name}</td>
-                  <td>${product.price}</td>
+                  <td>${addCommas(product.price)}</td>
                   <td class="productImage1">${
                     product.category?.name ? product.category.name : ''
                   }</td>
@@ -36,7 +37,7 @@ const productlist = {
                     product.image
                   }"  width="300" height="30" id="product-image-file" /></td>
                   <td>${product.description}</td>
-                  <td>${product.stock}</td>
+                  <td>${addCommas(product.stock)}</td>
                   <td>
                     <button id="${index}" class="product-edit-button button is-primary  is-light">수정</button>
                     <button id="${

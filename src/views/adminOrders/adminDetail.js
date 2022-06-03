@@ -1,4 +1,5 @@
 import { setPaid, setDelivered, setDeletedAt } from './adminOrders.js';
+import { addCommas } from '/useful-functions.js';
 import alertModal from '/components/alertModal.js';
 const adminDetail = {
   componentDidMount: async () => {
@@ -91,7 +92,9 @@ const adminDetail = {
             <div class="field">
                 <label class="label">총 가격</label>
                 <p class="control is-expanded">
-                <input readOnly class="input" type="text" placeholder="총 가격" value="${totalPrice}">
+                <input readOnly class="input" type="text" placeholder="총 가격" value="${addCommas(
+                  totalPrice
+                )}">
                 </p>
             </div>
             <div class="field">
@@ -255,17 +258,17 @@ const adminDetail = {
           <div class="field">
               <label class="label">1개 가격</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="1개 가격" value="${
+              <input readOnly class="input" type="text" placeholder="1개 가격" value="${addCommas(
                 product.price
-              }">
+              )}">
               </p>
           </div>
           <div class="field">
               <label class="label">재고</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="재고" value="${
+              <input readOnly class="input" type="text" placeholder="재고" value="${addCommas(
                 product.stock
-              }">
+              )}">
               </p>
           </div>
           </div>
@@ -291,9 +294,9 @@ const adminDetail = {
           <div class="field">
               <label class="label">주문금액</label>
               <p class="control is-expanded">
-              <input readOnly class="input" type="text" placeholder="주문금액" value="${
+              <input readOnly class="input" type="text" placeholder="주문금액" value="${addCommas(
                 productInfo.productQty * productInfo.productPrice
-              }">
+              )}">
               </p>
           </div>
           </div>

@@ -1,5 +1,6 @@
 import { setPaid, setDelivered, setDeletedAt } from './adminOrders.js';
 import alertModal from '/components/alertModal.js';
+import { addCommas } from '/useful-functions.js';
 const orderslist = {
   componentDidMount: async () => {
     //결제처리
@@ -79,7 +80,7 @@ const orderslist = {
               return `
                 <tr class="${deletedFlag && 'deletedFlag'}">
                   <td class="productImage1">${order?.userId || ''}</td>
-                  <td>${order?.totalPrice || ''}</td>
+                  <td>${addCommas(order?.totalPrice) || ''}</td>
                   <td>${order?.createdAt || ''}</td>
                   <td>${
                     (order?.paid?.startsWith('1') &&
