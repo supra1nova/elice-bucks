@@ -15,7 +15,6 @@ const uploadCart = () => {
   // indexed 열기
   let onRequest = indexedDB.open('cart', 1);
   onRequest.onsuccess = () => {
-    console.log('update성공');
     const database = onRequest.result;
     // 읽기 전용으로 transaction 적용. (빠름)
     const transaction = database.transaction('carts', 'readonly');
@@ -142,7 +141,7 @@ const totalPaymentInf = () => {
         </div>
         `;
   paymentMain.insertAdjacentHTML('beforeend', paymentInf(totalPrice, totalCnt));
-  console.log('결제정보 반영 완료');
+
   buyBtnEvent();
 };
 
@@ -200,12 +199,11 @@ const updateCnt = (cnt, name, i) => {
       document.getElementsByClassName('pricecnt')[i].innerHTML = cnt * price;
       const updatecount = carts.put(Item, name);
       updatecount.onsuccess = () => {
-        console.log('cnt 수정');
         totalPaymentInf();
       };
     };
     getItem.onerror = () => {
-      console.log('cnt를 업데이트 할수 없습니다.');
+      console.log('get error');
     };
   };
 };
@@ -222,7 +220,7 @@ const deleteBtnEvent = () => {
         const transaction = database.transaction('carts', 'readwrite');
         // cart 저장소 가져오기
         const carts = transaction.objectStore('carts');
-        const getItem = carts.delete(name);
+        let getItem = carts.delete(name);
         getItem.onsuccess = () => {
           console.log('삭제완료');
         };
@@ -261,7 +259,6 @@ function checkboxBtnEvent() {
   let checkboxes = document.getElementsByClassName('itemCheck');
   for (let i = 0; i < checkboxes.length; i++) {
     checkboxes[i].addEventListener('click', () => {
-      console.log('checkbox event');
       totalPaymentInf();
     });
   }
@@ -336,7 +333,6 @@ function buyBtnEvent() {
           .objectStore('order');
         let orderput = order.put(data, 'summary');
         orderput.onsuccess = () => {
-          console.log('order IndexedDB 저장 성공');
           location.pathname = '/order';
         };
       };
