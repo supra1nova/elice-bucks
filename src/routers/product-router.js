@@ -21,8 +21,8 @@ productRouter.post('/register', loginRequired, adminRequired, async (req, res, n
       );
     }
 
-    const { name, price, description, category, image } = req.body;
-    const newProduct = await productService.addProduct({ name, price, description, category, image });
+    const { name, price, description, category, image, stock } = req.body;
+    const newProduct = await productService.addProduct({ name, price, description, category, image, stock });
 
     res.status(201).json(newProduct);
   } catch (error) {

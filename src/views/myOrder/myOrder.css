@@ -196,33 +196,3 @@ h1 {
   display: none;
   height: 0px;
 }
-
-.main-menu .item:hover .item__contents {
-  display: block;
-  z-index: 9;
-}
-
-.main-menu .item .item__contents .contents__menu {
-  background-color: #f0f8ff;
-}
-
-.main-menu .item .item__contents .contents__menu > ul {
-  display: flex;
-  padding: 5px 0;
-}
-
-.main-menu .item .item__contents .contents__menu > ul > li > h4 {
-  padding: 3px 0 12px 0;
-  font-size: 16px;
-  color: black;
-}
-
-.main-menu .item .item__contents .contents__menu > ul > li ul li {
-  padding: 5px 0;
-  color: #999;
-  cursor: pointer;
-}
-
-.main-menu .item .item__contents .contents__menu > ul > li ul li:hover {
-  color: #669900;
-}
