@@ -12,20 +12,19 @@ export class OrderModel {
 
   // orders 전체 반환
   async findAll() {
-    const orders = await Order.find({}).populate('userId');
-
+    const orders = await Order.find({}).sort({ "createdAt": -1 }).populate('userId');
     return orders;
   }
 
   // orders 에서 해당 유저 값 찾기
   async findById(userId) {
-    const userOrder = await Order.find({ userId: userId }).populate('userId');
+    const userOrder = await Order.find({ userId: userId }).sort({ "createdAt": -1 }).populate('userId');
     return userOrder;
   }
 
   // 여기서의 orderId 는 order schema 에서의 _id 를 의미
   async findByOrderId(orderId) {
-    const order = await Order.find({ _id: orderId });
+    const order = await Order.sort({ "createdAt": -1 }).find({ _id: orderId });
     return order;
   }
 

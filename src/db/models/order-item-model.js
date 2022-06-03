@@ -1,5 +1,4 @@
 import { model, Types } from 'mongoose';
-import { productService } from '../../services';
 import { OrderItemSchema } from '../schemas/order-item-schema';
 
 const OrderItem = model('OrderItem', OrderItemSchema);
@@ -15,6 +14,7 @@ export class OrderItemModel {
   async findAll() {
     const orderItemlist = await OrderItem
             .find({})
+            .sort({createdAt: -1})            
             .populate('orderId')
             .populate({
               path: 'products', 
@@ -63,7 +63,7 @@ export class OrderItemModel {
 
   // 5-2. 특정 페이지에 위치한 제품 정보 조회
   async getInRange(page, perPage) {
-    const orderItemsInRange = await OrderItem.find({}).populate('orderId').populate({path: 'products', populate:{path:'productId'}}).skip(perPage * (page - 1)).limit(perPage);
+    const orderItemsInRange = await OrderItem.find({}).sort({createdAt: -1}).populate('orderId').populate({path: 'products', populate:{path:'productId'}}).skip(perPage * (page - 1)).limit(perPage);
     return orderItemsInRange;
   }
 }
