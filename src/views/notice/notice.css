@@ -67,17 +67,15 @@ li {
   width: 100%;
   word-break: break-all;
   table-layout: fixed;
+	font-size: 0.8rem;
 }
 .table thead tr {
   background-color: #88A394;
 }
 
 /* 공지사항 body */
-.noticeContainer {
-  font-size: 0.8rem;
-}
 .no {
-  width: 7%;
+  width: 5%;
 }
 .title {
   /* 제목 기본 폰트 사이즈 조정 */
