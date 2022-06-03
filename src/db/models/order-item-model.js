@@ -14,6 +14,7 @@ export class OrderItemModel {
   async findAll() {
     const orderItemlist = await OrderItem
             .find({})
+            .sort({createdAt: -1})            
             .populate('orderId')
             .populate({
               path: 'products', 
